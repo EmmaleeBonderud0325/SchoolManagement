@@ -1,10 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -18,14 +20,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="5.0.7" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SchoolManagement.Business\SchoolManagement.Business.csproj" />
-    <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
-    <ProjectReference Include="..\SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj" />
-    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj" />
     <ProjectReference Include="..\SchoolManagement.Util\SchoolManagement.Util.csproj" />
     <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
   </ItemGroup>

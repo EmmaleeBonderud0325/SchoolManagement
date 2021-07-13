@@ -3,17 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.WebService", "SchoolManagement.WebService\SchoolManagement.WebService.csproj", "{BD0A425E-5D66-4876-91D5-B5F35A678BD2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.WebService", "SchoolManagement.WebService\SchoolManagement.WebService.csproj", "{BD0A425E-5D66-4876-91D5-B5F35A678BD2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Business", "SchoolManagement.Business\SchoolManagement.Business.csproj", "{DCC80AA5-75AD-4F10-976B-CEA0B84FB70D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Business", "SchoolManagement.Business\SchoolManagement.Business.csproj", "{DCC80AA5-75AD-4F10-976B-CEA0B84FB70D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Data", "SchoolManagement.Data\SchoolManagement.Data.csproj", "{1A3231C7-0145-4449-9C4E-D9C282217C10}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Data", "SchoolManagement.Data\SchoolManagement.Data.csproj", "{1A3231C7-0145-4449-9C4E-D9C282217C10}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Model", "SchoolManagement.Model\SchoolManagement.Model.csproj", "{6506BEE3-F5E3-4525-8655-982043C45263}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Model", "SchoolManagement.Model\SchoolManagement.Model.csproj", "{6506BEE3-F5E3-4525-8655-982043C45263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Util", "SchoolManagement.Util\SchoolManagement.Util.csproj", "{243BB23E-5A71-4895-9351-6C00C493065D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Util", "SchoolManagement.Util\SchoolManagement.Util.csproj", "{243BB23E-5A71-4895-9351-6C00C493065D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.ViewModel", "SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj", "{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.ViewModel", "SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj", "{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Master.Data", "SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj", "{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
