@@ -23,7 +23,8 @@ namespace SchoolManagement.Master.Data.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolMaster;User Id=av;Password=1qaz2wsx@;");
+                //optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolMaster;User Id=av;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=LAPTOP-2UJGULUH\SQLEXPRESS;Database=SchoolMaster;User Id=hp;Password=1qaz2wsx@;");
             }
         }
 

@@ -35,7 +35,8 @@ namespace SchoolManagement.Data.Data
 
             else if(tenantSchool == null && !optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagment;User Id=av;Password=1qaz2wsx@;");
+                // optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagment;User Id=av;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=LAPTOP-2UJGULUH\SQLEXPRESS;Database=SchoolManagment;User Id=hp;Password=1qaz2wsx@;");
             }
            
         }
