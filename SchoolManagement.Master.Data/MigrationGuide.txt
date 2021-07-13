@@ -1,0 +1,6 @@
+﻿Update-Database -Project SchoolManagement.Master.Data -StartUp SchoolManagement.WebService -Verbose
+
+Add-Migration SchoolMaster00001 -Project  SchoolManagement.Master.Data -StartUp SchoolManagement.WebService -Verbose
+
+
+Script-Migration -From SchoolMaster00001 -Project SchoolManagment.Master.Data -StartUp SchoolManagment.WebService -Verbose
