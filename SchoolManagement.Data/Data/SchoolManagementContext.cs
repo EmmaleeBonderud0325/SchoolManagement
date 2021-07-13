@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Data.Configurations.Account;
 using SchoolManagement.Model.Account;
+using SchoolManagement.Util.Tenant;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,22 +12,32 @@ namespace SchoolManagement.Data.Data
 {
     public class SchoolManagementContext : DbContext
     {
+        private TenantSchool tenantSchool;
         public SchoolManagementContext()
         {
 
         }
 
-        public SchoolManagementContext(DbContextOptions<SchoolManagementContext> options) : base(options)
+        public SchoolManagementContext(DbContextOptions<SchoolManagementContext> options, ITenantProvider tenantProvider) : base(options)
         {
-
+            GetTenant(tenantProvider).Wait();
         }
-
+        private async Task GetTenant(ITenantProvider tenantProvider)
+        {
+            tenantSchool = await tenantProvider.GetTenant();
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if(!optionsBuilder.IsConfigured)
+            if(tenantSchool != null)
+            {
+                optionsBuilder.UseSqlServer(tenantSchool.ConnectionString);
+            }
+
+            else if(tenantSchool == null && !optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagment;User Id=av;Password=1qaz2wsx@;");
             }
+           
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
