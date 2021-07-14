@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class AcademicYear
+   public class AcademicYear
     {
         public int AcademicYearId { get; set; }
         public bool IsActive { get; set; }

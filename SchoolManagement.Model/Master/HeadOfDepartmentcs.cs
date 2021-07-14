@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class HeadOfDepartmentcs
+    public class HeadOfDepartmentcs
     {
         public int SubjectId { get; set; }
         public int AcademicLevelId { get; set; }
