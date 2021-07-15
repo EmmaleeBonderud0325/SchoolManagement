@@ -17,7 +17,6 @@ namespace SchoolManagement.Model.Master
 		public DateTime UpdatedOn { get; set; }
 		public int? UpdatedById { get; set; }
 
-		//public virtual User CreatedById { get; set; }
-		//public virtual User UpdatedById { get; set; }
+		public virtual ICollection<Class> Class { get; set; }
 	}
 }

@@ -19,11 +19,6 @@ namespace SchoolManagement.Model.Master
 		public DateTime UpdatedOn { get; set; }
 		public int? UpdatedById { get; set; }
 
-		//public virtual ClassName ClassNameId { get; set; }
-		//public virtual AcademicLevel AcademicLevelId { get; set; }
-		//public virtual AcademicYear AcademicYearId { get; set; }
-		//public virtual Teacher TeacherId { get; set; }
-		//public virtual User CreatedById { get; set; }
-		//public virtual User UpdatedById { get; set; }
+		public virtual Class Class { get; set; }
 	}
 }
