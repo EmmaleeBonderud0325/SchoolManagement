@@ -18,5 +18,6 @@ namespace SchoolManagement.Model.Master
 		//public virtual ClassName ClassNameId { get; set; }
 		//public virtual AcademicLevel AcademicLevelId { get; set; }
 		//public virtual AcademicYear AcademicYearId { get; set; }
+		public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeacher { get; set; }
 	}
 }
