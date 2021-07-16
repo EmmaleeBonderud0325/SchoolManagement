@@ -18,5 +18,6 @@ namespace SchoolManagement.Model.Master
         public virtual ICollection<SubjectTeacher> SubjectTeacher { get; set; }
         public virtual ICollection<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public virtual ICollection<Class> Class { get; set; }
+        public virtual ICollection<AcademicLevelAssesmentType> AcademicLevelAssesmentType { get; set; }
     }
 }
