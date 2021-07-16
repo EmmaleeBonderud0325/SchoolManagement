@@ -19,7 +19,7 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId });
 
             builder.HasOne<Student>(s => s.Student)
-                .WithMany(sc => sc.StudentClasses)
+                .WithMany(sc => sc.StudentClasses) //icollection
                 .HasForeignKey(fk => fk.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
@@ -27,7 +27,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(sc => sc.StudentClasses)
                 .HasForeignKey(fk => fk.ClassNameId)
                 .HasForeignKey(fk => fk.AcademicLevelId)
-                .HasForeignKey(fk => fk.AcademicLevelId)
+                .HasForeignKey(fk => fk.AcademicYearId)
                 .OnDelete(DeleteBehavior.Restrict);
         }
     }
