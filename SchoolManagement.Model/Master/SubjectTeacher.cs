@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class SubjectTeacher
+    public class SubjectTeacher
     {
-        public int SubjectTeacherId { get; set; }
+        public int Id { get; set; }
         public int AcademicLevelId { get; set; }
         public int AcademicYearId { get; set; }
         public int SubjectId { get; set; }
@@ -21,5 +21,12 @@ namespace SchoolManagement.Model.Master
         public DateTime UpdatedOn { get; set; }
         public int? UpdatedById { get; set; }
 
-     }
+
+        public virtual Subject Subject { get; set; }
+        public virtual AcademicYear AcademicYear { get; set; }
+        public virtual AcademicLevel AcademicLevel { get; set; }
+
+        public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
+        
+    }
 }

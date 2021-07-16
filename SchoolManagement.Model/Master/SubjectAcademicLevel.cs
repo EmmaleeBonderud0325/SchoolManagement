@@ -6,11 +6,15 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class SubjectAcademicLevel
+    public class SubjectAcademicLevel
     {
         public int SubjectId { get; set; }
+        public virtual Subject Subject { get; set; }
+
+
         public int AcademicLevelId { get; set; }
-       
+        public virtual AcademicLevel AcademicLevel { get; set; }
+
 
     }
 }
