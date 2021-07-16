@@ -14,5 +14,9 @@ namespace SchoolManagement.Model.Master
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
+
+        public virtual ICollection<SubjectTeacher> SubjectTeacher { get; set; }
+        public virtual ICollection<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
+
     }
 }
