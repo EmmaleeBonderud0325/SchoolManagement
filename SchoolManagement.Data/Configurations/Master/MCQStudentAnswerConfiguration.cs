@@ -21,7 +21,7 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasMany<MCQStudentAnswer>(q => q.MCQStudentAnswer)
                 .WithOne(ma => ma.MCQAnswer)
-                .HasForeignKey(f => f.QuestionID);
+                .HasForeignKey(q => q.QuestionID);
         }
     }
 }

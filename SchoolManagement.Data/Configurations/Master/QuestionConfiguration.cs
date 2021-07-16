@@ -18,10 +18,10 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => x.QuestionID);
 
-            builder.HasMany<MCQAnswer>(q => q.MCQAnswers)
-                .WithOne(m => m.Question)
-                .HasForeignKey(f => f.TopicID)
-                .HasForeignKey(f => f.LessonID);
+            builder.HasMany<MCQAnswer>(ma=> ma.MCQAnswers)
+                .WithOne(q => q.Question)
+                .HasForeignKey(q => q.TopicID)
+                .HasForeignKey(q => q.LessonID);
         }
     }
 }
