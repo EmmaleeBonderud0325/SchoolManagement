@@ -8,7 +8,7 @@ namespace SchoolManagement.Model.Master
 {
     public class MCQAnswer
     {
-        public int StudentID { get; set; }
+        public int MCQAnswerID { get; set; }
         public int? QuestionID { get; set; }
         public string  AnswerText { get; set; }
         public int SequenceNo { get; set; }
