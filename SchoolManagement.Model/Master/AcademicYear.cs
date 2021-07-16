@@ -14,6 +14,7 @@ namespace SchoolManagement.Model.Master
         public DateTime UpdatedOn { get; set; }
 
         public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
+        public virtual ICollection<Class> Class { get; set; }
 
     }
 }

@@ -6,14 +6,11 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Util.Enums
 {
-    public class Languagestream
+    public enum Languagestream
     {
-		enum LanguageStream
-		{
 			Sinhala = 1,
 			English = 2,
 			Tamil = 3,
 			Other = 4
-		};
-	}
+	};
 }
