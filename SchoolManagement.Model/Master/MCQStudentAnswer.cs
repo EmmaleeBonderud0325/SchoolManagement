@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,11 @@ namespace SchoolManagement.Model.Master
         public int SequnceNo { get; set; }
         public bool IsChecked { get; set; }
 
-        public virtual Question QuestionId { get; set; }
-        //public virtual User UserID { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual MCQAnswer MCQAnswer { get; set; }
+        public virtual User Student { get; set; }
+        public virtual  StudentMCQQuestion StudentMCQQuestion{ get; set; }
+
+
     }
 }
