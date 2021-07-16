@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using SchoolManagement.Data.Common;
 using SchoolManagement.Model.Master;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,10 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<Subject> builder)
         {
-            
+            builder.ToTable("Subject", Schema.MASTER);
+
+            builder.HasKey(x => x.Id);
+
         }
     }
 }

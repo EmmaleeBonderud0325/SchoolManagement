@@ -24,6 +24,18 @@ namespace SchoolManagement.Data.Configurations.Master
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);
 
+            builder.HasOne<AcademicYear>(ay => ay.AcademicYear)
+             .WithMany(st => st.SubjectTeachers)
+             .HasForeignKey(f => f.AcademicYearId)
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(false);
+
+            builder.HasOne<AcademicLevel>(al => al.AcademicLevel)
+             .WithMany(st => st.SubjectTeacher)
+             .HasForeignKey(f => f.AcademicYearId)
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(false);
+
 
         }
     }

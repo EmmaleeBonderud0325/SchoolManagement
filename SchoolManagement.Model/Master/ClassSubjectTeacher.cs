@@ -24,6 +24,8 @@ namespace SchoolManagement.Model.Master
 
         public virtual SubjectTeacher SubjectTeacher { get; set; }
         public virtual Subject Subject { get; set; }
+        public virtual Class Class { get; set; }
+
 
     }
 }
