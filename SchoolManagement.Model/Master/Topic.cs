@@ -14,5 +14,7 @@ namespace SchoolManagement.Model.Master
         public string LearningExperience { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn{ get; set; }
+
+        public virtual ICollection <Question> Questions { get; set; }
     }
 }

@@ -27,6 +27,7 @@ namespace SchoolManagement.Model.Master
         public virtual AcademicLevel AcademicLevel { get; set; }
 
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
-        
+        public virtual ICollection<HeadOfDepartment> HeadOfDepartments { get; set; } // sasanka
+
     }
 }

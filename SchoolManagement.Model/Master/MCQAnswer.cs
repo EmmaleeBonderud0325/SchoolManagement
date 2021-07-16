@@ -8,7 +8,7 @@ namespace SchoolManagement.Model.Master
 {
     public class MCQAnswer
     {
-        public int ID { get; set; }
+        public int MCQAnswerID { get; set; }
         public int? QuestionID { get; set; }
         public string  AnswerText { get; set; }
         public int SequenceNo { get; set; }
@@ -16,7 +16,11 @@ namespace SchoolManagement.Model.Master
         public DateTime ModifiedDate { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        public virtual Question QuestionId { get; set; }
+        public virtual Question Question { get; set; }
+        
+        public virtual ICollection <MCQStudentAnswer> MCQStudentAnswers { get; set; }
+
+
 
     }
 }
