@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Master;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,6 +33,9 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<User> UpdatedUsers { get; set; }
         public virtual ICollection<UserRole> CreatedUserRoles { get; set; }
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
+
+        public virtual ICollection<ClassName> ClassName { get; set; }
+        public virtual ICollection<ClassTeacher> ClassTeacher { get; set; }
 
 
 
