@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Util.Enums
 {
-    public enum Languagestream
+    public enum QuestionLevel
     {
-			Sinhala = 1,
-			English = 2,
-			Tamil = 3,
-			Other = 4
-	};
+        Low = 1,
+        Medium = 2,
+        High = 3
+    }
 }

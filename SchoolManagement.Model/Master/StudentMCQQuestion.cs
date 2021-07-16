@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,10 @@ namespace SchoolManagement.Model.Master
         public int  Marks { get; set; }
         public bool IsCorrectAnswer { get; set; }
 
-        public virtual Question QuestionId { get; set; }
-        //public virtual User UserId { get; set; }
+        public virtual Question Question { get; set; }
+        public virtual User Student { get; set; }
+       
+        public virtual ICollection <MCQStudentAnswer> MCQStudentAnswers { get; set; }
+
     }
 }
