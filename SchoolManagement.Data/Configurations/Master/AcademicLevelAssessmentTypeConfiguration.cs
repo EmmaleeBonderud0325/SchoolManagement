@@ -20,11 +20,11 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasKey(x => x.AcademicLevelId);
 
             builder.HasOne<EssayStudentAnswer>(a => a.AssessmentType)
-                .WithMany(ac => ac.AcademicLevelAssesmentType)
-                .HasForeignKey(a  => a.AcademicLevelID)
-                .HasForeignKey(a => a.AssessmentTypeID)
-                 .HasForeignKey(a => a.UpdatedByID)
-                  .HasForeignKey(a => a.CreatedByID);
+                .WithMany(ac => ac.AcademicLevelAssessmentType)
+                .HasForeignKey(a  => a.AcademicLevelId)
+                .HasForeignKey(a => a.AssessmentTypeId)
+                 .HasForeignKey(a => a.UpdatedById)
+                  .HasForeignKey(a => a.CreatedById);
         }
     }
 }

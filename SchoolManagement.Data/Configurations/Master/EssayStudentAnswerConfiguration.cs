@@ -22,7 +22,7 @@ namespace SchoolManagement.Data.Configurations.Master
 
 
                 builder.HasOne<EssayAnswer>(a => a.EssayAnswerID)
-                    .WithMany(e => e.EssayStudentAnswer)
+                    .WithMany(e => e.EssayStudentAnswers)
                      .HasForeignKey(a => a.QuestionId)
                       .HasForeignKey(a => a.StudentId)
                        .HasForeignKey(a => a.EssayAnswerId);
