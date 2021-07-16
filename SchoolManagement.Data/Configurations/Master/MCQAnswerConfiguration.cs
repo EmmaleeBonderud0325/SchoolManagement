@@ -16,7 +16,7 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("MCQAnswer", Schema.Master);
 
-            builder.HasKey(x => x.StudentID);
+            builder.HasKey(x => x.MCQAnswerID);
 
             builder.HasOne<Question>(q => q.Question)
                 .WithMany(ma => ma.MCQAnswers)

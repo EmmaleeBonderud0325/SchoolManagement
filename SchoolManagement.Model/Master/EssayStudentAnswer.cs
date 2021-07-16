@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class EssayStudentAnswer
+    public class EssayStudentAnswer
     {
         public int QuestionId { get; set;}
         public int StudentId { get; set; }
