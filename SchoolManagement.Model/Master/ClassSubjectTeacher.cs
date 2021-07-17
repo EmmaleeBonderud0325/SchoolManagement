@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,13 +19,14 @@ namespace SchoolManagement.Model.Master
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int CreatedById { get; set; }
+        public int? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public int UpdatedById { get; set; }
+        public int? UpdatedById { get; set; }
 
         public virtual SubjectTeacher SubjectTeacher { get; set; }
         public virtual Subject Subject { get; set; }
         public virtual Class Class { get; set; }
+        public virtual User User { get; set; }
 
 
     }

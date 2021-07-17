@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,7 @@ namespace SchoolManagement.Model.Master
         public virtual Subject Subject { get; set; }
         public virtual AcademicYear AcademicYear { get; set; }
         public virtual AcademicLevel AcademicLevel { get; set; }
+        public virtual User User { get; set; }
 
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
         public virtual ICollection<HeadOfDepartment> HeadOfDepartments { get; set; } // sasanka

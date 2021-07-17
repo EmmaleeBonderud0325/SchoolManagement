@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,8 @@ namespace SchoolManagement.Model.Master
         public int? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
         public int? UpdatedById { get; set; }
+
+        public virtual User User { get; set; }
 
         public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
