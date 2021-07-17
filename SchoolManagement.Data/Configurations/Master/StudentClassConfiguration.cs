@@ -19,7 +19,7 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId });
 
             builder.HasOne<Student>(s => s.Student)
-                .WithMany(sc => sc.StudentClasses) //icollection
+                .WithMany(sc => sc.StudentClasses) 
                 .HasForeignKey(fk => fk.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
