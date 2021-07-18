@@ -37,6 +37,10 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<ClassName> ClassName { get; set; }
         public virtual ICollection<ClassTeacher> ClassTeacher { get; set; }
 
+        public virtual ICollection<Subject> Subjects { get; set; }
+        public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
+        public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
+
 
 
     }
