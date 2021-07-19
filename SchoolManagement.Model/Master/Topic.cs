@@ -16,7 +16,7 @@ namespace SchoolManagement.Model.Master
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn{ get; set; }
 
-        public virtual Lesson LessonId { get; set; }
+        public virtual Lesson Lesson { get; set; }
 
         public virtual ICollection<TopicContent>Topics { get; set; }
 

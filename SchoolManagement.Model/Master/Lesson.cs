@@ -39,6 +39,7 @@ namespace SchoolManagement.Model.Master
 
         public virtual ICollection<Topic> Topics { get; set; }
         public virtual ICollection<Question>Questions{ get; set; }
+
     }
 
 }
