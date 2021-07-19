@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Configurations.Master
 {
-    public class AssessmentTypeConfiguration : IEntityTypeConfiguration<EssayStudentAnswer>
+    public class AssessmentTypeConfiguration : IEntityTypeConfiguration<AssessmentType>
     {
-        public void Configure(EntityTypeBuilder<EssayStudentAnswer> builder)
+        public void Configure(EntityTypeBuilder<AssessmentType> builder)
         {
             builder.ToTable("AssessmentType", Schema.MASTER);
 
-            builder.HasKey(x => x.AssessmentTypeId);
+            builder.HasKey(x => x.AssessmentTypeID);
 
 
             builder.HasMany<AcademicLevelAssessmentType>(ac => ac.AcademicLevelAssessmentTypes)
-                .WithOne(a => a.AssessmentType)
+                .WithOne(a => a.AssessmentTypes)
                  .HasForeignKey(ac => ac.UpdatedById)
                   .HasForeignKey(ac => ac.CreatedById);
         }

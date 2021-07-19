@@ -21,5 +21,6 @@ namespace SchoolManagement.Model.Master
         public virtual EssayAnswer EssayAnswerID { get; set; }
 
         public virtual Question Questions { get; set; }
+        public virtual EssayAnswer EssayAnswers { get; set; }
     }
 }

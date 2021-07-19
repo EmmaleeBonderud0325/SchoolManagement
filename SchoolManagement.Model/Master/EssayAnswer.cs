@@ -18,6 +18,7 @@ namespace SchoolManagement.Model.Master
         
 
         public virtual Question Questions { get; set; }
+        public virtual ICollection<EssayStudentAnswer> EssayStudentAnswers { get; set; }
 
 
 

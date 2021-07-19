@@ -21,7 +21,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 builder.HasKey(x => x.StudentId);
 
 
-                builder.HasOne<EssayAnswer>(a => a.EssayAnswerID)
+                builder.HasOne<EssayAnswer>(a => a.EssayAnswers)
                     .WithMany(e => e.EssayStudentAnswers)
                      .HasForeignKey(a => a.QuestionId)
                       .HasForeignKey(a => a.StudentId)
