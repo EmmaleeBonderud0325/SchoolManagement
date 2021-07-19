@@ -19,12 +19,13 @@ namespace SchoolManagement.Model.Master
         public DateTime UpdatedOn { get; set; }
         public int? UpdatedById { get; set; }
 
-        public  virtual EssayStudentAnswer AssessmentType { get; set; }
+        public  virtual EssayStudentAnswer AssessmentTypeiD { get; set; }
         public virtual AcademicLevel AcademicLevel { get; set; }
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
 
-        public virtual EssayStudentAnswer AssessmentTypes { get; set; }
+        public virtual EssayStudentAnswer AssessmentType { get; set; }
         public virtual AcademicLevel AcademicLevels { get; set; }
+        public virtual AssessmentType AssessmentTypes { get; set; }
     }
 }

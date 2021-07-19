@@ -19,8 +19,8 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasKey(x => x.AssessmentTypeId);
             builder.HasKey(x => x.AcademicLevelId);
 
-            builder.HasOne<EssayStudentAnswer>(a => a.AssessmentType)
-                .WithMany(ac => ac.AcademicLevelAssessmentType)
+            builder.HasOne<AssessmentType>(a => a.AssessmentTypes)
+                .WithMany(ac => ac.AcademicLevelAssessmentTypes)
                 .HasForeignKey(a  => a.AcademicLevelId)
                 .HasForeignKey(a => a.AssessmentTypeId)
                  .HasForeignKey(a => a.UpdatedById)
