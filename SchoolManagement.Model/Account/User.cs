@@ -34,9 +34,10 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<UserRole> CreatedUserRoles { get; set; }
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
 
+        //Navigation Property Class
         public virtual ICollection<ClassName> ClassName { get; set; }
         public virtual ICollection<ClassTeacher> ClassTeacher { get; set; }
-
+        //Navigation property Subject
         public virtual ICollection<Subject> Subjects { get; set; }
         public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
