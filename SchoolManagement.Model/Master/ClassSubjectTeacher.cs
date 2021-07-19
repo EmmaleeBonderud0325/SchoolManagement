@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,20 +7,27 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model.Master
 {
-    class ClassSubjectTeacher
+    public class ClassSubjectTeacher
     {
-        public int classsubjectTeacherId { get; set; }
-        public int classNameId  { get; set; }
-        public int academicLevelId { get; set; }
-        public int academicYearId { get; set; }
-        public int subjectId { get; set; }
-        public int subjectTeacherId { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
-        public bool isActive { get; set; }
-        public DateTime createdOn { get; set; }
-        public int createdById { get; set; }
-        public DateTime updatedOn { get; set; }
-        public int UpdatedById { get; set; }
+        public int Id { get; set; }
+        public int ClassNameId  { get; set; }
+        public int AcademicLevelId { get; set; }
+        public int AcademicYearId { get; set; }
+        public int SubjectId { get; set; }
+        public int SubjectTeacherId { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public int? CreatedById { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public int? UpdatedById { get; set; }
+
+        public virtual SubjectTeacher SubjectTeacher { get; set; }
+        public virtual Subject Subject { get; set; }
+        public virtual Class Class { get; set; }
+        public virtual User User { get; set; }
+
+
     }
 }
