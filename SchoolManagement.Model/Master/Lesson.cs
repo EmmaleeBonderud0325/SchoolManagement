@@ -31,10 +31,10 @@ namespace SchoolManagement.Model.Master
         public virtual Class ClassNameId { get; set; }
 
         //public virtual StudentClassSubject AcademicYearId { get; set; }
-        // public virtual Subject SubjectID { get; set; }
+         public virtual Subject SubjectID { get; set; }
         //public virtual  SubjectTeacher CreatedById { get; set; }
-        //public virtual ClassSubjectTeacher CreatedById{ get; set; }
-       // public virtual SubjectTeacher UpdatedById { get; set; }
+       // public virtual ClassSubjectTeacher CreatedById{ get; set; }
+       public virtual SubjectTeacher UpdatedById { get; set; }
         //public virtual ClassSubjectTeacher UpdatedById { get; set; }
 
         public virtual ICollection<Topic> Topics { get; set; }
