@@ -14,11 +14,11 @@ namespace SchoolManagement.Model.Master
         public int? EssayAnswerId { get; set; }
         public int AnswerText { get; set; }
         public string TeacherComments { get; set; }
-        public double Marks { get; set; }
+        public decimal Marks { get; set; }
 
-        public virtual Question QuestionID { get; set; }
-        public virtual User StudentID { get; set; }
-        public virtual EssayAnswer EssayAnswerID { get; set; }
+        public virtual Question Question{ get; set; }
+        public virtual User Student { get; set; }
+        public virtual EssayAnswer EssayAnswer { get; set; }
 
         public virtual Question Questions { get; set; }
         public virtual EssayAnswer EssayAnswers { get; set; }

@@ -8,16 +8,16 @@ namespace SchoolManagement.Model.Master
 {
    public  class EssayAnswer
     {
-        public int EssayAnswerId { get; set; }
+        public int Id { get; set; }
         public int? QuestionId { get; set; }
         public string AnswerText { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DateTime CreatedOn { get; set; }
 
-        public virtual Question QuestionID { get; set; }
+        public virtual Question Question { get; set; }
         
 
-        public virtual Question Questions { get; set; }
+        //public virtual Question Questions { get; set; }
         public virtual ICollection<EssayStudentAnswer> EssayStudentAnswers { get; set; }
 
 

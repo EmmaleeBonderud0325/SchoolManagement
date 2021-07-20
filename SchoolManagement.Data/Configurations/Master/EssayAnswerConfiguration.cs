@@ -16,12 +16,12 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("EssayAnswer", Schema.MASTER);
 
-            builder.HasKey(x => x.EssayAnswerId);
+            builder.HasKey(x => x.Id);
 
 
             builder.HasMany<EssayStudentAnswer>(e => e.EssayStudentAnswers)
                 .WithOne(a => a.EssayAnswers)
-                 .HasForeignKey(a => a.QuestionId);
+                .HasForeignKey(a => a.QuestionId);
                  
         }
     }

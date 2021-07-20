@@ -14,7 +14,7 @@ namespace SchoolManagement.Model.Master
         public int? TopicId { get; set; }
         public int SequnceNo { get; set; }
         public string QuestionText { get; set; }
-        public int Marks { get; set; }
+        public decimal Marks { get; set; }
         public QuestionLevel QuestionLevel { get; set; }
         public QuestionType QuestionType { get; set; }
         public bool IsActive { get; set; }

@@ -84,6 +84,9 @@ namespace SchoolManagement.Model.Account
 
         public virtual ICollection<Lesson> OwnerLessons { get; set; }
 
+        //Navigation property EssayStudentAnswer
+        public virtual ICollection<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+
 
 
 
