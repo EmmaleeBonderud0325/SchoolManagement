@@ -22,12 +22,14 @@ namespace SchoolManagement.Model.Master
         public DateTime UpdatedOn { get; set; }
         public int? UpdatedById { get; set; }
 
+        public virtual User User { get; set; }
+        public virtual User CreatedBy { get; set; }
+        public virtual User UpdatedBy { get; set; }
 
         public virtual Subject Subject { get; set; }
         public virtual AcademicYear AcademicYear { get; set; }
         public virtual AcademicLevel AcademicLevel { get; set; }
-        public virtual User User { get; set; }
-
+        
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
         public virtual ICollection<HeadOfDepartment> HeadOfDepartments { get; set; } // sasanka
 

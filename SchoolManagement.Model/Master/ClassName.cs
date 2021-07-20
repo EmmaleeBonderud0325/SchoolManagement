@@ -19,7 +19,9 @@ namespace SchoolManagement.Model.Master
 		public int? UpdatedById { get; set; }
 
 		public virtual User User { get; set; }
+		public virtual User CreatedBy { get; set; }
+		public virtual User UpdatedBy { get; set; }
 
-		public virtual ICollection<Class> Class { get; set; }
+		public virtual ICollection<Class> Classes { get; set; }
 	}
 }

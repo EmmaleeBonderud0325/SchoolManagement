@@ -24,10 +24,16 @@ namespace SchoolManagement.Model.Master
         public int? UpdatedById { get; set; }
 
         public virtual User User { get; set; }
+        public virtual User CreatedBy { get; set; }
+        public virtual User UpdatedBy { get; set; }
+
 
         public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
         public virtual ICollection<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public virtual ICollection<HeadOfDepartment> HeadOfDepartments { get; set; } //sasanka
+        public virtual ICollection<Lesson> Lessons { get; set; }
+
+
     }
 }

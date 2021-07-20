@@ -17,16 +17,16 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("ClassName", Schema.MASTER);
 
-            builder.HasKey(x => new { x.Id, x.CreatedById, x.UpdatedById });
+            builder.HasKey(x => x.Id);
 
-            builder.HasOne<User>(u => u.User)
-             .WithMany(cn => cn.ClassName)
+            builder.HasOne<User>(u => u.CreatedBy)
+             .WithMany(cn => cn.CreatedClassNames)
              .HasForeignKey(f => f.CreatedById)
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);
 
-            builder.HasOne<User>(u => u.User)
-             .WithMany(cn => cn.ClassName)
+            builder.HasOne<User>(u => u.UpdatedBy)
+             .WithMany(cn => cn.UpdatedClassNames)
              .HasForeignKey(f => f.UpdatedById)
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);

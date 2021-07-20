@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
+using SchoolManagement.Model.Account;
 using SchoolManagement.Model.Master;
 using System;
 using System.Collections.Generic;
@@ -16,12 +17,26 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("StudentMCQQuestion", Schema.Master);
 
-            builder.HasKey(x => x.QuestionID);
-            builder.HasKey(x => x.StudentID);
+            builder.HasKey(x => new { x.QuestionId, x.StudentId });
 
-            builder.HasOne<StudentMCQQuestion>(q => q.StudentMCQQuestion)
-                .WithMany(m => m.MCQStudentAnswers)
-                .HasForeignKey(f => f.QuestionID)
-                .HasForeignKey(f => f.StudentID);
+            builder.HasOne<Question>(x=>x.Question)
+                .WithMany(sm => sm.StudentMCQQuestions)
+                .HasForeignKey(f => f.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            builder.HasOne<User>(x => x.Student)
+                .WithMany(sm => sm.StudentMCQQuestions)
+                .HasForeignKey(f => f.StudentId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+
+
+            //builder.HasOne<StudentMCQQuestion>(q => q.StudentMCQQuestion)
+            //    .WithMany(m => m.MCQStudentAnswers)
+            //    .HasForeignKey(f => f.QuestionID)
+            //    .HasForeignKey(f => f.StudentID);
         }
     }
+}

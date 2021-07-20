@@ -15,12 +15,12 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<ClassTeacher> builder)
         {
-            builder.ToTable("ClassSubjectTeacher", Schema.MASTER);
+            builder.ToTable("ClassTeacher", Schema.MASTER);
 
             builder.HasKey(x => new { x.ClassNameId, x.AcademicLevelId, x.AcademicYearId, x.TeacherId, x.CreatedById, x.UpdatedById });
 
             builder.HasOne<Class>(c => c.Class)
-             .WithMany(ct => ct.ClassTeacher)
+             .WithMany(ct => ct.ClassTeachers)
              .HasForeignKey(f => f.ClassNameId)
              .HasForeignKey(f => f.AcademicLevelId)
              .HasForeignKey(f => f.AcademicYearId)
@@ -28,13 +28,13 @@ namespace SchoolManagement.Data.Configurations.Master
              .IsRequired(false);
 
             builder.HasOne<User>(u => u.User)
-             .WithMany(ct => ct.ClassTeacher)
+             .WithMany(ct => ct.CreatedClassTeachers)
              .HasForeignKey(f => f.CreatedById)
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);
 
             builder.HasOne<User>(u => u.User)
-             .WithMany(ct => ct.ClassTeacher)
+             .WithMany(ct => ct.UpdatedClassTeachers)
              .HasForeignKey(f => f.UpdatedById)
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);

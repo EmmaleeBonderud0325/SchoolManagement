@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Model.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,13 @@ namespace SchoolManagement.Model.Master
         public int ClassNameId { get; set; }
         public int AcademicYearId { get; set; }
         public int AcademicLevelId { get; set; }
-        
+
+        public virtual User Student { get; set; }
+        public virtual Class Class { get; set; }
+
+        public virtual ICollection<StudentClassSubject> StudentClassSubjects { get; set; }
+
+
+
     }
 }

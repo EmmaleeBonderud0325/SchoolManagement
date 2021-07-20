@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.Util.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,17 +9,19 @@ namespace SchoolManagement.Model.Master
 {
     public class Question
     {
-        public int QuestionID { get; set; }
-        public int? LessonID { get; set; }
-        public int? TopicID { get; set; }
+        public int QuestionId { get; set; }
+        public int? LessonId { get; set; }
+        public int? TopicId { get; set; }
         public int SequnceNo { get; set; }
         public string QuestionText { get; set; }
         public int Marks { get; set; }
-        public int QuestionLevel { get; set; }
-        public string QuestionType { get; set; }
+        public QuestionLevel QuestionLevel { get; set; }
+        public QuestionType QuestionType { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
+        public int? CreatedById { get; set; }
         public DateTime UpdateOn { get; set; }
+        public int? UpdatedById { get; set; }
 
         public virtual Lesson Lesson{ get; set; }
         public virtual Topic Topic { get; set; }
@@ -28,6 +31,7 @@ namespace SchoolManagement.Model.Master
 
         public virtual  ICollection <EssayAnswer> EssayAnswers { get; set; }
         public virtual  ICollection <EssayStudentAnswer> EssayStudentAnswers{ get; set; }
+        public virtual ICollection<MCQStudentAnswer> MCQStudentAnswers { get; set; }
 
     }
 }

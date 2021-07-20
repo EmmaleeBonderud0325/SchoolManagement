@@ -16,11 +16,17 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("MCQAnswer", Schema.Master);
 
-            builder.HasKey(x => x.MCQAnswerID);
+            builder.HasKey(x => x.MCQAnswerId);
 
-            builder.HasOne<Question>(q => q.Question)
-                .WithMany(ma => ma.MCQAnswers)
-                .HasForeignKey(f => f.QuestionID);
+            builder.HasOne<Question>(q=>q.Question)
+                .WithMany(m=>m.MCQAnswers)
+                .HasForeignKey(f=>f.QuestionId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            //builder.HasOne<Question>(q => q.Question)
+            //    .WithMany(ma => ma.MCQAnswers)
+            //    .HasForeignKey(f => f.QuestionID);
         }
     }
 }

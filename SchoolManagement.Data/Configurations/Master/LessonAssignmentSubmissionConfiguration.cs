@@ -11,31 +11,27 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Configurations.Master
 {
-    public class MCQStudentAnswerConfiguration : IEntityTypeConfiguration<MCQStudentAnswer>
+    public class LessonAssignmentSubmissionConfiguration : IEntityTypeConfiguration<LessonAssignmentSubmission>
     {
-        public void Configure(EntityTypeBuilder<MCQStudentAnswer> builder)
+        public void Configure(EntityTypeBuilder<LessonAssignmentSubmission> builder)
         {
-            builder.ToTable("MCQStudentAnswer", Schema.Master);
+            builder.ToTable("LessonAssignmentSubmission", Schema.MASTER);
 
-            builder.HasKey(x => new { x.QuestionId, x.StudentId });
+            builder.HasKey(x => x.Id);
 
-            builder.HasOne<Question>(x => x.Question)
-                .WithMany(ms => ms.MCQStudentAnswers)
-                .HasForeignKey(f => f.QuestionId)
+            builder.HasOne<LessonAssignment>(x => x.LessonAssignment)
+                .WithMany(ls => ls.LessonAssignmentSubmissions)
+                .HasForeignKey(f => f.LessonAssignmentId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
-
             builder.HasOne<User>(x => x.Student)
-                .WithMany(ms => ms.MCQStudentAnswers)
+                .WithMany(ls => ls.LessonAssignmentSubmissions)
                 .HasForeignKey(f => f.StudentId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
 
-            //builder.HasMany<MCQStudentAnswer>(q => q.MCQStudentAnswer)
-            //    .WithOne(ma => ma.MCQAnswer)
-            //    .HasForeignKey(q => q.QuestionID);
         }
     }
 }

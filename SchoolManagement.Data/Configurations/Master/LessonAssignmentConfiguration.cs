@@ -11,25 +11,33 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Configurations.Master
 {
-    public class AcademicYearConfiguration : IEntityTypeConfiguration<AcademicYear>
+    class LessonAssignmentConfiguration : IEntityTypeConfiguration<LessonAssignment>
     {
-        public void Configure(EntityTypeBuilder<AcademicYear> builder)
+        public void Configure(EntityTypeBuilder<LessonAssignment> builder)
         {
-            builder.ToTable("AcademicYear", Schema.MASTER);
+            builder.ToTable("LessonAssignment", Schema.MASTER);
 
-            builder.HasKey(x => x.AcademicYearId);
+            builder.HasKey(x => x.Id);
+
+            builder.HasOne<Lesson>(x => x.Lesson)
+                .WithMany(la => la.LessonAssignments)
+                .HasForeignKey(f => f.LessonId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
 
             builder.HasOne<User>(x => x.CreatedBy)
-                .WithMany(u => u.CreatedAcademicYears)
+                .WithMany(la => la.CreatedLessonAssignments)
                 .HasForeignKey(f => f.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
 
             builder.HasOne<User>(x => x.UpdatedBy)
-                .WithMany(u => u.UpdatedAcademicYears)
+                .WithMany(la => la.UpdatedLessonAssignments)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
+
+
         }
     }
 }

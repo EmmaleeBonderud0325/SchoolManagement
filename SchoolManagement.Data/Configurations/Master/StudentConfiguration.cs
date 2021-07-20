@@ -17,7 +17,7 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("Student", Schema.MASTER);
 
-            builder.HasKey(x => x.ID);
+            builder.HasKey(x => x.Id);
 
             //to be implement foriegn key
             /*builder.HasOne(st => st.User)
@@ -26,8 +26,20 @@ namespace SchoolManagement.Data.Configurations.Master
             */
             builder.HasOne<User>(s => s.User)
                 .WithOne(u => u.Student)
-                .HasForeignKey<Student>(fk => fk.ID);
-                
+                .HasForeignKey<Student>(fk => fk.Id);
+
+            builder.HasOne<User>(x => x.CreatedBy)
+                 .WithMany(u => u.CreatedStudents)
+                 .HasForeignKey(f => f.CreatedById)
+                 .OnDelete(DeleteBehavior.Restrict)
+                 .IsRequired(false);
+
+            builder.HasOne<User>(x => x.UpdatedBy)
+                .WithMany(u => u.UpdatedStudents)
+                .HasForeignKey(f => f.UpdatedById)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
         }
     }
 }

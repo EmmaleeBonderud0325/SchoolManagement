@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
+using SchoolManagement.Model.Account;
 using SchoolManagement.Model.Master;
 using System;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId });
 
-            builder.HasOne<Student>(s => s.Student)
-                .WithMany(sc => sc.StudentClasses) 
+            builder.HasOne<User>(s => s.Student)
+                .WithMany(sc => sc.StudentClasses)
                 .HasForeignKey(fk => fk.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 

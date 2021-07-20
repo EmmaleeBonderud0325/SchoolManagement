@@ -9,15 +9,18 @@ namespace SchoolManagement.Model.Master
 {
     public class MCQStudentAnswer
     {
-        public int QuestionID { get; set; }
-        public int StudentID { get; set; }
-        public int? MCQAnswerID { get; set; }
+        public int QuestionId { get; set; }
+        public int StudentId { get; set; }
+        public int? MCQAnswerId { get; set; }
         public string AnswerText { get; set; }
         public int SequnceNo { get; set; }
         public bool IsChecked { get; set; }
 
         public virtual MCQAnswer  MCQAnswer{ get; set; }
         public virtual  StudentMCQQuestion StudentMCQQuestion{ get; set; }
-        
+        public virtual Question Question { get; set; }
+        public virtual User Student { get; set; }
+
+
     }
 }

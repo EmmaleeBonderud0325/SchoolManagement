@@ -27,6 +27,8 @@ namespace SchoolManagement.Model.Account
 
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
+        public virtual Student Student { get; set; }
+
 
         public virtual ICollection<UserRole> UserRoles { get; set; }
         public virtual ICollection<User> CreatedUsers { get; set; }
@@ -34,13 +36,54 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<UserRole> CreatedUserRoles { get; set; }
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
 
+        //Navigation Property Academic
+        public virtual ICollection<AcademicLevel> CreatedAcademicLevels { get; set; }
+        public virtual ICollection<AcademicLevel> UpdatedAcademicLevels { get; set; }
+
+        public virtual ICollection<AcademicYear> CreatedAcademicYears { get; set; }
+        public virtual ICollection<AcademicYear> UpdatedAcademicYears { get; set; }
+        
         //Navigation Property Class
-        public virtual ICollection<ClassName> ClassName { get; set; }
-        public virtual ICollection<ClassTeacher> ClassTeacher { get; set; }
+        public virtual ICollection<ClassName> CreatedClassNames { get; set; }
+        public virtual ICollection<ClassName> UpdatedClassNames { get; set; }
+
+        public virtual ICollection<Class> UpdatedClasses { get; set; }
+        public virtual ICollection<Class> CreatedClasses { get; set; }
+
+        public virtual ICollection<ClassTeacher> CreatedClassTeachers { get; set; }
+        public virtual ICollection<ClassTeacher> UpdatedClassTeachers { get; set; }
         //Navigation property Subject
-        public virtual ICollection<Subject> Subjects { get; set; }
-        public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
-        public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
+        public virtual ICollection<Subject> CreatedSubjects { get; set; }
+        public virtual ICollection<Subject> UpdatedSubjects { get; set; }
+
+        public virtual ICollection<SubjectTeacher> CreatedSubjectTeachers { get; set; }
+        public virtual ICollection<SubjectTeacher> UpdatedSubjectTeachers { get; set; }
+
+        public virtual ICollection<ClassSubjectTeacher> CreatedClassSubjectTeachers { get; set; }
+        public virtual ICollection<ClassSubjectTeacher> UpdatedClassSubjectTeachers { get; set; }
+
+        //Navigation property Question
+        public virtual ICollection<StudentMCQQuestion> StudentMCQQuestions { get; set; }
+        public virtual ICollection<MCQStudentAnswer> MCQStudentAnswers { get; set; }
+
+        //Navigatation property Lesson assignment
+        public virtual ICollection<LessonAssignment> CreatedLessonAssignments { get; set; }
+        public virtual ICollection<LessonAssignment> UpdatedLessonAssignments { get; set; }
+
+        public virtual ICollection<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
+
+        //Navigation property Student
+        public virtual ICollection<Student> CreatedStudents { get; set; }
+        public virtual ICollection<Student> UpdatedStudents { get; set; }
+
+        public virtual ICollection<StudentClass> StudentClasses { get; set; }
+
+        //Navigation property Lesson
+        public virtual ICollection<Lesson> CreatedLessons { get; set; }
+        public virtual ICollection<Lesson> UpdatedLessons { get; set; }
+
+        public virtual ICollection<Lesson> OwnerLessons { get; set; }
+
 
 
 

@@ -19,14 +19,14 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => x.Id);
 
-            builder.HasOne<User>(u => u.User)
-               .WithMany(s => s.Subjects)
+            builder.HasOne<User>(u => u.CreatedBy)
+               .WithMany(s => s.CreatedSubjects)
                .HasForeignKey(f => f.CreatedById)
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(false);
 
-            builder.HasOne<User>(u => u.User)
-               .WithMany(s => s.Subjects)
+            builder.HasOne<User>(u => u.UpdatedBy)
+               .WithMany(s => s.UpdatedSubjects)
                .HasForeignKey(f => f.UpdatedById)
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(false);

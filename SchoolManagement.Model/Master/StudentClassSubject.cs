@@ -14,5 +14,8 @@ namespace SchoolManagement.Model.Master
         public int AcademicLevelId { get; set; }
         public int SubjectId { get; set; }
 
+        public virtual StudentClass StudentClass { get; set; }
+        public virtual SubjectAcademicLevel SubjectAcademicLevel { get; set; }
+
     }
 }
