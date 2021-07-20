@@ -20,21 +20,25 @@ namespace SchoolManagement.Data.Configurations.Master
 
                 builder.HasKey(x => new { x.QuestionId, x.StudentId });
 
-                //builder.HasOne<EssayAnswer>(a => a.EssayAnswers)
-                //    .WithMany(e => e.EssayStudentAnswers)
-                //    .HasForeignKey(a => a.QuestionId)
-                //    .HasForeignKey(a => a.StudentId)
-                //    .HasForeignKey(a => a.EssayAnswerId);
+            //builder.HasOne<EssayAnswer>(a => a.EssayAnswers)
+            //    .WithMany(e => e.EssayStudentAnswers)
+            //    .HasForeignKey(a => a.QuestionId)
+            //    .HasForeignKey(a => a.StudentId)
+            //    .HasForeignKey(a => a.EssayAnswerId);
 
                 builder.HasOne<Question>(x => x.Question)
                     .WithMany(es => es.EssayStudentAnswers)
-                    .HasForeignKey(f => f.QuestionId);
+                    .HasForeignKey(f => f.QuestionId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
 
                 builder.HasOne<User>(x => x.Student)
                     .WithMany(es => es.EssayStudentAnswers)
-                    .HasForeignKey(f => f.StudentId);
+                    .HasForeignKey(f => f.StudentId)
+                    .OnDelete(DeleteBehavior.Restrict)
+                    .IsRequired(false);
 
-            }
+        }
         }
     }
 

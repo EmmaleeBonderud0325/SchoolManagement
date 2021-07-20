@@ -21,8 +21,11 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasMany<EssayStudentAnswer>(e => e.EssayStudentAnswers)
                 .WithOne(a => a.EssayAnswers)
-                .HasForeignKey(a => a.QuestionId);
-                 
+                .HasForeignKey(a => a.QuestionId)
+                  .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+
         }
     }
 }
