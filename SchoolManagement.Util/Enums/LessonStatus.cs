@@ -8,5 +8,8 @@ namespace SchoolManagement.Util.Enums
 {
     public enum LessonStatus
     {
+        Completed = 1,
+        NotCpmpleted = 2
+
     }
 }
