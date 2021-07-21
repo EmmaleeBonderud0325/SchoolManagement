@@ -16,7 +16,7 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("AssessmentType", Schema.MASTER);
 
-            builder.HasKey(x => x.AssessmentTypeID);
+            builder.HasKey(x => x.Id);
 
 
             builder.HasMany<AcademicLevelAssessmentType>(ac => ac.AcademicLevelAssessmentTypes)

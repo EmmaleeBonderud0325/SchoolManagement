@@ -16,13 +16,13 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("AcademicLevelAssessmentType", Schema.MASTER);
 
-            builder.HasKey(x => x.AssessmentTypeId);
+            builder.HasKey(x => x.Id);
             builder.HasKey(x => x.AcademicLevelId);
 
             builder.HasOne<AssessmentType>(a => a.AssessmentTypes)
                 .WithMany(ac => ac.AcademicLevelAssessmentTypes)
                 .HasForeignKey(a  => a.AcademicLevelId)
-                .HasForeignKey(a => a.AssessmentTypeId)
+                .HasForeignKey(a => a.Id)
                  .HasForeignKey(a => a.UpdatedById)
                   .HasForeignKey(a => a.CreatedById);
         }

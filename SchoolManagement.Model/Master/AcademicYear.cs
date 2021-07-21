@@ -9,7 +9,7 @@ namespace SchoolManagement.Model.Master
 {
    public class AcademicYear
     {
-        public int AcademicYearId { get; set; }
+        public int Id { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedById { get; set; }

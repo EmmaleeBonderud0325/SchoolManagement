@@ -9,9 +9,9 @@ namespace SchoolManagement.Model.Master
 {
     public class Question
     {
-        public int QuestionId { get; set; }
-        public int? LessonId { get; set; }
-        public int? TopicId { get; set; }
+        public int Id { get; set; }
+        public int LessonId { get; set; }
+        public int TopicId { get; set; }
         public int SequnceNo { get; set; }
         public string QuestionText { get; set; }
         public decimal Marks { get; set; }

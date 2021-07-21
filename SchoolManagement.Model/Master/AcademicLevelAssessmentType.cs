@@ -9,7 +9,7 @@ namespace SchoolManagement.Model.Master
 {
     public class AcademicLevelAssessmentType
     {
-        public int AssessmentTypeId { get; set; }
+        public int Id { get; set; }
         public int AcademicLevelId { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

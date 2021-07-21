@@ -17,7 +17,7 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("AcademicLevel", Schema.MASTER);
 
-            builder.HasKey(x => x.AcademicLevelId);
+            builder.HasKey(x => x.Id);
 
             builder.HasOne<User>(x => x.CreatedBy)
                .WithMany(u => u.CreatedAcademicLevels)
