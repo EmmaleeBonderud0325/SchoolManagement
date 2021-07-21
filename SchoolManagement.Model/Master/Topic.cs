@@ -9,7 +9,7 @@ namespace SchoolManagement.Model.Master
     public class Topic
     {
         public int Id { get; set; }
-        public int? LessonId { get; set; }
+        public int LessonId { get; set; }
         public string Name { get; set; }
         public int SequenceNo { get; set; }
         public string LearningExperience { get; set; }

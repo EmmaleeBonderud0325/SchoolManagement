@@ -14,7 +14,7 @@ namespace SchoolManagement.Model.Master
         public int StudentId { get; set; }
         public string SubmissionPath { get; set; }
         public DateTime SubmissionDate { get; set; }
-        public decimal? Marks { get; set; }
+        public decimal Marks { get; set; }
         public string TeacherComments { get; set; }
 
         public LessonAssignment LessonAssignment { get; set; }

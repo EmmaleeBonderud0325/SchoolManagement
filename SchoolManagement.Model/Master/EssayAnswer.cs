@@ -9,7 +9,7 @@ namespace SchoolManagement.Model.Master
    public  class EssayAnswer
     {
         public int Id { get; set; }
-        public int? QuestionId { get; set; }
+        public int QuestionId { get; set; }
         public string AnswerText { get; set; }
         public DateTime ModifiedOn { get; set; }
         public DateTime CreatedOn { get; set; }

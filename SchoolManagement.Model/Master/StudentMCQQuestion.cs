@@ -12,7 +12,7 @@ namespace SchoolManagement.Model.Master
         public int QuestionId { get; set; }
         public int StudentId { get; set; }
         public string TeacherComments { get; set; }
-        public decimal?  Marks { get; set; }
+        public decimal  Marks { get; set; }
         public bool IsCorrectAnswer { get; set; }
 
         public virtual Question Question { get; set; }

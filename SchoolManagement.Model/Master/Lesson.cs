@@ -15,18 +15,18 @@ namespace SchoolManagement.Model.Master
         public string Description { get; set; }
         public int OwnerId { get; set; }
         public int AcademicLevelId { get; set; }
-        public int? ClassNameId { get; set; }
-        public int? AcademicYearId { get; set; }
-        public int? SubjectId { get; set; }
+        public int ClassNameId { get; set; }
+        public int AcademicYearId { get; set; }
+        public int SubjectId { get; set; }
         public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
-        public DateTime? PlannedDate { get; set; }
-        public DateTime? CompletedDate { get; set; }
+        public DateTime PlannedDate { get; set; }
+        public DateTime CompletedDate { get; set; }
         public LessonStatus Status { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual Class Class { get; set; }
         public virtual Subject Subject { get; set; }
@@ -40,15 +40,7 @@ namespace SchoolManagement.Model.Master
         public virtual ICollection<Question>Questions{ get; set; }
         public virtual ICollection<LessonAssignment> LessonAssignments { get; set; }
 
-        //public virtual StudentClassSubject AcademicLevelId { get; set; }
-        //public virtual Class ClassNameId { get; set; }
-
-        //public virtual StudentClassSubject AcademicYearId { get; set; }
-        //public virtual Subject SubjectID { get; set; }
-        //public virtual SubjectTeacher CreatedById { get; set; }
-        //public virtual ClassSubjectTeacher CreatedById { get; set; }
-        //public virtual SubjectTeacher UpdatedById { get; set; }
-        //public virtual ClassSubjectTeacher UpdatedById { get; set; }
+        
     }
 
 }

@@ -16,9 +16,9 @@ namespace SchoolManagement.Model.Master
 		public bool IsPrimary { get; set; }
 		public bool IsActive { get; set; }
 		public DateTime CreatedOn { get; set; }
-		public int? CreatedById { get; set; }
+		public int CreatedById { get; set; }
 		public DateTime UpdatedOn { get; set; }
-		public int? UpdatedById { get; set; }
+		public int UpdatedById { get; set; }
 
 		public virtual Class Class { get; set; }
 		public virtual User User { get; set; }

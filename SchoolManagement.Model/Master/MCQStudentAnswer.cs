@@ -11,7 +11,7 @@ namespace SchoolManagement.Model.Master
     {
         public int QuestionId { get; set; }
         public int StudentId { get; set; }
-        public int? MCQAnswerId { get; set; }
+        public int MCQAnswerId { get; set; }
         public string AnswerText { get; set; }
         public int SequnceNo { get; set; }
         public bool IsChecked { get; set; }

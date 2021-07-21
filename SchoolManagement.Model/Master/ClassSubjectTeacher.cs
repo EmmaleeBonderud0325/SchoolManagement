@@ -19,9 +19,9 @@ namespace SchoolManagement.Model.Master
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual SubjectTeacher SubjectTeacher { get; set; }
         public virtual Subject Subject { get; set; }

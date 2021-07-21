@@ -15,9 +15,9 @@ namespace SchoolManagement.Model.Master
         public DateTime EndDate { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int? CreatedById { set; get; }
+        public int CreatedById { set; get; }
         public DateTime UpdatedOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public  virtual EssayStudentAnswer AssessmentTypeiD { get; set; }
         public virtual AcademicLevel AcademicLevel { get; set; }

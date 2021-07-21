@@ -19,9 +19,9 @@ namespace SchoolManagement.Model.Master
         public QuestionType QuestionType { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdateOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual Lesson Lesson{ get; set; }
         public virtual Topic Topic { get; set; }

@@ -17,9 +17,9 @@ namespace SchoolManagement.Model.Master
         public DateTime DateOfBirth { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdateOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual User User { get; set; }
         public virtual User CreatedBy { get; set; }

@@ -12,9 +12,9 @@ namespace SchoolManagement.Model.Master
         public int AcademicYearId { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
-        public int? CreatedById { get; set; }
+        public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public int? UpdatedById { get; set; }
+        public int UpdatedById { get; set; }
 
         public virtual User User { get; set; }
         public virtual User CreatedBy { get; set; }
