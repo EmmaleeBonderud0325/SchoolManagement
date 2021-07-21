@@ -23,13 +23,13 @@ namespace SchoolManagement.Data.Configurations.Master
              .WithMany(cn => cn.CreatedClassNames)
              .HasForeignKey(f => f.CreatedById)
              .OnDelete(DeleteBehavior.Restrict)
-             .IsRequired(false);
+             .IsRequired(true);
 
             builder.HasOne<User>(u => u.UpdatedBy)
              .WithMany(cn => cn.UpdatedClassNames)
              .HasForeignKey(f => f.UpdatedById)
              .OnDelete(DeleteBehavior.Restrict)
-             .IsRequired(false);
+             .IsRequired(true);
         }
     }
 }

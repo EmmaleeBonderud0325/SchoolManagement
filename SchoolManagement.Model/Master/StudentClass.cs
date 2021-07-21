@@ -14,7 +14,7 @@ namespace SchoolManagement.Model.Master
         public int AcademicYearId { get; set; }
         public int AcademicLevelId { get; set; }
 
-        public virtual User Student { get; set; }
+        public virtual Student Student { get; set; }
         public virtual Class Class { get; set; }
 
         public virtual ICollection<StudentClassSubject> StudentClassSubjects { get; set; }

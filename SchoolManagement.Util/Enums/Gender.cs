@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Util.Enums
 {
-    public enum LanguageStream
+    public enum Gender
     {
-			Sinhala = 1,
-			English = 2,
-			Tamil = 3,
-			Other = 4
-	};
+        Male = 1,
+        Female = 2
+    }
 }

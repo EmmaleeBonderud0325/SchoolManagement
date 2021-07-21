@@ -21,23 +21,21 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasOne<Class>(c => c.Class)
              .WithMany(ct => ct.ClassTeachers)
-             .HasForeignKey(f => f.ClassNameId)
-             .HasForeignKey(f => f.AcademicLevelId)
-             .HasForeignKey(f => f.AcademicYearId)
+             .HasForeignKey(f => new {f.ClassNameId, f.AcademicLevelId, f.AcademicYearId})
              .OnDelete(DeleteBehavior.Restrict)
-             .IsRequired(false);
+             .IsRequired(true);
 
             builder.HasOne<User>(u => u.CreatedBy)
              .WithMany(ct => ct.CreatedClassTeachers)
              .HasForeignKey(f => f.CreatedById)
              .OnDelete(DeleteBehavior.Restrict)
-             .IsRequired(false);
+             .IsRequired(true);
 
             builder.HasOne<User>(u => u.UpdatedBy)
              .WithMany(ct => ct.UpdatedClassTeachers)
              .HasForeignKey(f => f.UpdatedById)
              .OnDelete(DeleteBehavior.Restrict)
-             .IsRequired(false);
+             .IsRequired(true);
         }
     }
 }

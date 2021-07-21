@@ -19,14 +19,17 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => x.Id);
 
+            builder.HasIndex(x => x.AdmissionNo)
+                .IsUnique();
+
             //to be implement foriegn key
             /*builder.HasOne(st => st.User)
                 .WithOne(u => u.Student)
                 .HasForeignKey<Student>(fk => fk.ID);
             */
-            builder.HasOne<User>(s => s.User)
-                .WithOne(u => u.Student)
-                .HasForeignKey<Student>(fk => fk.Id);
+            //builder.HasOne<User>(s => s.User)
+            //    .WithOne(u => u.Student)
+            //    .HasForeignKey<Student>(fk => fk.Id);
 
             builder.HasOne<User>(x => x.CreatedBy)
                  .WithMany(u => u.CreatedStudents)

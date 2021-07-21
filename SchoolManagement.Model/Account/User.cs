@@ -37,6 +37,7 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
 
         //Navigation Property Academic
+        public virtual ICollection<AcademicLevel> LevelHeads { get; set; }
         public virtual ICollection<AcademicLevel> CreatedAcademicLevels { get; set; }
         public virtual ICollection<AcademicLevel> UpdatedAcademicLevels { get; set; }
 
@@ -57,6 +58,7 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<Subject> CreatedSubjects { get; set; }
         public virtual ICollection<Subject> UpdatedSubjects { get; set; }
 
+        public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual ICollection<SubjectTeacher> CreatedSubjectTeachers { get; set; }
         public virtual ICollection<SubjectTeacher> UpdatedSubjectTeachers { get; set; }
 
@@ -77,7 +79,7 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<Student> CreatedStudents { get; set; }
         public virtual ICollection<Student> UpdatedStudents { get; set; }
 
-        public virtual ICollection<StudentClass> StudentClasses { get; set; }
+       
 
         //Navigation property Lesson
         public virtual ICollection<Lesson> CreatedLessons { get; set; }
@@ -87,6 +89,15 @@ namespace SchoolManagement.Model.Account
 
         //Navigation property EssayStudentAnswer
         public virtual ICollection<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+
+        //Navigation property SubjectStream
+        public virtual ICollection<SubjectStream> CreatedSubjectStreams { get; set; }
+        public virtual ICollection<SubjectStream> UpdatedSubjectStreams { get; set; }
+
+        //Navigation property HeadOfDepartment
+
+        public virtual ICollection<HeadOfDepartment> CreatedHeadOfDepartments { get; set; }
+        public virtual ICollection<HeadOfDepartment> UpdatedHeadOfDepartments { get; set; }
 
 
 

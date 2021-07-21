@@ -16,19 +16,19 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("StudentClassSubject", Schema.MASTER);
 
-            builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId });
+            builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId, x.SubjectId });
 
             builder.HasOne<StudentClass>(x => x.StudentClass)
                 .WithMany(sc => sc.StudentClassSubjects)
-                .HasForeignKey(f => new { f.StudentId, f.ClassNameId, f.AcademicLevelId })
+                .HasForeignKey(f => new { f.StudentId, f.ClassNameId, f.AcademicLevelId, f.AcademicYearId})
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
             builder.HasOne<SubjectAcademicLevel>(x => x.SubjectAcademicLevel)
                 .WithMany(sc => sc.StudentClassSubjects)
-                .HasForeignKey(f => f.StudentId)
-                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .HasForeignKey(f => new { f.SubjectId, f.AcademicLevelId })
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(true);
 
         }
     }

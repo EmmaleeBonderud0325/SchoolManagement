@@ -21,12 +21,15 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasOne<Subject>(s => s.Subject)
                .WithMany(sa => sa.SubjectAcademicLevels)
                .HasForeignKey(f => f.SubjectId)
-               .OnDelete(DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(true);
 
             builder.HasOne<AcademicLevel>(a => a.AcademicLevel)
                .WithMany(sa => sa.SubjectAcademicLevels)
                .HasForeignKey(f => f.AcademicLevelId)
-               .OnDelete(DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(true);
+
         }
     }
 }

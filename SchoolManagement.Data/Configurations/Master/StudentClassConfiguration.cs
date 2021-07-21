@@ -19,17 +19,16 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => new { x.StudentId, x.ClassNameId, x.AcademicLevelId, x.AcademicYearId });
 
-            builder.HasOne<User>(s => s.Student)
+            builder.HasOne<Student>(s => s.Student)
                 .WithMany(sc => sc.StudentClasses)
                 .HasForeignKey(fk => fk.StudentId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne<Class>(cl => cl.Class)
                 .WithMany(sc => sc.StudentClasses)
-                .HasForeignKey(fk => fk.ClassNameId)
-                .HasForeignKey(fk => fk.AcademicLevelId)
-                .HasForeignKey(fk => fk.AcademicYearId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(fk => new {fk.ClassNameId, fk.AcademicLevelId, fk.AcademicYearId})
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(true);
         }
     }
 }

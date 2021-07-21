@@ -19,17 +19,23 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => x.Id);
 
+            builder.HasOne<User>(x => x.LevelHead)
+                .WithMany(u => u.LevelHeads)
+                .HasForeignKey(f => f.LevelHeadId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(true);
+
             builder.HasOne<User>(x => x.CreatedBy)
                .WithMany(u => u.CreatedAcademicLevels)
                .HasForeignKey(f => f.CreatedById)
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
                 .WithMany(u => u.UpdatedAcademicLevels)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
         }
     }
 }

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
 using SchoolManagement.Model.Account;
+using SchoolManagement.Model.Master;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,16 @@ namespace SchoolManagement.Data.Configurations.Account
 
             builder.HasKey(x => x.Id);
 
+            builder.HasIndex(x => x.Username)
+                .IsUnique();
+
+            builder.HasIndex(x => x.Email)
+                .IsUnique();
+
+            builder.HasOne<Student>(s => s.Student)
+                .WithOne(u => u.User)
+                .HasForeignKey<Student>(f => f.Id);
+
             builder.HasOne<User>(u => u.CreatedBy)
                 .WithMany(c => c.CreatedUsers)
                 .HasForeignKey(f => f.CreatedById)
@@ -29,6 +40,7 @@ namespace SchoolManagement.Data.Configurations.Account
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(false);
+
         }
     }
 }

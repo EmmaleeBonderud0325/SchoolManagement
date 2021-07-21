@@ -22,29 +22,32 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasOne<ClassName>(cn => cn.ClassName)
              .WithMany(cl => cl.Classes)
              .HasForeignKey(f => f.ClassNameId)
-             .OnDelete(DeleteBehavior.Restrict);
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
 
             builder.HasOne<AcademicLevel>(al => al.AcademicLevel)
              .WithMany(cl => cl.Classes)
              .HasForeignKey(f => f.AcademicLevelId)
-             .OnDelete(DeleteBehavior.Restrict);
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
 
             builder.HasOne<AcademicYear>(ay => ay.AcademicYear)
              .WithMany(cl => cl.Classes)
              .HasForeignKey(f => f.AcademicYearId)
-             .OnDelete(DeleteBehavior.Restrict);
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
 
             builder.HasOne<User>(x => x.CreatedBy)
               .WithMany(u => u.CreatedClasses)
               .HasForeignKey(f => f.CreatedById)
               .OnDelete(DeleteBehavior.Restrict)
-              .IsRequired(false);
+              .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
                 .WithMany(u => u.UpdatedClasses)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
         }
     }

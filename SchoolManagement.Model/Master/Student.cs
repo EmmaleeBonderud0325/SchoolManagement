@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model.Account;
+using SchoolManagement.Util.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace SchoolManagement.Model.Master
         public int AdmissionNo { get; set; }
         public string EmegencyContactNo1 { get; set; }
         public string EmegencyContactNo2 { get; set; }
-        public string Gender { get; set; }
-        public DateTime DateOfBirth { get; set; }
+        public Gender Gender { get; set; }
+        public DateTime? DateOfBirth { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
         public int CreatedById { get; set; }

@@ -11,25 +11,25 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Configurations.Master
 {
-    public class AcademicYearConfiguration : IEntityTypeConfiguration<AcademicYear>
+    public class SubjectStreamConfiguration : IEntityTypeConfiguration<SubjectStream>
     {
-        public void Configure(EntityTypeBuilder<AcademicYear> builder)
+        public void Configure(EntityTypeBuilder<SubjectStream> builder)
         {
-            builder.ToTable("AcademicYear", Schema.MASTER);
+            builder.ToTable("SubjectStream", Schema.MASTER);
 
             builder.HasKey(x => x.Id);
 
             builder.HasOne<User>(x => x.CreatedBy)
-                .WithMany(u => u.CreatedAcademicYears)
+                .WithMany(u => u.CreatedSubjectStreams)
                 .HasForeignKey(f => f.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
-                .WithMany(u => u.UpdatedAcademicYears)
-                .HasForeignKey(f => f.UpdatedById)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(true);
+               .WithMany(u => u.UpdatedSubjectStreams)
+               .HasForeignKey(f => f.UpdatedById)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(true);
         }
     }
 }

@@ -23,33 +23,31 @@ namespace SchoolManagement.Data.Configurations.Master
                .WithMany(c => c.ClassSubjectTeachers)
                .HasForeignKey(f => f.SubjectTeacherId)
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
             builder.HasOne<Subject>(sb => sb.Subject)
                .WithMany(c => c.ClassSubjectTeachers)
                .HasForeignKey(f => f.SubjectId)
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
             builder.HasOne<Class>(c => c.Class)
                .WithMany(cs => cs.ClassSubjectTeachers)
-               .HasForeignKey(f => f.ClassNameId)
-               .HasForeignKey(f => f.AcademicLevelId)
-               .HasForeignKey(f => f.AcademicYearId)
+               .HasForeignKey(f => new {f.ClassNameId, f.AcademicLevelId, f.AcademicYearId})
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
             builder.HasOne<User>(u => u.CreatedBy)
                .WithMany(c => c.CreatedClassSubjectTeachers)
                .HasForeignKey(f => f.CreatedById)
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
             builder.HasOne<User>(u => u.UpdatedBy)
                .WithMany(c => c.UpdatedClassSubjectTeachers)
                .HasForeignKey(f => f.UpdatedById)
                .OnDelete(DeleteBehavior.Restrict)
-               .IsRequired(false);
+               .IsRequired(true);
 
 
 
