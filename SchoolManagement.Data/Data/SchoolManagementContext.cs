@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Data.Configurations.Account;
 using SchoolManagement.Model.Account;
+using SchoolManagement.Model.Master;
 using SchoolManagement.Util.Tenant;
 using System;
 using System.Collections.Generic;
@@ -57,6 +58,22 @@ namespace SchoolManagement.Data.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+
+        public DbSet<AcademicLevel> AcademicLevels { get; set; }
+        public DbSet<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
+        public DbSet<AcademicYear> AcademicYears { get; set; }
+        public DbSet<Class> Classes { get; set; }
+        public DbSet<ClassName> ClassNames { get; set; }
+        public DbSet<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
+        public DbSet<ClassTeacher> ClassTeachers { get; set; }
+        public DbSet<EssayAnswer> EssayAnswers { get; set; }
+        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+
+
 
 
 
