@@ -15,7 +15,7 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<LessonAssignmentSubmission> builder)
         {
-            builder.ToTable("LessonAssignmentSubmission", Schema.MASTER);
+            builder.ToTable("LessonAssignmentSubmission", Schema.LESSON);
 
             builder.HasKey(x => x.Id);
 

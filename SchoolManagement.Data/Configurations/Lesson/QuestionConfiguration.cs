@@ -14,7 +14,7 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<Question> builder)
         {
-            builder.ToTable("Question", Schema.Master);
+            builder.ToTable("Question", Schema.LESSON);
 
             builder.HasKey(x => x.Id);
 

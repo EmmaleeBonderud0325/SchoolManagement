@@ -15,7 +15,7 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<StudentMCQQuestion> builder)
         {
-            builder.ToTable("StudentMCQQuestion", Schema.Master);
+            builder.ToTable("StudentMCQQuestion", Schema.LESSON);
 
             builder.HasKey(x => new { x.QuestionId, x.StudentId });
 

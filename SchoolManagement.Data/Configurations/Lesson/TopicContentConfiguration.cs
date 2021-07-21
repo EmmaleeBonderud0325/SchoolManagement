@@ -14,7 +14,7 @@ namespace SchoolManagement.Data.Configurations.Master
     {
         public void Configure(EntityTypeBuilder<TopicContent> builder)
         {
-            builder.ToTable("TopicContent", Schema.MASTER);
+            builder.ToTable("TopicContent", Schema.LESSON);
 
             builder.HasKey(x => x.Id);
 
