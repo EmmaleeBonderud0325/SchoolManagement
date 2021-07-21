@@ -23,19 +23,19 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(la => la.LessonAssignments)
                 .HasForeignKey(f => f.LessonId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
             builder.HasOne<User>(x => x.CreatedBy)
                 .WithMany(la => la.CreatedLessonAssignments)
                 .HasForeignKey(f => f.CreatedById)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
                 .WithMany(la => la.UpdatedLessonAssignments)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
 
         }

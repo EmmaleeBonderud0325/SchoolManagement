@@ -22,7 +22,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(t => t.Topics)
                 .HasForeignKey(f => f.LessonId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
         }
     }
 }

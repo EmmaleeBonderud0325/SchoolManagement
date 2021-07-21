@@ -22,7 +22,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(m=>m.MCQAnswers)
                 .HasForeignKey(f=>f.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
             //builder.HasOne<Question>(q => q.Question)
             //    .WithMany(ma => ma.MCQAnswers)

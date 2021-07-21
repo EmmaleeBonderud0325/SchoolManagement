@@ -30,13 +30,13 @@ namespace SchoolManagement.Data.Configurations.Master
                     .WithMany(es => es.EssayStudentAnswers)
                     .HasForeignKey(f => f.QuestionId)
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired(false);
+                    .IsRequired(true);
 
                 builder.HasOne<User>(x => x.Student)
                     .WithMany(es => es.EssayStudentAnswers)
                     .HasForeignKey(f => f.StudentId)
                     .OnDelete(DeleteBehavior.Restrict)
-                    .IsRequired(false);
+                    .IsRequired(true);
 
         }
         }

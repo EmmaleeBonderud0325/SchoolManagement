@@ -23,14 +23,14 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(ms => ms.MCQStudentAnswers)
                 .HasForeignKey(f => f.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
 
             builder.HasOne<User>(x => x.Student)
                 .WithMany(ms => ms.MCQStudentAnswers)
                 .HasForeignKey(f => f.StudentId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
 
             //builder.HasMany<MCQStudentAnswer>(q => q.MCQStudentAnswer)

@@ -23,13 +23,13 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(sm => sm.StudentMCQQuestions)
                 .HasForeignKey(f => f.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
             builder.HasOne<User>(x => x.Student)
                 .WithMany(sm => sm.StudentMCQQuestions)
                 .HasForeignKey(f => f.StudentId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
 
 

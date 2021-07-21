@@ -22,7 +22,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(ea => ea.EssayAnswers)
                 .HasForeignKey(f => f.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(false);
+                .IsRequired(true);
 
         }
     }
