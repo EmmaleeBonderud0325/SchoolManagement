@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Data.Configurations.Account;
+using SchoolManagement.Data.Configurations.Master;
 using SchoolManagement.Model.Account;
 using SchoolManagement.Model.Master;
 using SchoolManagement.Util.Tenant;
@@ -50,15 +51,45 @@ namespace SchoolManagement.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //Account Database Entities Configurations
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RoleConfiguration());
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
+
+            //Master Database Entities Configurations
+            modelBuilder.ApplyConfiguration(new AcademicLevelAssessmentTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new AcademicLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new AcademicYearConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassNameConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassSubjectTeacherConfiguration());
+            modelBuilder.ApplyConfiguration(new ClassTeacherConfiguration());
+            modelBuilder.ApplyConfiguration(new EssayAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new EssayStudentAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new HeadOfDepartmentConfiguration());
+            modelBuilder.ApplyConfiguration(new LessonAssignmentConfiguration());
+            modelBuilder.ApplyConfiguration(new LessonAssignmentSubmissionConfiguration());
+            modelBuilder.ApplyConfiguration(new LessonConfiguration());
+            modelBuilder.ApplyConfiguration(new MCQAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new MCQStudentAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new QuestionConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentClassConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentClassSubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentMCQQuestionConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectAcademicLevelConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectTeacherConfiguration());
+            modelBuilder.ApplyConfiguration(new TopicConfiguration());
+            modelBuilder.ApplyConfiguration(new TopicContentConfiguration());
         }
 
+        //Account Database Entities
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
 
+        //Master Database Entities
         public DbSet<AcademicLevel> AcademicLevels { get; set; }
         public DbSet<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
         public DbSet<AcademicYear> AcademicYears { get; set; }
@@ -76,6 +107,14 @@ namespace SchoolManagement.Data.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentClass> StudentClasses { get; set; }
+        public DbSet<StudentClassSubject> StudentClassSubjects { get; set; }
+        public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
+        public DbSet<SubjectTeacher> SubjectTeachers { get; set; }
+        public DbSet<Topic> Topics { get; set; }
+        public DbSet<TopicContent> TopicContents { get; set; }
+
 
 
 
