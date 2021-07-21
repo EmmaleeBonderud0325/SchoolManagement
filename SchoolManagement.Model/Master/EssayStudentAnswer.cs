@@ -18,9 +18,6 @@ namespace SchoolManagement.Model.Master
 
         public virtual Question Question{ get; set; }
         public virtual User Student { get; set; }
-        public virtual EssayAnswer EssayAnswer { get; set; }
-
-        public virtual Question Questions { get; set; }
-        public virtual EssayAnswer EssayAnswers { get; set; }
+      
     }
 }
