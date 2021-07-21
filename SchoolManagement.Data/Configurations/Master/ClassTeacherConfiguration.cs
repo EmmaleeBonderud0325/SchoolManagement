@@ -17,7 +17,7 @@ namespace SchoolManagement.Data.Configurations.Master
         {
             builder.ToTable("ClassTeacher", Schema.MASTER);
 
-            builder.HasKey(x => new { x.ClassNameId, x.AcademicLevelId, x.AcademicYearId, x.TeacherId, x.CreatedById, x.UpdatedById });
+            builder.HasKey(x => new { x.ClassNameId, x.AcademicLevelId, x.AcademicYearId, x.TeacherId });
 
             builder.HasOne<Class>(c => c.Class)
              .WithMany(ct => ct.ClassTeachers)
@@ -27,13 +27,13 @@ namespace SchoolManagement.Data.Configurations.Master
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);
 
-            builder.HasOne<User>(u => u.User)
+            builder.HasOne<User>(u => u.CreatedBy)
              .WithMany(ct => ct.CreatedClassTeachers)
              .HasForeignKey(f => f.CreatedById)
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(false);
 
-            builder.HasOne<User>(u => u.User)
+            builder.HasOne<User>(u => u.UpdatedBy)
              .WithMany(ct => ct.UpdatedClassTeachers)
              .HasForeignKey(f => f.UpdatedById)
              .OnDelete(DeleteBehavior.Restrict)

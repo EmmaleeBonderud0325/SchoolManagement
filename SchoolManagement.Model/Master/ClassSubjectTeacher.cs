@@ -27,7 +27,6 @@ namespace SchoolManagement.Model.Master
         public virtual Subject Subject { get; set; }
         public virtual Class Class { get; set; }
 
-        public virtual User User { get; set; }
         public virtual User CreatedBy { get; set; }
         public virtual User UpdatedBy { get; set; }
 

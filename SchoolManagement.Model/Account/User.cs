@@ -50,6 +50,7 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<Class> UpdatedClasses { get; set; }
         public virtual ICollection<Class> CreatedClasses { get; set; }
 
+        public virtual ICollection<ClassTeacher> ClassTeachers { get; set; }
         public virtual ICollection<ClassTeacher> CreatedClassTeachers { get; set; }
         public virtual ICollection<ClassTeacher> UpdatedClassTeachers { get; set; }
         //Navigation property Subject

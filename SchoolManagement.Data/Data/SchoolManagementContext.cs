@@ -68,10 +68,15 @@ namespace SchoolManagement.Data.Data
         public DbSet<ClassTeacher> ClassTeachers { get; set; }
         public DbSet<EssayAnswer> EssayAnswers { get; set; }
         public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
-        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
-        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
-        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
-        public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
+        public DbSet<HeadOfDepartment> HeadOfDepartments { get; set; }
+        public DbSet<Lesson> Lessons { get; set; }
+        public DbSet<LessonAssignment> LessonAssignments { get; set; }
+        public DbSet<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
+        public DbSet<MCQAnswer> MCQAnswers { get; set; }
+        public DbSet<Question> Questions { get; set; }
+        public DbSet<Student> Students { get; set; }
+        public DbSet<StudentClass> StudentClasses { get; set; }
+
 
 
 
