@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Util.Enums
 {
-	public enum Classcategory
+	public enum ClassCategory
     {
 			Maths = 1,
 			Science = 2,

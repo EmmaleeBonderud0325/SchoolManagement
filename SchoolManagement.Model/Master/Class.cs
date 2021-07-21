@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model.Account;
+using SchoolManagement.Util.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace SchoolManagement.Model.Master
 		public int AcademicLevelId { get; set; }
 		public int AcademicYearId { get; set; }
 		public string Name { get; set; }
-		public string ClassCategory { get; set; }
+		public ClassCategory ClassCategory { get; set; }
 		public string LanguageStream { get; set; }
 		public int CreatedById { get; set; }
 		public DateTime UpdatedOn { get; set; }
