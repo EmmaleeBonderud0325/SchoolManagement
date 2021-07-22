@@ -1,12 +1,10 @@
-﻿using SchoolManagement.Model.Account;
-using SchoolManagement.Util.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class Subject
     {

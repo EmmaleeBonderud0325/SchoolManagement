@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SchoolManagement.Data.Configurations.Account;
 using SchoolManagement.Data.Configurations.Master;
-using SchoolManagement.Model.Account;
-using SchoolManagement.Model.Master;
+using SchoolManagement.Model;
 using SchoolManagement.Util.Tenant;
 using System;
 using System.Collections.Generic;

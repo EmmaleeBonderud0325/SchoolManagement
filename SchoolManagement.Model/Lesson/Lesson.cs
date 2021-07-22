@@ -1,12 +1,10 @@
-﻿using SchoolManagement.Model.Account;
-using SchoolManagement.Util.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class Lesson
     {
@@ -39,8 +37,10 @@ namespace SchoolManagement.Model.Master
         public virtual ICollection<Topic> Topics { get; set; }
         public virtual ICollection<Question>Questions{ get; set; }
         public virtual ICollection<LessonAssignment> LessonAssignments { get; set; }
+        public virtual ICollection<StudentLesson> StudentLessons { get; set; }
 
-        
+
+
     }
 
 }

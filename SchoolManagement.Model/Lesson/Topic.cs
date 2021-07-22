@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class Topic
     {
@@ -21,6 +21,7 @@ namespace SchoolManagement.Model.Master
 
         public virtual ICollection<TopicContent>TopicContents { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
+        public virtual ICollection<StudentLessonTopic> StudentLessonTopics { get; set; }
 
     }
 }

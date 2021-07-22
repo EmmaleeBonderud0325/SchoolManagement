@@ -4,12 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Util.Enums
+namespace SchoolManagement.Model
 {
     public enum LessonStatus
     {
-        Completed = 1,
-        NotCpmpleted = 2
-
+        Design = 1,
+        Publish = 2,
+        OnGoing = 3,
+        Completed = 4,
+        Deleted = 5
     }
 }

@@ -1,11 +1,10 @@
-﻿using SchoolManagement.Util.Enums;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class TopicContent
     {
@@ -18,5 +17,8 @@ namespace SchoolManagement.Model.Master
         public DateTime UpdatedOn { get; set; }
 
         public virtual Topic Topic { get; set; }
+
+        public  virtual ICollection<StudentLessonTopicContenet> StudentLessonTopicContenets { get; set; }
+
     }
 }

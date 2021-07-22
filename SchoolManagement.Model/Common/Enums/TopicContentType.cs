@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Util.Enums
+namespace SchoolManagement.Model
 {
-    public enum Gender
+    public enum TopicContentType
     {
-        Male = 1,
-        Female = 2
+
     }
 }

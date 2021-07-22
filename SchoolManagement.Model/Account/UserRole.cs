@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Account
+namespace SchoolManagement.Model
 {
     public class UserRole
     {

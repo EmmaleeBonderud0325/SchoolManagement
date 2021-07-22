@@ -4,12 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Util.Enums
+namespace SchoolManagement.Model
 {
-    public enum QuestionLevel
+    public enum LanguageStream
     {
-        Low = 1,
-        Medium = 2,
-        High = 3
-    }
+			Sinhala = 1,
+			English = 2,
+			Tamil = 3,
+			Other = 4
+	};
 }

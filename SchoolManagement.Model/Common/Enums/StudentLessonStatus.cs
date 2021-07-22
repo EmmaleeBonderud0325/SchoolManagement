@@ -4,11 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Util.Enums
+namespace SchoolManagement.Model
 {
-    public enum QuestionType
+    public enum StudentLessonStatus
     {
-        MCQ = 1,
-        Essay = 2
+        Pedding = 1,
+        Started = 2,
+        Completed = 3
+
+
     }
 }
