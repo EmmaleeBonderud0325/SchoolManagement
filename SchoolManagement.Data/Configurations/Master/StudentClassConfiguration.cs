@@ -21,7 +21,8 @@ namespace SchoolManagement.Data.Configurations.Master
             builder.HasOne<Student>(s => s.Student)
                 .WithMany(sc => sc.StudentClasses)
                 .HasForeignKey(fk => fk.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(true);
 
             builder.HasOne<Class>(cl => cl.Class)
                 .WithMany(sc => sc.StudentClasses)

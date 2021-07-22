@@ -12,10 +12,5 @@ namespace SchoolManagement.Data.Common
         public const string ACCOUNT = "Account";
         public const string MASTER = "Master";
         public const string LESSON = "Lesson";
-
-        internal static void Master(TableBuilder obj)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
