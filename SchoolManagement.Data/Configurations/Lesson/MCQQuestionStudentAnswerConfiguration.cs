@@ -16,20 +16,34 @@ namespace SchoolManagement.Data.Configurations
         {
             builder.ToTable("MCQQuestionStudentAnswer", Schema.LESSON);
 
-            builder.HasKey(x => new { x.QuestionId, x.StudentId });
+            builder.HasKey(x => new { x.QuestionId, x.StudentId, x.MCQQuestionAnswerId });
 
-            builder.HasOne<Question>(x => x.Question)
-                .WithMany(ms => ms.MCQQuestionStudentAnswers)
-                .HasForeignKey(f => f.QuestionId)
+
+            builder.HasOne<StudentMCQQuestion>(x => x.StudentMCQQuestion)
+                .WithMany(m => m.MCQQuestionStudentAnswers)
+                .HasForeignKey(f => new { f.QuestionId, f.StudentId })
+                .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(true);
+
+            builder.HasOne<MCQQuestionAnswer>(x => x.MCQQuestionAnswer)
+                .WithMany(mq => mq.MCQQuestionStudentAnswers)
+                .HasForeignKey(f => f.MCQQuestionAnswerId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
 
-            builder.HasOne<Student>(x => x.Student)
-                .WithMany(ms => ms.MCQQuestionStudentAnswers)
-                .HasForeignKey(f => f.StudentId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(true);
+            //builder.HasOne<Question>(x => x.Question)
+            //    .WithMany(ms => ms.MCQQuestionStudentAnswers)
+            //    .HasForeignKey(f => f.QuestionId)
+            //    .OnDelete(DeleteBehavior.Restrict)
+            //    .IsRequired(true);
+
+
+            //builder.HasOne<Student>(x => x.Student)
+            //    .WithMany(ms => ms.MCQQuestionStudentAnswers)
+            //    .HasForeignKey(f => f.StudentId)
+            //    .OnDelete(DeleteBehavior.Restrict)
+            //    .IsRequired(true);
 
 
             //builder.HasMany<MCQStudentAnswer>(q => q.MCQStudentAnswer)

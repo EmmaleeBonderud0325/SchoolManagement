@@ -18,6 +18,6 @@ namespace SchoolManagement.Model
         public string TeacherComments { get; set; }
 
         public LessonAssignment LessonAssignment { get; set; }
-        public User Student { get; set; }
+        public Student Student { get; set; }
     }
 }

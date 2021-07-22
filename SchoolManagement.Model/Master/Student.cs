@@ -31,5 +31,7 @@ namespace SchoolManagement.Model
         public virtual ICollection<StudentLessonTopic> StudentLessonTopics { get; set; }
         public virtual ICollection<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public virtual ICollection<MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }
+        public virtual ICollection<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
+
     }
 }

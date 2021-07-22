@@ -81,7 +81,7 @@ namespace SchoolManagement.Model
         public virtual ICollection<LessonAssignment> CreatedLessonAssignments { get; set; }
         public virtual ICollection<LessonAssignment> UpdatedLessonAssignments { get; set; }
 
-        public virtual ICollection<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
+       
 
         //Navigation property Student
         public virtual ICollection<Student> CreatedStudents { get; set; }
