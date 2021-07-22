@@ -43,7 +43,7 @@ namespace SchoolManagement.Data.Configurations
                 .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
-                .WithMany(u => u.CreatedLessons)
+                .WithMany(u => u.UpdatedLessons)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);

@@ -69,6 +69,7 @@ namespace SchoolManagement.Data.Data
             modelBuilder.ApplyConfiguration(new StudentClassSubjectConfiguration());
             modelBuilder.ApplyConfiguration(new StudentConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectConfiguration());
+            modelBuilder.ApplyConfiguration(new SubjectStreamConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectTeacherConfiguration());
 
             //Lesson Database Entities Configurations
@@ -113,12 +114,13 @@ namespace SchoolManagement.Data.Data
 
         //Lesson Database Entities
 
-        public DbSet<EssayQuestionAnswer> EssayAnswers { get; set; }
+        public DbSet<EssayQuestionAnswer> EssayQuestionAnswers { get; set; }
         public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonAssignment> LessonAssignments { get; set; }
         public DbSet<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
-        public DbSet<MCQQuestionAnswer> MCQAnswers { get; set; }
+        public DbSet<MCQQuestionAnswer> MCQQuestionAnswers { get; set; }
+        public DbSet<MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<StudentLessonTopic> StudentLessonTopics { get; set; }

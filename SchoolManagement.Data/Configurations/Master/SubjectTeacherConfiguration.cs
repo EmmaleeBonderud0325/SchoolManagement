@@ -48,7 +48,7 @@ namespace SchoolManagement.Data.Configurations.Master
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
 
-            builder.HasOne<User>(u => u.Teacher)
+            builder.HasOne<User>(u => u.UpdatedBy)
                .WithMany(st => st.UpdatedSubjectTeachers)
                .HasForeignKey(f => f.UpdatedById)
                .OnDelete(DeleteBehavior.Restrict)
