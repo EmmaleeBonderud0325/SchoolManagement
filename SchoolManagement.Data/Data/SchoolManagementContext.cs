@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SchoolManagement.Data.Configuration.Master;
+using SchoolManagement.Data.Configurations;
 using SchoolManagement.Data.Configurations.Account;
 using SchoolManagement.Data.Configurations.Master;
 using SchoolManagement.Model;

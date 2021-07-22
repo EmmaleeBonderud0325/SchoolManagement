@@ -12,6 +12,5 @@ namespace SchoolManagement.Model
         Started = 2,
         Completed = 3
 
-
     }
 }

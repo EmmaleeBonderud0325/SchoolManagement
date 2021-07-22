@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Data.Configuration.Master
+namespace SchoolManagement.Data.Configurations
 {
     public class StudentLessonConfiguration : IEntityTypeConfiguration<StudentLesson>
     {
