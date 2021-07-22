@@ -29,6 +29,18 @@ namespace SchoolManagement.Data.Configurations
                 .WithMany(q=>q.Questions)
                 .HasForeignKey(f=>f.TopicId)
                 .OnDelete(DeleteBehavior.Restrict)
+                .IsRequired(false);
+
+            builder.HasOne<User>(x => x.CreatedBy)
+               .WithMany(u => u.CreatedQuestions)
+               .HasForeignKey(f => f.CreatedById)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(true);
+
+            builder.HasOne<User>(x => x.UpdatedBy)
+                .WithMany(u => u.UpdatedQuestions)
+                .HasForeignKey(f => f.UpdatedById)
+                .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
             //builder.HasMany<MCQAnswer>(ma => ma.MCQAnswers)

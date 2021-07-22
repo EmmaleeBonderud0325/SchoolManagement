@@ -72,13 +72,13 @@ namespace SchoolManagement.Data.Data
             modelBuilder.ApplyConfiguration(new SubjectTeacherConfiguration());
 
             //Lesson Database Entities Configurations
-            modelBuilder.ApplyConfiguration(new EssayAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new EssayQuestionAnswerConfiguration());
             modelBuilder.ApplyConfiguration(new EssayStudentAnswerConfiguration());
             modelBuilder.ApplyConfiguration(new LessonAssignmentConfiguration());
             modelBuilder.ApplyConfiguration(new LessonAssignmentSubmissionConfiguration());
             modelBuilder.ApplyConfiguration(new LessonConfiguration());
-            modelBuilder.ApplyConfiguration(new MCQAnswerConfiguration());
-            modelBuilder.ApplyConfiguration(new MCQStudentAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new MCQQuestionAnswerConfiguration());
+            modelBuilder.ApplyConfiguration(new MCQQuestionStudentAnswerConfiguration());
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonTopicConfiguration());
@@ -113,12 +113,12 @@ namespace SchoolManagement.Data.Data
 
         //Lesson Database Entities
 
-        public DbSet<EssayAnswer> EssayAnswers { get; set; }
+        public DbSet<EssayQuestionAnswer> EssayAnswers { get; set; }
         public DbSet<EssayStudentAnswer> EssayStudentAnswers { get; set; }
         public DbSet<Lesson> Lessons { get; set; }
         public DbSet<LessonAssignment> LessonAssignments { get; set; }
         public DbSet<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
-        public DbSet<MCQAnswer> MCQAnswers { get; set; }
+        public DbSet<MCQQuestionAnswer> MCQAnswers { get; set; }
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<StudentLessonTopic> StudentLessonTopics { get; set; }
@@ -126,11 +126,6 @@ namespace SchoolManagement.Data.Data
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }
-
-
-
-
-
 
     }
 }

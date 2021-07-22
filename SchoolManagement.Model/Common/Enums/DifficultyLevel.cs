@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model
 {
-    public enum QuestionLevel
+    public enum DifficultyLevel
     {
-        Low = 1,
-        Medium = 2,
-        High = 3
+        Eassy = 1,
+        Moderate = 2,
+        Hard = 3
     }
 }

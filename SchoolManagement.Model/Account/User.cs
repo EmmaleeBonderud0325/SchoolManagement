@@ -72,8 +72,10 @@ namespace SchoolManagement.Model
         public virtual ICollection<ClassSubjectTeacher> UpdatedClassSubjectTeachers { get; set; }
 
         //Navigation property Question
-        public virtual ICollection<StudentMCQQuestion> StudentMCQQuestions { get; set; }
-        public virtual ICollection<MCQStudentAnswer> MCQStudentAnswers { get; set; }
+        public virtual ICollection<Question> CreatedQuestions { get; set; }
+        public virtual ICollection<Question> UpdatedQuestions { get; set; }
+
+     
 
         //Navigatation property Lesson assignment
         public virtual ICollection<LessonAssignment> CreatedLessonAssignments { get; set; }

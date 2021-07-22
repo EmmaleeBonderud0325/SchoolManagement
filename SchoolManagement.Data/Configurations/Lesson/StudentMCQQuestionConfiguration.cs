@@ -24,7 +24,7 @@ namespace SchoolManagement.Data.Configurations
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
-            builder.HasOne<User>(x => x.Student)
+            builder.HasOne<Student>(x => x.Student)
                 .WithMany(sm => sm.StudentMCQQuestions)
                 .HasForeignKey(f => f.StudentId)
                 .OnDelete(DeleteBehavior.Restrict)

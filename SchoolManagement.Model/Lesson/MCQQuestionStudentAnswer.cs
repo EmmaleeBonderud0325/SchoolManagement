@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Model
 {
-    public class MCQStudentAnswer
+    public class MCQQuestionStudentAnswer
     {
         public int QuestionId { get; set; }
         public int StudentId { get; set; }
@@ -16,10 +16,10 @@ namespace SchoolManagement.Model
         public int SequnceNo { get; set; }
         public bool IsChecked { get; set; }
 
-        public virtual MCQAnswer  MCQAnswer{ get; set; }
+        public virtual MCQQuestionAnswer MCQQuestionAnswer { get; set; }
         public virtual  StudentMCQQuestion StudentMCQQuestion{ get; set; }
         public virtual Question Question { get; set; }
-        public virtual User Student { get; set; }
+        public virtual Student Student { get; set; }
 
 
     }

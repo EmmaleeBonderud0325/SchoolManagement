@@ -16,9 +16,9 @@ namespace SchoolManagement.Model
         public bool IsCorrectAnswer { get; set; }
 
         public virtual Question Question { get; set; }
-        public virtual User Student { get; set; }
+        public virtual Student Student { get; set; }
        
-        public virtual ICollection <MCQStudentAnswer> MCQStudentAnswers { get; set; }
+        public virtual ICollection <MCQQuestionStudentAnswer> MCQStudentAnswers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 
     }
