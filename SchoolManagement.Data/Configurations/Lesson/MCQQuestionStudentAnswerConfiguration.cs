@@ -19,7 +19,7 @@ namespace SchoolManagement.Data.Configurations
             builder.HasKey(x => new { x.QuestionId, x.StudentId });
 
             builder.HasOne<Question>(x => x.Question)
-                .WithMany(ms => ms.MCQStudentAnswers)
+                .WithMany(ms => ms.MCQQuestionStudentAnswers)
                 .HasForeignKey(f => f.QuestionId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);

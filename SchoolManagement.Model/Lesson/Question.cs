@@ -32,7 +32,7 @@ namespace SchoolManagement.Model
 
         public virtual  ICollection <EssayQuestionAnswer> EssayQuestionAnswers { get; set; }
         public virtual  ICollection <EssayStudentAnswer> EssayStudentAnswers{ get; set; }
-        public virtual ICollection<MCQQuestionStudentAnswer> MCQStudentAnswers { get; set; }
+        public virtual ICollection<MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }
 
     }
 }
