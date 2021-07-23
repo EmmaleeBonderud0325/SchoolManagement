@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SchoolManagement.Data.Migrations
 {
-    public partial class Schoolmanagement00002 : Migration
+    public partial class Schoolmanagement00001 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,25 +13,64 @@ namespace SchoolManagement.Data.Migrations
             migrationBuilder.EnsureSchema(
                 name: "Lesson");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Username",
-                schema: "Account",
-                table: "User",
-                type: "nvarchar(450)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+            migrationBuilder.EnsureSchema(
+                name: "Account");
 
-            migrationBuilder.AlterColumn<string>(
-                name: "Email",
+            migrationBuilder.CreateTable(
+                name: "Role",
                 schema: "Account",
-                table: "User",
-                type: "nvarchar(450)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(max)",
-                oldNullable: true);
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Role", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                schema: "Account",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    MobileNo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Username = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LastLoginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProfileImage = table.Column<byte>(type: "tinyint", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    LoginSessionId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: true),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedById = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_User_User_CreatedById",
+                        column: x => x.CreatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_User_User_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.CreateTable(
                 name: "AcademicLevel",
@@ -209,6 +248,52 @@ namespace SchoolManagement.Data.Migrations
                     table.ForeignKey(
                         name: "FK_SubjectStream_User_UpdatedById",
                         column: x => x.UpdatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserRole",
+                schema: "Account",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false),
+                    RoleId = table.Column<int>(type: "int", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedById = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserRole", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_UserRole_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalSchema: "Account",
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRole_User_CreatedById",
+                        column: x => x.CreatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRole_User_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_UserRole_User_UserId",
+                        column: x => x.UserId,
                         principalSchema: "Account",
                         principalTable: "User",
                         principalColumn: "Id",
@@ -1136,21 +1221,43 @@ namespace SchoolManagement.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_User_Email",
+            migrationBuilder.InsertData(
                 schema: "Account",
-                table: "User",
-                column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
+                table: "Role",
+                columns: new[] { "Id", "IsActive", "Name" },
+                values: new object[,]
+                {
+                    { 1, true, "SuperAdmin" },
+                    { 2, true, "Admin" },
+                    { 3, true, "Principle" },
+                    { 4, true, "LevelHead" },
+                    { 5, true, "HOD" },
+                    { 6, true, "Teacher" },
+                    { 7, true, "Student" },
+                    { 8, true, "Parent" }
+                });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_User_Username",
+            migrationBuilder.InsertData(
                 schema: "Account",
                 table: "User",
-                column: "Username",
-                unique: true,
-                filter: "[Username] IS NOT NULL");
+                columns: new[] { "Id", "Address", "CreatedById", "CreatedOn", "Email", "FullName", "IsActive", "LastLoginDate", "LoginSessionId", "MobileNo", "Password", "ProfileImage", "UpdatedById", "UpdatedOn", "Username" },
+                values: new object[,]
+                {
+                    { 1, null, null, new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(3741), "avdunusinghe@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(4380), "avdunusinghe@gmail.com" },
+                    { 2, null, null, new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(6370), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(6376), "admin@gmail.com" }
+                });
+
+            migrationBuilder.InsertData(
+                schema: "Account",
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
+                values: new object[] { 1, 1, 1, new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(2754), true, 1, new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(3569) });
+
+            migrationBuilder.InsertData(
+                schema: "Account",
+                table: "UserRole",
+                columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
+                values: new object[] { 2, 2, 1, new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(6809), true, 1, new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(6814) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AcademicLevel_CreatedById",
@@ -1567,6 +1674,52 @@ namespace SchoolManagement.Data.Migrations
                 table: "TopicContent",
                 column: "TopicId");
 
+            migrationBuilder.CreateIndex(
+                name: "IX_User_CreatedById",
+                schema: "Account",
+                table: "User",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Email",
+                schema: "Account",
+                table: "User",
+                column: "Email",
+                unique: true,
+                filter: "[Email] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_UpdatedById",
+                schema: "Account",
+                table: "User",
+                column: "UpdatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_User_Username",
+                schema: "Account",
+                table: "User",
+                column: "Username",
+                unique: true,
+                filter: "[Username] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_CreatedById",
+                schema: "Account",
+                table: "UserRole",
+                column: "CreatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_RoleId",
+                schema: "Account",
+                table: "UserRole",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_UserRole_UpdatedById",
+                schema: "Account",
+                table: "UserRole",
+                column: "UpdatedById");
+
             migrationBuilder.AddForeignKey(
                 name: "FK_EssayStudentAnswer_EssayQuestionAnswer_EssayQuestionAnswerId",
                 schema: "Lesson",
@@ -1600,6 +1753,111 @@ namespace SchoolManagement.Data.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_AcademicLevel_User_CreatedById",
+                schema: "Master",
+                table: "AcademicLevel");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AcademicLevel_User_LevelHeadId",
+                schema: "Master",
+                table: "AcademicLevel");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AcademicLevel_User_UpdatedById",
+                schema: "Master",
+                table: "AcademicLevel");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AcademicYear_User_CreatedById",
+                schema: "Master",
+                table: "AcademicYear");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_AcademicYear_User_UpdatedById",
+                schema: "Master",
+                table: "AcademicYear");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Class_User_CreatedById",
+                schema: "Master",
+                table: "Class");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Class_User_UpdatedById",
+                schema: "Master",
+                table: "Class");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ClassName_User_CreatedById",
+                schema: "Master",
+                table: "ClassName");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_ClassName_User_UpdatedById",
+                schema: "Master",
+                table: "ClassName");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Lesson_User_CreatedById",
+                schema: "Lesson",
+                table: "Lesson");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Lesson_User_OwnerId",
+                schema: "Lesson",
+                table: "Lesson");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Lesson_User_UpdatedById",
+                schema: "Lesson",
+                table: "Lesson");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Question_User_CreatedById",
+                schema: "Lesson",
+                table: "Question");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Question_User_UpdatedById",
+                schema: "Lesson",
+                table: "Question");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Student_User_CreatedById",
+                schema: "Master",
+                table: "Student");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Student_User_Id",
+                schema: "Master",
+                table: "Student");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Student_User_UpdatedById",
+                schema: "Master",
+                table: "Student");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Subject_User_CreatedById",
+                schema: "Master",
+                table: "Subject");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_Subject_User_UpdatedById",
+                schema: "Master",
+                table: "Subject");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_SubjectStream_User_CreatedById",
+                schema: "Master",
+                table: "SubjectStream");
+
+            migrationBuilder.DropForeignKey(
+                name: "FK_SubjectStream_User_UpdatedById",
+                schema: "Master",
+                table: "SubjectStream");
+
             migrationBuilder.DropForeignKey(
                 name: "FK_Class_AcademicLevel_AcademicLevelId",
                 schema: "Master",
@@ -1671,6 +1929,10 @@ namespace SchoolManagement.Data.Migrations
                 schema: "Lesson");
 
             migrationBuilder.DropTable(
+                name: "UserRole",
+                schema: "Account");
+
+            migrationBuilder.DropTable(
                 name: "EssayQuestionAnswer",
                 schema: "Lesson");
 
@@ -1697,6 +1959,14 @@ namespace SchoolManagement.Data.Migrations
             migrationBuilder.DropTable(
                 name: "TopicContent",
                 schema: "Lesson");
+
+            migrationBuilder.DropTable(
+                name: "Role",
+                schema: "Account");
+
+            migrationBuilder.DropTable(
+                name: "User",
+                schema: "Account");
 
             migrationBuilder.DropTable(
                 name: "AcademicLevel",
@@ -1741,36 +2011,6 @@ namespace SchoolManagement.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Lesson",
                 schema: "Lesson");
-
-            migrationBuilder.DropIndex(
-                name: "IX_User_Email",
-                schema: "Account",
-                table: "User");
-
-            migrationBuilder.DropIndex(
-                name: "IX_User_Username",
-                schema: "Account",
-                table: "User");
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Username",
-                schema: "Account",
-                table: "User",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<string>(
-                name: "Email",
-                schema: "Account",
-                table: "User",
-                type: "nvarchar(max)",
-                nullable: true,
-                oldClrType: typeof(string),
-                oldType: "nvarchar(450)",
-                oldNullable: true);
         }
     }
 }

@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="MigrationScripts\" />
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,6 +17,65 @@ namespace SchoolManagement.Data.Configurations.Account
             builder.ToTable("Role", Schema.ACCOUNT);
 
             builder.HasKey(x => x.Id);
+
+            var superAdmin = new Role()
+            {
+                Id = 1,
+                IsActive = true,
+                Name = "SuperAdmin"              
+            };
+
+            var admin = new Role()
+            {
+                Id = 2,              
+                IsActive = true,               
+                Name = "Admin"                
+            };
+
+            var principle = new Role()
+            {
+                Id = 3,               
+                IsActive = true,               
+                Name = "Principle"              
+            };
+
+            var levelHead = new Role()
+            {
+                Id = 4,             
+                IsActive = true,              
+                Name = "LevelHead"                
+            };
+
+            var hod = new Role()
+            {
+                Id = 5,             
+                IsActive = true,               
+                Name = "HOD"              
+            };
+
+            var teacher = new Role()
+            {
+                Id = 6,              
+                IsActive = true,                
+                Name = "Teacher"               
+            };
+
+            var student = new Role()
+            {
+                Id = 7,          
+                IsActive = true,               
+                Name = "Student"                
+            };
+
+            var parent = new Role()
+            {
+                Id = 8,               
+                IsActive = true,               
+                Name = "Parent"               
+            };
+
+            builder.HasData(superAdmin, admin, principle, levelHead, hod, teacher, student, parent);
         }
+
     }
 }

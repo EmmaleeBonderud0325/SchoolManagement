@@ -10,8 +10,8 @@ using SchoolManagement.Data.Data;
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    [Migration("20210723072837_Schoolmanagement00002")]
-    partial class Schoolmanagement00002
+    [Migration("20210723075022_Schoolmanagement00001")]
+    partial class Schoolmanagement00001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -661,6 +661,56 @@ namespace SchoolManagement.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Role", "Account");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "SuperAdmin"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Admin"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Principle"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            Name = "LevelHead"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            Name = "HOD"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            IsActive = true,
+                            Name = "Teacher"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            IsActive = true,
+                            Name = "Student"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            IsActive = true,
+                            Name = "Parent"
+                        });
                 });
 
             modelBuilder.Entity("SchoolManagement.Model.Student", b =>
@@ -1104,7 +1154,7 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Fullname")
+                    b.Property<string>("FullName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -1149,6 +1199,38 @@ namespace SchoolManagement.Data.Migrations
                         .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("User", "Account");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(3741),
+                            Email = "avdunusinghe@gmail.com",
+                            FullName = "SuperAdmin",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginSessionId = 0,
+                            MobileNo = "0703375581",
+                            Password = "HGnySkxIrdSxVCdICLWgVQxx",
+                            ProfileImage = (byte)0,
+                            UpdatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(4380),
+                            Username = "avdunusinghe@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(6370),
+                            Email = "admin@gmail.com",
+                            FullName = "Admin",
+                            IsActive = true,
+                            LastLoginDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LoginSessionId = 0,
+                            MobileNo = "0112487086",
+                            Password = "HGnySkxIrdSxVCdICLWgVQxx",
+                            ProfileImage = (byte)0,
+                            UpdatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 841, DateTimeKind.Utc).AddTicks(6376),
+                            Username = "admin@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("SchoolManagement.Model.UserRole", b =>
@@ -1185,6 +1267,28 @@ namespace SchoolManagement.Data.Migrations
                     b.HasIndex("UpdatedById");
 
                     b.ToTable("UserRole", "Account");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1,
+                            CreatedById = 1,
+                            CreatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(2754),
+                            IsActive = true,
+                            UpdatedById = 1,
+                            UpdatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(3569)
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2,
+                            CreatedById = 1,
+                            CreatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(6809),
+                            IsActive = true,
+                            UpdatedById = 1,
+                            UpdatedOn = new DateTime(2021, 7, 23, 7, 50, 20, 866, DateTimeKind.Utc).AddTicks(6814)
+                        });
                 });
 
             modelBuilder.Entity("SchoolManagement.Model.AcademicLevel", b =>
