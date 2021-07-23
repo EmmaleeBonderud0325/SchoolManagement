@@ -22,6 +22,6 @@ namespace SchoolManagement.Model
         public virtual User UpdatedByID { get; set; }
 
       
-        public virtual ICollection<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
+      //  public virtual ICollection<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
     }
 }

@@ -57,7 +57,7 @@ namespace SchoolManagement.Data.Data
             modelBuilder.ApplyConfiguration(new UserRoleConfiguration());
 
             //Master Database Entities Configurations
-            modelBuilder.ApplyConfiguration(new AcademicLevelAssessmentTypeConfiguration());
+           // modelBuilder.ApplyConfiguration(new AcademicLevelAssessmentTypeConfiguration());
             modelBuilder.ApplyConfiguration(new AcademicLevelConfiguration());
             modelBuilder.ApplyConfiguration(new AcademicYearConfiguration());
             modelBuilder.ApplyConfiguration(new ClassConfiguration());
