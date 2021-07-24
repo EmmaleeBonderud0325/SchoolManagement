@@ -4,4 +4,10 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>
