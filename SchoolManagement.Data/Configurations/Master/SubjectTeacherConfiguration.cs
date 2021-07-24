@@ -1,8 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
-using SchoolManagement.Model.Account;
-using SchoolManagement.Model.Master;
+using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +48,7 @@ namespace SchoolManagement.Data.Configurations.Master
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
 
-            builder.HasOne<User>(u => u.Teacher)
+            builder.HasOne<User>(u => u.UpdatedBy)
                .WithMany(st => st.UpdatedSubjectTeachers)
                .HasForeignKey(f => f.UpdatedById)
                .OnDelete(DeleteBehavior.Restrict)

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
-using SchoolManagement.Model.Account;
+using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +39,29 @@ namespace SchoolManagement.Data.Configurations.Account
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
+
+            var superAdminRole = new UserRole()
+            {
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow,
+                IsActive = true,
+                RoleId = 1,
+                UserId = 1,
+                UpdatedById = 1,
+                CreatedById = 1,
+            };
+            var adminRole = new UserRole()
+            {
+                CreatedOn = DateTime.UtcNow,
+                UpdatedOn = DateTime.UtcNow,
+                IsActive = true,
+                RoleId = 2,
+                UserId = 2,
+                UpdatedById = 1,
+                CreatedById = 1,
+            };
+
+            builder.HasData(superAdminRole, adminRole);
         }
     }
 }

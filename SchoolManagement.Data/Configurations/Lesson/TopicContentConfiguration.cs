@@ -1,14 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
-using SchoolManagement.Model.Master;
+using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Data.Configurations.Master
+namespace SchoolManagement.Data.Configurations
 {
     public class TopicContentConfiguration : IEntityTypeConfiguration<TopicContent>
     {

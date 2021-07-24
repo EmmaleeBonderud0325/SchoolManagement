@@ -1,11 +1,11 @@
-﻿using SchoolManagement.Model.Account;
+﻿using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class StudentMCQQuestion
     {
@@ -16,9 +16,9 @@ namespace SchoolManagement.Model.Master
         public bool IsCorrectAnswer { get; set; }
 
         public virtual Question Question { get; set; }
-        public virtual User Student { get; set; }
+        public virtual Student Student { get; set; }
        
-        public virtual ICollection <MCQStudentAnswer> MCQStudentAnswers { get; set; }
+        public virtual ICollection <MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }
         public virtual ICollection<Question> Questions { get; set; }
 
     }

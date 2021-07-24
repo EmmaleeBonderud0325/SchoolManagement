@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
-   public  class EssayAnswer
+   public  class EssayQuestionAnswer
     {
         public int Id { get; set; }
         public int QuestionId { get; set; }

@@ -1,11 +1,11 @@
-﻿using SchoolManagement.Model.Account;
+﻿using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class LessonAssignmentSubmission
     {
@@ -18,6 +18,6 @@ namespace SchoolManagement.Model.Master
         public string TeacherComments { get; set; }
 
         public LessonAssignment LessonAssignment { get; set; }
-        public User Student { get; set; }
+        public Student Student { get; set; }
     }
 }

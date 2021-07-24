@@ -1,11 +1,11 @@
-﻿using SchoolManagement.Model.Account;
+﻿using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Master
+namespace SchoolManagement.Model
 {
     public class AssessmentType
     {
@@ -22,6 +22,6 @@ namespace SchoolManagement.Model.Master
         public virtual User UpdatedByID { get; set; }
 
       
-        public virtual ICollection<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
+      //  public virtual ICollection<AcademicLevelAssessmentType> AcademicLevelAssessmentTypes { get; set; }
     }
 }

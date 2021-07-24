@@ -1,16 +1,15 @@
-﻿using SchoolManagement.Model.Master;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Model.Account
+namespace SchoolManagement.Model
 {
     public class User
     {
         public int Id { get; set; }
-        public string Fullname { get; set; }
+        public string FullName { get; set; }
         public string Email { get; set; }
         public string MobileNo { get; set; }
         public string Username { get; set; }
@@ -36,55 +35,61 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<UserRole> CreatedUserRoles { get; set; }
         public virtual ICollection<UserRole> UpdatedUserRoles { get; set; }
 
-        //Navigation Property Academic
+        #region Navigation Property
+        //Navigation Property AcademicLevel
         public virtual ICollection<AcademicLevel> LevelHeads { get; set; }
         public virtual ICollection<AcademicLevel> CreatedAcademicLevels { get; set; }
         public virtual ICollection<AcademicLevel> UpdatedAcademicLevels { get; set; }
 
+        //Navigation Property AcademicYears
         public virtual ICollection<AcademicYear> CreatedAcademicYears { get; set; }
         public virtual ICollection<AcademicYear> UpdatedAcademicYears { get; set; }
-        
-        //Navigation Property Class
+
+        //Navigation Property ClassName
         public virtual ICollection<ClassName> CreatedClassNames { get; set; }
         public virtual ICollection<ClassName> UpdatedClassNames { get; set; }
 
+        //Navigation Property Class
         public virtual ICollection<Class> UpdatedClasses { get; set; }
         public virtual ICollection<Class> CreatedClasses { get; set; }
 
+        //Navigation Property ClassTeacher
         public virtual ICollection<ClassTeacher> ClassTeachers { get; set; }
         public virtual ICollection<ClassTeacher> CreatedClassTeachers { get; set; }
         public virtual ICollection<ClassTeacher> UpdatedClassTeachers { get; set; }
+
         //Navigation property Subject
         public virtual ICollection<Subject> CreatedSubjects { get; set; }
         public virtual ICollection<Subject> UpdatedSubjects { get; set; }
 
+        //Navigation property SubjectTeachers
         public virtual ICollection<SubjectTeacher> SubjectTeachers { get; set; }
         public virtual ICollection<SubjectTeacher> CreatedSubjectTeachers { get; set; }
         public virtual ICollection<SubjectTeacher> UpdatedSubjectTeachers { get; set; }
 
+        //Navigation property ClassSubjectTeacher
         public virtual ICollection<ClassSubjectTeacher> CreatedClassSubjectTeachers { get; set; }
         public virtual ICollection<ClassSubjectTeacher> UpdatedClassSubjectTeachers { get; set; }
 
         //Navigation property Question
-        public virtual ICollection<StudentMCQQuestion> StudentMCQQuestions { get; set; }
-        public virtual ICollection<MCQStudentAnswer> MCQStudentAnswers { get; set; }
+        public virtual ICollection<Question> CreatedQuestions { get; set; }
+        public virtual ICollection<Question> UpdatedQuestions { get; set; }
+
+     
 
         //Navigatation property Lesson assignment
         public virtual ICollection<LessonAssignment> CreatedLessonAssignments { get; set; }
         public virtual ICollection<LessonAssignment> UpdatedLessonAssignments { get; set; }
 
-        public virtual ICollection<LessonAssignmentSubmission> LessonAssignmentSubmissions { get; set; }
+       
 
         //Navigation property Student
         public virtual ICollection<Student> CreatedStudents { get; set; }
         public virtual ICollection<Student> UpdatedStudents { get; set; }
 
-       
-
         //Navigation property Lesson
         public virtual ICollection<Lesson> CreatedLessons { get; set; }
         public virtual ICollection<Lesson> UpdatedLessons { get; set; }
-
         public virtual ICollection<Lesson> OwnerLessons { get; set; }
 
         //Navigation property EssayStudentAnswer
@@ -95,9 +100,9 @@ namespace SchoolManagement.Model.Account
         public virtual ICollection<SubjectStream> UpdatedSubjectStreams { get; set; }
 
         //Navigation property HeadOfDepartment
-
         public virtual ICollection<HeadOfDepartment> CreatedHeadOfDepartments { get; set; }
-        public virtual ICollection<HeadOfDepartment> UpdatedHeadOfDepartments { get; set; }
+        public virtual ICollection<HeadOfDepartment> UpdatedHeadOfDepartments { get; set; } 
+        #endregion
 
 
 

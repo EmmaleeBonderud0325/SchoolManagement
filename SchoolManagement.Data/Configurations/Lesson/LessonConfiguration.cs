@@ -1,15 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using SchoolManagement.Data.Common;
-using SchoolManagement.Model.Account;
-using SchoolManagement.Model.Master;
+using SchoolManagement.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Data.Configurations.Master
+namespace SchoolManagement.Data.Configurations
 {
     public class LessonConfiguration : IEntityTypeConfiguration<Lesson>
     {
@@ -44,7 +43,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .IsRequired(true);
 
             builder.HasOne<User>(x => x.UpdatedBy)
-                .WithMany(u => u.CreatedLessons)
+                .WithMany(u => u.UpdatedLessons)
                 .HasForeignKey(f => f.UpdatedById)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
