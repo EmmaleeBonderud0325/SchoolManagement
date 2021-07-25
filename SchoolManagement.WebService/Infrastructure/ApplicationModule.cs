@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using Microsoft.AspNetCore.Http;
+using SchoolManagement.Business;
+using SchoolManagement.Business.Interfaces;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +26,10 @@ namespace SchoolManagement.WebService.Infrastructure
             builder.RegisterType<IdentityService>()
                 .As<IIdentityService>()
                 .SingleInstance();
+
+            builder.RegisterType<AuthService>()
+    .As<IAuthService>()
+    .InstancePerLifetimeScope();
 
         }
     }
