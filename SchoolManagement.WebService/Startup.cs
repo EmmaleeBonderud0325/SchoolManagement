@@ -89,20 +89,20 @@ namespace SchoolManagement.WebService
     {
         public static IServiceCollection AddCustomeDbContext(this IServiceCollection service,IConfiguration configuration)
         {
-            service.AddDbContext<MasterDbContext>(options =>
+            service.AddEntityFrameworkSqlServer().AddDbContext<MasterDbContext>(options =>
             {
-                options.UseLazyLoadingProxies();
-                options.UseSqlServer(configuration["MasterDbConnectionString"],
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(configuration["MasterDbConnectionString"],
                               sqlServerOptionsAction: sqlOptions =>
                               {
                                           sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                               });
             });
 
-            service.AddDbContext<SchoolManagementContext>(options =>
+            service.AddEntityFrameworkSqlServer().AddDbContext<SchoolManagementContext>(options =>
             {
-                options.UseLazyLoadingProxies();
-                options.UseSqlServer(configuration["SchoolDbConnectionString"],
+                options.UseLazyLoadingProxies()
+                .UseSqlServer(configuration["SchoolDbConnectionString"],
                               sqlServerOptionsAction: sqlOptions =>
                               {
                                   sqlOptions.EnableRetryOnFailure(maxRetryCount: 10, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);

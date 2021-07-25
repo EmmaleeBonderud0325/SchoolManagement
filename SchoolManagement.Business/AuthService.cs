@@ -33,7 +33,7 @@ namespace SchoolManagement.Business
             var response = new UserTokenViewModel();
 
             //Find the user using username and user should be active;
-            var user = schoolDb.Users.Where(x => x.IsActive == true).FirstOrDefault(u => u.Username.Trim().ToUpper() == model.Username.Trim().ToUpper());
+            var user = schoolDb.Users.FirstOrDefault(u => u.Username.Trim().ToUpper() == model.Username.Trim().ToUpper() && u.IsActive==true);
             //if user is null. Then return response with propert error messsage;
             if(user == null)
             {

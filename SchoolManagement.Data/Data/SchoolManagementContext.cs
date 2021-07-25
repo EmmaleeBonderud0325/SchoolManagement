@@ -38,6 +38,7 @@ namespace SchoolManagement.Data.Data
         {
             if (tenantSchool != null)
             {
+                optionsBuilder.UseLazyLoadingProxies();
                 optionsBuilder.UseSqlServer(tenantSchool.ConnectionString);
             }
 

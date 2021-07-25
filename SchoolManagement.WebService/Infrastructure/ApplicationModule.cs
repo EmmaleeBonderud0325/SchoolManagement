@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces;
+using SchoolManagement.Master.Data.Provider;
+using SchoolManagement.Util.Tenant;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -19,6 +21,10 @@ namespace SchoolManagement.WebService.Infrastructure
 
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TenantProvider>()
+                .As<ITenantProvider>()
+                .InstancePerDependency();
+
             builder.RegisterType<HttpContextAccessor>()
                 .As<IHttpContextAccessor>()
                 .SingleInstance();
@@ -28,8 +34,8 @@ namespace SchoolManagement.WebService.Infrastructure
                 .SingleInstance();
 
             builder.RegisterType<AuthService>()
-    .As<IAuthService>()
-    .InstancePerLifetimeScope();
+                .As<IAuthService>()
+                .InstancePerLifetimeScope();
 
         }
     }

@@ -1,0 +1,34 @@
+﻿BEGIN TRANSACTION;
+GO
+
+UPDATE [Account].[User] SET [CreatedOn] = '2021-07-25T17:56:49.4581572Z', [UpdatedOn] = '2021-07-25T17:56:49.4581830Z'
+WHERE [Id] = 1;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [Account].[User] SET [CreatedOn] = '2021-07-25T17:56:49.4582560Z', [UpdatedOn] = '2021-07-25T17:56:49.4582563Z'
+WHERE [Id] = 2;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-07-25T17:56:49.4683479Z', [UpdatedOn] = '2021-07-25T17:56:49.4683820Z'
+WHERE [RoleId] = 1 AND [UserId] = 1;
+SELECT @@ROWCOUNT;
+
+GO
+
+UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-07-25T17:56:49.4685038Z', [UpdatedOn] = '2021-07-25T17:56:49.4685041Z'
+WHERE [RoleId] = 2 AND [UserId] = 2;
+SELECT @@ROWCOUNT;
+
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20210725175652_Schoolmanagement00002', N'5.0.8');
+GO
+
+COMMIT;
+GO
+

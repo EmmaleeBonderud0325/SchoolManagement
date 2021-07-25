@@ -17,7 +17,7 @@ namespace SchoolManagement.Model
         public decimal Marks { get; set; }
         public string TeacherComments { get; set; }
 
-        public LessonAssignment LessonAssignment { get; set; }
-        public Student Student { get; set; }
+        public virtual LessonAssignment LessonAssignment { get; set; }
+        public virtual Student Student { get; set; }
     }
 }
