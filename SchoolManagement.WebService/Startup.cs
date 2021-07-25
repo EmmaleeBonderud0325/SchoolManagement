@@ -172,7 +172,7 @@ namespace SchoolManagement.WebService
                 {
                     Title = "School Management. - Web API",
                     Version = "v1",
-                    Description = "The web service for Dynami School Management System",
+                    Description = "The web service for Solis Tech(Pvt)Ltd. School Management System",
                     TermsOfService = new Uri("https://example.com/terms")
                 });
                 options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
