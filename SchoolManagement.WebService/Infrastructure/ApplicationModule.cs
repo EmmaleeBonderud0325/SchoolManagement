@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces;
+using SchoolManagement.Business.Master;
 using SchoolManagement.Master.Data.Provider;
 using SchoolManagement.Util.Tenant;
 using SchoolManagement.WebService.Infrastructure.Services;
@@ -37,6 +38,7 @@ namespace SchoolManagement.WebService.Infrastructure
                 .As<IAuthService>()
                 .InstancePerLifetimeScope();
 
+            
         }
     }
 }
