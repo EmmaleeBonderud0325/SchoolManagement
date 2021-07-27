@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Interfaces.MasterData
+namespace SchoolManagement.Business.Master
 {
-    public interface IClassTeacherService
+    public class StudentClassService
     {
     }
 }
