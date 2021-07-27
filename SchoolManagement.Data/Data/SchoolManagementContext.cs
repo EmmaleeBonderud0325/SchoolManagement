@@ -147,7 +147,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<StudentLessonTopic> StudentLessonTopics { get; set; }
-        public DbSet<StudentLessonTopicContenet> StudentLessonTopicContenet { get; set; }
+        public DbSet<StudentLessonTopicContent> StudentLessonTopicContenet { get; set; }
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }

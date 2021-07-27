@@ -27,7 +27,7 @@ namespace SchoolManagement.Model
 
         public virtual ICollection<StudentClass> StudentClasses { get; set; }
         public virtual ICollection<StudentLesson> StudentLessons { get; set; }
-        public virtual ICollection<StudentLessonTopicContenet> StudentLessonTopicContenets { get; set; }
+        public virtual ICollection<StudentLessonTopicContent> StudentLessonTopicContents { get; set; }
         public virtual ICollection<StudentLessonTopic> StudentLessonTopics { get; set; }
         public virtual ICollection<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public virtual ICollection<MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }

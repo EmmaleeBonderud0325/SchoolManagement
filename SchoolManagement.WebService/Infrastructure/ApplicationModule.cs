@@ -39,6 +39,8 @@ namespace SchoolManagement.WebService.Infrastructure
                 .As<IAuthService>()
                 .InstancePerLifetimeScope();
 
+            // Master Services
+
             builder.RegisterType<AcademicLevelService>()
                .As<IAcademicLevelService>()
                .InstancePerLifetimeScope();
