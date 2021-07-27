@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SchoolManagement.Data.Data;
 
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    partial class SchoolManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20210727084142_Schoolmanagement00003")]
+    partial class Schoolmanagement00003
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -872,7 +874,7 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("StudentLessonTopicContent", "Lesson");
+                    b.ToTable("StudentLessonTopicContenet", "Lesson");
                 });
 
             modelBuilder.Entity("SchoolManagement.Model.StudentMCQQuestion", b =>
@@ -1202,7 +1204,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 863, DateTimeKind.Utc).AddTicks(9758),
+                            CreatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 696, DateTimeKind.Utc).AddTicks(2598),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1211,13 +1213,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 863, DateTimeKind.Utc).AddTicks(9987),
+                            UpdatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 696, DateTimeKind.Utc).AddTicks(2859),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 864, DateTimeKind.Utc).AddTicks(641),
+                            CreatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 696, DateTimeKind.Utc).AddTicks(3970),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1226,7 +1228,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 864, DateTimeKind.Utc).AddTicks(643),
+                            UpdatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 696, DateTimeKind.Utc).AddTicks(3973),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1272,20 +1274,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 873, DateTimeKind.Utc).AddTicks(7133),
+                            CreatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 709, DateTimeKind.Utc).AddTicks(7913),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 873, DateTimeKind.Utc).AddTicks(7455)
+                            UpdatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 709, DateTimeKind.Utc).AddTicks(8255)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 873, DateTimeKind.Utc).AddTicks(8707),
+                            CreatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 709, DateTimeKind.Utc).AddTicks(9539),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 7, 27, 9, 29, 18, 873, DateTimeKind.Utc).AddTicks(8709)
+                            UpdatedOn = new DateTime(2021, 7, 27, 8, 41, 39, 709, DateTimeKind.Utc).AddTicks(9541)
                         });
                 });
 
