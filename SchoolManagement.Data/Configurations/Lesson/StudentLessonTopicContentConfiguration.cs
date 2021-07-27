@@ -14,7 +14,7 @@ namespace SchoolManagement.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<StudentLessonTopicContent> builder)
         {
-            builder.ToTable("StudentLessonTopicContenet", Schema.LESSON);
+            builder.ToTable("StudentLessonTopicContent", Schema.LESSON);
 
             builder.HasKey(x => new { x.TopicContentId, x.StudentId });
 
