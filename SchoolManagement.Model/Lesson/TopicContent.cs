@@ -18,7 +18,7 @@ namespace SchoolManagement.Model
 
         public virtual Topic Topic { get; set; }
 
-        public  virtual ICollection<StudentLessonTopicContenet> StudentLessonTopicContenets { get; set; }
+        public  virtual ICollection<StudentLessonTopicContent> StudentLessonTopicContents { get; set; }
 
     }
 }

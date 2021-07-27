@@ -9,6 +9,6 @@ namespace SchoolManagement.Business.Interfaces
 {
     public interface IAuthService 
     {
-        UserTokenViewModel Login(LoginViewModel model);
+        UserTokenViewModel Login (LoginViewModel model);
     }
 }

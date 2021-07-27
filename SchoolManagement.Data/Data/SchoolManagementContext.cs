@@ -46,12 +46,12 @@ namespace SchoolManagement.Data.Data
 
             else if (tenantSchool == null && !optionsBuilder.IsConfigured)
             {
-               //optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagement;User Id=av;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagement;User Id=av;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=LAPTOP-2UJGULUH\SQLEXPRESS;Database=SchoolManagement;User Id=hp;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=MSI\SQLEXPRESS;Database=SchoolManagment;User Id=ra;Password=1qaz2wsx@;");
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-33VQTC5\SQLEXPRESS;Database=SchoolManagement;User Id=cg;Password=1qaz2wsx@;");
+                //optionsBuilder.UseSqlServer(@"Server=DESKTOP-33VQTC5\SQLEXPRESS;Database=SchoolManagement;User Id=cg;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=LAPTOP-8I5H1L3D;Database=SchoolManagement;User Id=se;Password=1qaz2wsx@;");
-               // optionsBuilder.UseSqlServer(@"Server=LAPTOP-OLUMFMFF\SQLEXPRESS;Database=SchoolManagement;User Id=sc;Password=1qaz2wsx@;");
+                  optionsBuilder.UseSqlServer(@"Server=LAPTOP-OLUMFMFF\SQLEXPRESS;Database=SchoolManagement;User Id=sc;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-3JP4P3B\MSSQLSERVER01;Database=SchoolManagement;User Id=hn;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-JTSNI0P\SQLEXPRESS01;Database=SchoolManagement;User Id=dt;Password=1qaz2wsx@;");
             }
@@ -98,7 +98,7 @@ namespace SchoolManagement.Data.Data
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonTopicConfiguration());
-            modelBuilder.ApplyConfiguration(new StudentLessonTopicContenetConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentLessonTopicContentConfiguration());
             modelBuilder.ApplyConfiguration(new StudentMCQQuestionConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectAcademicLevelConfiguration());
             modelBuilder.ApplyConfiguration(new TopicConfiguration());
@@ -147,7 +147,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<StudentLessonTopic> StudentLessonTopics { get; set; }
-        public DbSet<StudentLessonTopicContenet> StudentLessonTopicContenet { get; set; }
+        public DbSet<StudentLessonTopicContent> StudentLessonTopicContent { get; set; }
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }

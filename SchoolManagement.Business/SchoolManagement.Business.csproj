@@ -10,9 +10,4 @@
     <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Interfaces\LessonData\" />
-    <Folder Include="Lesson\" />
-  </ItemGroup>
-
 </Project>
