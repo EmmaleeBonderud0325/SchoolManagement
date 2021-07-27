@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Lesson
 {
-    class StudentLessonService
+    public class StudentLessonService
     {
     }
 }

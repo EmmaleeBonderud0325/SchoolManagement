@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Http;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces;
+using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Business.Interfaces.MasterData;
+using SchoolManagement.Business.Lesson;
 using SchoolManagement.Business.Master;
 using SchoolManagement.Master.Data.Provider;
 using SchoolManagement.Util.Tenant;
@@ -96,6 +98,64 @@ namespace SchoolManagement.WebService.Infrastructure
             builder.RegisterType<SubjectTeacherService>()
               .As<ISubjectTeacherService>()
               .InstancePerLifetimeScope();
+
+            //Lesson Services
+
+            builder.RegisterType<EssayQuestionAnswerService>()
+             .As<IEssayQuestionAnswerService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<EssayStudentAnswerService>()
+             .As<IEssayStudentAnswerService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<LessonAssignmentService>()
+             .As<ILessonAssignmentService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<LessonAssignmentSubmissionService>()
+             .As<ILessonAssignmentSubmissionService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<LessonService>()
+             .As<ILessonService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<MCQQuestionAnswerService>()
+             .As<IMCQQuestionAnswerService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<MCQQuestionStudentAnswerService>()
+             .As<IMCQQuestionStudentAnswerService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<QuestionService>()
+             .As<QuestionService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<StudentLessonService>()
+             .As<IStudentLessonService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<StudentLessonTopicContentService>()
+             .As<IStudentLessonTopicContentService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<StudentLessonTopicService>()
+             .As<IStudentLessonTopicService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<StudentMCQQuestionService>()
+             .As<IStudentMCQQuestionService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<TopicContentService>()
+             .As<ITopicContentService>()
+             .InstancePerLifetimeScope();
+
+            builder.RegisterType<TopicService>()
+             .As<ITopicService>()
+             .InstancePerLifetimeScope();
 
 
         }

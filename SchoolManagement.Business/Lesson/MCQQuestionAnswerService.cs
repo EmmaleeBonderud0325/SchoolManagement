@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Lesson
 {
-    class MCQQuestionAnswerService
+    public class MCQQuestionAnswerService
     {
     }
 }
