@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Interfaces.MasterData
 {
-    interface IClassTeacherService
+    public interface IClassTeacherService
     {
     }
 }

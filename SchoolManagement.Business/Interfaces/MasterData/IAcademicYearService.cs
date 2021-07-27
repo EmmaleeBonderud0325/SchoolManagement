@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Master
+namespace SchoolManagement.Business.Interfaces.MasterData
 {
-    public class SubjectAcademicLevelServicecs
+    public interface IAcademicYearService
     {
     }
 }
