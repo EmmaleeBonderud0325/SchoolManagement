@@ -98,7 +98,7 @@ namespace SchoolManagement.Data.Data
             modelBuilder.ApplyConfiguration(new QuestionConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonConfiguration());
             modelBuilder.ApplyConfiguration(new StudentLessonTopicConfiguration());
-            modelBuilder.ApplyConfiguration(new StudentLessonTopicContenetConfiguration());
+            modelBuilder.ApplyConfiguration(new StudentLessonTopicContentConfiguration());
             modelBuilder.ApplyConfiguration(new StudentMCQQuestionConfiguration());
             modelBuilder.ApplyConfiguration(new SubjectAcademicLevelConfiguration());
             modelBuilder.ApplyConfiguration(new TopicConfiguration());
@@ -147,7 +147,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<Question> Questions { get; set; }
         public DbSet<StudentLesson> StudentLessons { get; set; }
         public DbSet<StudentLessonTopic> StudentLessonTopics { get; set; }
-        public DbSet<StudentLessonTopicContent> StudentLessonTopicContenet { get; set; }
+        public DbSet<StudentLessonTopicContent> StudentLessonTopicContent { get; set; }
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }

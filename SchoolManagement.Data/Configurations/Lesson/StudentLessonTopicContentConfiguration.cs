@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Data.Configurations
 {
-    public class StudentLessonTopicContenetConfiguration : IEntityTypeConfiguration<StudentLessonTopicContent>
+    public class StudentLessonTopicContentConfiguration : IEntityTypeConfiguration<StudentLessonTopicContent>
     {
         public void Configure(EntityTypeBuilder<StudentLessonTopicContent> builder)
         {
