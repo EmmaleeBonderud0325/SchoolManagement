@@ -21,9 +21,9 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(UserViewModel vm)
+        public ActionResult SaveUser(UserViewModel vm, string userName)
         {
-            var response = userService.SaveUser(vm);
+            var response = userService.SaveUser(vm, userName);
             return Ok(response);
         }
     }

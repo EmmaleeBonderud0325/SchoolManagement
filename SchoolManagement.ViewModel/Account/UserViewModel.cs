@@ -9,6 +9,10 @@ namespace SchoolManagement.ViewModel.Account
 {
     public class UserViewModel
     {
+        public UserViewModel()
+        {
+            Roles = new List<RoleViewModel>();
+        }
         public int Id { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
@@ -20,7 +24,7 @@ namespace SchoolManagement.ViewModel.Account
         public string Address { get; set; }
         public int LoginSessionId { get; set; }
         public bool IsActive { get; set; }
-        public List<Role> Roles { get; set; }
+        public List<RoleViewModel> Roles { get; set; }
         public DateTime CreatedOn { get; set; }
         public int? CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
