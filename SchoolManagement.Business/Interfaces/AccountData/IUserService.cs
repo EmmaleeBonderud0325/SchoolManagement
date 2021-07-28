@@ -10,6 +10,6 @@ namespace SchoolManagement.Business.Interfaces.AccountData
 {
     public interface IUserService
     {
-        Task<ResponseViewModel> AddUser(UserViewModel vm);
+        Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName);
     }
 }
