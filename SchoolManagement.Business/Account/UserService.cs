@@ -33,35 +33,45 @@ namespace SchoolManagement.Business
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
-            var results = query.ToList();
+            var UserList = query.ToList();
 
-            foreach(var users in results)
+            foreach(var user in UserList)
             {
+                var vm = new UserViewModel
+                {
+                    Id = user.Id,
+                    
+                };
 
+                response.Add(vm);
             }
 
             return response;
         }
 
-        /* public User GetUserByUsername(string userName)
-         {
-             var user = schoolDb.Users.FirstOrDefault(x => x.Username.ToLower() == userName.ToLower());
+        //public User GetUserByUsername(string userName)
+        // {
+        //     var user = schoolDb.Users.FirstOrDefault(x => x.Username.ToLower() == userName.ToLower());
 
-             return user;
-         }*/
+        //     return user;
+        // }
 
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
             try
-            {               
+            {
+                var loggedInUser = schoolDb.Users.FirstOrDefault(x => x.Username.Trim().ToUpper() == userName.Trim().ToUpper());
+
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == vm.Id);
-              //  var CreatedUser = GetUserByUsername(userName);
+              
+                var getUserRoles = schoolDb.Roles.FirstOrDefault(x => x.IsActive == true);
+             
 
                 if (user == null)
                 {
-                    var managementLevelUser = new User()
+                    user = new User()
                     {
                         Id = vm.Id,
                         FullName = vm.FullName,
@@ -72,38 +82,76 @@ namespace SchoolManagement.Business
                         Password = CustomPasswordHasher.GenerateHash(vm.Password),
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
                     };
 
-                    managementLevelUser.UserRoles = new List<UserRole>();
+                    user.UserRoles = new HashSet<UserRole>();
 
-                    foreach(var roleId in vm.Roles)
+                    foreach (var item in vm.Roles.Where(x=>x.IsCheck))
                     {
                         var userRole = new UserRole()
                         {
+                            RoleId = item.Id,
                             IsActive = true,
-                            RoleId = roleId.Id,
-                            CreatedOn = DateTime.UtcNow,
-                           // CreatedById = CreatedUser.Id,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn=DateTime.UtcNow,
+                            UpdatedById= loggedInUser.Id,
+                            UpdatedOn= DateTime.UtcNow
                         };
-                        managementLevelUser.UserRoles.Add(userRole);
+
+                        user.UserRoles.Add(userRole);
                     }
-                   
 
-                    schoolDb.Users.Add(managementLevelUser);
-                    await schoolDb.SaveChangesAsync();
-
-                    
+                    schoolDb.Users.Add(user);
 
                     response.IsSuccess = true;
-                    response.Message = "Mangement Level User Added Successfull.";
-
-                    
+                    response.Message = "Mangement Level User Added Successfull.";                    
                 }
                 else
                 {
+                    user.Address = vm.Address;
+                    user.FullName = vm.FullName;
+                    user.Email = vm.Email;
+                    user.MobileNo = vm.MobileNo;
+                    user.UpdatedById = loggedInUser.Id;
+                    user.UpdatedOn = DateTime.UtcNow;
+
+                    var existingRoles = user.UserRoles.ToList();
+                    var selectedRols = vm.Roles.Where(x => x.IsCheck).ToList();
+
+                    var newRoles = (from r in selectedRols where !existingRoles.Any(x => x.RoleId == r.Id) select r).ToList();
+
+                    var deletedRoles = (from r in existingRoles where selectedRols.Any(x => x.Id == r.RoleId) select r).ToList();
+
+                    foreach (var item in newRoles)
+                    {
+                        var userRole = new UserRole()
+                        {
+                            RoleId = item.Id,
+                            IsActive = true,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = loggedInUser.Id,
+                            UpdatedOn = DateTime.UtcNow
+                        };
+
+                        user.UserRoles.Add(userRole);
+                    }
+
+                    foreach(var deletedRole in deletedRoles)
+                    {
+                        user.UserRoles.Remove(deletedRole);
+                    }
+
+                    schoolDb.Users.Update(user);
 
                 }
-            }catch (Exception ex)
+
+                await schoolDb.SaveChangesAsync();
+            }
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.ToString();
