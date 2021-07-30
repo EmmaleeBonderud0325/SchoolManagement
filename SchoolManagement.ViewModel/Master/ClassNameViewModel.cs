@@ -9,7 +9,13 @@ namespace SchoolManagement.ViewModel.Master
 {
     class ClassNameViewModel
     {
-        public string Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public int CreatedById { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public int UpdatedById { get; set; }
     }
 }
