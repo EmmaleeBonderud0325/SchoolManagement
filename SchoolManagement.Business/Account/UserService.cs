@@ -27,12 +27,28 @@ namespace SchoolManagement.Business
             this.config = config;
         }
 
-        public User GetUserByUsername(string userName)
+        public List<UserViewModel> GetAllUsers()
         {
-            var user = schoolDb.Users.FirstOrDefault(x => x.Username.ToLower() == userName.ToLower());
+            var response =  new List<UserViewModel>();
 
-            return user;
+            var query = schoolDb.Users.Where(u => u.IsActive == true);
+
+            var results = query.ToList();
+
+            foreach(var users in results)
+            {
+
+            }
+
+            return response;
         }
+
+        /* public User GetUserByUsername(string userName)
+         {
+             var user = schoolDb.Users.FirstOrDefault(x => x.Username.ToLower() == userName.ToLower());
+
+             return user;
+         }*/
 
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
@@ -41,7 +57,7 @@ namespace SchoolManagement.Business
             try
             {               
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == vm.Id);
-                var CreatedUser = GetUserByUsername(userName);
+              //  var CreatedUser = GetUserByUsername(userName);
 
                 if (user == null)
                 {
@@ -58,7 +74,7 @@ namespace SchoolManagement.Business
                         CreatedOn = DateTime.UtcNow,
                     };
 
-                    user.UserRoles = new List<UserRole>();
+                    managementLevelUser.UserRoles = new List<UserRole>();
 
                     foreach(var roleId in vm.Roles)
                     {
@@ -67,17 +83,21 @@ namespace SchoolManagement.Business
                             IsActive = true,
                             RoleId = roleId.Id,
                             CreatedOn = DateTime.UtcNow,
-                            CreatedById = CreatedUser.Id,
+                           // CreatedById = CreatedUser.Id,
                         };
+                        managementLevelUser.UserRoles.Add(userRole);
                     }
                    
-                  
+
+                    schoolDb.Users.Add(managementLevelUser);
+                    await schoolDb.SaveChangesAsync();
+
+                    
 
                     response.IsSuccess = true;
                     response.Message = "Mangement Level User Added Successfull.";
 
-                    schoolDb.Users.Add(managementLevelUser);
-                    await schoolDb.SaveChangesAsync();
+                    
                 }
                 else
                 {
