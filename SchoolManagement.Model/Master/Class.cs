@@ -13,13 +13,8 @@ namespace SchoolManagement.Model
 		public int AcademicYearId { get; set; }
 		public string Name { get; set; }
 		public ClassCategory ClassCategory { get; set; }
-		public string LanguageStream { get; set; }
-		public int CreatedById { get; set; }
-		public DateTime UpdatedOn { get; set; }
-		public int UpdatedById { get; set; }
-
-		public virtual User CreatedBy { get; set; }
-		public virtual User UpdatedBy { get; set; }
+		public LanguageStream LanguageStream { get; set; }
+		
 
 		public virtual ClassName ClassName { get; set; }
 		public virtual AcademicLevel AcademicLevel { get; set; }
