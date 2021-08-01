@@ -32,9 +32,6 @@ namespace SchoolManagement.Model
 		public virtual ICollection<StudentClass> StudentClasses { get; set; }
 		public virtual ICollection<Lesson> Lessons { get; set; }
 
-        public static implicit operator Class(Class v)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

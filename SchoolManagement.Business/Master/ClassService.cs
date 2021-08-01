@@ -60,7 +60,7 @@ namespace SchoolManagement.Business.Master
                     classes.ClassCategory = vm.ClassCategory;
                     classes.LanguageStream = vm.LanguageStream;
                     classes.UpdatedOn = DateTime.UtcNow;
-                    classes.UpdatedById = vm.UpdatedById;
+                   // classes.UpdatedById = vm.UpdatedById;
 
                     schoolDb.Classes.Update(classes);
                 }
