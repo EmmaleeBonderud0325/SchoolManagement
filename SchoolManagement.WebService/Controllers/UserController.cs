@@ -27,7 +27,7 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Post([FromBody]UserViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = userService.SaveUser(vm, userName);
+            var response = await userService.SaveUser(vm, userName);
             return Ok(response);
         }
 
