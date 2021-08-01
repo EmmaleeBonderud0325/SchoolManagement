@@ -19,12 +19,14 @@ namespace SchoolManagement.Business
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public UserService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public UserService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
         }
 
         public List<UserViewModel> GetAllUsers()
@@ -67,7 +69,7 @@ namespace SchoolManagement.Business
 
             try
             {
-                var loggedInUser = schoolDb.Users.FirstOrDefault(x => x.Username.Trim().ToUpper() == userName.Trim().ToUpper());
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == vm.Id);
               
