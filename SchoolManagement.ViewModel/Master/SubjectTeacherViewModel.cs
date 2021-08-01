@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Master
 {
-    class SubjectTeacherViewModel
+    public class SubjectTeacherViewModel
     {
         public int Id { get; set; }
         public int AcademicLevelId { get; set; }
