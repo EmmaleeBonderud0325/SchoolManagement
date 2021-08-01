@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Master
 {
-    class SubjectViewModel
+    public class SubjectViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
