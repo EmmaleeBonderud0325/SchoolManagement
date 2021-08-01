@@ -26,5 +26,12 @@ namespace SchoolManagement.WebService.Controllers
             var response = userService.SaveUser(vm, userName);
             return Ok(response);
         }
+
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            var response = userService.GetAllUsers();
+            return Ok(response);
+        }
     }
 }
