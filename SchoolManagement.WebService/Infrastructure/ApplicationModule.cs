@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces;
+using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Business.Lesson;
@@ -40,6 +41,10 @@ namespace SchoolManagement.WebService.Infrastructure
             builder.RegisterType<AuthService>()
                 .As<IAuthService>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<UserService>()
+               .As<IUserService>()
+               .InstancePerLifetimeScope();
 
             // Master Services
 

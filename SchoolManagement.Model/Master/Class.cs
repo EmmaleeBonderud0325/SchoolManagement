@@ -13,13 +13,15 @@ namespace SchoolManagement.Model
 		public int AcademicYearId { get; set; }
 		public string Name { get; set; }
 		public ClassCategory ClassCategory { get; set; }
-		public string LanguageStream { get; set; }
+		public LanguageStream LanguageStream { get; set; }
+		public DateTime CreatedOn { get; set; }
 		public int CreatedById { get; set; }
 		public DateTime UpdatedOn { get; set; }
 		public int UpdatedById { get; set; }
 
 		public virtual User CreatedBy { get; set; }
 		public virtual User UpdatedBy { get; set; }
+
 
 		public virtual ClassName ClassName { get; set; }
 		public virtual AcademicLevel AcademicLevel { get; set; }
@@ -29,5 +31,7 @@ namespace SchoolManagement.Model
 		public virtual ICollection<ClassTeacher> ClassTeachers { get; set; }
 		public virtual ICollection<StudentClass> StudentClasses { get; set; }
 		public virtual ICollection<Lesson> Lessons { get; set; }
-	}
+
+        
+    }
 }
