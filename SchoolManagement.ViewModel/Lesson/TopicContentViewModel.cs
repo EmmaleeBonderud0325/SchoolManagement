@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Lesson
 {
-    public class EssayQuestionAnswerViewModel
+    class TopicContentViewModel
     {
         public int Id { get; set; }
-        public int QuestionId { get; set; }
-        public string AnswerText { get; set; }
-        public DateTime ModifiedOn { get; set; }
+        public int TopicId { get; set; }
+        public string Introduction { get; set; }
+      
+        public string Content { get; set; }
         public DateTime CreatedOn { get; set; }
+        public DateTime UpdatedOn { get; set; }
     }
 }
