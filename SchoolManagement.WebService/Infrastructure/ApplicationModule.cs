@@ -92,9 +92,9 @@ namespace SchoolManagement.WebService.Infrastructure
             //  .As<ISubjectAcademicLevelService>()
             //  .InstancePerLifetimeScope();
 
-            //builder.RegisterType<SubjectService>()
-            //  .As<ISubjectService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<SubjectService>()
+              .As<ISubjectService>()
+              .InstancePerLifetimeScope();
 
             //builder.RegisterType<SubjectStreamService>()
             //  .As<ISubjectStreamService>()
