@@ -7,19 +7,13 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Master
 {
-    class ClassViewModel
-    {
-		public string ClassNameId { get; set; }
-		public string AcademicLevelId { get; set; }
-		public string AcademicYearId { get; set; }
+	public class ClassViewModel
+	{
+		public int ClassNameId { get; set; }
+		public int AcademicLevelId { get; set; }
+		public int AcademicYearId { get; set; }
 		public string Name { get; set; }
-		public List<string> ClassCategory { get; set; }
-		public List<string> LanguageStream { get; set; }
-		public bool IsActive { get; set; }
-		public string Description { get; set; }
-		public DateTime CreatedOn { get; set; }
-		public int? CreatedById { get; set; }
-		public DateTime UpdatedOn { get; set; }
-		public int? UpdatedById { get; set; }
+		public ClassCategory ClassCategory { get; set; }
+		public LanguageStream LanguageStream { get; set; }
 	}
 }
