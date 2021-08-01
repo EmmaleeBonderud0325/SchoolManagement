@@ -26,7 +26,7 @@ namespace SchoolManagement.Data.Configurations.Master
                 .WithMany(c => c.ChildBasketSubjects)
                 .HasForeignKey(f => f.ParentBasketSubjectId)
                 .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(true);
+                .IsRequired(false);
 
             builder.HasOne<SubjectStream>(x => x.SubjectStream)
                 .WithMany(s => s.Subjects)

@@ -40,6 +40,11 @@ namespace SchoolManagement.Business
                 var vm = new UserViewModel
                 {
                     Id = user.Id,
+                    FullName = user.FullName,
+                    Username = user.Username,
+                    Address = user.Address,
+                    Email = user.Email,
+                    MobileNo = user.MobileNo,
                     
                 };
 
@@ -135,7 +140,7 @@ namespace SchoolManagement.Business
                             CreatedOn = DateTime.UtcNow,
                             UpdatedById = loggedInUser.Id,
                             UpdatedOn = DateTime.UtcNow
-                        };
+                        };   
 
                         user.UserRoles.Add(userRole);
                     }

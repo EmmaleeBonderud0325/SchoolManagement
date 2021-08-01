@@ -36,18 +36,17 @@ namespace SchoolManagement.Data.Configurations.Master
              .OnDelete(DeleteBehavior.Restrict)
              .IsRequired(true);
 
-            builder.HasOne<User>(x => x.CreatedBy)
-              .WithMany(u => u.CreatedClasses)
-              .HasForeignKey(f => f.CreatedById)
-              .OnDelete(DeleteBehavior.Restrict)
-              .IsRequired(true);
+            builder.HasOne<User>(u => u.CreatedBy)
+             .WithMany(cl => cl.CreatedClasses)
+             .HasForeignKey(f => f.CreatedById)
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
 
-            builder.HasOne<User>(x => x.UpdatedBy)
-                .WithMany(u => u.UpdatedClasses)
-                .HasForeignKey(f => f.UpdatedById)
-                .OnDelete(DeleteBehavior.Restrict)
-                .IsRequired(true);
-
+            builder.HasOne<User>(u => u.UpdatedBy)
+             .WithMany(cl => cl.UpdatedClasses)
+             .HasForeignKey(f => f.UpdatedById)
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
         }
     }
 }
