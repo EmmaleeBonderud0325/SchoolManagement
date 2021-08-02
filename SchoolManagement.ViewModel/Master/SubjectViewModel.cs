@@ -18,6 +18,7 @@ namespace SchoolManagement.ViewModel.Master
         public int? ParentBasketSubjectId { get; set; }
         public int SubjectStreamId { get; set; }
         public bool IsActive { get; set; }
-    
+       
+
     }
 }
