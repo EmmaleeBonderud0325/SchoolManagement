@@ -38,6 +38,10 @@ namespace SchoolManagement.WebService.Infrastructure
                  .As<IIdentityService>()
                  .SingleInstance();
 
+            builder.RegisterType<CurrentUserService>()
+               .As<ICurrentUserService>()
+               .InstancePerLifetimeScope();
+
             builder.RegisterType<AuthService>()
                 .As<IAuthService>()
                 .InstancePerLifetimeScope();
