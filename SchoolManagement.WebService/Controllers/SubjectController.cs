@@ -38,6 +38,13 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await subjectService.DeleteSubject(id);
+            return Ok(response);
+        }
+
 
     }
 }

@@ -11,7 +11,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     public interface ISubjectService
     {
         List<SubjectViewModel> GetAllSubjects();
-
         Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName);
+        Task<ResponseViewModel> DeleteSubject(int id);
     }
 }
