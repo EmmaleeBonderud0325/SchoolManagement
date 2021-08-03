@@ -44,7 +44,7 @@ namespace SchoolManagement.Business.Lesson
                         Id = vm.Id,
                         LessonId = vm.LessonId,
                         TopicId = vm.TopicId,
-                        SequnceNo = vm.SequnceNo,
+                        SequenceNo = vm.SequnceNo,
                         QuestionText = vm.QuestionText,
                         Marks = vm.Marks,
                         //DifficultyLevel = vm.DifficultyLevel,
