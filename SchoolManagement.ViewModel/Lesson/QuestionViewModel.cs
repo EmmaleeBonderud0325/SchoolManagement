@@ -16,7 +16,7 @@ namespace SchoolManagement.ViewModel.Lesson
         public int Id { get; set; }
         public int LessonId { get; set; }
         public int? TopicId { get; set; }
-        public int SequnceNo { get; set; }
+        public int SequenceNo { get; set; }
         public string QuestionText { get; set; }
         public decimal Marks { get; set; }
         public List<string> DifficultyLevel { get; set; }
