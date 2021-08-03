@@ -28,6 +28,35 @@ namespace SchoolManagement.Business.Lesson
             this.currentUserService = currentUserService;
         }
 
+        public List<QuestionViewModel> GetAllQuestions() 
+        {
+            var response = new List<QuestionViewModel>();
+            var query = schoolDb.Questions.Where(u => u.IsActive == true);
+            var QuestionList = query.ToList();
+
+            foreach (var Question in QuestionList) 
+            {
+                var vm = new QuestionViewModel
+                {
+                    Id = Question.Id,
+                    LessonId = Question.LessonId,
+                    TopicId = Question.TopicId,
+                    SequnceNo = Question.SequnceNo,
+                    QuestionText = Question.QuestionText,
+                    Marks = Question.Marks,
+                    //DifficultyLevel = Question.DifficultyLevel,
+                    //QuestionType = Question.QuestionType,
+                    IsActive = Question.IsActive,
+                    CreateOn = Question.CreateOn,
+                    CreatedById = Question.CreatedById,
+                    UpdateOn = Question.UpdateOn,
+                    UpdatedById = Question.UpdatedById
+                };
+                response.Add(vm);
+            }
+            return response;
+        }
+
         public async Task <ResponseViewModel> SaveQuestion (QuestionViewModel vm, string userName)
         {
             var respone = new ResponseViewModel();
@@ -50,9 +79,9 @@ namespace SchoolManagement.Business.Lesson
                         //DifficultyLevel = vm.DifficultyLevel,
                         //QuestionType = vm.QuestionType,
                         IsActive = vm.IsActive,
-                        CreateOn = vm.CreateOn,
+                        CreateOn = DateTime.UtcNow,
                         CreatedById = vm.CreatedById,
-                        UpdateOn = vm.UpdateOn,
+                        UpdateOn = DateTime.UtcNow,
                         UpdatedById = vm.UpdatedById
                     };
 

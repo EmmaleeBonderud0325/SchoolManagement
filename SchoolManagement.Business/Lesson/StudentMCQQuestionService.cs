@@ -28,6 +28,27 @@ namespace SchoolManagement.Business.Lesson
             this.currentUserService = currentUserService;
         }
 
+        public List<StudentMCQQuestionViewModel> GetAllStudentMCQQuestions()
+        {
+            var response = new List<StudentMCQQuestionViewModel>();
+            var query = schoolDb.StudentMCQQuestions.Where(u => u.IsCorrectAnswer == true);
+            var StudentMCQQuestionList = query.ToList();
+
+            foreach (var StudentMCQQuestion in StudentMCQQuestionList) 
+            {
+                var vm = new StudentMCQQuestionViewModel
+                {
+                    QuestionId = StudentMCQQuestion.QuestionId,
+                    StudentId = StudentMCQQuestion.StudentId,
+                    TeacherComments = StudentMCQQuestion.TeacherComments,
+                    Marks = StudentMCQQuestion.Marks,
+                    IsCorrectAnswer = StudentMCQQuestion.IsCorrectAnswer
+                };
+                response.Add(vm);
+            }
+            return response;
+        }
+
         public async Task<ResponseViewModel> SaveStudentMCQQuestion(StudentMCQQuestionViewModel vm, string userName)
         {
             var respone = new ResponseViewModel();

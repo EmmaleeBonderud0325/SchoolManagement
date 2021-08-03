@@ -11,5 +11,6 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     public interface IQuestionService
     {
         Task<ResponseViewModel> SaveQuestion(QuestionViewModel vm, string userName);
+        List<QuestionViewModel> GetAllQuestions();
     }
 }
