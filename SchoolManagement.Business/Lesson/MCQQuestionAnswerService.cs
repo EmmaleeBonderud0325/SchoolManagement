@@ -28,6 +28,29 @@ namespace SchoolManagement.Business.Lesson
             this.currentUserService = currentUserService;
         }
 
+        public List<MCQQuestionAnswerViewModel> GetAllMCQQuestionAnswer()
+        {
+            var response = new List<MCQQuestionAnswerViewModel>();
+            var query = schoolDb.MCQQuestionAnswers.Where(u => u.IsCorrectAnswer == true);
+            var MCQQuestionAnswerList = query.ToList();
+
+            foreach (var MCQQuestionAnswer in MCQQuestionAnswerList)
+            {
+                var vm = new MCQQuestionAnswerViewModel
+                {
+                    Id = MCQQuestionAnswer.Id,
+                    QuestionId = MCQQuestionAnswer.QuestionId,
+                    AnswerText = MCQQuestionAnswer.AnswerText,
+                    SequenceNo = MCQQuestionAnswer.SequenceNo,
+                    IsCorrectAnswer = MCQQuestionAnswer.IsCorrectAnswer,
+                    ModifiedDate = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
+                };
+                response.Add(vm);
+            }
+            return response;
+        }
+
         public async Task<ResponseViewModel> SaveMCQQuestionAnswer(MCQQuestionAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -46,8 +69,8 @@ namespace SchoolManagement.Business.Lesson
                         AnswerText = vm.AnswerText,
                         SequenceNo = vm.SequenceNo,
                         IsCorrectAnswer = vm.IsCorrectAnswer,
-                        ModifiedDate = vm.ModifiedDate,
-                        CreatedOn = vm.CreatedOn
+                        ModifiedDate = DateTime.UtcNow,
+                        CreatedOn = DateTime.UtcNow
                     };
 
                     schoolDb.MCQQuestionAnswers.Add(MCQQuestionAnswers);

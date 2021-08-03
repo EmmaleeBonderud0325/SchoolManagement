@@ -18,15 +18,44 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public EssayStudentAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public EssayStudentAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
         }
 
-        public async Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName)
+        public List<EssayStudentAnswerViewModel> GetAllEssayStudentAnswers()
+        {
+            var response = new List<EssayStudentAnswerViewModel>();
+
+            var query = schoolDb.EssayStudentAnswers.Where(u => u.StudentId == 123);
+
+            var EssayStudentAnswerList = query.ToList();
+
+            foreach (var essaystudentanswer in EssayStudentAnswerList)
+            {
+                var vm = new EssayStudentAnswerViewModel
+                {
+ 
+                    QuestionId = essaystudentanswer.QuestionId,
+                    StudentId = essaystudentanswer.StudentId,
+                    //EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
+                    // AnswerText = essaystudentanswer.AnswerText,
+                    TeacherComments = essaystudentanswer.TeacherComments,
+                    Marks = essaystudentanswer.Marks
+                };
+
+                response.Add(vm);
+            }
+
+            return response;
+        }
+
+            public async Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -36,14 +65,17 @@ namespace SchoolManagement.Business.Lesson
 
                 var EssayStudentAnswers = schoolDb.EssayStudentAnswers.FirstOrDefault(x => x.QuestionId == vm.QuestionId);
 
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
 
                 if (EssayStudentAnswers == null)
                     
                 {
                     EssayStudentAnswers = new EssayStudentAnswer()
                     {
-                        //QuestionId = vm.QuestionId,
-                        //StudentId = vm.StudentId,
+                        QuestionId = vm.QuestionId,
+                        StudentId = vm.StudentId,
+                        //EssayQuestionAnswerId = vm.EssayQuestionAnswerId,
                         //AnswerText = vm.AnswerText,
                         TeacherComments = vm.TeacherComments,
                         Marks = vm.Marks

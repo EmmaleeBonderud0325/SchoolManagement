@@ -18,15 +18,45 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public LessonAssignmentService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public LessonAssignmentService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService; 
         }
 
-        public async Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName)
+        public List<LessonAssignmentViewModel> GetAllLessonAssignments()
+        {
+            var response = new List<LessonAssignmentViewModel>();
+
+            var query = schoolDb.LessonAssignments.Where(u => u.IsActive == true);
+
+            var LessonAssignmentList = query.ToList();
+
+            foreach(var lessonassignment in LessonAssignmentList)
+            {
+                var vm = new LessonAssignmentViewModel
+                {
+                    Id = lessonassignment.Id,
+                    LessonId = lessonassignment.LessonId,
+                    Name = lessonassignment.Name,
+                    Descripstion = lessonassignment.Descripstion,
+                    IsActive = lessonassignment.IsActive,
+                    CreatedOn = lessonassignment.CreatedOn,
+                    CreatedById = lessonassignment.CreatedById,
+                    UpdatedOn = lessonassignment.UpdatedOn,
+                    UpdatedById = lessonassignment.UpdatedById
+                };
+
+                response.Add(vm);
+            }
+            return response;
+    }
+
+    public async Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -35,6 +65,8 @@ namespace SchoolManagement.Business.Lesson
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
 
                 var LessonAssignments = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == vm.Id);
+
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
 
                 if (LessonAssignments == null)
