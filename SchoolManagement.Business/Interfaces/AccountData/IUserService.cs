@@ -12,8 +12,8 @@ namespace SchoolManagement.Business.Interfaces.AccountData
     public interface IUserService
     {
         Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName);
-        //User GetUserByUsername(string userName);
         List<UserViewModel> GetAllUsers();
+        Task<ResponseViewModel> DeleteUser(int id);
 
     }
 }
