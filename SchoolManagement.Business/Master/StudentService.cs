@@ -28,11 +28,27 @@ namespace SchoolManagement.Business.Master
         {
             var response = new List<StudentViewModel>();
 
-            var query = schoolDb.Students;
+            var query = schoolDb.Students.Where(u => u.IsActive == true);
 
             var StudentList = query.ToList();
 
+            foreach (var Student in StudentList)
+            {
+                var viewModelOb = new StudentViewModel
+                {
+                    Id = Student.Id,
+                    AdmissionNo = Student.AdmissionNo,
+                    EmegencyContactNo1 = Student.EmegencyContactNo1,
+                    EmegencyContactNo2 = Student.EmegencyContactNo2,
+                    Gender = Student.Gender,
+                    DateOfBirth = Student.DateOfBirth,
+                    IsActive = Student.IsActive,
+                };
 
+                response.Add(viewModelOb);
+            }
+
+            return response;
         }
     }
 }

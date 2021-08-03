@@ -12,32 +12,30 @@ namespace SchoolManagement.WebService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubjectController : ControllerBase
+    public class ClassNameController : ControllerBase
     {
-        private readonly ISubjectService subjectService;
+        private readonly IClassNameService classNameService;
         private readonly IIdentityService identityService;
 
-        public SubjectController(ISubjectService subjectService, IIdentityService identityService)
+        public ClassNameController(IClassNameService classNameService, IIdentityService identityService)
         {
-            this.subjectService = subjectService;
+            this.classNameService = classNameService;
             this.identityService = identityService;
         }
 
         [HttpGet]
-        public ActionResult GetAllSubjects()
+        public ActionResult GetAllClassNames()
         {
-            var response = subjectService.GetAllSubjects();
+            var response = classNameService.GetAllClassNames();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] SubjectViewModel vm)
+        public async Task<ActionResult> Post([FromBody] ClassNameViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = await subjectService.SaveSubject(vm, userName);
+            var response = await classNameService.SavaClassName(vm, userName);
             return Ok(response);
         }
-
-
     }
 }
