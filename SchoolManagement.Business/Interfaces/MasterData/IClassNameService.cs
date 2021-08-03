@@ -10,6 +10,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
 {
     public interface IClassNameService
     {
+        List<ClassNameViewModel> GetAllClassNames();
         Task<ResponseViewModel> SavaClassName(ClassNameViewModel vm, string userName);
 
     }

@@ -11,5 +11,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     public interface IEssayStudentAnswerService
     {
         Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName);
+
+        List<EssayStudentAnswerViewModel> GetAllEssayStudentAnswers();
     }
 }

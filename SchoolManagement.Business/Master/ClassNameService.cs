@@ -19,12 +19,42 @@ namespace SchoolManagement.Business.Master
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public ClassNameService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public ClassNameService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
+        }
+
+        public List<ClassNameViewModel> GetAllClassNames()
+        {
+            var response = new List<ClassNameViewModel>();
+
+            var query = schoolDb.ClassNames.Where(u => u.IsActive == true);
+
+            var ClassNameList = query.ToList();
+
+            foreach (var classname in ClassNameList)
+            {
+                var vm = new ClassNameViewModel
+                {
+                    Id = classname.Id,
+                    Name = classname.Name,
+                    Description = classname.Description,
+                    IsActive = classname.IsActive,
+                    CreatedOn = classname.CreatedOn,
+                    CreatedById = classname.CreatedById,
+                    UpdatedOn = classname.UpdatedOn,
+                    UpdatedById = classname.UpdatedById,
+                };
+
+                response.Add(vm);
+            }
+
+            return response;
         }
 
         public async Task <ResponseViewModel> SavaClassName(ClassNameViewModel vm, string userName)

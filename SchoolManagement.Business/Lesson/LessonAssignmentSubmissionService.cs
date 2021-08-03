@@ -18,14 +18,43 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public LessonAssignmentSubmissionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public LessonAssignmentSubmissionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
         }
 
+
+        public List<LessonAssignmentSubmissionViewModel> GetAllLessonAssignmentSubmissions()
+        {
+            var response = new List<LessonAssignmentSubmissionViewModel>();
+
+            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.StudentId == 123);
+
+            var LessonAssignmentSubmissionList = query.ToList();
+
+            foreach (var lessonassignmentsubmission in LessonAssignmentSubmissionList)
+            {
+                var vm = new LessonAssignmentSubmissionViewModel
+                {
+                    Id = lessonassignmentsubmission.Id,
+                    LessonAssignmentId = lessonassignmentsubmission.LessonAssignmentId,
+                    StudentId = lessonassignmentsubmission.StudentId,
+                    SubmissionPath = lessonassignmentsubmission.SubmissionPath,
+                    SubmissionDate = lessonassignmentsubmission.SubmissionDate,
+                    Marks = lessonassignmentsubmission.Marks,
+                    TeacherComments = lessonassignmentsubmission.TeacherComments
+                };
+
+                response.Add(vm);
+            }
+            return response;
+
+        }
         public async Task<ResponseViewModel> SaveLessonAssignmentSubmission(LessonAssignmentSubmissionViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -35,6 +64,8 @@ namespace SchoolManagement.Business.Lesson
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
 
                 var LessonAssignmentSubmissions = schoolDb.LessonAssignmentSubmissions.FirstOrDefault(x => x.Id == vm.Id);
+
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
 
                 if (LessonAssignmentSubmissions == null)

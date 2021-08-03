@@ -11,5 +11,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     public interface ILessonAssignmentSubmissionService
     {
         Task<ResponseViewModel> SaveLessonAssignmentSubmission(LessonAssignmentSubmissionViewModel vm, string userName);
+
+        List<LessonAssignmentSubmissionViewModel> GetAllLessonAssignmentSubmissions();
     }
 }

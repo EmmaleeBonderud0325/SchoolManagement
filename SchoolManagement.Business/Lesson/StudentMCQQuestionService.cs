@@ -18,12 +18,35 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public StudentMCQQuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public StudentMCQQuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
+        }
+
+        public List<StudentMCQQuestionViewModel> GetAllStudentMCQQuestions()
+        {
+            var response = new List<StudentMCQQuestionViewModel>();
+            var query = schoolDb.StudentMCQQuestions.Where(u => u.IsCorrectAnswer == true);
+            var StudentMCQQuestionList = query.ToList();
+
+            foreach (var StudentMCQQuestion in StudentMCQQuestionList) 
+            {
+                var vm = new StudentMCQQuestionViewModel
+                {
+                    QuestionId = StudentMCQQuestion.QuestionId,
+                    StudentId = StudentMCQQuestion.StudentId,
+                    TeacherComments = StudentMCQQuestion.TeacherComments,
+                    Marks = StudentMCQQuestion.Marks,
+                    IsCorrectAnswer = StudentMCQQuestion.IsCorrectAnswer
+                };
+                response.Add(vm);
+            }
+            return response;
         }
 
         public async Task<ResponseViewModel> SaveStudentMCQQuestion(StudentMCQQuestionViewModel vm, string userName)
@@ -33,6 +56,7 @@ namespace SchoolManagement.Business.Lesson
             {
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var StudentMCQQuestions = schoolDb.StudentMCQQuestions.FirstOrDefault(x => x.QuestionId == vm.QuestionId);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 if (StudentMCQQuestions == null)
                 {

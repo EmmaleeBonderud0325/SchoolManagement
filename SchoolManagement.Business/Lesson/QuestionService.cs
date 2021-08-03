@@ -18,12 +18,43 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public QuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public QuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
+        }
+
+        public List<QuestionViewModel> GetAllQuestions() 
+        {
+            var response = new List<QuestionViewModel>();
+            var query = schoolDb.Questions.Where(u => u.IsActive == true);
+            var QuestionList = query.ToList();
+
+            foreach (var Question in QuestionList) 
+            {
+                var vm = new QuestionViewModel
+                {
+                    Id = Question.Id,
+                    LessonId = Question.LessonId,
+                    TopicId = Question.TopicId,
+                    SequenceNo = Question.SequenceNo,
+                    QuestionText = Question.QuestionText,
+                    Marks = Question.Marks,
+                    //DifficultyLevel = Question.DifficultyLevel,
+                    //QuestionType = Question.QuestionType,
+                    IsActive = Question.IsActive,
+                    CreateOn = Question.CreateOn,
+                    CreatedById = Question.CreatedById,
+                    UpdateOn = Question.UpdateOn,
+                    UpdatedById = Question.UpdatedById
+                };
+                response.Add(vm);
+            }
+            return response;
         }
 
         public async Task <ResponseViewModel> SaveQuestion (QuestionViewModel vm, string userName)
@@ -33,6 +64,7 @@ namespace SchoolManagement.Business.Lesson
             {
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 if (Questions == null) 
                 {
@@ -41,15 +73,15 @@ namespace SchoolManagement.Business.Lesson
                         Id = vm.Id,
                         LessonId = vm.LessonId,
                         TopicId = vm.TopicId,
-                        SequnceNo = vm.SequnceNo,
+                        SequenceNo = vm.SequenceNo,
                         QuestionText = vm.QuestionText,
                         Marks = vm.Marks,
                         //DifficultyLevel = vm.DifficultyLevel,
                         //QuestionType = vm.QuestionType,
                         IsActive = vm.IsActive,
-                        CreateOn = vm.CreateOn,
+                        CreateOn = DateTime.UtcNow,
                         CreatedById = vm.CreatedById,
-                        UpdateOn = vm.UpdateOn,
+                        UpdateOn = DateTime.UtcNow,
                         UpdatedById = vm.UpdatedById
                     };
 
