@@ -18,12 +18,14 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public MCQQuestionStudentAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public MCQQuestionStudentAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
         }
 
         public async Task <ResponseViewModel> SaveMCQQuestionStudentAnswer (MCQQuestionStudetAnswerViewModel vm, string userName)
@@ -33,6 +35,7 @@ namespace SchoolManagement.Business.Lesson
             {
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var MCQQuestionStudentAnswers = schoolDb.MCQQuestionStudentAnswers.FirstOrDefault(x => x.QuestionId == vm.QuestionId);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 if (MCQQuestionStudentAnswers == null)
                 {

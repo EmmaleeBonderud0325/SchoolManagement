@@ -18,12 +18,14 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public QuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public QuestionService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
         }
 
         public async Task <ResponseViewModel> SaveQuestion (QuestionViewModel vm, string userName)
@@ -33,6 +35,7 @@ namespace SchoolManagement.Business.Lesson
             {
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 if (Questions == null) 
                 {
