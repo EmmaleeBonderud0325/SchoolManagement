@@ -12,6 +12,7 @@ namespace SchoolManagement.Model
         public int QuestionId { get; set;}
         public int StudentId { get; set; }
         public int AnswerText { get; set; }
+        //public int EssayQuestionAnswerId { get; set; }
         public string TeacherComments { get; set; }
         public decimal Marks { get; set; }
 
