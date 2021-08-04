@@ -28,7 +28,33 @@ namespace SchoolManagement.Business.Lesson
             this.currentUserService = currentUserService; 
         }
 
-        public List<LessonAssignmentViewModel> GetAllLessonAssignments()
+
+
+        public async Task<ResponseViewModel> DeleteLessonAssignment(int Id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var lessonAssignment = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == Id);
+
+                lessonAssignment.IsActive = false;
+
+                schoolDb.LessonAssignments.Update(lessonAssignment);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Lesson Assignment Delete Successfull";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
+        public List<LessonAssignmentViewModel> GetLessonAssignments()
         {
             var response = new List<LessonAssignmentViewModel>();
 

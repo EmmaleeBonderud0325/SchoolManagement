@@ -43,8 +43,8 @@ namespace SchoolManagement.Business.Lesson
  
                     QuestionId = essaystudentanswer.QuestionId,
                     StudentId = essaystudentanswer.StudentId,
-                    //EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
-                    // AnswerText = essaystudentanswer.AnswerText,
+                    EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
+                    AnswerText = essaystudentanswer.AnswerText,
                     TeacherComments = essaystudentanswer.TeacherComments,
                     Marks = essaystudentanswer.Marks
                 };
