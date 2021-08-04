@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Lesson
 {
-    class TopicViewModel
+     public class TopicViewModel
     {
         public int Id { get; set; }
         public int LessonId { get; set; }
