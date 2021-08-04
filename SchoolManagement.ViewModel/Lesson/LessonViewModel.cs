@@ -27,5 +27,9 @@ namespace SchoolManagement.ViewModel.Lesson
         public string Introduction { get; set; }
         public int TopicId { get; set; }
         public string Content { get; set; }
+
+        public List<QuestionViewModel> TeacherEssyQuestions { get; set; }
+        public List<QuestionViewModel> TeacherMCQQuestions { get; set; }
+        public List<StudentMCQQuestionViewModel> StudentEssyQuestion { get; set; }
     }
 }
