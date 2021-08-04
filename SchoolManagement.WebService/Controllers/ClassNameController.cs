@@ -37,5 +37,12 @@ namespace SchoolManagement.WebService.Controllers
             var response = await classNameService.SavaClassName(vm, userName);
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await classNameService.DeleteClassName(id);
+            return Ok(response);
+        }
     }
 }
