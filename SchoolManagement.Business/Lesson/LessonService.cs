@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Lesson
 {
-    public class LessonService: ILessonService
+    public class LessonService : ILessonService
     {
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
@@ -59,45 +59,51 @@ namespace SchoolManagement.Business.Lesson
             }
             return response;
         }
-        public async Task<ResponseViewModel>SaveLesson(LessonViewModel vm, string userName)
-        {
-            var response = new ResponseViewModel();
-            try
-            {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
-                var MCQQuestionAnswers = schoolDb.MCQQuestionAnswers.FirstOrDefault(x => x.Id == vm.Id);
-                var loggedInUser = currentUserService.GetUserByUsername(userName);
+        //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
+        //{
+        //    var response = new ResponseViewModel();
+        //    try
+        //    {
+        //        var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+        //        var MCQQuestionAnswers = schoolDb.MCQQuestionAnswers.FirstOrDefault(x => x.Id == vm.Id);
+        //        var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                if(Lesson==null)
-                {
-                    Lesson = new Lessons()
-                    {
-                        Id=vm.Id,
-                        Name = vm.Name,
-                        Description = vm.Description,
-                        OwnerId = vm.OwnerId,
-                        AcademicLevelId =vm.AcademicLevelId,
-                        ClassNameId = vm.ClassNameId,
-                        AcademicYearId = vm.AcademicYearId,
-                        SubjectId = vm.SubjectId,
-                        VersionNo = vm.VersionNo,
-                        LearningOutcome = vm.LearningOutcome,
-                        PlannedDate = vm.PlannedDate,
-                        CompletedDate = vm.CompletedDate,
-                        CreatedOn = vm.CreatedOn,
-                        CreatedById = vm.CreatedById,
-                        UpdatedOn = vm.UpdatedOn,
-                        UpdatedById = vm.UpdatedById
-                    };
-                    schoolDb.Lessons.Add(Lesson);
-                    response.IsSuccess = true;
-                    response.Message = " Lesson is added successfully";
-                }
-                else
-                {
+        //        if (Lesson == null)
+        //        {
+        //            Lesson = new Lessons()
+        //            {
+        //                Id = vm.Id,
+        //                Name = vm.Name,
+        //                Description = vm.Description,
+        //                OwnerId = vm.OwnerId,
+        //                AcademicLevelId = vm.AcademicLevelId,
+        //                ClassNameId = vm.ClassNameId,
+        //                AcademicYearId = vm.AcademicYearId,
+        //                SubjectId = vm.SubjectId,
+        //                VersionNo = vm.VersionNo,
+        //                LearningOutcome = vm.LearningOutcome,
+        //                PlannedDate = vm.PlannedDate,
+        //                CompletedDate = vm.CompletedDate,
+        //                CreatedOn = vm.CreatedOn,
+        //                CreatedById = vm.CreatedById,
+        //                UpdatedOn = vm.UpdatedOn,
+        //                UpdatedById = vm.UpdatedById
+        //            };
+        //            schoolDb.Lessons.Add(Lesson);
+        //            response.IsSuccess = true;
+        //            response.Message = " Lesson is added successfully";
+        //        }
+        //        else
+        //        {
 
-                    schoolDb.Lessons.Update(Lessons);
-                }
+        //            schoolDb.Lessons.Update(Lesson);
+        //        }
 
-            }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //}
+    }
 }

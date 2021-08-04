@@ -27,27 +27,28 @@ namespace SchoolManagement.Business.Lesson
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<TopicViewModel> GetAllTopics()
-        {
-            var response = new List<TopicViewModel>();
-            var query = schoolDb.Lessons.Where(u => u.Id == 123);
-            var LessonList = query.ToList();
-            
-            foreach (var TopicContent in TopicList)
-            {
-                var vm = new TopicViewModel
-                {
-                    Id = Topic.Id,
-                    LessonId=Topic.LesssonId,
-                    Name=Topic.Name,
-                    SequenceNo=Topic.SequenceNo,
-                    LearningExperience=Topic.LearningExperience,
-                    IsActive=Topic.IsActive,
-                    CreatedOn=Topic.CreatedOn
+        //public List<TopicViewModel> GetAllTopics()
+        //{
+        //    var response = new List<TopicViewModel>();
+        //    var query = schoolDb.Lessons.Where(u => u.Id == 123);
+        //    var LessonList = query.ToList();
 
-                };
-                response.Add(vm);
-            }
-            return response;
-        }
+        //    foreach (var TopicContent in TopicList)
+        //    {
+        //        var vm = new TopicViewModel
+        //        {
+        //            Id = Topic.Id,
+        //            LessonId = Topic.LesssonId,
+        //            Name = Topic.Name,
+        //            SequenceNo = Topic.SequenceNo,
+        //            LearningExperience = Topic.LearningExperience,
+        //            IsActive = Topic.IsActive,
+        //            CreatedOn = Topic.CreatedOn
+
+        //        };
+        //        response.Add(vm);
+        //    }
+        //    return response;
+        //}
     }
+}
