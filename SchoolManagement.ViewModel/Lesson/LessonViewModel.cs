@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Lesson
 {
-    class LessonViewModel
+     public  class LessonViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -24,5 +24,8 @@ namespace SchoolManagement.ViewModel.Lesson
         public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
         public int UpdatedById { get; set; }
+        public string Introduction { get; set; }
+        public int TopicId { get; set; }
+        public string Content { get; set; }
     }
 }
