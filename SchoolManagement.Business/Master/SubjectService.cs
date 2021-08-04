@@ -29,11 +29,35 @@ namespace SchoolManagement.Business.Master
 
         }
 
+        public async Task<ResponseViewModel> DeleteSubject(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {   
+                var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
+                
+                subject.IsActive = false;
+
+                schoolDb.Subjects.Update(subject);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Subject Delete Successfull";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
 
-            var query = schoolDb.Subjects.Where(u => u.IsActive == true);
+            var query = schoolDb.Subjects.Where(s => s.IsActive == true);
 
             var SubjectList = query.ToList();
 
@@ -51,13 +75,9 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamId = subject.SubjectStreamId,
                     IsActive = subject.IsActive,
                 };
-
                 response.Add(vm);
-
             }
-
             return response;
-
         }
 
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
@@ -110,3 +130,10 @@ namespace SchoolManagement.Business.Master
         }
     }
 }
+
+
+
+
+            
+                
+
