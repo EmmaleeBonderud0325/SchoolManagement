@@ -11,5 +11,6 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     public interface IMCQQuestionStudentAnswerService
     {
         Task<ResponseViewModel> SaveMCQQuestionStudentAnswer(MCQQuestionStudetAnswerViewModel vm, string userName);
+        List<MCQQuestionStudetAnswerViewModel> GetAllMCQQuestionStudentAnswers();
     }
 }

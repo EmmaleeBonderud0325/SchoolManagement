@@ -2,6 +2,8 @@
 using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
+using SchoolManagement.Model;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
 using System.Collections.Generic;
@@ -16,20 +18,46 @@ namespace SchoolManagement.Business.Master
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public SubjectService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)//ctor and press double tab
+        public SubjectService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)//ctor and press double tab
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
 
+        }
+
+        public async Task<ResponseViewModel> DeleteSubject(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {   
+                var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
+                
+                subject.IsActive = false;
+
+                schoolDb.Subjects.Update(subject);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Subject Delete Successfull";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
         }
 
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
 
-            var query = schoolDb.Subjects.Where(u => u.IsActive == true);
+            var query = schoolDb.Subjects.Where(s => s.IsActive == true);
 
             var SubjectList = query.ToList();
 
@@ -47,13 +75,65 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamId = subject.SubjectStreamId,
                     IsActive = subject.IsActive,
                 };
-
                 response.Add(vm);
-
             }
-
             return response;
+        }
 
+        public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
+        {
+            var response = new ResponseViewModel();
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == vm.Id);
+
+                if(subject == null)
+                {
+                    subject = new Subject()
+                    {
+                        Id = vm.Id,
+                        Name = vm.Name,
+                        SubjectCode = vm.SubjectCode,
+                        SubjectCategory = vm.SubjectCategory,
+                        IsParentBasketSubject = vm.IsParentBasketSubject,
+                        IsBuscketSubject = vm.IsBuscketSubject,
+                        ParentBasketSubjectId =vm.ParentBasketSubjectId,
+                        SubjectStreamId = vm.SubjectStreamId,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id,
+                     };
+                    
+                    schoolDb.Subjects.Add(subject);
+
+                    response.IsSuccess = true;
+                    response.Message = "Subject Add Successfull.";
+                }
+                else
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Subject Add Unsuccessfull.";
+                }
+                
+                await schoolDb.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
         }
     }
 }
+
+
+
+
+            
+                
+

@@ -18,12 +18,40 @@ namespace SchoolManagement.Business.Lesson
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public EssayQuestionAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public EssayQuestionAnswerService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
+        }
+
+        public List<EssayQuestionAnswerViewModel> GetAllEssayQuestionAnswers()
+        { 
+            var response = new List<EssayQuestionAnswerViewModel>();
+
+            var query = schoolDb.EssayQuestionAnswers.Where(u => u.QuestionId == 123);
+
+            var EssayQuestionAnswerList = query.ToList();
+
+            foreach (var essayquestionanswer in EssayQuestionAnswerList)
+            {
+                var vm = new EssayQuestionAnswerViewModel
+                {
+
+                    Id = essayquestionanswer.Id,
+                    QuestionId = essayquestionanswer.QuestionId,
+                    AnswerText = essayquestionanswer.AnswerText,
+                    ModifiedOn = essayquestionanswer.ModifiedOn,
+                    CreatedOn = essayquestionanswer.CreatedOn
+                };
+
+                response.Add(vm);
+            }
+
+            return response;
         }
 
         public async Task<ResponseViewModel> SaveEssayQuestionAnswer(EssayQuestionAnswerViewModel vm, string userName)
@@ -36,6 +64,8 @@ namespace SchoolManagement.Business.Lesson
 
                 var EssayQuestionAnswers = schoolDb.EssayQuestionAnswers.FirstOrDefault(x => x.Id == vm.Id);
 
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
                 if (EssayQuestionAnswers == null)
                 {
                     EssayQuestionAnswers = new EssayQuestionAnswer()
@@ -43,8 +73,8 @@ namespace SchoolManagement.Business.Lesson
                         Id = vm.Id,
                         QuestionId = vm.QuestionId,
                         AnswerText = vm.AnswerText,
-                        ModifiedOn = vm.ModifiedOn,
-                        CreatedOn = vm.CreatedOn
+                        ModifiedOn = DateTime.UtcNow,
+                        CreatedOn = DateTime.UtcNow
                     };
 
                     schoolDb.EssayQuestionAnswers.Add(EssayQuestionAnswers);

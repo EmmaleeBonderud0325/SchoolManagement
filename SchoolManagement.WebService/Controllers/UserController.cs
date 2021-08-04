@@ -37,5 +37,12 @@ namespace SchoolManagement.WebService.Controllers
             var response = userService.GetAllUsers();
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await userService.DeleteUser(id);
+            return Ok(response);
+        }
     }
 }

@@ -37,7 +37,13 @@ namespace SchoolManagement.Data.Configurations
                     .OnDelete(DeleteBehavior.Restrict)
                     .IsRequired(true);
 
-        }
+                builder.HasOne<EssayQuestionAnswer>(x => x.EssayQuestionAnswer)
+                   .WithMany(es => es.EssayStudentAnswers)
+                   .HasForeignKey(f => f.EssayQuestionAnswerId)
+                   .OnDelete(DeleteBehavior.Restrict)
+                   .IsRequired(true);
+
+            }
         }
     }
 

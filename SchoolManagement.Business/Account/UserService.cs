@@ -29,6 +29,29 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
+        public async Task<ResponseViewModel> DeleteUser(int id)
+        {
+            var response = new ResponseViewModel();
+            try
+            {
+                var user = schoolDb.Users.FirstOrDefault(x => x.Id == id);
+
+                user.IsActive = false;
+
+                schoolDb.Users.Update(user);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "User has been deleted.";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error occured. Please try again.";
+            }
+            return response;
+        }
+
         public List<UserViewModel> GetAllUsers()
         {
             var response =  new List<UserViewModel>();
@@ -55,13 +78,6 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
-        //public User GetUserByUsername(string userName)
-        // {
-        //     var user = schoolDb.Users.FirstOrDefault(x => x.Username.ToLower() == userName.ToLower());
-
-        //     return user;
-        // }
 
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
