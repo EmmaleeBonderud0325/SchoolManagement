@@ -35,7 +35,10 @@ namespace SchoolManagement.Business
 
             foreach (var Lesson in LessonList)
             {
+                
                 var vm = new LessonViewModel
+
+               
                 {
                     Id = Lesson.Id,
                     Name = Lesson.Name,
