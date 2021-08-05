@@ -123,6 +123,8 @@ namespace SchoolManagement.Business.Master
                     subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
                     subject.SubjectStreamId = vm.SubjectStreamId;
                     subject.IsActive = true;
+                    subject.UpdatedOn = DateTime.UtcNow;
+                    subject.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Subjects.Update(subject);
 
