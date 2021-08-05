@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.ViewModel.Master;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
 {
     public interface IAcademicYearService
     {
+        List<AcademicYearViewModel> GetAllAcademicYear();
     }
 }
