@@ -60,26 +60,26 @@ namespace SchoolManagement.Business
             return response;
         }
 
-        public Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
-        {
-            try
-            {
-                var loggedInUser = currentUserService.GetUserByUsername(userName);
+        //public Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
+        //{
+        //    try
+        //    {
+        //        var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
+        //        var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
 
-                if (lesson == null)
-                {
+        //        if (lesson == null)
+        //        {
                     
-                }
-            }
-            catch(Exception ex)
-            {
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
 
-            }
+        //    }
            
            
-        }
+        //}
 
 
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
