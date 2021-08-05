@@ -1,4 +1,4 @@
-﻿using Castle.Core.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Lesson
+namespace SchoolManagement.Business
 {
     public class LessonService : ILessonService
     {
@@ -35,16 +35,19 @@ namespace SchoolManagement.Business.Lesson
 
             foreach (var Lesson in LessonList)
             {
+                
                 var vm = new LessonViewModel
+
+               
                 {
                     Id = Lesson.Id,
                     Name = Lesson.Name,
                     Description = Lesson.Description,
-                    OwnerId = Lesson.OwnerId,
-                    AcademicLevelId = Lesson.AcademicLevelId,
-                    ClassNameId = Lesson.ClassNameId,
-                    AcademicYearId = Lesson.AcademicYearId,
-                    SubjectId = Lesson.SubjectId,
+                    //OwnerId = Lesson.OwnerId,
+                    //AcademicLevelId = Lesson.AcademicLevelId,
+                    //ClassNameId = Lesson.ClassNameId,
+                    //AcademicYearId = Lesson.AcademicYearId,
+                    //SubjectId = Lesson.SubjectId,
                     VersionNo = Lesson.VersionNo,
                     LearningOutcome = Lesson.LearningOutcome,
                     PlannedDate = Lesson.PlannedDate,
@@ -60,10 +63,77 @@ namespace SchoolManagement.Business.Lesson
             return response;
         }
 
-        public Task<ResponseViewModel> SaveUser(LessonViewModel vm, string userName)
+        public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         {
-            throw new NotImplementedException();
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
+
+                if (lesson == null)
+                {
+                    lesson = new Lesson()
+                    {
+                        Id = vm.Id,
+                        Description = vm.Description,
+                        OwnerId = loggedInUser.Id,
+                        AcademicLevelId = vm.SelectedAcademicLevel.Id,
+                        ClassNameId = vm.SelectedClassName.Id,
+                        AcademicYearId = vm.SelectedAcademicYear.Id,
+                        SubjectId = vm.SelectedSubject.Id,
+                        LearningOutcome = vm.LearningOutcome,
+                        PlannedDate = vm.PlannedDate,
+                        VersionNo = vm.VersionNo,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
+
+                    };
+
+                    schoolDb.Lessons.Add(lesson);
+
+                    response.IsSuccess = true;
+                    response.Message = "Lesson Added Successfull.";
+                }
+                else
+                {
+                    lesson.Description = vm.Description;
+                    lesson.OwnerId = loggedInUser.Id;
+                    lesson.AcademicLevelId = vm.SelectedAcademicLevel.Id;
+                    lesson.ClassNameId = vm.SelectedClassName.Id;
+                    lesson.AcademicYearId = vm.SelectedAcademicYear.Id;
+                    lesson.SubjectId = vm.SelectedSubject.Id;
+                    lesson.LearningOutcome = vm.LearningOutcome;
+                    lesson.PlannedDate = vm.PlannedDate;
+                    lesson.VersionNo = vm.VersionNo;
+                    lesson.UpdatedOn = DateTime.UtcNow;
+                    lesson.UpdatedById = loggedInUser.Id;
+
+                    schoolDb.Lessons.Update(lesson);
+
+                    response.IsSuccess = true;
+                    response.Message = "Lesson Updated Successfull";
+                }
+
+                await schoolDb.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+
         }
+
+
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         //{
         //    var response = new ResponseViewModel();

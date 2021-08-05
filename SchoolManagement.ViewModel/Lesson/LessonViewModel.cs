@@ -17,6 +17,7 @@ namespace SchoolManagement.ViewModel.Lesson
         public DateTime PlannedDate { get; set; }
         public DateTime CompletedDate { get; set; }
         public DateTime CreatedOn { get; set; }
+        public bool IsActive { get; set; }
         public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
         public int UpdatedById { get; set; }
