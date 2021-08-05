@@ -1,4 +1,4 @@
-﻿using Castle.Core.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Lesson
+namespace SchoolManagement.Business
 {
     public class LessonService : ILessonService
     {
@@ -40,11 +40,11 @@ namespace SchoolManagement.Business.Lesson
                     Id = Lesson.Id,
                     Name = Lesson.Name,
                     Description = Lesson.Description,
-                    OwnerId = Lesson.OwnerId,
-                    AcademicLevelId = Lesson.AcademicLevelId,
-                    ClassNameId = Lesson.ClassNameId,
-                    AcademicYearId = Lesson.AcademicYearId,
-                    SubjectId = Lesson.SubjectId,
+                    //OwnerId = Lesson.OwnerId,
+                    //AcademicLevelId = Lesson.AcademicLevelId,
+                    //ClassNameId = Lesson.ClassNameId,
+                    //AcademicYearId = Lesson.AcademicYearId,
+                    //SubjectId = Lesson.SubjectId,
                     VersionNo = Lesson.VersionNo,
                     LearningOutcome = Lesson.LearningOutcome,
                     PlannedDate = Lesson.PlannedDate,
@@ -60,10 +60,28 @@ namespace SchoolManagement.Business.Lesson
             return response;
         }
 
-        public Task<ResponseViewModel> SaveUser(LessonViewModel vm, string userName)
+        public Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
+
+                if (lesson == null)
+                {
+                    
+                }
+            }
+            catch(Exception ex)
+            {
+
+            }
+           
+           
         }
+
+
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         //{
         //    var response = new ResponseViewModel();

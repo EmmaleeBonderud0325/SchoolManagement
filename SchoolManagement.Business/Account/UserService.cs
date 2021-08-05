@@ -37,7 +37,7 @@ namespace SchoolManagement.Business
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == id);
 
                 user.IsActive = false;
-
+ 
                 schoolDb.Users.Update(user);
                 await schoolDb.SaveChangesAsync();
 
