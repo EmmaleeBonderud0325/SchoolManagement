@@ -63,30 +63,75 @@ namespace SchoolManagement.Business
             return response;
         }
 
-        //public Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
-        //{
-        //    try
-        //    {
-        //        var loggedInUser = currentUserService.GetUserByUsername(userName);
+        public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
+        {
+            var response = new ResponseViewModel();
 
-        //        var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-        //        if (lesson == null)
-        //        {
-        //            lesson = new Lesson()
-        //            {
-        //                Id = vm.Id,
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
 
-        //            };
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+                if (lesson == null)
+                {
+                    lesson = new Lesson()
+                    {
+                        Id = vm.Id,
+                        Description = vm.Description,
+                        OwnerId = loggedInUser.Id,
+                        AcademicLevelId = vm.SelectedAcademicLevel.Id,
+                        ClassNameId = vm.SelectedClassName.Id,
+                        AcademicYearId = vm.SelectedAcademicYear.Id,
+                        SubjectId = vm.SelectedSubject.Id,
+                        LearningOutcome = vm.LearningOutcome,
+                        PlannedDate = vm.PlannedDate,
+                        VersionNo = vm.VersionNo,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
 
-        //    }
+                    };
 
+                    schoolDb.Lessons.Add(lesson);
 
-        //}
+                    response.IsSuccess = true;
+                    response.Message = "Lesson Added Successfull.";
+                }
+                else
+                {
+                    lesson.Description = vm.Description;
+                    lesson.OwnerId = loggedInUser.Id;
+                    lesson.AcademicLevelId = vm.SelectedAcademicLevel.Id;
+                    lesson.ClassNameId = vm.SelectedClassName.Id;
+                    lesson.AcademicYearId = vm.SelectedAcademicYear.Id;
+                    lesson.SubjectId = vm.SelectedSubject.Id;
+                    lesson.LearningOutcome = vm.LearningOutcome;
+                    lesson.PlannedDate = vm.PlannedDate;
+                    lesson.VersionNo = vm.VersionNo;
+                    lesson.UpdatedOn = DateTime.UtcNow;
+                    lesson.UpdatedById = loggedInUser.Id;
+
+                    schoolDb.Lessons.Update(lesson);
+
+                    response.IsSuccess = true;
+                    response.Message = "Lesson Updated Successfull";
+                }
+
+                await schoolDb.SaveChangesAsync();
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+
+        }
 
 
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
