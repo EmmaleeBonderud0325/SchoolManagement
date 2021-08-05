@@ -26,8 +26,8 @@ namespace SchoolManagement.Business.Master
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
-
         }
+
 
         public async Task<ResponseViewModel> DeleteSubject(int id)
         {
@@ -115,10 +115,20 @@ namespace SchoolManagement.Business.Master
                 }
                 else
                 {
-                    response.IsSuccess = false;
-                    response.Message = "Subject Add Unsuccessfull.";
+                    subject.Name = vm.Name;
+                    subject.SubjectCode = vm.SubjectCode;
+                    subject.SubjectCategory = vm.SubjectCategory;
+                    subject.IsParentBasketSubject = vm.IsParentBasketSubject;
+                    subject.IsBuscketSubject = vm.IsBuscketSubject;
+                    subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
+                    subject.SubjectStreamId = vm.SubjectStreamId;
+                    subject.IsActive = true;
+
+                    schoolDb.Subjects.Update(subject);
+
+                    response.IsSuccess = true;
+                    response.Message = "Subject Update Successfull.";
                 }
-                
                 await schoolDb.SaveChangesAsync();
             }
             catch (Exception ex)
@@ -130,6 +140,8 @@ namespace SchoolManagement.Business.Master
         }
     }
 }
+                
+                    
 
 
 

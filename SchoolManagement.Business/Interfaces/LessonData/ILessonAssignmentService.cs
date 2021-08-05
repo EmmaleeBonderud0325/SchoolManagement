@@ -12,6 +12,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName);
 
-        List<LessonAssignmentViewModel> GetAllLessonAssignments();
+        List<LessonAssignmentViewModel> GetLessonAssignments();
+
+        Task<ResponseViewModel> DeleteLessonAssignment(int Id);
     }
 }

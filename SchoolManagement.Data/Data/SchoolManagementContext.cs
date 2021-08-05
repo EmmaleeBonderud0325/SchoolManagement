@@ -153,8 +153,6 @@ namespace SchoolManagement.Data.Data
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }
-
-
-
+        public object Question { get; set; }
     }
 }
