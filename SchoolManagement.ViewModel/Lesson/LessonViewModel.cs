@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.Model;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace SchoolManagement.ViewModel.Lesson
         public string Description { get; set; }
         public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
+        public LessonStatus Status { get; set; }
         public DateTime PlannedDate { get; set; }
         public DateTime CompletedDate { get; set; }
         public DateTime CreatedOn { get; set; }

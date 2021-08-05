@@ -129,6 +129,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<StudentClass> StudentClasses { get; set; }
         public DbSet<StudentClassSubject> StudentClassSubjects { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<SubjectStream> SubjectStreams { get; set; }
         public DbSet<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public DbSet<SubjectTeacher> SubjectTeachers { get; set; }
 
@@ -153,6 +154,6 @@ namespace SchoolManagement.Data.Data
         public DbSet<StudentMCQQuestion> StudentMCQQuestions { get; set; }
         public DbSet<Topic> Topics { get; set; }
         public DbSet<TopicContent> TopicContents { get; set; }
-        public object Question { get; set; }
+     
     }
 }
