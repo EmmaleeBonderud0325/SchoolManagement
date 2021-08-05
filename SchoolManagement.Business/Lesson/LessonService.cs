@@ -73,15 +73,19 @@ namespace SchoolManagement.Business
 
         //        if (lesson == null)
         //        {
-                    
+        //            lesson = new Lesson()
+        //            {
+        //                Id = vm.Id,
+
+        //            };
         //        }
         //    }
-        //    catch(Exception ex)
+        //    catch (Exception ex)
         //    {
 
         //    }
-           
-           
+
+
         //}
 
 

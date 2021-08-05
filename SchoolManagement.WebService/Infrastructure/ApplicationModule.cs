@@ -5,7 +5,6 @@ using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Business.Interfaces.MasterData;
-using SchoolManagement.Business.Lesson;
 using SchoolManagement.Business.Master;
 using SchoolManagement.Master.Data.Provider;
 using SchoolManagement.Util.Tenant;
