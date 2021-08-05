@@ -12,6 +12,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     {
         List<ClassNameViewModel> GetAllClassNames();
         Task<ResponseViewModel> SavaClassName(ClassNameViewModel vm, string userName);
-
+        Task<ResponseViewModel> DeleteClassName(int id);
     }
 }

@@ -59,6 +59,11 @@ namespace SchoolManagement.Business.Lesson
             }
             return response;
         }
+
+        public Task<ResponseViewModel> SaveUser(LessonViewModel vm, string userName)
+        {
+            throw new NotImplementedException();
+        }
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         //{
         //    var response = new ResponseViewModel();

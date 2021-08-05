@@ -28,6 +28,29 @@ namespace SchoolManagement.Business.Lesson
             this.currentUserService = currentUserService;
         }
 
+        public async Task<ResponseViewModel> DeleteQuestion (int Id)
+        {
+            var response = new ResponseViewModel();
+            
+            try
+            {
+                var Question = schoolDb.Questions.FirstOrDefault(x => x.Id == Id);
+                Question.IsActive = false;
+
+                schoolDb.Questions.Update(Question);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Questions Deleted Successfull";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
+        }
+
         public List<QuestionViewModel> GetAllQuestions() 
         {
             var response = new List<QuestionViewModel>();
