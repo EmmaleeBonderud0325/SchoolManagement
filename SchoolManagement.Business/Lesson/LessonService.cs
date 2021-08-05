@@ -27,39 +27,41 @@ namespace SchoolManagement.Business
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<LessonViewModel> GetAllLessons()
+        public List<LessonViewModel> GetAllLessons(int id)
         {
             var response = new List<LessonViewModel>();
-            var query = schoolDb.Lessons.Where(u => u.Id == 123);
-            var LessonList = query.ToList();
 
-            foreach (var Lesson in LessonList)
+            var query = schoolDb.Lessons.Where(u => u.Id == id);
+
+            var lessonList = query.ToList();
+
+            foreach (var lesson in lessonList)
             {
                 
                 var vm = new LessonViewModel
-
-               
                 {
-                    Id = Lesson.Id,
-                    Name = Lesson.Name,
-                    Description = Lesson.Description,
-                    //OwnerId = Lesson.OwnerId,
-                    //AcademicLevelId = Lesson.AcademicLevelId,
-                    //ClassNameId = Lesson.ClassNameId,
-                    //AcademicYearId = Lesson.AcademicYearId,
-                    //SubjectId = Lesson.SubjectId,
-                    VersionNo = Lesson.VersionNo,
-                    LearningOutcome = Lesson.LearningOutcome,
-                    PlannedDate = Lesson.PlannedDate,
-                    CompletedDate = Lesson.CompletedDate,
-                    CreatedOn = Lesson.CreatedOn,
-                    CreatedById = Lesson.CreatedById,
-                    UpdatedOn = Lesson.UpdatedOn,
-                    UpdatedById = Lesson.UpdatedById
+                    Id = lesson.Id,
+                    Name = lesson.Name,
+                    Description = lesson.Description,
+                    //OwnerId = lesson.OwnerId,
+                    //AcademicLevelId = lesson.AcademicLevelId,
+                    //ClassNameId = lesson.ClassNameId,
+                    //AcademicYearId = lesson.AcademicYearId,
+                    //SubjectId = lesson.SubjectId,
+                    VersionNo = lesson.VersionNo,
+                    LearningOutcome = lesson.LearningOutcome,
+                    PlannedDate = lesson.PlannedDate,
+                    CompletedDate = lesson.CompletedDate,
+                    CreatedOn = lesson.CreatedOn,
+                    CreatedById = lesson.CreatedById,
+                    UpdatedOn = lesson.UpdatedOn,
+                    UpdatedById = lesson.UpdatedById
 
                 };
+
                 response.Add(vm);
             }
+
             return response;
         }
 
@@ -87,6 +89,7 @@ namespace SchoolManagement.Business
                         LearningOutcome = vm.LearningOutcome,
                         PlannedDate = vm.PlannedDate,
                         VersionNo = vm.VersionNo,
+                        Status = LessonStatus.Design,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
@@ -117,7 +120,7 @@ namespace SchoolManagement.Business
                     schoolDb.Lessons.Update(lesson);
 
                     response.IsSuccess = true;
-                    response.Message = "Lesson Updated Successfull";
+                    response.Message = "Lesson Update Successfull";
                 }
 
                 await schoolDb.SaveChangesAsync();
