@@ -51,13 +51,13 @@ namespace SchoolManagement.WebService.Infrastructure
 
             // Master Services
 
-            //builder.RegisterType<AcademicLevelService>()
-            //   .As<IAcademicLevelService>()
-            //   .InstancePerLifetimeScope();
+            builder.RegisterType<AcademicLevelService>()
+               .As<IAcademicLevelService>()
+               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<AcademicYearService>()
-            //  .As<IAcademicYearService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<AcademicYearService>()
+              .As<IAcademicYearService>()
+              .InstancePerLifetimeScope();
 
             //builder.RegisterType<ClassNameService>()
             //  .As<IClassNameService>()
@@ -75,9 +75,9 @@ namespace SchoolManagement.WebService.Infrastructure
             //  .As<IClassSubjectTeacher>()
             //  .InstancePerLifetimeScope();
 
-            //builder.RegisterType<HeadOfDepartmentService>()
-            //  .As<IHeadOfDepartmentService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<HeadOfDepartmentService>()
+              .As<IHeadOfDepartmentService>()
+              .InstancePerLifetimeScope();
 
             //builder.RegisterType<StudentClassService>()
             //  .As<IStudentClassService>()
