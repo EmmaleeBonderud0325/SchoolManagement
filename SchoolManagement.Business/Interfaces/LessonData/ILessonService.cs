@@ -10,6 +10,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
 {
     public interface ILessonService
     {
-        //Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
+        Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
+        List<LessonViewModel> GetAllLessons(int id);
     }
 }
