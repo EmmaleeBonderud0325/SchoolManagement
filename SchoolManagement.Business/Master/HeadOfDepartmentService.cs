@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model.Master;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Master
 {
-    public class HeadOfDepartmentService
+    public class HeadOfDepartmentService : IHeadOfDepartmentService
     {
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
