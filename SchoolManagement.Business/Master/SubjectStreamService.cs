@@ -28,6 +28,41 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
+        public List<SubjectStreamViewModel> GetAllSubjectStream()
+        {
+            var response = new List<SubjectStreamViewModel>();
+
+            try
+            {
+                var query = schoolDb.SubjectStreams.Where(x => x.IsActive == true);
+
+                var subjectStreamList = query.ToList();
+
+                foreach (var subjectStream in subjectStreamList)
+                {
+                    var vm = new SubjectStreamViewModel()
+                    {
+                        Id = subjectStream.Id,
+                        Name = subjectStream.Name,
+                        CreatedOn = subjectStream.CreatedOn,
+                        CreatedById = subjectStream.CreatedById,
+                        UpdatedOn = subjectStream.UpdatedOn,
+                        UpdatedById = subjectStream.CreatedById,
+                    };
+
+                    response.Add(vm);
+                }
+
+               
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+            }
+
+            return response;
+        }
+
         public async Task<ResponseViewModel> SaveSubjectStream(SubjectStreamViewModel vm, string userName)
         {
             var response = new ResponseViewModel();

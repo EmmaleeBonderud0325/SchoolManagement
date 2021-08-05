@@ -23,6 +23,13 @@ namespace SchoolManagement.WebService.Controllers
             this.identityService = identityService;
         }
 
+        [HttpGet]
+        public ActionResult Get()
+        {
+            var response = subjectStreamService.GetAllSubjectStream();
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] SubjectStreamViewModel vm)
         {
