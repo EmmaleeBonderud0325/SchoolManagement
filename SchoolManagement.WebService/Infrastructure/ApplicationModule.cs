@@ -5,7 +5,6 @@ using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Business.Interfaces.MasterData;
-using SchoolManagement.Business.Lesson;
 using SchoolManagement.Business.Master;
 using SchoolManagement.Master.Data.Provider;
 using SchoolManagement.Util.Tenant;
@@ -52,13 +51,13 @@ namespace SchoolManagement.WebService.Infrastructure
 
             // Master Services
 
-            //builder.RegisterType<AcademicLevelService>()
-            //   .As<IAcademicLevelService>()
-            //   .InstancePerLifetimeScope();
+            builder.RegisterType<AcademicLevelService>()
+               .As<IAcademicLevelService>()
+               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<AcademicYearService>()
-            //  .As<IAcademicYearService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<AcademicYearService>()
+              .As<IAcademicYearService>()
+              .InstancePerLifetimeScope();
 
             //builder.RegisterType<ClassNameService>()
             //  .As<IClassNameService>()
@@ -72,13 +71,13 @@ namespace SchoolManagement.WebService.Infrastructure
             //  .As<IClassService>()
             //  .InstancePerLifetimeScope();
 
-            //builder.RegisterType<ClassSubjectTeacher>()
-            //  .As<IClassSubjectTeacher>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<ClassSubjectTeacherService>()
+              .As<IClassSubjectTeacherService>()
+              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<HeadOfDepartmentService>()
-            //  .As<IHeadOfDepartmentService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<HeadOfDepartmentService>()
+              .As<IHeadOfDepartmentService>()
+              .InstancePerLifetimeScope();
 
             //builder.RegisterType<StudentClassService>()
             //  .As<IStudentClassService>()
@@ -100,13 +99,13 @@ namespace SchoolManagement.WebService.Infrastructure
               .As<ISubjectService>()
               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<SubjectStreamService>()
-            //  .As<ISubjectStreamService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<SubjectStreamService>()
+              .As<ISubjectStreamService>()
+              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<SubjectTeacherService>()
-            //  .As<ISubjectTeacherService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<SubjectTeacherService>()
+             .As<ISubjectTeacherService>()
+             .InstancePerLifetimeScope();
 
             ////Lesson Services
 

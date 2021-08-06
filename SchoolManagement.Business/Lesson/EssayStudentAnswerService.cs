@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Lesson
+namespace SchoolManagement.Business
 {
     public class EssayStudentAnswerService : IEssayStudentAnswerService
     {
@@ -43,8 +43,8 @@ namespace SchoolManagement.Business.Lesson
  
                     QuestionId = essaystudentanswer.QuestionId,
                     StudentId = essaystudentanswer.StudentId,
-                    //EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
-                    // AnswerText = essaystudentanswer.AnswerText,
+                    EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
+                    AnswerText = essaystudentanswer.AnswerText,
                     TeacherComments = essaystudentanswer.TeacherComments,
                     Marks = essaystudentanswer.Marks
                 };

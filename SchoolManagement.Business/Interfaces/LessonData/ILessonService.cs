@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SchoolManagement.ViewModel.Common;
+using SchoolManagement.ViewModel.Lesson;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +10,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
 {
     public interface ILessonService
     {
+        Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
+        List<LessonViewModel> GetAllLessons(int id);
     }
 }

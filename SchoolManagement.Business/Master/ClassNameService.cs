@@ -107,5 +107,30 @@ namespace SchoolManagement.Business.Master
 
             return response;
         }
+
+        public async Task<ResponseViewModel> DeleteClassName(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var className = schoolDb.ClassNames.FirstOrDefault(x => x.Id == id);
+
+                className.IsActive = false;
+
+                schoolDb.ClassNames.Update(className);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "ClassName Deleted Successfull.";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
     }
 }

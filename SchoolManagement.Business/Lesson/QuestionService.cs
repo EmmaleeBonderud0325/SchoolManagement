@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Lesson
+namespace SchoolManagement.Business
 {
     public class QuestionService : IQuestionService
     {
@@ -26,6 +26,29 @@ namespace SchoolManagement.Business.Lesson
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
+        }
+
+        public async Task<ResponseViewModel> DeleteQuestion (int Id)
+        {
+            var response = new ResponseViewModel();
+            
+            try
+            {
+                var Question = schoolDb.Questions.FirstOrDefault(x => x.Id == Id);
+                Question.IsActive = false;
+
+                schoolDb.Questions.Update(Question);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Questions Deleted Successfull";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
         }
 
         public List<QuestionViewModel> GetAllQuestions() 

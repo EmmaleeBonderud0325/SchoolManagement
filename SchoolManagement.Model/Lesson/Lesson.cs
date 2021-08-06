@@ -21,6 +21,7 @@ namespace SchoolManagement.Model
         public DateTime PlannedDate { get; set; }
         public DateTime CompletedDate { get; set; }
         public LessonStatus Status { get; set; }
+        public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }

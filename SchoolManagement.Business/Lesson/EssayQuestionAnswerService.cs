@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Business.Lesson
+namespace SchoolManagement.Business
 {
     public class EssayQuestionAnswerService : IEssayQuestionAnswerService
     {
@@ -31,8 +31,13 @@ namespace SchoolManagement.Business.Lesson
         public List<EssayQuestionAnswerViewModel> GetAllEssayQuestionAnswers()
         { 
             var response = new List<EssayQuestionAnswerViewModel>();
-
-            var query = schoolDb.EssayQuestionAnswers.Where(u => u.QuestionId == 123);
+            //var query = schoolDb.EssayQuestionAnswers(questions, q => q.Id, e => e.QuestionId, (q, e) => new { question = q, essaquestionaswers = e };
+            //var query =schoolDb.EssayQuestionAnswers.Where(u => u.QuestionId == ???);
+            var query = from question in schoolDb.Questions
+                        join essayanswers in schoolDb.EssayQuestionAnswers on question.Id equals essayanswers.QuestionId
+                        select new { Id = essayanswers.Id, QuestionId = essayanswers.Id, AnswerText = essayanswers.AnswerText, ModifiedOn = essayanswers.ModifiedOn, CreatedOn = essayanswers.CreatedOn }
+                        ;
+             
 
             var EssayQuestionAnswerList = query.ToList();
 

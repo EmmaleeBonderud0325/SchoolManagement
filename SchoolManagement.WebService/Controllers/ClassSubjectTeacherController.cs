@@ -12,37 +12,37 @@ namespace SchoolManagement.WebService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SubjectController : ControllerBase
+    public class ClassSubjectTeacherController : ControllerBase
     {
-        private readonly ISubjectService subjectService;
+        private readonly IClassSubjectTeacherService classSubjectTeacherService;
         private readonly IIdentityService identityService;
-
-        public SubjectController(ISubjectService subjectService, IIdentityService identityService)
+        public ClassSubjectTeacherController(IClassSubjectTeacherService classSubjectTeacherService, IIdentityService identityService)
         {
-            this.subjectService = subjectService;
+            this.classSubjectTeacherService = classSubjectTeacherService;
             this.identityService = identityService;
         }
 
         [HttpGet]
-        public ActionResult GetAllSubjects()
+        public ActionResult GetAllClassSubjectTeachers()
         {
-            var response = subjectService.GetAllSubjects();
+            var response = classSubjectTeacherService.GetAllClassSubjectTeachers();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] SubjectViewModel vm)
+        public async Task<ActionResult> Post([FromBody] ClassSubjectTeacherViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = await subjectService.SaveSubject(vm, userName);
+            var response = await classSubjectTeacherService.SaveClassSubjectTeacher(vm, userName);
             return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var response = await subjectService.DeleteSubject(id);
+            var response = await classSubjectTeacherService.DeleteClassSubjectTeacher(id);
             return Ok(response);
         }
     }
 }
+
