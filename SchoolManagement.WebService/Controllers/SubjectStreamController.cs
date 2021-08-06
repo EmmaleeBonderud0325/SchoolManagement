@@ -23,13 +23,6 @@ namespace SchoolManagement.WebService.Controllers
             this.identityService = identityService;
         }
 
-        [HttpGet]
-        public ActionResult Get()
-        {
-            var response = subjectStreamService.GetAllSubjectStream();
-            return Ok(response);
-        }
-
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] SubjectStreamViewModel vm)
         {
@@ -38,5 +31,23 @@ namespace SchoolManagement.WebService.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet]
+        public ActionResult Get()
+        {
+            var response = subjectStreamService.GetAllSubjectStream();
+            return Ok(response);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = subjectStreamService.DeleteSubjectStream(id);
+            return Ok(response);
+        } 
+
+        
+
+       
     }
 }

@@ -28,6 +28,32 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
+        public async Task<ResponseViewModel> DeleteSubjectStream(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var subjectStream = schoolDb.SubjectStreams.FirstOrDefault(x => x.Id == id);
+
+                subjectStream.IsActive = false;
+
+                schoolDb.SubjectStreams.Update(subjectStream);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Subject has been Deleted.";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error occured.Please try again.";
+            }
+
+            return response;
+
+        }
+
         public List<SubjectStreamViewModel> GetAllSubjectStream()
         {
             var response = new List<SubjectStreamViewModel>();

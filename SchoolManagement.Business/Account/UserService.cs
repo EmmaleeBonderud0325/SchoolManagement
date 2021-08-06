@@ -49,6 +49,7 @@ namespace SchoolManagement.Business
                 response.IsSuccess = false;
                 response.Message = "Error occured. Please try again.";
             }
+
             return response;
         }
 
