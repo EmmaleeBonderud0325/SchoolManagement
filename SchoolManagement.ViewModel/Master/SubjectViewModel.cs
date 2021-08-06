@@ -9,6 +9,11 @@ namespace SchoolManagement.ViewModel.Master
 {
     public class SubjectViewModel
     {
+        public SubjectViewModel()
+        {
+            SubjectAcademicLevels = new List<SubjectAcademicLevelViewModel>();
+        }
+
         public int Id { get; set; }
         public string Name { get; set; }
         public string SubjectCode { get; set; }
@@ -18,7 +23,10 @@ namespace SchoolManagement.ViewModel.Master
         public int? ParentBasketSubjectId { get; set; }
         public int SubjectStreamId { get; set; }
         public bool IsActive { get; set; }
-       
+        public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
 
     }
 }
+
+           
+

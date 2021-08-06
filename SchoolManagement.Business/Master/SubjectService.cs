@@ -107,8 +107,26 @@ namespace SchoolManagement.Business.Master
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = loggedInUser.Id,
                      };
-                    
+
                     schoolDb.Subjects.Add(subject);
+                    
+                    subject.SubjectAcademicLevels = new HashSet<SubjectAcademicLevel>();
+
+                    foreach(var unit in vm.SubjectAcademicLevels.Where(x => x.IsCheck).ToList())
+                    {
+                        var subjectAcademicLevel = new SubjectAcademicLevel()
+                        {
+                            SubjectId = unit.SubjectId,
+                            AcademicLevelId=unit.AcademicLevelId,
+                        };
+
+                        subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
+                        
+                    }
+                 
+
+
+
 
                     response.IsSuccess = true;
                     response.Message = "Subject Add Successfull.";
