@@ -136,6 +136,48 @@ namespace SchoolManagement.Business
 
         }
 
+        public async Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                var topic = schoolDb.Topics.FirstOrDefault(x => x.Id == vm.Id);
+
+                if(topic == null)
+                {
+                    topic = new Topic()
+                    {
+                        Id = vm.Id,
+                        LessonId = vm.LessonId,
+                        SequenceNo = vm.SequenceNo,
+                        LearningExperience = vm.LearningExperience,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        ModifiedOn = DateTime.UtcNow,
+                    };
+
+                    schoolDb.Topics.Add(topic);
+
+                    response.IsSuccess = true;
+                    response.Message = "Topic Added Successfull.";
+                }
+                else
+                {
+
+                }
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            await schoolDb.SaveChangesAsync();
+            return response;
+        }
+
 
         //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
         //{
