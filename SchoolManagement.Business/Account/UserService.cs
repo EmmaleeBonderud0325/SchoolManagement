@@ -49,6 +49,7 @@ namespace SchoolManagement.Business
                 response.IsSuccess = false;
                 response.Message = "Error occured. Please try again.";
             }
+
             return response;
         }
 
@@ -58,9 +59,9 @@ namespace SchoolManagement.Business
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
-            var UserList = query.ToList();
+            var userList = query.ToList();
 
-            foreach(var user in UserList)
+            foreach(var user in userList)
             {
                 var vm = new UserViewModel
                 {

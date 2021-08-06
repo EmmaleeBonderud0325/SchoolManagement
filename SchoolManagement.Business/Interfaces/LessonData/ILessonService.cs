@@ -12,5 +12,6 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
         List<LessonViewModel> GetAllLessons(int id);
+        Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName);
     }
 }

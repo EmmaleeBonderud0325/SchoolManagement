@@ -28,6 +28,67 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
+        public async Task<ResponseViewModel> DeleteSubjectStream(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var subjectStream = schoolDb.SubjectStreams.FirstOrDefault(x => x.Id == id);
+
+                subjectStream.IsActive = false;
+
+                schoolDb.SubjectStreams.Update(subjectStream);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Subject has been Deleted.";
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error occured.Please try again.";
+            }
+
+            return response;
+
+        }
+
+        public List<SubjectStreamViewModel> GetAllSubjectStream()
+        {
+            var response = new List<SubjectStreamViewModel>();
+
+            try
+            {
+                var query = schoolDb.SubjectStreams.Where(x => x.IsActive == true);
+
+                var subjectStreamList = query.ToList();
+
+                foreach (var subjectStream in subjectStreamList)
+                {
+                    var vm = new SubjectStreamViewModel()
+                    {
+                        Id = subjectStream.Id,
+                        Name = subjectStream.Name,
+                        CreatedOn = subjectStream.CreatedOn,
+                        CreatedById = subjectStream.CreatedById,
+                        UpdatedOn = subjectStream.UpdatedOn,
+                        UpdatedById = subjectStream.CreatedById,
+                    };
+
+                    response.Add(vm);
+                }
+
+               
+            }
+            catch(Exception ex)
+            {
+                ex.ToString();
+            }
+
+            return response;
+        }
+
         public async Task<ResponseViewModel> SaveSubjectStream(SubjectStreamViewModel vm, string userName)
         {
             var response = new ResponseViewModel();

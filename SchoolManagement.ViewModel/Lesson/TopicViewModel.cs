@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagement.ViewModel.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,7 @@ namespace SchoolManagement.ViewModel.Lesson
     {
         public int Id { get; set; }
         public int LessonId { get; set; }
+        public DropDownViewModel Lesson { get; set; }
         public string Name { get; set; }
         public int SequenceNo { get; set; }
         public string LearningExperience { get; set; }
