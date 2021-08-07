@@ -10,6 +10,8 @@ namespace SchoolManagement.Business.Interfaces.MasterData
 {
     public interface IClassService
     {
+        List<ClassViewModel> GetAllClasses();
         Task<ResponseViewModel> SavaClass(ClassViewModel vm, string userName);
+        Task<ResponseViewModel> DeleteClass(int id);
     }
 }
