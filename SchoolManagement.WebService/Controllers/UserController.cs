@@ -31,10 +31,10 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
-        public ActionResult GetAllUsers()
+        [HttpGet("{id}")]
+        public ActionResult GetAllUsers(int roleId)
         {
-            var response = userService.GetAllUsers();
+            var response = userService.GetAllUsers(roleId);
             return Ok(response);
         }
 

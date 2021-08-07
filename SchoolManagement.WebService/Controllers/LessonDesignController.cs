@@ -24,6 +24,14 @@ namespace SchoolManagement.WebService.Controllers
 
         }
 
+        [HttpGet]
+        public ActionResult GetAllLessons(LessonFilterViewModel filters)
+        {
+            var userName = identityService.GetUserName();
+            var response = lessonDesignService.GetAllLessons(filters, userName);
+            return Ok(response);
+        }
+
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {

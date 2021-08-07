@@ -15,23 +15,43 @@ namespace SchoolManagement.Business
 {
     public class LessonDesignService : ILessonDesignService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public LessonDesignService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public LessonDesignService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<LessonViewModel> GetAllLessons()
+        public List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters,string userName)
         {
             var response = new List<LessonViewModel>();
 
-            var query = schoolDb.Lessons.Where(u => u.IsActive == true);
+            var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(x=>x.CreatedOn);
+            
+            if(filters.SelectedAcademicYearId>0)
+            {
+                query = query.Where(x => x.AcademicYearId == filters.SelectedAcademicYearId).OrderBy(o => o.CreatedOn);
+            }
+
+            if (filters.SelectedAcademicLevelId > 0)
+            {
+                query = query.Where(x => x.AcademicLevelId ==filters.SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
+            }
+
+            if (filters.SelectedClassNameId > 0)
+            {
+                query = query.Where(x => x.ClassNameId == filters.SelectedClassNameId).OrderBy(o => o.CreatedOn);
+            }
+
+            if (filters.SelectedSubjectId > 0)
+            {
+                query = query.Where(x => x.SubjectId == filters.SelectedSubjectId).OrderBy(o => o.CreatedOn);
+            }
 
             var lessonList = query.ToList();
 
@@ -43,11 +63,11 @@ namespace SchoolManagement.Business
                     Id = lesson.Id,
                     Name = lesson.Name,
                     Description = lesson.Description,
-                    //OwnerId = lesson.OwnerId,
-                    //AcademicLevelId = lesson.AcademicLevelId,
-                    //ClassNameId = lesson.ClassNameId,
-                    //AcademicYearId = lesson.AcademicYearId,
-                    //SubjectId = lesson.SubjectId,
+                    OwnerId = lesson.OwnerId,
+                    SelectedAcademicLevelId = lesson.AcademicLevelId,
+                    SelectedClassNameId = lesson.ClassNameId,
+                    SelectedAcademicYearId = lesson.AcademicYearId,
+                    SelectedSubjectId = lesson.SubjectId,
                     VersionNo = lesson.VersionNo,
                     LearningOutcome = lesson.LearningOutcome,
                     PlannedDate = lesson.PlannedDate,
@@ -82,10 +102,10 @@ namespace SchoolManagement.Business
                         Id = vm.Id,
                         Description = vm.Description,
                         OwnerId = loggedInUser.Id,
-                        AcademicLevelId = vm.SelectedAcademicLevel.Id,
-                        ClassNameId = vm.SelectedClassName.Id,
-                        AcademicYearId = vm.SelectedAcademicYear.Id,
-                        SubjectId = vm.SelectedSubject.Id,
+                        AcademicLevelId = vm.SelectedAcademicLevelId,
+                        ClassNameId = vm.SelectedClassNameId,
+                        AcademicYearId = vm.SelectedAcademicYearId,
+                        SubjectId = vm.SelectedSubjectId,
                         LearningOutcome = vm.LearningOutcome,
                         PlannedDate = vm.PlannedDate,
                         VersionNo = vm.VersionNo,
@@ -107,10 +127,10 @@ namespace SchoolManagement.Business
                 {
                     lesson.Description = vm.Description;
                     lesson.OwnerId = loggedInUser.Id;
-                    lesson.AcademicLevelId = vm.SelectedAcademicLevel.Id;
-                    lesson.ClassNameId = vm.SelectedClassName.Id;
-                    lesson.AcademicYearId = vm.SelectedAcademicYear.Id;
-                    lesson.SubjectId = vm.SelectedSubject.Id;
+                    lesson.AcademicLevelId = vm.SelectedAcademicLevelId;
+                    lesson.ClassNameId = vm.SelectedClassNameId;
+                    lesson.AcademicYearId = vm.SelectedAcademicYearId;
+                    lesson.SubjectId = vm.SelectedSubjectId;
                     lesson.LearningOutcome = vm.LearningOutcome;
                     lesson.PlannedDate = vm.PlannedDate;
                     lesson.VersionNo = vm.VersionNo;
@@ -179,51 +199,6 @@ namespace SchoolManagement.Business
         }
 
 
-        //public async Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName)
-        //{
-        //    var response = new ResponseViewModel();
-        //    try
-        //    {
-        //        var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
-        //        var MCQQuestionAnswers = schoolDb.MCQQuestionAnswers.FirstOrDefault(x => x.Id == vm.Id);
-        //        var loggedInUser = currentUserService.GetUserByUsername(userName);
-
-        //        if (Lesson == null)
-        //        {
-        //            Lesson = new Lessons()
-        //            {
-        //                Id = vm.Id,
-        //                Name = vm.Name,
-        //                Description = vm.Description,
-        //                OwnerId = vm.OwnerId,
-        //                AcademicLevelId = vm.AcademicLevelId,
-        //                ClassNameId = vm.ClassNameId,
-        //                AcademicYearId = vm.AcademicYearId,
-        //                SubjectId = vm.SubjectId,
-        //                VersionNo = vm.VersionNo,
-        //                LearningOutcome = vm.LearningOutcome,
-        //                PlannedDate = vm.PlannedDate,
-        //                CompletedDate = vm.CompletedDate,
-        //                CreatedOn = vm.CreatedOn,
-        //                CreatedById = vm.CreatedById,
-        //                UpdatedOn = vm.UpdatedOn,
-        //                UpdatedById = vm.UpdatedById
-        //            };
-        //            schoolDb.Lessons.Add(Lesson);
-        //            response.IsSuccess = true;
-        //            response.Message = " Lesson is added successfully";
-        //        }
-        //        else
-        //        {
-
-        //            schoolDb.Lessons.Update(Lesson);
-        //        }
-
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //}
+    
     }
 }
