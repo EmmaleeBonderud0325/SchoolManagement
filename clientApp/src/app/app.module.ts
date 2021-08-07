@@ -1,3 +1,4 @@
+import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -34,6 +35,7 @@ import {
   HttpClient,
 } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AuthGuard } from './core/guard/auth.guard';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -80,11 +82,16 @@ export function createTranslateLoader(http: HttpClient): any {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    fakeBackendProvider,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+  },
+      AuthGuard],
+  bootstrap: [
+      AppComponent
+  
   ],
-  entryComponents: [],
-  bootstrap: [AppComponent],
+  entryComponents: []
 })
 export class AppModule {}
