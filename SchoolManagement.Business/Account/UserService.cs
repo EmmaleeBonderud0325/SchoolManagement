@@ -53,11 +53,16 @@ namespace SchoolManagement.Business
             return response;
         }
 
-        public List<UserViewModel> GetAllUsers()
+        public List<UserViewModel> GetAllUsers(int roleId)
         {
             var response =  new List<UserViewModel>();
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
+
+            if (roleId > 0)
+            {
+                query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+            }
 
             var userList = query.ToList();
 

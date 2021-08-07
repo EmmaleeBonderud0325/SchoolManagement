@@ -15,14 +15,12 @@ namespace SchoolManagement.Business
 {
     public class LessonDesignService : ILessonDesignService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public LessonDesignService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public LessonDesignService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
