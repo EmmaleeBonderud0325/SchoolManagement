@@ -27,9 +27,9 @@ namespace SchoolManagement.Master.Data.Data
                 //optionsBuilder.UseSqlServer(@"Server=LAPTOP-2UJGULUH\SQLEXPRESS;Database=SchoolMaster;User Id=hp;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=MSI\SQLEXPRESS;Database=SchoolMaster;User Id=ra;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-33VQTC5\SQLEXPRESS;Database=SchoolMaster;User Id=cg;Password=1qaz2wsx@;");
-                optionsBuilder.UseSqlServer(@"Server=LAPTOP-8I5H1L3D;Database=SchoolMaster;User Id=se;Password=1qaz2wsx@;");
+                //optionsBuilder.UseSqlServer(@"Server=LAPTOP-8I5H1L3D;Database=SchoolMaster;User Id=se;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=LAPTOP-OLUMFMFF\SQLEXPRESS;Database=SchoolMaster;User Id=sc;Password=1qaz2wsx@;");
-                //optionsBuilder.UseSqlServer(@"Server=DESKTOP-3JP4P3B\MSSQLSERVER01;Database=SchoolMaster;User Id=hn;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=DESKTOP-3JP4P3B\MSSQLSERVER01;Database=SchoolMaster;User Id=hn;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-JTSNI0P\SQLEXPRESS01;Database=SchoolMaster;User Id=dt;Password=1qaz2wsx@;");
             }
         }

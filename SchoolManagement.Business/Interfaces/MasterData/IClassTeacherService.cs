@@ -10,7 +10,8 @@ namespace SchoolManagement.Business.Interfaces.MasterData
 {
     public interface IClassTeacherService
     {
+        List<ClassTeacherViewModel> GetAllClassTeachers();
         Task<ResponseViewModel> SavaClassTeacher(ClassTeacherViewModel vm, string userName);
-
+        Task<ResponseViewModel> DeleteClassTeacher(int id);
     }
 }
