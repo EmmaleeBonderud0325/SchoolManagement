@@ -1,0 +1,81 @@
+   <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+     <div class="container">
+       <div class="card login-card mb-0">
+         <div class="row no-gutters">
+           <div class="col-md-5">
+             <img src="assets/images/login.jpg" alt="login" class="login-card-img">
+           </div>
+           <div class="col-md-7">
+             <div class="login-body">
+               <div class="text-center">
+                 <div class="brand-wrapper">
+                   <img src="assets/images/logo.png" alt="logo" class="logo"><span class="logo-name">Oreva</span>
+                 </div>
+               </div>
+               <form class="validate-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                 <div class="row">
+                   <div class="col-lg-12">
+                     <div class="form-group position-relative">
+                       <label>Your Email <span class="text-danger">*</span></label>
+                       <i-feather name="user" class="login-icons"></i-feather>
+                       <input type="email" class="form-control psl-5" formControlName="username" placeholder="Email">
+                     </div>
+                   </div>
+
+                   <div class="col-lg-12">
+                     <div class="form-group position-relative">
+                       <label>Password <span class="text-danger">*</span></label>
+                       <i-feather name="key" class="login-icons"></i-feather>
+                       <input type="password" class="form-control psl-5" formControlName="password"
+                         placeholder="Password">
+                     </div>
+                   </div>
+
+                   <div class="col-lg-12">
+                     <div class="d-flex justify-content-between">
+                       <div class="form-group">
+                         <div class="form-check">
+                           <input class="form-check-input" type="checkbox" id="customCheck1"
+                             formControlName="termcondition">
+                           <label class="form-check-label" for="customCheck1">
+                             Remember me
+                           </label>
+                         </div>
+                       </div>
+                       <p class="forgot-pass mb-0"><a routerLink="/authentication/forgot"
+                           class="text-dark fw-bold">Forgot password ?</a></p>
+                     </div>
+                   </div>
+                   <div *ngIf="error" class="alert alert-danger mb-3 msl-3">{{error}}</div>
+                   <div class="col-lg-12 mb-0">
+                     <button class="btn btn-primary auth-form-btn">Sign in</button>
+                   </div>
+                   <div class="col-lg-12 mt-4 text-center">
+                     <h6>Or Login With</h6>
+                     <ul class="list-unstyled social-icon mb-0 mt-3">
+                       <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                           <i-feather name="facebook" class="fea-social sm-icon"></i-feather>
+                         </a></li>
+                       <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                           <i-feather name="github" class="fea-social sm-icon"></i-feather>
+                         </a></li>
+                       <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                           <i-feather name="twitter" class="fea-social sm-icon"></i-feather>
+                         </a></li>
+                       <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                           <i-feather name="gitlab" class="fea-social sm-icon"></i-feather>
+                         </a></li>
+                     </ul>
+                   </div>
+                   <div class="col-12 text-center">
+                     <p class="mb-0 mt-3"><small class="text-dark msr-2">Don't have an account ?</small> <a
+                         routerLink="/authentication/signup" class="text-dark fw-bold">Sign Up</a></p>
+                   </div>
+                 </div>
+               </form>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </main>

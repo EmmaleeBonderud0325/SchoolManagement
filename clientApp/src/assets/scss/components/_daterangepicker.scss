@@ -1,0 +1,52 @@
+.daterangepicker {
+  &.dropdown-menu {
+    width: auto;
+  }
+
+  .input-mini {
+    padding-left: 28px !important;
+  }
+
+  .calendar {
+    th,
+    td {
+      padding: 5px;
+      font-size: 12px;
+    }
+  }
+}
+
+.ranges {
+  li {
+    color: color(primary);
+
+    &:hover,
+    &.active {
+      background-color: color(primary);
+    }
+  }
+}
+
+.daterangepicker td.active,
+.daterangepicker td.active:hover {
+  background-color: color(primary);
+}
+// Range CSS
+.custom-day {
+  text-align: center;
+  padding: 0.185rem 0.25rem;
+  display: inline-block;
+  height: 2rem;
+  width: 2rem;
+}
+.custom-day.focused {
+  background-color: #e6e6e6;
+}
+.custom-day.range,
+.custom-day:hover {
+  background-color: #0275d8;
+  color: white;
+}
+.faded {
+  opacity: 0.5;
+}

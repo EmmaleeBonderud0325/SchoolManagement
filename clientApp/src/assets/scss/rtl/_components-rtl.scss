@@ -1,0 +1,129 @@
+.card .card-statistic-4 {
+  .left-grid-spacing {
+    padding-top: 1rem;
+    padding-right: 15px;
+    padding-left: 0px;
+  }
+  .right-grid-spacing {
+    padding-left: 15px;
+    padding-right: 0px;
+  }
+}
+.card .card-statistic-3 .card-icon {
+  left: -5px;
+  right: unset;
+}
+.card.card-statistic-1 .card-icon,
+.card.card-statistic-2 .card-icon {
+  float: right;
+}
+.card .card-header h4 + .card-header-action,
+.card .card-header h4 + .card-header-form {
+  margin-right: auto;
+  margin-left: unset;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  padding-left: 0.5rem;
+  padding-right: 0rem;
+}
+.breadcrumb-item + .breadcrumb-item {
+  padding-right: 0.5rem;
+  padding-left: 0rem;
+}
+.media .media-right {
+  float: left;
+}
+.activity-list {
+  li {
+    padding-right: 55px;
+    padding-left: unset;
+    .task-icon {
+      right: 20px;
+      left: unset;
+    }
+  }
+  &:after {
+    right: 25px;
+  }
+}
+.inbox-center td {
+  text-align: right !important;
+}
+.mail-sender {
+  .mail-date {
+    float: left;
+  }
+}
+.people-list {
+  img {
+    float: right;
+  }
+  .about {
+    float: right;
+    padding-right: 8px;
+  }
+}
+.chat .chat-header {
+  img {
+    float: right;
+  }
+  .chat-about {
+    float: right;
+    padding-right: 10px;
+  }
+}
+.chat-box {
+  .chat-content .chat-item {
+    > img {
+      float: right;
+    }
+    &.chat-right {
+      img {
+        float: left;
+      }
+      .chat-details {
+        margin-left: 70px;
+        margin-right: 0;
+        text-align: left;
+      }
+    }
+    .chat-details {
+      margin-left: 0;
+      margin-right: 70px;
+    }
+  }
+  .chat-form .btn {
+    left: 35px;
+    right: unset;
+  }
+}
+
+.article.article-style-c .article-user img {
+  float: right;
+  margin-left: 15px;
+  margin-right: 0px;
+}
+
+.board {
+  float: right;
+}
+.list-unstyled-border li .custom-checkbox {
+  margin-left: 15px;
+  margin-right: unset;
+}
+.login-icons {
+  right: 18px;
+  left: unset;
+}
+.invoice .invoice-title .invoice-number {
+  float: left;
+}
+.invoice .invoice-right-align {
+  text-align: left;
+}
+.invoice .btn-right {
+  text-align: left;
+}
+.inbox-header {
+  text-align: right;
+}

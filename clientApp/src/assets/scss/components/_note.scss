@@ -1,0 +1,223 @@
+.note-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: 20px;
+  margin-bottom: 30px;
+  color: #000000;
+}
+.note-card-body {
+  flex: 1 1 auto;
+  padding: 1.57rem;
+
+  .team-member-sm {
+    width: 32px;
+    -webkit-transition: all 0.25s ease;
+    -o-transition: all 0.25s ease;
+    -moz-transition: all 0.25s ease;
+    transition: all 0.25s ease;
+  }
+  .team-member {
+    position: relative;
+    width: 30px;
+    white-space: nowrap;
+    border-radius: 1000px;
+    vertical-align: bottom;
+    display: inline-block;
+    img {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      border: 0;
+      border-radius: 1000px;
+    }
+  }
+  .order-list li + li {
+    margin-left: -14px;
+    background: transparent;
+  }
+  .order-list li .badge {
+    background: rgba(228, 222, 222, 0.8);
+    color: #6b6f82;
+    margin-top: 2px;
+  }
+  .note-important {
+    .fa-dot-circle:before {
+      color: #ff5050;
+      font-weight: bold;
+    }
+  }
+  .note-family {
+    .fa-dot-circle:before {
+      color: #17d003;
+      font-weight: bold;
+    }
+  }
+  .note-work {
+    .fa-dot-circle:before {
+      color: #ba64ff;
+      font-weight: bold;
+    }
+  }
+}
+.note-header {
+  display: flex;
+}
+.note-has-grid {
+  .nav-pills {
+    background-color: #f6f6f6;
+    li.nav-item {
+      line-height: 18px;
+    }
+  }
+  .nav-link {
+    padding: 0.5rem;
+    .feather {
+      height: 15px;
+      width: 15px;
+      margin-right: 5px;
+    }
+  }
+  .single-note-item {
+    .card {
+      border-radius: 10px;
+    }
+    .favourite-note {
+      cursor: pointer;
+    }
+    .remove-note {
+      cursor: pointer;
+    }
+    .side-stick {
+      position: absolute;
+      width: 3px;
+      height: 35px;
+      left: 0;
+      background-color: rgba(82, 95, 127, 0.5);
+    }
+    .category {
+      [class*="category-"] {
+        height: 15px;
+        width: 15px;
+        display: none;
+      }
+      [class*="category-"]::after {
+        color: #000;
+        content: "\f358";
+        font-family: "Font Awesome 5 Free";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+      }
+      .category-work {
+        &::after {
+          color: #a034f7;
+        }
+      }
+      .category-family {
+        &::after {
+          color: #55d647;
+        }
+      }
+      .category-important {
+        &::after {
+          color: #ff5050;
+        }
+      }
+    }
+    &.all-category {
+      .point {
+        color: rgba(82, 95, 127, 0.5);
+      }
+      .more-options {
+        display: block;
+      }
+      &.note-favourite {
+        .more-options {
+          display: block;
+        }
+        &.note-work .more-options {
+          display: none;
+        }
+        &.note-important .more-options {
+          display: none;
+        }
+        &.note-family .more-options {
+          display: none;
+        }
+      }
+      &.note-work .more-options {
+        display: none;
+      }
+      &.note-important .more-options {
+        display: none;
+      }
+      &.note-family .more-options {
+        display: none;
+      }
+    }
+    &.note-work {
+      .point {
+        color: #ba75f1;
+      }
+      .side-stick {
+        background-color: #ba75f1;
+      }
+      .category .category-work {
+        display: inline-block;
+      }
+    }
+    &.note-family {
+      .point {
+        color: #55d647;
+      }
+      .side-stick {
+        background-color: #55d647;
+      }
+      .category .category-family {
+        display: inline-block;
+      }
+    }
+    &.note-important {
+      .point {
+        color: rgba(255, 80, 80, 0.5);
+      }
+      .side-stick {
+        background-color: rgba(255, 80, 80, 0.5);
+      }
+      .category .category-important {
+        display: inline-block;
+      }
+    }
+    .category-dropdown.dropdown-toggle:after {
+      display: none;
+    }
+    &.note-favourite .favourite-note {
+      color: #ffc107;
+    }
+  }
+}
+.note-bg-red {
+  background-color: #ffebcd;
+}
+.note-bg-green {
+  background-color: #d2ffcd;
+}
+.note-bg-purple {
+  background-color: #e9cdff;
+}
+@media (max-width: 767.98px) {
+  .note-has-grid .single-note-item {
+    max-width: 100%;
+  }
+}
+@media (max-width: 991.98px) {
+  .note-has-grid .single-note-item {
+    max-width: 216px;
+  }
+}

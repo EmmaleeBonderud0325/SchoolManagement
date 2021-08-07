@@ -1,0 +1,177 @@
+<nav class="navbar navbar-expand-lg main-navbar sticky">
+  <div class="form-inline me-auto">
+    <ul class="navbar-nav msr-3">
+      <li>
+        <a data-toggle="sidebar" class="nav-link nav-link-lg
+									collapse-btn" (click)="mobileMenuSidebarOpen($event,'overlay-open')">
+          <i-feather name="menu"></i-feather>
+        </a></li>
+      <li>
+        <form class="form-inline me-auto">
+          <div class="search-element d-flex">
+            <input class="form-control" type="search" placeholder="{{'HEADER.SEARCH.TEXT' | translate}}"
+              aria-label="Search" data-width="200">
+            <button class="btn" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav navbar-right">
+    <li> <a class="nav-link nav-link-lg
+      collapse-btn" (click)="callFullscreen()">
+        <i-feather name="maximize"></i-feather>
+      </a>
+    </li>
+
+    <li class="dropdown dropdown-list-toggle" ngbDropdown>
+      <a data-toggle="dropdown" class="nav-link nav-link-lg lang-toggle remove-caret" ngbDropdownToggle>
+        <img *ngIf="flagvalue !== undefined" src="{{flagvalue}}" alt="Header Language" height="16">
+        <img *ngIf="flagvalue === undefined" src="{{defaultFlag}}" alt="Header Language" height="16">
+      </a>
+      <div class="dropdown-menu header-dropdown dropdown-menu-right lang-dropdown-list pullDown" ngbDropdownMenu>
+        <a href="javascript:void(0);" class="dropdown-item lang-item-list" *ngFor="let item of listLang"
+          (click)="setLanguage(item.text, item.lang, item.flag)" [ngClass]="{'active': langStoreValue === item.lang}">
+          <img src="{{item.flag}}" alt="user-image" class="msr-1" height="12"> <span
+            class="align-middle">{{item.text}}</span>
+        </a>
+      </div>
+    </li>
+
+    <li ngbDropdown class="dropdown dropdown-list-toggle"><a ngbDropdownToggle data-toggle="dropdown"
+        class="nav-link nav-link-lg message-toggle remove-caret">
+        <i-feather name="mail" class="mailAnim1 collapse-btn"></i-feather>
+      </a>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-list header-dropdown pullDown">
+        <div class="dropdown-header">
+          Messages
+          <div class="float-end">
+            <a href="#" onClick="return false;">Mark All As Read</a>
+          </div>
+        </div>
+        <div class="dropdown-list-content dropdown-list-message"
+          style="position: relative; max-width: 600px; max-height: 250px;" [perfectScrollbar]>
+          <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar
+                text-white"> <img alt="image" src="assets/images/users/user-1.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">John
+                Deo</span>
+              <span class="time messege-text">Please check your mail !!</span>
+              <span class="time">2 Min Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
+              <img alt="image" src="assets/images/users/user-2.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">Sarah
+                Smith</span> <span class="time messege-text">Request for leave
+                application</span>
+              <span class="time">5 Min Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
+              <img alt="image" src="assets/images/users/user-5.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">Jacob
+                Ryan</span> <span class="time messege-text">Your invoice is
+                generated.</span> <span class="time">12 Min Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
+              <img alt="image" src="assets/images/users/user-4.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">Lina
+                Smith</span> <span class="time messege-text">hii John, I have upload
+                doc
+                related to task.</span> <span class="time">30
+                Min Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
+              <img alt="image" src="assets/images/users/user-3.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">Jalpa
+                Joshi</span> <span class="time messege-text">Please do as specify.
+                Let me
+                know if you have any query.</span> <span class="time">1
+                Days Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span class="dropdown-item-avatar text-white">
+              <img alt="image" src="assets/images/users/user-2.png" class="rounded-circle">
+            </span> <span class="dropdown-item-desc"> <span class="message-user">Sarah
+                Smith</span> <span class="time messege-text">Client Requirements</span>
+              <span class="time">2 Days Ago</span>
+            </span>
+          </a>
+        </div>
+        <div class="dropdown-footer text-center">
+          <a href="#" onClick="return false;">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </li>
+
+    <li ngbDropdown class="dropdown dropdown-list-toggle"><a ngbDropdownToggle data-toggle="dropdown"
+        class="nav-link nav-link-lg message-toggle remove-caret">
+        <i-feather name="bell" class="bell collapse-btn"></i-feather>
+      </a>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right dropdown-list header-dropdown pullDown">
+        <div class="dropdown-header">
+          Messages
+          <div class="float-end">
+            <a href="#" onClick="return false;">Mark All As Read</a>
+          </div>
+        </div>
+        <div class="dropdown-list-content dropdown-list-icons"
+          style="position: relative; max-width: 600px; max-height: 250px;" [perfectScrollbar]>
+          <a href="#" onClick="return false;" class="dropdown-item dropdown-item-unread"> <span
+              class="dropdown-item-icon l-bg-orange text-white"> <i class="far fa-envelope"></i>
+            </span> <span class="dropdown-item-desc"> You got new mail, please check. <span class="time">2 Min
+                Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span
+              class="dropdown-item-icon l-bg-purple text-white"> <i class="fas fa-bell"></i>
+            </span> <span class="dropdown-item-desc"> Meeting with <b>John Deo</b> and <b>Sarah Smith </b> at
+              10:30 am <span class="time">10 Hours
+                Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span
+              class="dropdown-item-icon l-bg-green text-white"> <i class="far fa-check-circle"></i>
+            </span> <span class="dropdown-item-desc"> Sidebar Bug is fixed by Kevin <span class="time">12
+                Hours
+                Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span
+              class="dropdown-item-icon bg-danger text-white"> <i class="fas fa-exclamation-triangle"></i>
+            </span> <span class="dropdown-item-desc"> Low disk space error!!!. <span class="time">17 Hours
+                Ago</span>
+            </span>
+          </a> <a href="#" onClick="return false;" class="dropdown-item"> <span
+              class="dropdown-item-icon bg-info text-white"> <i class="fas
+                fa-bell"></i>
+            </span> <span class="dropdown-item-desc"> Welcome to Oreva
+              template! <span class="time">Yesterday</span>
+            </span>
+          </a>
+        </div>
+        <div class="dropdown-footer text-center">
+          <a href="#" onClick="return false;">View All <i class="fas fa-chevron-right"></i></a>
+        </div>
+      </div>
+    </li>
+
+
+    <li ngbDropdown><a ngbDropdownToggle data-toggle="dropdown"
+        class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+        <img alt="image" src="assets/images/user.png" class="user-img-radious-style collapse-btn"> <span
+          class="d-sm-none d-lg-inline-block"></span></a>
+      <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right header-dropdown pullDown">
+        <div class="dropdown-title">Hello Sarah..</div>
+        <a routerLink="/extra-pages/profile" class="dropdown-item has-icon"> <i class="far
+              fa-user"></i> Profile
+        </a> <a routerLink="/email/inbox" class="dropdown-item has-icon"> <i class="far fa-envelope"></i>
+          Email
+        </a> <a href="" onClick="return false;" class="dropdown-item has-icon"> <i class="fas fa-cog"></i>
+          Settings
+        </a>
+        <div class="dropdown-divider"></div>
+        <a href="javascript:void(0);" class="dropdown-item has-icon text-danger" (click)="logout()"> <i
+            class="fas fa-sign-out-alt"></i>
+          Logout
+        </a>
+      </div>
+    </li>
+  </ul>
+</nav>

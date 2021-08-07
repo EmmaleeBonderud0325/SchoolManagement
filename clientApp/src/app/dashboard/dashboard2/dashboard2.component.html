@@ -1,0 +1,362 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">Dashboard</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/dashboard/main">
+        <i class="fas fa-home font-17"></i></a>
+    </li>
+    <li class="breadcrumb-item">Dashboard 2</li>
+  </ul>
+  <div class="section-body">
+    <div class="row">
+      <div class="col-md-12 col-lg-8 col-xl-8 ">
+        <div class="card">
+          <div class="card-header">
+            <h4>Chart Sample</h4>
+          </div>
+          <div class="card-body">
+            <apx-chart [series]="lineChartOptions.series" [chart]="lineChartOptions.chart"
+              [yaxis]="lineChartOptions.yaxis" [xaxis]="lineChartOptions.xaxis" [labels]="lineChartOptions.labels"
+              [dataLabels]="lineChartOptions.dataLabels" [colors]="lineChartOptions.colors"
+              [grid]="lineChartOptions.grid" [stroke]="lineChartOptions.stroke" [markers]="lineChartOptions.markers"
+              [fill]="lineChartOptions.fill" [tooltip]="lineChartOptions.tooltip"></apx-chart>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="m-b-5">Online Sales</h5>
+                <h3 class="font-light col-green">$237.45</h3>
+              </div>
+              <div class="col-auto">
+                <div class="bg-orange text-white icon-box-style">
+                  <i class="fas fa-shopping-bag"></i>
+                </div>
+              </div>
+            </div>
+            <div class="apex-chart-center">
+              <apx-chart [series]="smallBarChart.series" [chart]="smallBarChart.chart"
+                [plotOptions]="smallBarChart.plotOptions" [tooltip]="smallBarChart.tooltip">
+              </apx-chart>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="m-b-0">Users</h5>
+                <h3>11,506 <span class="font-16 text-success">+18%</span>
+                </h3>
+              </div>
+              <div class="col-auto">
+                <div class="bg-green text-white icon-box-style">
+                  <i class="fas fa-user-friends"></i>
+                </div>
+              </div>
+            </div>
+            <div class="m-t-30">
+              <div class="row text-center">
+                <div class="col-6 border-right">
+                  <h4 class="m-b-0">72%</h4>
+                  <span class="font-14 text-muted">New Users</span>
+                </div>
+                <div class="col-6">
+                  <h4 class="m-b-0">28%</h4>
+                  <span class="font-14 text-muted">Repeat Users</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>Project Analysis</h4>
+          </div>
+          <div class="card-body">
+            <div id="chart">
+              <apx-chart [series]="pieChartOptions.series2" [chart]="pieChartOptions.chart"
+                [labels]="pieChartOptions.labels" [responsive]="pieChartOptions.responsive"
+                [colors]="pieChartOptions.colors" [dataLabels]="pieChartOptions.dataLabels"
+                [plotOptions]="pieChartOptions.plotOptions" [legend]="pieChartOptions.legend" class="apex-pie-center">
+              </apx-chart>
+            </div>
+            <div class="table-responsive m-t-15">
+              <table class="table align-items-center">
+                <tbody>
+                  <tr class="tbl-row-border">
+                    <td><i class="fa fa-circle col-blue msr-2"></i>Project 1</td>
+                    <td>18</td>
+                    <td class="col-green">+12%</td>
+                  </tr>
+                  <tr class="tbl-row-border">
+                    <td><i class="fa fa-circle col-cyan msr-2"></i>Project 2</td>
+                    <td>22</td>
+                    <td class="col-orange">-12%</td>
+                  </tr>
+                  <tr class="tbl-row-border">
+                    <td><i class="fa fa-circle col-orange msr-2"></i>Project 3</td>
+                    <td>14</td>
+                    <td class="col-green">+3%</td>
+                  </tr>
+                  <tr class="tbl-row-border">
+                    <td><i class="fa fa-circle col-pink msr-2"></i>Project 4</td>
+                    <td>31</td>
+                    <td class="col-green">+7%</td>
+                  </tr>
+                  <tr class="tbl-row-border">
+                    <td><i class="fa fa-circle col-amber msr-2"></i>Project 5</td>
+                    <td>15</td>
+                    <td class="col-orange">-11%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-8 col-xl-8 ">
+        <div class="card">
+          <div class="card-header">
+            <h4>Recent Order</h4>
+          </div>
+          <div class="card-body">
+            <div class="tableBody" id="client-details">
+              <div class="table-responsive" style="position: relative; max-height: 470px;" [perfectScrollbar]>
+                <table class="table table-hover dashboard-task-infos">
+                  <thead>
+                    <tr>
+                      <th>Img</th>
+                      <th>Order No</th>
+                      <th>Customer Name</th>
+                      <th>Order Date</th>
+                      <th>Status</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-5.png" alt="">
+                      </td>
+                      <td>XY56987</td>
+                      <td>Alis Smith</td>
+                      <td>22-09-2019</td>
+                      <td><span class="badge-outline col-orange">Cancelled</span></td>
+                      <td>$223</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-1.png" alt="">
+                      </td>
+                      <td>XY12587</td>
+                      <td>Pooja Sarma</td>
+                      <td>11-09-2019</td>
+                      <td><span class="badge-outline col-blue">Pending</span></td>
+                      <td>$124</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-4.png" alt="">
+                      </td>
+                      <td>XY58987</td>
+                      <td>John Doe</td>
+                      <td>18-09-2019</td>
+                      <td><span class="badge-outline col-green">Completed</span></td>
+                      <td>$178</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-6.png" alt="">
+                      </td>
+                      <td>XY56987</td>
+                      <td>Cara Stevens</td>
+                      <td>16-09-2019</td>
+                      <td><span class="badge-outline col-orange">Cancelled</span></td>
+                      <td>$265</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-9.png" alt="">
+                      </td>
+                      <td>XY12587</td>
+                      <td>Priya Mehta</td>
+                      <td>23-09-2019</td>
+                      <td><span class="badge-outline col-green">Completed</span></td>
+                      <td>$321</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-3.png" alt="">
+                      </td>
+                      <td>XY58987</td>
+                      <td>Ashton Cox</td>
+                      <td>28-09-2019</td>
+                      <td><span class="badge-outline col-orange">Cancelled</span></td>
+                      <td>$321</td>
+                    </tr>
+                    <tr>
+                      <td class="table-img">
+                        <img src="assets/images/users/user-7.png" alt="">
+                      </td>
+                      <td>XY3785</td>
+                      <td>Cara Stevens</td>
+                      <td>19-09-2019</td>
+                      <td><span class="badge-outline col-blue">Pending</span></td>
+                      <td>$152</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>Support Requests</h4>
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled list-unstyled-border list-unstyled-noborder">
+              <li class="support-list pb-1">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/users/user-1.png">
+                <div class="set-flex">
+                  <div class="float-end">
+                    <div class="status-label col-blue font-13">Open</div>
+                  </div>
+                  <div class="fw-bold mb-1">Cara Stevens</div>
+                  <div class="media-description font-13">Error while run the project, please solve it...</div>
+                  <span class="time font-10">2 Min Ago</span>
+                </div>
+              </li>
+              <li class="support-list pb-1">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/users/user-2.png">
+                <div class="set-flex">
+                  <div class="float-end">
+                    <div class="status-label col-orange font-13">Pending</div>
+                  </div>
+                  <div class="fw-bold mb-1">Priya Mehta</div>
+                  <div class="media-description font-13">Thanks for your support regarding this issues...</div>
+                  <span class="time font-10">10 Min Ago</span>
+                </div>
+              </li>
+              <li class="support-list pb-1">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/users/user-7.png">
+                <div class="set-flex">
+                  <div class="float-end">
+                    <div class="status-label col-green font-13">Solved</div>
+                  </div>
+                  <div class="fw-bold mb-1">Ashton Cox</div>
+                  <div class="media-description font-13">Image upload error during save, check error log...
+                  </div>
+                  <span class="time font-10">32 Min Ago</span>
+                </div>
+              </li>
+              <li class="support-list pb-1">
+                <img alt="image" class="msr-3 rounded-circle" width="40" src="assets/images/users/user-5.png">
+                <div class="set-flex">
+                  <div class="float-end">
+                    <div class="status-label col-blue font-13">Open</div>
+                  </div>
+                  <div class="fw-bold mb-1">Pooja Sarma</div>
+                  <div class="media-description font-13">Live preview url not working, please check it...</div>
+                  <span class="time font-10">44 Min Ago</span>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>Activity</h4>
+          </div>
+          <div class="card-body">
+            <div class="row align-items-center justify-content-center">
+              <div class="col-auto">
+                <img class="img-fluid rounded-circle act-user-img" width="50" src="assets/images/users/user-5.png"
+                  alt="">
+              </div>
+              <div class="col">
+                <h5 class="mb-0">John Doe</h5>
+                <span class="font-12">UX Designer</span>
+              </div>
+            </div>
+            <ul class="activity-list">
+              <li><i class="task-icon bg-green"></i>
+                <h6 class="mb-0">
+                  Angelica Ramos<span class="float-end font-12 text-muted">15
+                    Jan</span>
+                </h6>
+                <p class="text-muted">In it except to so temper mutual tastes…</p>
+              </li>
+              <li><i class="task-icon bg-red"></i>
+                <h6 class="mb-0">
+                  Sarah Smith<span class="float-end font-12 text-muted">21 Jan</span>
+                </h6>
+                <p class="text-muted">Had denoting properly jointure you…</p>
+              </li>
+              <li><i class="task-icon bg-cyan"></i>
+                <h6 class="mb-0">
+                  Ashton Cox<span class="float-end font-12 text-muted">28 Jan</span>
+                </h6>
+                <p class="text-muted">Now who promise was justice new winding…</p>
+              </li>
+              <li><i class="task-icon bg-orange"></i>
+                <h6 class="mb-0">
+                  Cara Stevens<span class="float-end font-12 text-muted">31 Jan</span>
+                </h6>
+                <p class="text-muted">An concluded sportsman offending so…</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12 col-lg-4 col-xl-4">
+        <div class="card">
+          <div class="card-header">
+            <h4>Ticket Status</h4>
+          </div>
+          <div class="card-body">
+            <div id="chart">
+              <apx-chart [series]="gaugeChartOptions.series2" [chart]="gaugeChartOptions.chart"
+                [plotOptions]="gaugeChartOptions.plotOptions" [labels]="gaugeChartOptions.labels"
+                [fill]="gaugeChartOptions.fill" [stroke]="gaugeChartOptions.stroke"></apx-chart>
+            </div>
+            <div class="m-t-30">
+              <div class="row text-center">
+                <div class="col-4 border-right">
+                  <h4 class="m-b-0">67%</h4>
+                  <span class="font-14 text-muted">New Ticket</span>
+                </div>
+                <div class="col-4 border-right">
+                  <h4 class="m-b-0">33%</h4>
+                  <span class="font-14 text-muted">Repeat Ticket</span>
+                </div>
+                <div class="col-4">
+                  <h4 class="m-b-0">1 Day</h4>
+                  <span class="font-14 text-muted">Duration</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>

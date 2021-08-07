@@ -1,0 +1,90 @@
+<main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <div class="container register-container">
+    <div class="card register-card">
+      <div class="row no-gutters">
+        <div class="col-md-6">
+          <img src="assets/images/register.jpg" alt="register" class="register-card-img">
+        </div>
+        <div class="col-md-6">
+          <div class="register-body">
+            <div class="text-center">
+              <div class="brand-wrapper">
+                <img src="assets/images/logo.png" alt="logo" class="logo"><span class="logo-name">Oreva</span>
+              </div>
+            </div>
+            <form class="login-form mt-4" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group position-relative">
+                    <label>First name <span class="text-danger">*</span></label>
+                    <i-feather name="user" class="login-icons"></i-feather>
+                    <input type="text" class="form-control psl-5" formControlName="fname" placeholder="First Name"
+                      required>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group position-relative">
+                    <label>Last name <span class="text-danger">*</span></label>
+                    <i-feather name="user-check" class="login-icons"></i-feather>
+                    <input type="text" class="form-control psl-5" formControlName="lname" placeholder="Last Name"
+                      required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group position-relative">
+                    <label>Your Email <span class="text-danger">*</span></label>
+                    <i-feather name="mail" class="login-icons"></i-feather>
+                    <input type="email" class="form-control psl-5" formControlName="email" placeholder="Email" required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group position-relative">
+                    <label>Password <span class="text-danger">*</span></label>
+                    <i-feather name="key" class="login-icons"></i-feather>
+                    <input type="password" class="form-control psl-5" formControlName="password" placeholder="Password"
+                      required>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" id="customCheck1" formControlName="termcondition">
+                      <label class="form-check-label" for="customCheck1">
+                        I Accept <a href="javascript:void(0)" class="col-blue">Terms And Condition</a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="error" class="alert alert-danger mb-3 msl-3">{{error}}</div>
+                <div class="col-md-12">
+                  <button class="btn btn-primary auth-form-btn" [disabled]="registerForm.invalid">Register</button>
+                </div>
+                <div class="col-lg-12 mt-4 text-center">
+                  <h6>Or Signup With</h6>
+                  <ul class="list-unstyled social-icon mb-0 mt-3">
+                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                        <i-feather name="facebook" class="fea-social sm-icon"></i-feather>
+                      </a></li>
+                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                        <i-feather name="github" class="fea-social sm-icon"></i-feather>
+                      </a></li>
+                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                        <i-feather name="twitter" class="fea-social sm-icon"></i-feather>
+                      </a></li>
+                    <li class="list-inline-item"><a href="javascript:void(0)" class="rounded">
+                        <i-feather name="gitlab" class="fea-social sm-icon"></i-feather>
+                      </a></li>
+                  </ul>
+                </div>
+                <div class="mx-auto">
+                  <p class="mb-0 mt-3"><small class="text-dark msr-2">Already have an account ?</small> <a
+                      routerLink="/authentication/signin" class="text-dark fw-bold">Sign in</a></p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,140 @@
+//
+// bootstrap-rtl.scss
+//
+
+.dropdown-menu {
+  &.show {
+    text-align: right;
+    left: auto !important;
+    right: 0;
+    bottom: auto;
+  }
+}
+
+.dropdown-menu-right {
+  right: auto !important;
+  left: 0 !important;
+  &.show {
+    left: 0 !important;
+  }
+}
+
+.btn.btn-icon-split i,
+.dropdown-item.has-icon i {
+  float: right;
+  margin-right: 0px;
+  margin-left: 10px;
+}
+.dropdown-list {
+  .dropdown-list-icons .dropdown-item .dropdown-item-desc {
+    margin-right: 15px;
+    margin-left: 0;
+  }
+  .dropdown-list-message .dropdown-item .dropdown-item-desc {
+    margin-right: 15px;
+    margin-left: 0;
+  }
+}
+
+// List
+
+ul {
+  padding-right: 0;
+}
+
+.list-inline-item:not(:last-child) {
+  margin-left: 6px;
+  margin-right: 0px;
+}
+
+.btn-group,
+.btn-group-vertical {
+  direction: ltr;
+}
+
+// Forms right check box
+
+.form-check-right {
+  padding-right: 0 !important;
+  padding-left: 1.25rem !important;
+
+  .form-check-input {
+    right: auto;
+    left: 0;
+    margin-right: 0;
+  }
+}
+
+.custom-control-right {
+  padding-left: 1.5rem !important;
+  padding-right: 0 !important;
+
+  .custom-control-label {
+    display: block;
+    &:before,
+    &:after {
+      right: auto;
+      left: -1.5rem;
+    }
+  }
+
+  .custom-control-input {
+    right: auto;
+    left: 0;
+  }
+}
+.modal-header .close {
+  margin: 0px;
+}
+.table-modal-header .modal-about {
+  padding-right: 10px;
+  padding-left: unset;
+}
+.form-check .form-check-label {
+  padding-left: 15px;
+  padding-right: 25px;
+}
+.custom-control {
+  padding-right: 1.5rem;
+  padding-left: unset;
+}
+.custom-control-label::before {
+  /* left: -1.5rem; */
+  right: -1.5rem;
+}
+.custom-control-label::after {
+  right: -1.5rem;
+}
+.custom-file-label::after {
+  left: 0;
+  right: unset;
+}
+.custom-switch-description {
+  margin-left: 0rem;
+  margin-right: 0.5rem;
+}
+.input-icons {
+  right: 18px;
+  left: unset;
+}
+.dropdown-toggle::after {
+  margin-right: 0.255em;
+  margin-left: unset;
+}
+.custom-select {
+  background-position: right calc(2.975em + 0.9rem) center;
+}
+.border-right {
+  border-left: 1px solid #dee2e6 !important;
+  border-right: none !important;
+}
+.breadcrumb-item + .breadcrumb-item::before {
+  float: right;
+}
+.form-select {
+  background-position: left 0.75rem center !important;
+}
+.alert-dismissible .close {
+  left: 0;
+  right: unset;
+}

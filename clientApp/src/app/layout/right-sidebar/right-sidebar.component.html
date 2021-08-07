@@ -1,0 +1,80 @@
+<div class="settingSidebar" [ngClass]="isOpenSidebar ? 'showSettingPanel' : ''">
+  <a href="javascript:void(0)" class="settingPanelToggle" (click)="toggleRightSidebar()"> <i
+      class="fa fa-spin fa-cog"></i>
+  </a>
+  <div class="settingSidebar-body ps-container ps-theme-default"
+    [ngStyle]="{'position' : 'relative', 'max-height' : maxHeight+'px', 'max-width' : maxWidth+'px'}"
+    [perfectScrollbar]>
+    <div class=" fade show active">
+      <div class="setting-panel-header">Setting Panel
+      </div>
+      <div class="p-15 border-bottom">
+        <h6 class="font-medium m-b-10">Select Layout</h6>
+        <div class="flex flex-wrap hiddenradio">
+          <div class="flex flex-col ">
+            <label>
+              <input type="radio" name="value" value="light" [checked]="isDarTheme == false ? true : false"
+                (click)="lightThemeBtnClick()">
+              <img src="assets/images/light.png">
+            </label>
+            <div class="mt-1 text-md text-center"> Light </div>
+          </div>
+          <div class="flex flex-col mt-3"> <label>
+              <input type="radio" name="value" value="dark" [checked]="isDarTheme == true ? true : false"
+                (click)="darkThemeBtnClick()">
+              <img src="assets/images/dark.png">
+            </label>
+            <div class="mt-1 text-md text-center"> Dark </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-15 border-bottom">
+        <h6 class="font-medium m-b-10">Sidebar Color</h6>
+        <div class="selectgroup selectgroup-pills sidebar-color">
+          <label class="selectgroup-item">
+            <input type="radio" name="icon-input" value="light" (click)="lightSidebarBtnClick()"
+              [checked]="isDarkSidebar == false ? true : false" class="selectgroup-input select-sidebar">
+            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+              data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+          </label>
+          <label class="selectgroup-item">
+            <input type="radio" name="icon-input" (click)="darkSidebarBtnClick()"
+              [checked]="isDarkSidebar == true ? true : false" class="selectgroup-input select-sidebar">
+            <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+              data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+          </label>
+        </div>
+      </div>
+      <div class="p-15 border-bottom">
+        <h6 class="font-medium m-b-10">Color Theme</h6>
+        <div class="theme-setting-options">
+          <ul class="choose-theme list-unstyled mb-0">
+            <li data-theme="white" [ngClass]="{'active': selectedBgColor === 'white'}" (click)="selectTheme('white')">
+              <div class="white"></div>
+            </li>
+            <li data-theme="cyan" [ngClass]="{'active': selectedBgColor === 'cyan'}" (click)="selectTheme('cyan')">
+              <div class="cyan"></div>
+            </li>
+            <li data-theme="black" [ngClass]="{'active': selectedBgColor === 'black'}" (click)="selectTheme('black')">
+              <div class="black"></div>
+            </li>
+            <li data-theme="purple" [ngClass]="{'active': selectedBgColor === 'purple'}"
+              (click)="selectTheme('purple')">
+              <div class="purple"></div>
+            </li>
+            <li data-theme="orange" [ngClass]="{'active': selectedBgColor === 'orange'}"
+              (click)="selectTheme('orange')">
+              <div class="orange"></div>
+            </li>
+            <li data-theme="green" [ngClass]="{'active': selectedBgColor === 'green'}" (click)="selectTheme('green')">
+              <div class="green"></div>
+            </li>
+            <li data-theme="red" [ngClass]="{'active': selectedBgColor === 'red'}" (click)="selectTheme('red')">
+              <div class="red"></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
