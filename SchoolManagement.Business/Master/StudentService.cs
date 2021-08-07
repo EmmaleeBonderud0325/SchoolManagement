@@ -28,6 +28,30 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
+        public async Task<ResponseViewModel> DeleteStudent(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var student = schoolDb.Students.FirstOrDefault(a => a.Id == id);
+
+                student.IsActive = false;
+                schoolDb.Students.Update(student);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Student deleted successfully";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
         public List<StudentViewModel> GetAllStudent()
         {
             var response = new List<StudentViewModel>();
@@ -89,8 +113,19 @@ namespace SchoolManagement.Business.Master
                 }  
                 else
                 {
-                    response.IsSuccess = false;
-                    response.Message = "error";
+                    studentIsAvailable.AdmissionNo = studentView.AdmissionNo;
+                    studentIsAvailable.EmegencyContactNo1 = studentView.EmegencyContactNo1;
+                    studentIsAvailable.EmegencyContactNo2 = studentView.EmegencyContactNo2;
+                    studentIsAvailable.Gender = studentView.Gender;
+                    studentIsAvailable.IsActive = true;
+                    studentIsAvailable.UpdatedById = loggedInUser.Id;
+                    studentIsAvailable.UpdateOn = DateTime.UtcNow;
+                    studentIsAvailable.DateOfBirth = studentView.DateOfBirth;
+
+                    schoolDb.Students.Update(studentIsAvailable);
+
+                    response.IsSuccess = true;
+                    response.Message = "Student updated successfully";
                 }
 
                 await schoolDb.SaveChangesAsync();
