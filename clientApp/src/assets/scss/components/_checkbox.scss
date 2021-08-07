@@ -1,0 +1,97 @@
+.form-check {
+  font-size: 13px;
+  line-height: 1;
+  color: #414244;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+  padding-left: 0;
+
+  .form-check-label {
+    cursor: pointer;
+    padding-left: 25px;
+    position: relative;
+    padding-right: 15px;
+
+    span {
+      display: block;
+      position: absolute;
+      left: -1px;
+      top: -1px;
+      transition-duration: 0.2s;
+      padding-left: 0;
+    }
+  }
+
+  .form-check-input {
+    overflow: hidden;
+    position: absolute;
+    margin: 0;
+    pointer-events: none;
+
+    &:checked + .form-check-sign {
+      &:before {
+        animation: rippleOn 0.5s;
+      }
+
+      .check {
+        background: #9c27b0;
+
+        &:before {
+          color: #ffffff;
+          box-shadow: 0 0 0 10px, 10px -10px 0 10px, 32px 0 0 20px,
+            0 32px 0 20px, -5px 5px 0 10px, 20px -12px 0 11px;
+          animation: checkboxOn 0.3s forwards;
+        }
+      }
+    }
+  }
+
+  .form-check-sign {
+    vertical-align: middle;
+    position: relative;
+    top: -2px;
+    float: left;
+    padding-right: 10px;
+    display: inline-block;
+
+    &:before {
+      display: block;
+      position: absolute;
+      left: 0;
+      content: '';
+      background-color: rgba(0, 0, 0, 0.84);
+      height: 20px;
+      width: 20px;
+      border-radius: 100%;
+      z-index: 1;
+      opacity: 0;
+      margin: 0;
+      top: 0;
+      transform: scale3d(2.3, 2.3, 1);
+    }
+
+    .check {
+      position: relative;
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 1px solid rgba(0, 0, 0, 0.54);
+      overflow: hidden;
+      z-index: 1;
+      border-radius: 3px;
+
+      &:before {
+        position: absolute;
+        content: '';
+        transform: rotate(45deg);
+        display: block;
+        margin-top: -3px;
+        margin-left: 7px;
+        width: 0;
+        color: #ffffff;
+        height: 0;
+        animation: checkboxOff 0.3s forwards;
+      }
+    }
+  }
+}

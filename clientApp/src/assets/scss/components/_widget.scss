@@ -1,0 +1,67 @@
+.user-list {
+  .user-list-img {
+    border-radius: 6px;
+    -webkit-box-shadow: 4px 3px 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 3px 6px 0 rgba(0, 0, 0, 0.2);
+    width: 35px;
+  }
+}
+
+.support-ticket {
+  .user-img {
+    border-radius: 6px;
+    -webkit-box-shadow: 4px 3px 6px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 3px 6px 0 rgba(0, 0, 0, 0.2);
+    width: 35px;
+  }
+}
+
+.product-list {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  .set-flex {
+    flex: 1;
+  }
+}
+.support-list {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+  border-radius: 6px;
+  .set-flex {
+    flex: 1;
+  }
+}
+.task-list {
+  display: flex;
+  align-items: center;
+  margin: 10px 0px;
+  border-radius: 6px;
+  .set-flex {
+    flex: 1;
+  }
+}
+.items-list-compo {
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  .set-flex {
+    flex: 1;
+  }
+  .items-list {
+    display: flex;
+  }
+  .item-list {
+    flex: 1;
+    text-align: center;
+    padding: 0 15px;
+    .item-value {
+      font-weight: 700;
+      font-size: 18px;
+    }
+  }
+}
+.review-img {
+  width: 80px;
+}

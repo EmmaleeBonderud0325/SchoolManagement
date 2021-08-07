@@ -13,25 +13,25 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business
 {
-    public class LessonService : ILessonService
+    public class LessonDesignService : ILessonDesignService
     {
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public LessonService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public LessonDesignService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<LessonViewModel> GetAllLessons(int id)
+        public List<LessonViewModel> GetAllLessons()
         {
             var response = new List<LessonViewModel>();
 
-            var query = schoolDb.Lessons.Where(u => u.Id == id);
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true);
 
             var lessonList = query.ToList();
 

@@ -1,0 +1,144 @@
+$color-dark: #16192a;
+
+.dark-sidebar {
+  &:not(.sidebar-mini) {
+    .sidebar-style-2 .menu > li.active {
+      ul.dropdown-menu li a {
+        background-color: $color-dark;
+      }
+    }
+  }
+
+  &.sidebar-mini .main-sidebar {
+    .menu {
+      background-color: $color-dark;
+
+      li {
+        &.active {
+          a {
+            box-shadow: none;
+            color: #fff;
+            margin: 0px;
+            border-radius: 3px;
+          }
+        }
+
+        ul.dropdown-menu {
+          background-color: #16192a;
+
+          li {
+            a {
+              background-color: $color-dark;
+              padding-left: 30px;
+
+              &::before {
+                left: 10px;
+              }
+            }
+
+            &:hover a {
+              background-color: $color-dark;
+            }
+          }
+        }
+
+        .has-dropdown:hover {
+          margin: 0px;
+          border-radius: 3px;
+        }
+      }
+    }
+
+    .sidebar-user {
+      background-color: $color-dark;
+    }
+
+    .dropdown-title {
+      background-color: $color-dark;
+      color: #fff !important;
+    }
+
+    &:after {
+      background-color: $color-dark;
+    }
+  }
+
+  .navbar {
+    &.active {
+      background-color: #fff;
+    }
+
+    .form-inline {
+      .form-control {
+        background-color: #f2f2f2;
+      }
+
+      .btn {
+        background-color: #f2f2f2;
+      }
+    }
+  }
+
+  .sidebar {
+    background-color: $color-dark;
+    box-shadow: none;
+    border-right: none;
+
+    .sidebar-brand {
+      background-color: $color-dark;
+
+      a {
+        color: #fff;
+      }
+    }
+
+    .menu .list li {
+      a {
+        color: #dadada;
+        span {
+          color: #dadada;
+        }
+      }
+
+      &.header {
+        color: #ebecf1;
+      }
+
+      &.active {
+        ul.dropdown-menu {
+          background-color: #16192a;
+        }
+        .menu-top {
+          background-color: rgba(0, 0, 0, 0.5);
+        }
+      }
+
+      a:hover {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .sidebar-user-panel .profile-usertitle {
+      .sidebar-userpic-name,
+      .profile-usertitle-job {
+        color: #dadada;
+      }
+      .sidebar-userpic-btn a {
+        color: #dadada;
+      }
+    }
+  }
+
+  .btn-primary,
+  .btn-primary.disabled {
+    box-shadow: none;
+  }
+  .ml-menu .ng-star-inserted.active {
+    .ml-menu {
+      color: #6777ef;
+      &::before {
+        color: #6777ef;
+      }
+    }
+  }
+}

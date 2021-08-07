@@ -1,0 +1,20 @@
+[
+    {
+        "id": "event1",
+        "title": "All Day Event",
+        "start": "2020-06-04T14:22:18Z",
+        "end": "2020-06-06T14:22:18Z",
+        "className": "fc-event-success",
+        "groupId": "work",
+        "details": "Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see."
+    },
+    {
+        "id": "event2",
+        "title": "Break",
+        "start": "2020-06-10T14:22:18Z",
+        "end": "2020-06-12T14:22:18Z",
+        "className": "fc-event-success",
+        "groupId": "work",
+        "details": "Her extensive perceived may any sincerity extremity. Indeed add rather may pretty see."
+    }
+]

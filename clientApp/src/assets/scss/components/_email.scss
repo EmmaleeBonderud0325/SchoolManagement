@@ -1,0 +1,157 @@
+﻿/*
+ *  Document   : _inbox.scss
+ *  Author     : RedStar Template
+ *  Description: This scss file for email page style classes
+ */
+.p-15 {
+  padding: 15px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.b-b {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.mail_listing {
+  .mail-option {
+    .btn-group {
+      margin-bottom: 5px;
+    }
+  }
+}
+
+#mail-nav {
+  .btn-compose {
+    margin: 15px;
+    min-width: 87%;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  #mail-folders {
+    list-style-type: none;
+    padding: 0px 15px;
+
+    > li {
+      margin: 2px 0;
+
+      a {
+        &:hover {
+          color: #fff;
+          background-color: #a8a9ab;
+        }
+      }
+
+      &.active > a {
+        color: #fff;
+        background-color: #a8a9ab;
+
+        &:hover {
+          background-color: #a8a9ab;
+        }
+      }
+    }
+  }
+
+  #mail-labels {
+    float: left;
+    width: 100%;
+
+    .material-icons {
+      font-size: 16px;
+      height: 16px;
+      padding: 2px;
+      float: left;
+    }
+  }
+
+  #online-offline {
+    .material-icons {
+      font-size: 8px;
+      height: 8px;
+      padding: 0px 5px 2px 0;
+    }
+  }
+
+  #mail-labels,
+  #online-offline {
+    list-style-type: none;
+    padding-left: 15px;
+
+    li {
+      a:hover {
+        background-color: #e6e6e6;
+      }
+    }
+  }
+
+  li {
+    a {
+      color: #212529;
+      padding: 5px 10px;
+      display: block;
+      border-radius: 4px;
+      position: relative;
+      -webkit-transition: all 0.2s ease-out;
+      -moz-transition: all 0.2s ease-out;
+      transition: all 0.2s ease-out;
+    }
+  }
+}
+
+.composeForm {
+  padding: 25px;
+}
+
+.inbox-body {
+  padding: 20px;
+}
+
+.inbox-header {
+  text-align: left;
+}
+
+.replyBox {
+  border: 1px solid rgba(120, 130, 140, 0.13);
+  padding: 20px;
+}
+
+.inbox-center {
+  td {
+    padding: 0px 15px !important;
+    text-align: left !important;
+  }
+
+  .table thead th {
+    vertical-align: middle;
+    padding: 20px;
+  }
+}
+
+.email-btn-group {
+  position: relative;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.max-texts {
+  padding: 0.75rem !important;
+
+  a {
+    color: #212529;
+    padding: 10px 0px 10px 0px;
+    text-decoration: none;
+  }
+}
+.mail-sender {
+  .mail-date {
+    float: right;
+  }
+}

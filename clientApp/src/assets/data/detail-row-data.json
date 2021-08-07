@@ -1,0 +1,197 @@
+[{
+    "id": 0,
+    "img": "assets/images/users/user-6.png",
+    "name": "Darlene Riggs",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (811) 538-3408",
+    "email": "example@test.com",
+    "status": "Pending",
+    "age": 39,
+    "address": {
+        "state": "South Carolina",
+        "city": "Glendale"
+      }
+  },
+  {
+    "id": 1,
+    "img": "assets/images/users/user-3.png",
+    "name": "Head Newton",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (847) 585-2042",
+    "email": "example@test.com",
+    "status": "Completed",
+    "age": 34,
+    "address": {
+        "state": "Arizona",
+        "city": "Beaverdale"
+      }
+  },
+  {
+    "id": 2,
+    "img": "assets/images/users/user-8.png",
+    "name": "Desiree Schneider",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (995) 549-2754",
+    "email": "example@test.com",
+    "status": "Active",
+    "age": 32,
+    "address": {
+        "state": "New Mexico",
+        "city": "Grazierville"
+      }
+  },
+  {
+    "id": 3,
+    "img": "assets/images/users/user-5.png",
+    "name": "Holman Mann",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (975) 430-3063",
+    "email": "example@test.com",
+    "status": "Active",
+    "age": 20,
+    "address": {
+        "state": "Wisconsin",
+        "city": "Saranap"
+      }
+  },
+  {
+    "id": 4,
+    "img": "assets/images/users/user-3.png",
+    "name": "Stephens Vega",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (841) 561-3826",
+    "email": "example@test.com",
+    "status": "Completed",
+    "age": 37,
+    "address": {
+        "state": "Vermont",
+        "city": "Norris"
+      }
+  },
+  {
+    "id": 5,
+    "img": "assets/images/users/user-10.png",
+    "name": "Cassie Abbott",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (874) 592-2349",
+    "email": "example@test.com",
+    "status": "Pending",
+    "age": 27,  
+    "address": {
+        "state": "Montana",
+        "city": "Bordelonville"
+      }
+  },
+  {
+    "id": 6,
+    "img": "assets/images/users/user-9.png",
+    "name": "Romero Pierce",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (954) 511-2933",
+    "email": "example@test.com",
+    "status": "Active",
+    "age": 28,
+    "address": {
+        "state": "New Jersey",
+        "city": "Aguila"
+      }
+  },
+  {
+    "id": 7,
+    "img": "assets/images/users/user-3.png",
+    "name": "Juanita Norris",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (914) 512-2265",
+    "email": "example@test.com",
+    "status": "Completed",
+    "age": 40,
+    "address": {
+        "state": "Virginia",
+        "city": "Kenmar"
+      }
+  },
+  {
+    "id": 8,
+    "img": "assets/images/users/user-6.png",
+    "name": "Duke Sargent",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (916) 556-3683",
+    "email": "example@test.com",
+    "status": "Completed",
+    "age": 38,
+    "address": {
+        "state": "Texas",
+        "city": "Alfarata"
+      }
+  },
+  {
+    "id": 9,
+    "img": "assets/images/users/user-9.png",
+    "name": "Selena West",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (878) 551-2618",
+    "email": "example@test.com",
+    "status": "Pending",
+    "age": 25,
+    "address": {
+        "state": "Maine",
+        "city": "Witmer"
+      }
+  },
+  {
+    "id": 10,
+    "img": "assets/images/users/user-3.png",
+    "name": "Lane Sims",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (868) 545-3934",
+    "email": "example@test.com",
+    "status": "Active",
+    "age": 20,
+    "address": {
+        "state": "Nevada",
+        "city": "Kipp"
+      }
+  },
+  {
+    "id": 11,
+    "img": "assets/images/users/user-5.png",
+    "name": "Alexandra Carr",
+    "designation": "Manager",
+    "gender": "female",
+    "phone": "+1 (921) 557-3444",
+    "email": "example@test.com",
+    "status": "Pending",
+    "age": 40,
+    "address": {
+        "state": "Minnesota",
+        "city": "Darrtown"
+      }
+  },
+  {
+    "id": 12,
+    "img": "assets/images/users/user-7.png",
+    "name": "Tanner Hoover",
+    "designation": "Manager",
+    "gender": "male",
+    "phone": "+1 (825) 406-2792",
+    "email": "example@test.com",
+    "status": "Completed",
+    "age": 30,
+    "address": {
+        "state": "Georgia",
+        "city": "Crucible"
+      }
+  }
+  ]
+  

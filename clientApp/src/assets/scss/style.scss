@@ -1,0 +1,135 @@
+/*
+ *  Document   : style.css
+ *  Author     : RedStar Template
+ *  Description: This is a main style scss file for import all scss files.
+ *
+ *  Structure (with shortcodes):
+                 [1. External Import ]
+                 [2. Fonts ]       
+                 [3. Common ]
+                 [4. Components ]       
+                 [5. Override Classes]                   
+                 [6. Layout ]    
+                 [7. Theme ]   
+                 [8. RTL ]      
+                
+/*                 [1. External Import ]                   			*/
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
+@import '~ngx-toastr/toastr';
+@import '~@ng-select/ng-select/themes/default.theme.css';
+@import '../../../node_modules/angular-archwizard/archwizard.css';
+
+/*                 [2. Fonts]                   				*/
+// @import "fonts/_material.scss";
+@import 'fonts/fontawesome/fontawesome.scss';
+@import 'fonts/fontawesome/regular.scss';
+@import 'fonts/fontawesome/solid.scss';
+@import 'fonts/fontawesome/brands.scss';
+
+/*                 [3. Common ]                   			*/
+/* Variable */
+@import '_variable';
+/* Mixin */
+@import '_mixin';
+/* Helper classes */
+@import '_helpers';
+/* Custom Style */
+@import '_custom';
+
+/*                 [4. Components ]                   			*/
+@import '_components';
+
+/*                 [5. Override Classes ]                       */
+/* 5.1 Accordion */
+@import 'override/_accordion';
+/* 5.2 Alert */
+@import 'override/_alert';
+/* 5.3 Badge */
+@import 'override/_badge';
+/* 5.4 Breadcrumb */
+@import 'override/_breadcrumb';
+/* 5.5 Button */
+@import 'override/_button';
+/* 5.6 Card */
+@import 'override/_card';
+/* 5.7 Carousel */
+@import 'override/_carousel';
+/* 5.8 Dropdown */
+@import 'override/_dropdown';
+/* 5.9 Form */
+@import 'override/_form';
+/* 5.10 Grid */
+@import 'override/_grid';
+/* 5.11 Icons */
+@import 'override/_icons';
+/* 5.12 Jumbotron */
+@import 'override/_jumbotron';
+/* 5.13 List */
+@import 'override/_list';
+/* 5.14 Media */
+@import 'override/_media';
+/* 5.15 Misc */
+@import 'override/_misc';
+/* 5.16 Modal */
+@import 'override/_modal';
+/* 5.17 Nav */
+@import 'override/_nav';
+/* 5.18 Navbar */
+@import 'override/_navbar';
+/* 5.19 Pagination */
+@import 'override/_pagination';
+/* 5.20 Popover */
+@import 'override/_popover';
+/* 5.21 Progress Bar */
+@import 'override/_progressbar';
+/* 5.22 Rating */
+@import 'override/_rating';
+/* 5.23 Dropdown */
+@import 'override/_tab';
+/* 5.24 Table */
+@import 'override/_table';
+/* 5.25 Tooltip */
+@import 'override/_tooltip';
+/* 5.26 Timeline */
+@import 'override/_timeline';
+
+/*                 [6. Layout ]                       */
+/* 6.1 Misc */
+@import 'layouts/misc';
+/* 6.2 Section */
+@import 'layouts/section';
+/* 6.3 Page */
+@import 'layouts/page';
+/* 6.4 Layout */
+@import 'layouts/layout';
+/* 6.5 Animation */
+@import 'layouts/animation';
+/* 6.6 Sidebar */
+@import 'layouts/sidebar';
+
+/*                 [7. Theme ]                       */
+/* 7.1 Dark Sidebar */
+@import 'skins/_darksidebar';
+/* 7.2 Light Sidebar */
+@import 'skins/_lightsidebar';
+/* 7.3 Purple Theme */
+@import 'skins/purple';
+/* 7.4 Cyan Theme */
+@import 'skins/cyan';
+/* 7.5 Green Theme */
+@import 'skins/green';
+/* 7.6 Red Theme */
+@import 'skins/red';
+/* 7.7 Orange Theme */
+@import 'skins/orange';
+/* 7.8 White Theme */
+@import 'skins/white';
+/* 7.9 Black Theme */
+@import 'skins/black';
+/* 7.10 Dark Template */
+@import 'skins/dark';
+
+/*                 [8. RTL ]                       */
+// @import 'rtl/rtl'; // Remove comment for RTL template

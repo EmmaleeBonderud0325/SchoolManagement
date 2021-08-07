@@ -1,0 +1,349 @@
+$color-primary: #ffa117;
+$color-primary-shadow: #f1a535;
+$color-primary-light: #efb45f;
+
+%common-prop {
+  color: #fff;
+  background-color: $color-primary;
+  border-color: $color-primary;
+}
+
+.theme-orange {
+  &.sidebar-mini {
+    .main-sidebar {
+      .sidebar-menu > li {
+        &.active > a {
+          background-color: rgba(0, 0, 0, 0.14);
+        }
+
+        ul.dropdown-menu li.active > a:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  .bg-primary {
+    background-color: $color-primary !important;
+  }
+
+  .text-primary {
+    color: $color-primary !important;
+  }
+
+  .btn-primary {
+    background-color: $color-primary;
+    border-color: transparent !important;
+    color: #fff;
+
+    &:focus {
+      background-color: $color-primary-light !important;
+
+      &:active {
+        background-color: $color-primary-light !important;
+      }
+    }
+
+    &:active {
+      background-color: $color-primary-light !important;
+    }
+
+    &:hover {
+      background-color: $color-primary-light !important;
+      color: #fff;
+    }
+
+    &.disabled {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &:disabled {
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+  }
+
+  .btn-outline-primary {
+    color: $color-primary;
+    background-color: transparent;
+    background-image: none;
+    border-color: $color-primary;
+
+    &:hover {
+      color: #fff;
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &.disabled {
+      color: $color-primary;
+      background-color: transparent;
+    }
+
+    &:disabled {
+      color: $color-primary;
+      background-color: transparent;
+    }
+
+    &:not([disabled]):not(.disabled) {
+      &:active {
+        @extend %common-prop;
+      }
+
+      &.active {
+        @extend %common-prop;
+      }
+    }
+  }
+
+  .btn-link {
+    font-weight: 400;
+    color: $color-primary;
+    background-color: transparent;
+
+    &:hover {
+      color: $color-primary-light;
+    }
+  }
+
+  .nav-pills {
+    .nav-link.active {
+      color: #fff;
+      background-color: $color-primary;
+    }
+
+    .show > .nav-link {
+      color: #fff;
+      background-color: $color-primary;
+    }
+
+    // .nav-item .nav-link {
+    // 	color: $color-primary;
+    // }
+  }
+
+  .page-link {
+    color: $color-primary;
+    background-color: #fff;
+    border: 1px solid #ededed;
+
+    &:focus {
+      color: $color-primary-light;
+    }
+
+    &:hover {
+      color: $color-primary-light;
+      background-color: #eaeaea;
+    }
+  }
+
+  .page-item {
+    .page-link {
+      color: $color-primary;
+    }
+
+    &.active .page-link {
+      color: #fff;
+      background-color: $color-primary;
+      border-color: $color-primary;
+    }
+
+    &.disabled {
+      .page-link {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .progress-bar {
+    color: #fff;
+    background-color: $color-primary;
+  }
+
+  .border-primary {
+    border-color: $color-primary !important;
+  }
+
+  .navbar {
+    background-color: $color-primary;
+  }
+
+  .jqvmap-circle {
+    background-color: $color-primary;
+    border: 1px solid #000;
+  }
+
+  .dropzone {
+    border: 2px dashed $color-primary;
+  }
+
+  .show > .btn-outline-primary.dropdown-toggle {
+    @extend %common-prop;
+  }
+
+  .custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: $color-primary;
+  }
+
+  .custom-checkbox .custom-control-input {
+    &:checked ~ .custom-control-label::before {
+      background-color: $color-primary;
+    }
+
+    &:indeterminate ~ .custom-control-label::before {
+      background-color: $color-primary;
+    }
+  }
+
+  .custom-radio .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: $color-primary;
+  }
+
+  .list-group-item.active {
+    color: #fff;
+    background-color: $color-primary;
+    border-color: $color-primary;
+  }
+
+  .navbar.active {
+    background-color: $color-primary;
+  }
+
+  // .main-sidebar .sidebar-menu li {
+  // 	&.active .has-dropdown {
+  // 		background-color: #f9f9f9;
+  // 		color: $color-primary;
+  // 	}
+  // 	ul.menu-dropdown li {
+  // 		a:hover {
+  // 			color: $color-primary;
+  // 		}
+  // 		&.active a {
+  // 			color: $color-primary;
+  // 		}
+  // 	}
+  // }
+  .alert.alert-primary {
+    background-color: $color-primary;
+  }
+
+  .card.card-primary {
+    border-top: 2px solid $color-primary;
+  }
+
+  .fc button.fc-state-active {
+    background-color: $color-primary;
+    color: #fff;
+  }
+
+  .weather ul li {
+    border: 2px solid $color-primary;
+    color: $color-primary;
+  }
+
+  .card-chat .chat-content .chat-item.chat-right .chat-details .chat-text {
+    background-color: $color-primary;
+    color: #fff;
+  }
+
+  .nav-tabs .nav-item .nav-link {
+    color: $color-primary;
+  }
+
+  .swal-button.swal-button--confirm {
+    background-color: $color-primary;
+  }
+
+  .btn-group .btn.active {
+    background-color: $color-primary;
+    color: #fff;
+  }
+
+  .media .media-right {
+    color: $color-primary;
+  }
+
+  .selectric-items li {
+    &.selected {
+      background-color: $color-primary;
+      color: #fff;
+    }
+
+    &.highlighted {
+      background-color: $color-primary;
+      color: #fff;
+    }
+  }
+
+  .accordion .accordion-header[aria-expanded='true'] {
+    background-color: $color-primary;
+    color: #fff;
+  }
+
+  .bootstrap-tagsinput .tag {
+    background-color: $color-primary;
+  }
+
+  body:not(.sidebar-mini) .sidebar-style-2 {
+    .sidebar-menu {
+      > li {
+        &.active {
+          > a {
+            &:before {
+              background-color: $color-primary;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  body.sidebar-mini .main-sidebar .sidebar-menu > li {
+    &.active > a {
+      box-shadow: 0 4px 8px $color-primary-shadow;
+      background-color: $color-primary;
+      color: #fff;
+    }
+
+    ul.dropdown-menu li.active > a {
+      color: $color-primary;
+    }
+  }
+
+  .activities .activity:before {
+    background-color: $color-primary;
+  }
+
+  .settingSidebar .settingPanelToggle {
+    background: $color-primary;
+
+    i {
+      color: #fff;
+    }
+  }
+
+  .sidebar-color .selectgroup-input:checked + .selectgroup-button {
+    background-color: $color-primary;
+  }
+
+  .custom-switch-input:checked ~ .custom-switch-indicator {
+    background: $color-primary;
+  }
+
+  .selectgroup-input:focus + .selectgroup-button,
+  .selectgroup-input:checked + .selectgroup-button {
+    background-color: $color-primary;
+  }
+
+  .selectgroup-input-radio:focus + .selectgroup-button,
+  .selectgroup-input-radio:checked + .selectgroup-button {
+    background-color: $color-primary;
+  }
+  .bcrumb-1 {
+    a {
+      color: $color-primary;
+    }
+  }
+}
