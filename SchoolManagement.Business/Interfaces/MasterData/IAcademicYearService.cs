@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Master;
+﻿using SchoolManagement.ViewModel.Common;
+using SchoolManagement.ViewModel.Master;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     public interface IAcademicYearService
     {
         List<AcademicYearViewModel> GetAllAcademicYear();
+        Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel academicYearVM, String userName);
     }
 }
