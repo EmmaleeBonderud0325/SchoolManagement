@@ -11,7 +11,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     public interface ILessonDesignService
     {
         Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
-        List<LessonViewModel> GetAllLessons();
+        List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters, string userName);
         Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName);
     }
 }

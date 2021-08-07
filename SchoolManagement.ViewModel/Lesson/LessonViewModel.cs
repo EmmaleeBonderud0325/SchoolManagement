@@ -12,6 +12,7 @@ namespace SchoolManagement.ViewModel.Lesson
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public int OwnerId { get; set; }
         public string Description { get; set; }
         public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
@@ -27,11 +28,11 @@ namespace SchoolManagement.ViewModel.Lesson
         public int TopicId { get; set; }
         public string Content { get; set; }
 
-        public DropDownViewModel SelectedOwner { get; set; }
-        public DropDownViewModel SelectedAcademicLevel { get; set; }
-        public DropDownViewModel SelectedClassName { get; set; }
-        public DropDownViewModel SelectedAcademicYear { get; set; }
-        public DropDownViewModel SelectedSubject { get; set; }
+        public int SelectedOwnerId { get; set; }
+        public int SelectedAcademicLevelId { get; set; }
+        public int SelectedClassNameId { get; set; }
+        public int SelectedAcademicYearId { get; set; }
+        public int SelectedSubjectId { get; set; }
 
         //public List<QuestionViewModel> TeacherEssyQuestions { get; set; }
         //public List<QuestionViewModel> TeacherMCQQuestions { get; set; }
