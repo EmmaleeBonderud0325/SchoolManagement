@@ -13,25 +13,25 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business
 {
-    public class LessonService : ILessonService
+    public class LessonDesignService : ILessonDesignService
     {
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public LessonService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public LessonDesignService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<LessonViewModel> GetAllLessons(int id)
+        public List<LessonViewModel> GetAllLessons()
         {
             var response = new List<LessonViewModel>();
 
-            var query = schoolDb.Lessons.Where(u => u.Id == id);
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true);
 
             var lessonList = query.ToList();
 
@@ -134,6 +134,48 @@ namespace SchoolManagement.Business
 
             return response;
 
+        }
+
+        public async Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                var topic = schoolDb.Topics.FirstOrDefault(x => x.Id == vm.Id);
+
+                if(topic == null)
+                {
+                    topic = new Topic()
+                    {
+                        Id = vm.Id,
+                        LessonId = vm.LessonId,
+                        SequenceNo = vm.SequenceNo,
+                        LearningExperience = vm.LearningExperience,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        ModifiedOn = DateTime.UtcNow,
+                    };
+
+                    schoolDb.Topics.Add(topic);
+
+                    response.IsSuccess = true;
+                    response.Message = "Topic Added Successfull.";
+                }
+                else
+                {
+
+                }
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            await schoolDb.SaveChangesAsync();
+            return response;
         }
 
 

@@ -107,9 +107,25 @@ namespace SchoolManagement.Business.Master
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = loggedInUser.Id,
                      };
-                    
-                    schoolDb.Subjects.Add(subject);
 
+                    schoolDb.Subjects.Add(subject);
+                    await schoolDb.SaveChangesAsync();
+
+                    var insetedId = schoolDb.Subjects.Max(x =>x.Id);
+
+                    subject.SubjectAcademicLevels = new HashSet<SubjectAcademicLevel>();
+
+                    foreach(var unit in vm.SubjectAcademicLevels.Where(x => x.IsCheck).ToList())
+                    {
+                        var subjectAcademicLevel = new SubjectAcademicLevel()
+                        {
+                            SubjectId = insetedId,
+                            AcademicLevelId=unit.AcademicLevelId,
+                        };
+
+                        subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
+                        schoolDb.SubjectAcademicLevels.Add(subjectAcademicLevel);
+                    }
                     response.IsSuccess = true;
                     response.Message = "Subject Add Successfull.";
                 }
@@ -143,6 +159,11 @@ namespace SchoolManagement.Business.Master
     }
 }
                 
+                 
+
+
+
+
                     
 
 

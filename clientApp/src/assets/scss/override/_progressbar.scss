@@ -1,0 +1,16 @@
+.progress {
+  background-color: #e9ecef !important;
+  box-shadow: 0 0.4rem 0.6rem rgba(0, 0, 0, 0.15) !important;
+
+  &.progress-xs {
+    height: 5px;
+  }
+
+  &.progress-s {
+    height: 7px;
+  }
+}
+
+.progress-bar {
+  background-color: color(primary);
+}

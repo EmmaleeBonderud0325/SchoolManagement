@@ -1,0 +1,26 @@
+.browser {
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  background-size: 100%;
+
+  &.browser-chrome {
+    background-image: url('../../images/browsers/chrome.png');
+  }
+
+  &.browser-firefox {
+    background-image: url('../../images/browsers/firefox.png');
+  }
+
+  &.browser-internet-explorer {
+    background-image: url('../../images/browsers/internet-explorer.png');
+  }
+
+  &.browser-opera {
+    background-image: url('../../images/browsers/opera.png');
+  }
+
+  &.browser-safari {
+    background-image: url('../../images/browsers/safari.png');
+  }
+}

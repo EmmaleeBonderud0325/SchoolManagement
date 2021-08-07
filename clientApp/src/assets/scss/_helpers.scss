@@ -1,0 +1,194 @@
+﻿$font-colors: (
+  red: #f44336,
+  pink: #fa62bb,
+  purple: #9c27b0,
+  deep-purple: #673ab7,
+  indigo: #6777ef,
+  blue: #2196f3,
+  light-blue: #03a9f4,
+  cyan: #10cfbd,
+  teal: #009688,
+  green: #4caf50,
+  light-green: #8bc34a,
+  lime: #cddc39,
+  yellow: #ffe821,
+  amber: #ffc107,
+  orange: #ff9800,
+  deep-orange: #ff5722,
+  brown: #795548,
+  grey: #9e9e9e,
+  blue-grey: #607d8b,
+  black: #000000,
+  white: #ffffff,
+  dark-gray: #888888,
+) !default;
+
+$linear-colors: (
+  green: linear-gradient(135deg, #23bdb8 0%, #43e794 100%),
+  green-dark: linear-gradient(135deg, #23bdb8 0, #65a986 100%),
+  orange: linear-gradient(to right, #f9900e, #ffba56),
+  orange-dark: linear-gradient(135deg, #f48665 0, #d68e41 100%),
+  cyan: linear-gradient(135deg, #289cf5, #84c0ec),
+  cyan-dark: linear-gradient(135deg, #289cf5, #4f8bb7),
+  red: linear-gradient(to right, #a77ffc 0%, #ff6eac 100%),
+  purple: linear-gradient(to right, #4e54c8, #898cdc),
+  purple-dark: linear-gradient(135deg, #8e4cf1 0, #c554bc 100%),
+  yellow: linear-gradient(to right, #f6e384, #ffd500),
+  blue: linear-gradient(to left, #00c6ff, #0072ff),
+  cherry: linear-gradient(to right, #eb3349, #f45c43),
+  style1: linear-gradient(to right, #3b8d99, #6b6b83, #aa4b6b),
+  style2: linear-gradient(to left, #283c86, #45a247),
+  style3: linear-gradient(to left, #904e95, #e96443),
+  style4: linear-gradient(to right, #2e1437, #948e99),
+);
+
+@for $i from -25 through 25 {
+  .m-l-#{$i * 5} {
+    margin-left: #{$i * 5}px;
+  }
+
+  .m-t-#{$i * 5} {
+    margin-top: #{$i * 5}px;
+  }
+
+  .m-r-#{$i * 5} {
+    margin-right: #{$i * 5}px;
+  }
+
+  .m-b-#{$i * 5} {
+    margin-bottom: #{$i * 5}px;
+  }
+}
+
+.margin-0 {
+  margin: 0;
+}
+
+@for $i from 0 through 25 {
+  .p-l-#{$i * 5} {
+    padding-left: #{$i * 5}px;
+  }
+
+  .p-t-#{$i * 5} {
+    padding-top: #{$i * 5}px;
+  }
+
+  .p-r-#{$i * 5} {
+    padding-right: #{$i * 5}px;
+  }
+
+  .p-b-#{$i * 5} {
+    padding-bottom: #{$i * 5}px;
+  }
+}
+
+@for $i from 0 through 25 {
+  .margin-#{$i * 5} {
+    margin: #{$i * 5}px;
+  }
+
+  .padding-#{$i * 5} {
+    padding: #{$i * 5}px;
+  }
+}
+
+.padding-0 {
+  padding: 0;
+}
+
+@for $i from 5 through 49 {
+  .font-#{$i + 1} {
+    font-size: #{$i + 1}px !important;
+  }
+}
+
+.pull-left {
+  float: left;
+}
+
+.pull-right {
+  float: right;
+}
+
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+.align-justify {
+  text-align: justify;
+}
+
+.no-resize {
+  resize: none;
+}
+
+.font-bold {
+  font-weight: bold;
+}
+
+.font-italic {
+  font-style: italic;
+}
+
+.font-underline {
+  text-decoration: underline;
+}
+
+.font-line-through {
+  text-decoration: line-through;
+}
+
+.font-overline {
+  text-decoration: overline;
+}
+.round {
+  border-radius: 1.5rem;
+}
+
+@each $key, $val in $font-colors {
+  .bg-#{'' + $key} {
+    background-color: $val !important;
+    color: #fff;
+
+    .content {
+      .text,
+      .number {
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+@each $key, $val in $linear-colors {
+  .l-bg-#{'' + $key} {
+    background: $val !important;
+    color: #fff;
+
+    .content {
+      .text,
+      .number {
+        color: #fff !important;
+      }
+    }
+  }
+}
+
+@each $key, $val in $font-colors {
+  .col-#{'' + $key} {
+    color: $val !important;
+  }
+}
+
+@for $i from 0 through 100 {
+  .width-per-#{$i} {
+    width: round(percentage($i/100));
+  }
+}

@@ -1,0 +1,14 @@
+.tooltip {
+  font-size: 12px;
+}
+
+.tooltip-inner {
+  padding: 7px 13px;
+}
+.my-custom-class .tooltip-inner {
+  background-color: darkgreen;
+  font-size: 125%;
+}
+.my-custom-class .arrow::before {
+  border-top-color: darkgreen;
+}

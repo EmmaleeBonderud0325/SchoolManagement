@@ -1,0 +1,36 @@
+.page-item {
+  .page-link {
+    color: color(primary);
+    border-radius: 3px;
+    margin: 0 3px;
+    @include box-shadow(2px, 2px, 2px, rgba(0, 0, 0, 0.2));
+  }
+
+  &.active .page-link {
+    background-color: color(primary);
+    border-color: color(primary);
+  }
+
+  &.disabled .page-link {
+    border-color: transparent;
+    background-color: color_lighten(primary, 31.7%);
+    color: color(primary);
+    opacity: 0.6;
+  }
+}
+
+.page-link {
+  border-color: transparent;
+  background-color: color_lighten(primary, 31.7%);
+  font-weight: 600;
+
+  &:hover {
+    background-color: color(primary);
+    color: #fff;
+    border-color: transparent;
+  }
+
+  &:focus {
+    box-shadow: none;
+  }
+}

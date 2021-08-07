@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Interfaces.LessonData
 {
-    public interface ILessonService
+    public interface ILessonDesignService
     {
         Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
-        List<LessonViewModel> GetAllLessons(int id);
+        List<LessonViewModel> GetAllLessons();
+        Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName);
     }
 }
