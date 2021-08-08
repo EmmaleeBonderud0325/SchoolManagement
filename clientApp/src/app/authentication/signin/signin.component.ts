@@ -20,8 +20,9 @@ export class SigninComponent implements OnInit {
   ) {}
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      username: ['admin@email.com', Validators.required],
-      password: ['admin@123', Validators.required],
+      schoolDomain:['', Validators.required],
+      username: ['', Validators.required],
+      password: ['', Validators.required],
     });
   }
   get f() {
@@ -36,13 +37,13 @@ export class SigninComponent implements OnInit {
       return;
     } else {
       this.authService
-        .login(this.f.username.value, this.f.password.value)
+        .login(this.loginForm.value)
         .subscribe(
           (res) => {
             if (res) {
               const token = this.authService.currentUserValue.token;
               if (token) {
-                this.router.navigate(['/dashboard/main']);
+                this.router.navigate(['/teacher-home/lessons']);
               }
             } else {
               this.error = 'Invalid Login';

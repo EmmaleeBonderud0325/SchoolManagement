@@ -11,9 +11,9 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: '/authentication/signin', pathMatch: 'full' },
       {
-        path: 'dashboard',
+        path: 'teacher-home',
         loadChildren: () =>
-          import('./dashboard/dashboard.module').then((m) => m.DashboardModule),
+          import('./teacher-home/teacher-home.module').then((m) => m.TeacherHomeModule),
       },
     ],
   },

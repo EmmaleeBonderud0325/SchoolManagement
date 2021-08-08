@@ -12,7 +12,7 @@ import { throwIfAlreadyLoaded } from './guard/module-import.guard';
   providers: [
     RightSidebarService,
     AuthGuard,
-    AuthService,
+    //AuthService,
     DynamicScriptLoaderService,
   ],
 })
