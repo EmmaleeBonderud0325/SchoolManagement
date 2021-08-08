@@ -19,12 +19,40 @@ namespace SchoolManagement.Business.Master
         private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
+        private readonly ICurrentUserService currentUserService;
 
-        public ClassService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config)
+        public ClassService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
+            this.currentUserService = currentUserService;
+        }
+
+        public List<ClassViewModel> GetAllClasses()
+        {
+            var response = new List<ClassViewModel>();
+
+            var query = schoolDb.Classes.Where(predicate: u => u.ClassNameId == null);
+
+            var ClassList = query.ToList();
+
+            foreach (var classes in ClassList)
+            {
+                var vm = new ClassViewModel
+                {
+                    ClassNameId = classes.ClassNameId,
+                    AcademicLevelId = classes.AcademicLevelId,
+                    AcademicYearId = classes.AcademicYearId,
+                    Name = classes.Name,
+                    ClassCategory = classes.ClassCategory,
+                    LanguageStream = classes.LanguageStream,
+                };
+
+                response.Add(vm);
+            }
+
+            return response;
         }
 
         public async Task <ResponseViewModel> SavaClass(ClassViewModel vm, string userName)
@@ -68,6 +96,29 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
             }
             catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        public async Task<ResponseViewModel> DeleteClass(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == id);
+
+                schoolDb.Classes.Update(classes);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Class Deleted Successfull.";
+            }
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.ToString();

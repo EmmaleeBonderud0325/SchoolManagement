@@ -22,6 +22,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [Route("login")]
         public IActionResult Login(LoginViewModel vm)
         {
             var response = authService.Login(vm);

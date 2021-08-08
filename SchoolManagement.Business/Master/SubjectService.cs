@@ -15,14 +15,12 @@ namespace SchoolManagement.Business.Master
 {
     public class SubjectService : ISubjectService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
         public SubjectService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)//ctor and press double tab
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
@@ -56,13 +54,26 @@ namespace SchoolManagement.Business.Master
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
-
+            
             var query = schoolDb.Subjects.Where(s => s.IsActive == true);
-
+            
             var SubjectList = query.ToList();
-
+            
             foreach (var subject in SubjectList)
             {
+                 var subjectAcademicLevel = new List<SubjectAcademicLevelViewModel>();
+                 
+                 var subjectAcademicLevelList = schoolDb.SubjectAcademicLevels.Where(row => row.SubjectId == subject.Id).ToList();
+
+                    foreach (var test in subjectAcademicLevelList)
+                    {
+                        var subjectAcademicLevelVM = new SubjectAcademicLevelViewModel
+                        {                            
+                            AcademicLevelId = test.AcademicLevelId,
+                        };
+                        subjectAcademicLevel.Add(subjectAcademicLevelVM);
+                    }
+
                 var vm = new SubjectViewModel
                 {
                     Id = subject.Id,
@@ -74,9 +85,11 @@ namespace SchoolManagement.Business.Master
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     SubjectStreamId = subject.SubjectStreamId,
                     IsActive = subject.IsActive,
+                    SubjectAcademicLevels = subjectAcademicLevel,
                 };
                 response.Add(vm);
             }
+         
             return response;
         }
 
@@ -115,7 +128,7 @@ namespace SchoolManagement.Business.Master
 
                     subject.SubjectAcademicLevels = new HashSet<SubjectAcademicLevel>();
 
-                    foreach(var unit in vm.SubjectAcademicLevels.Where(x => x.IsCheck).ToList())
+                    foreach(var unit in vm.SubjectAcademicLevels)
                     {
                         var subjectAcademicLevel = new SubjectAcademicLevel()
                         {

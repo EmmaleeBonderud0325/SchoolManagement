@@ -8,9 +8,6 @@ namespace SchoolManagement.ViewModel.Master
 {
     public class SubjectAcademicLevelViewModel
     {
-        public int SubjectId { get; set; }
         public int AcademicLevelId { get; set; }
-        public bool IsCheck { get; set; }
-
     }
 }

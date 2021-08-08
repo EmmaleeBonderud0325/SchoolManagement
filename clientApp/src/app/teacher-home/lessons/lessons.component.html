@@ -1,0 +1,320 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Table</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Table</li>
+    </ul>
+    <div class="section-body">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="p-10">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="row m-0">
+                    <div class="col-lg-3 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-title">
+                          <h2><strong>Advance Table</strong></h2>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-5 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-search-area">
+                          <div>
+                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                            <input placeholder="Search" type="text" class="browser-default search-field"
+                             aria-label="Search box">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="header-buttons-left">
+                          <div class="icon-button-demo buttons">
+                            <button class="btn btn-icon icon-left btn-primary rounded-button">
+                              <i class="material-icons">add</i>
+                            </button>
+                            <button [hidden]=!isRowSelected class="btn btn-icon icon-left btn-danger rounded-button"
+                             >
+                              <i class="material-icons">delete</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable" 
+                [selectionType]="'checkbox'" >
+  
+                <ngx-datatable-column [width]="70" [sortable]="false" [draggable]="false" [resizeable]="false"
+                  [canAutoResize]="false" [headerCheckboxable]="true" [checkboxable]="true">
+                </ngx-datatable-column>
+  
+                <ngx-datatable-column [width]="200" name="Name">
+                  <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <img src="{{ row.img }}" class="data-table-img" />
+                    <div class="name-col-style">
+                      <div>{{row.firstName}} {{row.lastName}}</div>
+                      <div class="font-12 text-muted">{{row.designation}}</div>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Gender" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.gender}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Phone">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.phone}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Email">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.email}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Status">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    <div *ngIf="row.status=='Active'" class="badge-outline col-green">{{row.status}}
+                    </div>
+                    <div *ngIf="row.status=='Completed'" class="badge-outline col-red">{{row.status}}
+                    </div>
+                    <div *ngIf="row.status=='Pending'" class="badge-outline col-indigo">{{row.status}}
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Address">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.address}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, editRecord)'>
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <!-- Add Record Modal Window -->
+              <ng-template #addRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="table-modal-header">
+                      <img [src]='newUserImg' alt="avatar">
+                      <div class="modal-about">
+                        <div class="fw-bold p-t-10 font-17">
+                          New User</div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button type="button" class="close" aria-label="Close" >
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form class="register-form" [formGroup]="register" >
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="img" class="form-control" type="hidden">
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>First name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="First name" formControlName="firstName"
+                          required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('firstName').valid && register.get('firstName').touched"> First name is
+                          required</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Last name <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="Last name" formControlName="lastName">
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('lastName').valid && register.get('lastName').touched"> Last name is
+                          required</small>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Phone<span class="text-danger">*</span></label>
+                        <input type="number" class="form-control" placeholder="Phone" formControlName="phone" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('phone').valid && register.get('phone').touched"> Phone is
+                          required</small>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Gender <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="gender" required>
+                          <option value="" selected disabled>Please select</option>
+                          <option *ngFor="let gender of genders" [value]="gender.value">
+                            {{gender.value}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Designation <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="designation" required>
+                          <option value="" selected disabled>Please select</option>
+                          <option *ngFor="let desig of designationType" [value]="desig.value">
+                            {{desig.value}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Email<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" placeholder="Email" formControlName="email" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!register.get('email').valid && register.get('email').touched"> Please enter a valid
+                          email address</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Status <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="status" required>
+                          <option value="" selected disabled>Please select</option>
+                          <option *ngFor="let status of statusType" [value]="status.value">
+                            {{status.value}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Address<span class="text-danger"></span></label>
+                        <textarea type="textarea" class="form-control" placeholder="Address"
+                          formControlName="address"></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" [disabled]="!register.valid">Submit</button>
+                      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              <!-- Edit Record Modal Window -->
+              <ng-template #editRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="table-modal-header">
+                      <img [src]='selectedRowData?.img' alt="avatar">
+                      <div class="modal-about">
+                        <div class="fw-bold p-t-10 font-17">
+                          {{selectedRowData?.firstName}}
+                          {{selectedRowData?.lastName}}</div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form [formGroup]="editForm" (ngSubmit)="onEditSave(editForm)">
+                    <div class="input-field col s12 d-none">
+                      <input formControlName="id" class="form-control" type="hidden">
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>First name <span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="First name" formControlName="firstName"
+                          required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('firstName').valid && editForm.get('firstName').touched"> First name is
+                          required</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Last name <span class="text-danger"></span></label>
+                        <input type="text" class="form-control" placeholder="Last name" formControlName="lastName">
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('lastName').valid && editForm.get('lastName').touched"> Last name is
+                          required</small>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Phone<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" placeholder="Phone" formControlName="phone" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('phone').valid && editForm.get('phone').touched"> Phone is
+                          required</small>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Gender <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="gender" required>
+                          <option *ngFor="let gender of genders" [value]="gender.value">
+                            {{gender.value}}
+                          </option>
+                        </select>
+                      </div>
+                      <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 mb-2">
+                        <label>Designation <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="designation" required>
+                          <option value="" selected disabled>Please select</option>
+                          <option *ngFor="let desig of designationType" [value]="desig.value">
+                            {{desig.value}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Email<span class="text-danger">*</span></label>
+                        <input type="email" class="form-control" placeholder="Email" formControlName="email" required>
+                        <small class="form-text text-danger"
+                          *ngIf="!editForm.get('email').valid && editForm.get('email').touched"> Please enter a valid
+                          email address</small>
+                      </div>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Status <span class="text-danger">*</span></label>
+                        <select class="form-control" formControlName="status" required>
+                          <option value="" selected disabled>Please select</option>
+                          <option *ngFor="let status of statusType" [value]="status.value">
+                            {{status.value}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                        <label>Address<span class="text-danger"></span></label>
+                        <textarea type="textarea" class="form-control" placeholder="Address"
+                          formControlName="address"></textarea>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" class="btn btn-primary" [disabled]="!editForm.valid">Save</button>
+                      <button type="button" class="btn btn-light" (click)="modal.close()">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
