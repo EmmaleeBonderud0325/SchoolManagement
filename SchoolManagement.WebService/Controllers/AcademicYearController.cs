@@ -37,5 +37,12 @@ namespace SchoolManagement.WebService.Controllers
             var response = await AcademicYearService.SaveAcademicYear(academicYearVM, userName);
             return Ok(response);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await AcademicYearService.DeleteAcademicYear(id);
+            return Ok(response);
+        }
     }
 }
