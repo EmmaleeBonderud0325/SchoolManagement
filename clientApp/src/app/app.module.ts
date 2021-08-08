@@ -1,4 +1,4 @@
-import { AuthInterceptorService } from './services/auth/auth-interceptor.service';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -82,12 +82,9 @@ export function createTranslateLoader(http: HttpClient): any {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG,
     },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptorService,
-      multi: true
-  },
-      AuthGuard],
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  AuthGuard],
   bootstrap: [
       AppComponent
   
