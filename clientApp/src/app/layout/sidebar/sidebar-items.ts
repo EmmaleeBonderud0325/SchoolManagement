@@ -36,6 +36,43 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       }
     ],
+  },
+  {
+    path: '',
+    title: 'MENUITEMS.ADMIN.TEXT',
+    moduleName: 'admin',
+    iconType: 'feather',
+    icon: 'monitor',
+    class: 'menu-toggle',
+    groupTitle: false,
+    badge: '',
+    badgeClass: '',
+    submenu: [
+      {
+        path: '/admin/academic-level',
+        title: 'MENUITEMS.ADMIN.LIST.ACADEMIC_LEVEL',
+        moduleName: 'academic-level',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+      {
+        path: '/admin/academic-year',
+        title: 'MENUITEMS.ADMIN.LIST.ACADEMIC_YEAR',
+        moduleName: 'academic-year',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      }
+    ],
   }
   //section end
 ];

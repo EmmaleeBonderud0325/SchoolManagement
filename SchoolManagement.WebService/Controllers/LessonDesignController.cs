@@ -24,7 +24,7 @@ namespace SchoolManagement.WebService.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("GetAllLessons")]
         public ActionResult GetAllLessons(LessonFilterViewModel filters)
         {
             var userName = identityService.GetUserName();

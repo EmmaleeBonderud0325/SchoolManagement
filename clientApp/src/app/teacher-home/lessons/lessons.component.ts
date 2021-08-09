@@ -1,3 +1,4 @@
+import { LessonService } from './../../services/lesson/lesson.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 @Component({
@@ -18,9 +19,15 @@ export class LessonsComponent implements OnInit {
   reorderable = true;
 
   
-  constructor() { }
+  constructor(private LessonService : LessonService) { }
 
   ngOnInit(): void {
+
+    this.getLessonList();
+  }
+
+  getLessonList(){
+      this.LessonService.getAllLesson();
   }
 
 }

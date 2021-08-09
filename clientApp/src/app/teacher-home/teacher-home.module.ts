@@ -9,7 +9,6 @@ import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
-
 @NgModule({
   declarations: [
     LessonsComponent,
@@ -20,7 +19,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
     NgbModule,
     TeacherHomeRoutingModule,
     PerfectScrollbarModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    
   ]
 })
 export class TeacherHomeModule { }
