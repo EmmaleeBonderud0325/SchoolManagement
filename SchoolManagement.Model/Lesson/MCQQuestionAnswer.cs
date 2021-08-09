@@ -20,7 +20,14 @@ namespace SchoolManagement.Model
         
         public virtual ICollection <MCQQuestionStudentAnswer> MCQQuestionStudentAnswers { get; set; }
 
+        public static object GetAllMCQQuestionAnswers()
+        {
+            throw new NotImplementedException();
+        }
 
-
+        public static Task SaveMCQQuestionAnswer(MCQQuestionAnswer vm, string userName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.Model;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -12,31 +14,29 @@ namespace SchoolManagement.WebService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class LessonDesignController : ControllerBase
+    public class MCQQuestionAnswerController : ControllerBase
     {
+        private readonly IMCQQuestionAnswerService mcqquestionanswerService;
         private readonly IIdentityService identityService;
-        private readonly ILessonDesignService lessonDesignService;
 
-        public LessonDesignController(IIdentityService identityService,ILessonDesignService lessonDesignService )
+        public MCQQuestionAnswerController(IMCQQuestionAnswerService mcqquestionanswerService, IIdentityService identityService)
         {
+            this.mcqquestionanswerService = mcqquestionanswerService;
             this.identityService = identityService;
-            this.lessonDesignService = lessonDesignService;
-
         }
 
-        [HttpGet("GetAllLessons")]
-        public ActionResult GetAllLessons(LessonFilterViewModel filters)
+        [HttpGet]
+        public ActionResult GetAllMCQQuestionAnswers()
         {
-            var userName = identityService.GetUserName();
-            var response = lessonDesignService.GetAllLessons(filters, userName);
+            var response = MCQQuestionAnswer.GetAllMCQQuestionAnswers();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
+        public async Task<ActionResult> Post([FromBody] MCQQuestionAnswerViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = lessonDesignService.SaveLesson(vm, userName);
+            var response = await mcqquestionanswerService.SaveMCQQuestionAnswer(vm, userName);
             return Ok(response);
         }
     }
