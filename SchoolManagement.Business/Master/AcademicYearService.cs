@@ -108,5 +108,29 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+
+        public async Task<ResponseViewModel> DeleteAcademicYear(int id)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var academicYear = schoolDb.AcademicYears.FirstOrDefault(ay => ay.Id == id);
+
+                academicYear.IsActive = false;
+                schoolDb.AcademicYears.Update(academicYear);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Academic Year successfully deleted";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
     }
 }

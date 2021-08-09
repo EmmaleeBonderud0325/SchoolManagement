@@ -16,6 +16,8 @@ export class LessonsComponent implements OnInit {
   isRowSelected = false;
   selectedOption: string;
   reorderable = true;
+
+  
   constructor() { }
 
   ngOnInit(): void {
