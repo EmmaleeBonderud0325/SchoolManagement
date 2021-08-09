@@ -51,6 +51,11 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        public static Task SaveMCQQuestionAnswer(MCQQuestionAnswer vm, string userName)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<ResponseViewModel> SaveMCQQuestionAnswer(MCQQuestionAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
