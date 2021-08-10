@@ -21,7 +21,10 @@
       "TEXT": "Admin",
       "LIST": {
         "ACADEMIC_LEVEL": "Academic Levels",
-        "ACADEMIC_YEAR": "Academic Years"
+        "ACADEMIC_YEAR": "Academic Years",
+        "CLASS": "Classes",
+        "CLASS-NAME": "Class Names",
+        "STUDENT": "Students"
       }
     }
   }

@@ -27,7 +27,7 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Post([FromBody] SubjectStreamViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = subjectStreamService.SaveSubjectStream(vm, userName);
+            var response = await subjectStreamService.SaveSubjectStream(vm, userName);
 
             return Ok(response);
         }
