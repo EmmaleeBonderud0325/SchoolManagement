@@ -11,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'academic-levels',
+    path: 'academic-years',
     component: AcademicYearListComponent,
   },
   {
