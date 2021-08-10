@@ -49,6 +49,18 @@ export const ROUTES: RouteInfo[] = [
     badgeClass: '',
     submenu: [
       {
+        path: '/admin/user',
+        title: 'MENUITEMS.ADMIN.LIST.USER',
+        moduleName: 'user',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+      {
         path: '/admin/academic-level',
         title: 'MENUITEMS.ADMIN.LIST.ACADEMIC_LEVEL',
         moduleName: 'academic-level',
@@ -107,8 +119,20 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+      },
+      {
+        path: '/admin/subject',
+        title: 'MENUITEMS.ADMIN.LIST.SUBJECT',
+        moduleName: 'subject',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
       }
     ],
   }
-  //section end
+  //section end admin 
 ];

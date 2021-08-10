@@ -20,11 +20,13 @@
     "ADMIN": {
       "TEXT": "Admin",
       "LIST": {
+        "USER": "Users",
         "ACADEMIC_LEVEL": "Academic Levels",
         "ACADEMIC_YEAR": "Academic Years",
         "CLASS": "Classes",
         "CLASS-NAME": "Class Names",
-        "STUDENT": "Students"
+        "STUDENT": "Students",
+        "SUBJECT": "Subjects"
       }
     }
   }
