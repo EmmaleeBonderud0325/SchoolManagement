@@ -44,5 +44,6 @@ namespace SchoolManagement.WebService.Controllers
             var response = await classService.DeleteClass(id);
             return Ok(response);
         }
+
     }
 }
