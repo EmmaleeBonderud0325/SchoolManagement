@@ -34,20 +34,23 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.AcademicLevels.Where(al => al.IsActive == true);
 
-            var AcademicLevelList = query.ToList();
+            var academicLevels = query.ToList();
 
-            foreach (var AcademicLevel in AcademicLevelList)
+            foreach (var item in academicLevels)
             {
                 var viewModel = new AcademicLevelViewModel
                 {
-                    Id = AcademicLevel.Id,
-                    Name = AcademicLevel.Name,
-                    LevelHeadId = AcademicLevel.LevelHeadId,
-                    IsActive = AcademicLevel.IsActive,
-                    CreatedById = AcademicLevel.CreatedById,
-                    UpdatedOn = AcademicLevel.UpdatedOn,
-                    UpdatedById = AcademicLevel.UpdatedById,
-                   
+                    Id = item.Id,
+                    Name = item.Name,
+                    LevelHeadId = item.LevelHeadId,
+                    LevelHeadName = item.LevelHead.FullName,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
+                    UpdatedOn = item.UpdatedOn,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName  
                 };
 
                 response.Add(viewModel);
@@ -57,7 +60,7 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        public async Task<ResponseViewModel> SaveAcademicLevel(AcademicLevelViewModel academiclevelVM, string userName)
+        public async Task<ResponseViewModel> SaveAcademicLevel(AcademicLevelViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -65,15 +68,15 @@ namespace SchoolManagement.Business.Master
             {
                 var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var academicLevelExist = schoolDb.AcademicLevels.FirstOrDefault(al => al.Id == academiclevelVM.Id);
+                var academicLevelExist = schoolDb.AcademicLevels.FirstOrDefault(al => al.Id == vm.Id);
 
                 if (academicLevelExist == null)
                 {
                     academicLevelExist = new AcademicLevel()
                     {
-                        Id = academiclevelVM.Id,
-                        Name = academiclevelVM.Name,
-                        LevelHeadId = academiclevelVM.LevelHeadId,
+                        Id = vm.Id,
+                        Name = vm.Name,
+                        LevelHeadId = vm.LevelHeadId,
                         IsActive = true,
                         CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
@@ -87,8 +90,8 @@ namespace SchoolManagement.Business.Master
                 }
                 else
                 {
-                    academicLevelExist.Name = academiclevelVM.Name;
-                    academicLevelExist.LevelHeadId = academiclevelVM.LevelHeadId;
+                    academicLevelExist.Name = vm.Name;
+                    academicLevelExist.LevelHeadId = vm.LevelHeadId;
                     academicLevelExist.IsActive = true;
                     academicLevelExist.UpdatedById = currentuser.Id;
                     academicLevelExist.UpdatedOn = DateTime.UtcNow;
@@ -104,7 +107,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = "Error has been occured while saving the acdemic level.";
             }
             return response;
         }

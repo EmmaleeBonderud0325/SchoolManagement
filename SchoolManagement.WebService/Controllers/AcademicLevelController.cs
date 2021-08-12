@@ -24,7 +24,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult AcademicLevel()
+        public ActionResult Get()
         {
             var response = AcademicLevelService.GetAllAcademicLevel();
             return Ok(response);
