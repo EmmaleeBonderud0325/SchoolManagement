@@ -89,7 +89,6 @@ namespace SchoolManagement.Business.Master
                 };
                 response.Add(vm);
             }
-         
             return response;
         }
 
@@ -157,6 +156,11 @@ namespace SchoolManagement.Business.Master
 
                     schoolDb.Subjects.Update(subject);
 
+///////////////////////////////////////////////////////////////////////////////////////////////////
+                  
+
+                    var Levels = schoolDb.SubjectAcademicLevels.Where(i => i.SubjectId == vm.Id ).ToList();
+////////////////////////////////////////////////////////////////////////////////////////////
                     response.IsSuccess = true;
                     response.Message = "Subject Update Successfull.";
                 }
