@@ -70,6 +70,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAcademicLevelVM = new SubjectAcademicLevelViewModel
                         {                            
                             AcademicLevelId = test.AcademicLevelId,
+                            AcademicLevelName = test.AcademicLevel.Name,
                         };
                         subjectAcademicLevel.Add(subjectAcademicLevelVM);
                     }
@@ -84,6 +85,7 @@ namespace SchoolManagement.Business.Master
                     IsBuscketSubject = subject.IsBuscketSubject,
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     SubjectStreamId = subject.SubjectStreamId,
+                    SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
                     SubjectAcademicLevels = subjectAcademicLevel,
                 };
@@ -156,11 +158,6 @@ namespace SchoolManagement.Business.Master
 
                     schoolDb.Subjects.Update(subject);
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
-                  
-
-                    var Levels = schoolDb.SubjectAcademicLevels.Where(i => i.SubjectId == vm.Id ).ToList();
-////////////////////////////////////////////////////////////////////////////////////////////
                     response.IsSuccess = true;
                     response.Message = "Subject Update Successfull.";
                 }
