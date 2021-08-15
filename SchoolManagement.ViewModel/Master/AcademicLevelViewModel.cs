@@ -12,13 +12,14 @@ namespace SchoolManagement.ViewModel.Master
         public int Id { get; set; }
         public string Name { get; set; }
         public int LevelHeadId { get; set; }
+        public string LevelHeadName { get; set; }
         public bool IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
         public int CreatedById { get; set; }
+        public string CreatedByName { get; set; }
         public DateTime UpdatedOn { get; set; }
         public int UpdatedById { get; set; }
+        public string UpdatedByName { get; set; }
 
-        public virtual User LevelHead { get; set; }
-        public virtual User CreatedBy { get; set; }
-        public virtual User UpdatedBy { get; set; }
     }
 }

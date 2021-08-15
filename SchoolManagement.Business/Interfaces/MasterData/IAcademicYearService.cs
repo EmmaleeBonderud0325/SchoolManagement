@@ -12,5 +12,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     {
         List<AcademicYearViewModel> GetAllAcademicYear();
         Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel academicYearVM, String userName);
+        Task<ResponseViewModel> DeleteAcademicYear(int id);
     }
 }

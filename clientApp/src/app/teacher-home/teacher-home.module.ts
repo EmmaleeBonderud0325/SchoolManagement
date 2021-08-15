@@ -6,7 +6,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
-
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 @NgModule({
@@ -19,6 +19,8 @@ import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
     NgbModule,
     TeacherHomeRoutingModule,
     PerfectScrollbarModule,
+    NgxDatatableModule,
+    
   ]
 })
 export class TeacherHomeModule { }

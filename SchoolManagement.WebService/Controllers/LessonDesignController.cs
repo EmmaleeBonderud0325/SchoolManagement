@@ -24,7 +24,7 @@ namespace SchoolManagement.WebService.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("GetAllLessons")]
         public ActionResult GetAllLessons(LessonFilterViewModel filters)
         {
             var userName = identityService.GetUserName();
@@ -36,7 +36,7 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = lessonDesignService.SaveLesson(vm, userName);
+            var response = await lessonDesignService.SaveLesson(vm, userName);
             return Ok(response);
         }
     }

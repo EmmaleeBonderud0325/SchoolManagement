@@ -29,6 +29,9 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
@@ -1207,7 +1210,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 356, DateTimeKind.Utc).AddTicks(4637),
+                            CreatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 556, DateTimeKind.Utc).AddTicks(7000),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1216,13 +1219,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 356, DateTimeKind.Utc).AddTicks(4882),
+                            UpdatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 556, DateTimeKind.Utc).AddTicks(7624),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 356, DateTimeKind.Utc).AddTicks(5834),
+                            CreatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 556, DateTimeKind.Utc).AddTicks(9656),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1231,7 +1234,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 356, DateTimeKind.Utc).AddTicks(5836),
+                            UpdatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 556, DateTimeKind.Utc).AddTicks(9662),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1277,20 +1280,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 366, DateTimeKind.Utc).AddTicks(6081),
+                            CreatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 586, DateTimeKind.Utc).AddTicks(7244),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 366, DateTimeKind.Utc).AddTicks(6383)
+                            UpdatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 586, DateTimeKind.Utc).AddTicks(8351)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 366, DateTimeKind.Utc).AddTicks(7575),
+                            CreatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 587, DateTimeKind.Utc).AddTicks(2736),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 5, 10, 58, 30, 366, DateTimeKind.Utc).AddTicks(7577)
+                            UpdatedOn = new DateTime(2021, 8, 12, 12, 38, 36, 587, DateTimeKind.Utc).AddTicks(2747)
                         });
                 });
 

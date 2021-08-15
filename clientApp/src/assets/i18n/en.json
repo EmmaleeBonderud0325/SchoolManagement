@@ -6,7 +6,7 @@
   },
   "MENUITEMS": {
     "USER":{
-      "POST": "Manager"
+      "POST": "Admin"
     },
     "MAIN": {
       "TEXT": "-- Main"
@@ -15,6 +15,18 @@
       "TEXT": "Home",
       "LIST": {
         "TEACHER_LESSONS": "My Lessons"
+      }
+    },
+    "ADMIN": {
+      "TEXT": "Admin",
+      "LIST": {
+        "USER": "Users",
+        "ACADEMIC_LEVEL": "Academic Levels",
+        "ACADEMIC_YEAR": "Academic Years",
+        "CLASS": "Classes",
+        "CLASS-NAME": "Class Names",
+        "STUDENT": "Students",
+        "SUBJECT": "Subjects"
       }
     }
   }
