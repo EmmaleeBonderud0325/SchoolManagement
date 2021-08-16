@@ -131,6 +131,18 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+      },
+      {
+        path: '/admin/example',
+        title: 'MENUITEMS.ADMIN.LIST.EXAMPLE',
+        moduleName: 'example',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
       }
     ],
   }

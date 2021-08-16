@@ -80,6 +80,17 @@ const routes: Routes = [
     loadChildren: () =>
           import('./subject/subject.module').then((m) => m.SubjectModule)
   },
+
+  {
+    path: '',
+    redirectTo: 'example',
+    pathMatch: 'full',
+  },
+  {
+    path: 'example',
+    loadChildren: () =>
+          import('./example/example.module').then((m) => m.ExampleModule)
+  },
   
 
 ];
