@@ -22,6 +22,7 @@ namespace SchoolManagement.ViewModel.Master
         public bool IsBuscketSubject { get; set; }
         public int? ParentBasketSubjectId { get; set; }
         public int SubjectStreamId { get; set; }
+        public string SubjectStreamName { get; set; }
         public bool IsActive { get; set; }
         public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
 

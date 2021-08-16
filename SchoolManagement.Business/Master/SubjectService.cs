@@ -70,6 +70,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAcademicLevelVM = new SubjectAcademicLevelViewModel
                         {                            
                             AcademicLevelId = test.AcademicLevelId,
+                            AcademicLevelName = test.AcademicLevel.Name,
                         };
                         subjectAcademicLevel.Add(subjectAcademicLevelVM);
                     }
@@ -84,12 +85,12 @@ namespace SchoolManagement.Business.Master
                     IsBuscketSubject = subject.IsBuscketSubject,
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     SubjectStreamId = subject.SubjectStreamId,
+                    SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
                     SubjectAcademicLevels = subjectAcademicLevel,
                 };
                 response.Add(vm);
             }
-         
             return response;
         }
 
