@@ -1,6 +1,8 @@
+import { AcademicLevelModel } from './../../../models/academic-level/acdemic.level.model';
+import { DropDownModel } from './../../../models/common/drop-down.model';
 import { AcademicLevelService } from './../../../services/academic-level/academic-level.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -18,8 +20,10 @@ export class AcademicLevelListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-
+  saveAcademmicLevel:FormGroup
   reorderable = true;
+  academicLevel:AcademicLevelModel;
+  levelHeads:DropDownModel[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,8 +33,22 @@ export class AcademicLevelListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllLevelHeads();
+    this.saveAcademmicLevel = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      selectlevelHeadId: [this.academicLevel.selectedLevelHeadId,'', [Validators.required]],
+      isActive: ['', [Validators.required]],
+    });
   }
+  
+  getAllLevelHeads(){
+      this.academicLevelService.getAllLevelHeads()
+        .subscribe(response=>{
+          this.levelHeads = response;
+        },error=>{
 
+        });
+  }
   getAll()
   {
     this.loadingIndicator=true;
@@ -42,10 +60,19 @@ export class AcademicLevelListComponent implements OnInit {
       this.loadingIndicator=false;
     });
   }
-
+  addNewAcademicLevel(content) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
 
     onAddRowSave(form: FormGroup) {
-
+      this.data.push(form.value);
+      this.data = [...this.data];
+      form.reset();
+      this.modalService.dismissAll();
+      this.addRecordSuccess();
     }
 
 
@@ -60,5 +87,9 @@ export class AcademicLevelListComponent implements OnInit {
 
     deleteSingleRow(row) {
 
+    }
+
+    addRecordSuccess() {
+      this.toastr.success('Acedemic Level Add Successfully', '');
     }
 }

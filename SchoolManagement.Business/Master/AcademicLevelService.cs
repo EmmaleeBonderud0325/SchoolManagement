@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
@@ -134,6 +135,16 @@ namespace SchoolManagement.Business.Master
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllLevelHeads()
+        {
+            var levelHeads = schoolDb.UserRoles
+                .Where(x => x.RoleId == (int)RoleType.LevelHead)
+                .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0}", u.User.FullName) })
+                .Distinct().ToList();
+
+            return levelHeads;
         }
     }
 

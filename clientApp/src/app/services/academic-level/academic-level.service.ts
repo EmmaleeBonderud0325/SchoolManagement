@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from './../../models/common/response.model';
 import { environment } from './../../../environments/environment';
 import { Observable } from 'rxjs';
@@ -25,5 +26,10 @@ export class AcademicLevelService {
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'AcademicLevel/' + id);
+  }
+  
+  getAllLevelHeads():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'AcademicLevel/getAllLevelHeads');
   }
 }

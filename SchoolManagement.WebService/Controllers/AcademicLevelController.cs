@@ -14,19 +14,19 @@ namespace SchoolManagement.WebService.Controllers
     [ApiController]
     public class AcademicLevelController : ControllerBase
     {
-        private readonly IAcademicLevelService AcademicLevelService;
+        private readonly IAcademicLevelService academicLevelService;
         private readonly IIdentityService identityService;
 
         public AcademicLevelController(IAcademicLevelService AcademicLevelService , IIdentityService identityService)
         {
-            this.AcademicLevelService = AcademicLevelService;
+            this.academicLevelService = AcademicLevelService;
             this.identityService = identityService;
         }
 
         [HttpGet]
         public ActionResult Get()
         {
-            var response = AcademicLevelService.GetAllAcademicLevel();
+            var response = academicLevelService.GetAllAcademicLevel();
             return Ok(response);
         }
 
@@ -34,14 +34,23 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Post([FromBody] AcademicLevelViewModel academicLevelVM)
         {
             var userName = identityService.GetUserName();
-            var response = await AcademicLevelService.SaveAcademicLevel(academicLevelVM, userName);
+            var response = await academicLevelService.SaveAcademicLevel(academicLevelVM, userName);
             return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var response = await AcademicLevelService.DeleteAcademicLevel(id);
+            var response = await academicLevelService.DeleteAcademicLevel(id);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllLevelHeads")]
+        public ActionResult GetAllLevelHeads()
+        {
+            var response = academicLevelService.GetAllLevelHeads();
+
             return Ok(response);
         }
     }

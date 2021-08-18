@@ -13,5 +13,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<AcademicLevelViewModel> GetAllAcademicLevel();
         Task<ResponseViewModel> SaveAcademicLevel (AcademicLevelViewModel academicLevelVM, String userName);
         Task<ResponseViewModel> DeleteAcademicLevel(int id);
+        List<DropDownViewModel> GetAllLevelHeads();
     }
 }

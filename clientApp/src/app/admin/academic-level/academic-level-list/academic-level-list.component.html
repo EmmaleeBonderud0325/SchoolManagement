@@ -1,13 +1,13 @@
 <section class="main-content">
     <ul class="breadcrumb breadcrumb-style ">
       <li class="breadcrumb-item">
-        <h5 class="page-title m-b-0">Table</h5>
+        <h5 class="page-title m-b-0">Admin</h5>
       </li>
       <li class="breadcrumb-item bcrumb-1">
         <a routerLink="/dashboard/main">
           <i class="fas fa-home font-17"></i></a>
       </li>
-      <li class="breadcrumb-item">Table</li>
+      <li class="breadcrumb-item">Academic Levels List</li>
     </ul>
     <div class="section-body">
       <div class="row clearfix">
@@ -39,7 +39,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                             <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -96,7 +96,78 @@
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
-             
+              <!-- Add Record Modal Window -->
+            <ng-template #addRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        Add new Academic Level</div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="register-form" [formGroup]="register" (ngSubmit)="onAddRowSave(register)">
+                  <!-- <div class="input-field col s12 d-none">
+                    <input 
+                      formControlName="id" 
+                      class="form-control" 
+                      type="hidden">
+                  </div>
+                  <div class="input-field col s12 d-none">
+                    <input 
+                      formControlName="img" 
+                      class="form-control" 
+                      type="hidden">
+                  </div> -->
+
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Name <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="name"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveAcademmicLevel.get('name').valid && saveAcademmicLevel.get('name').touched"> Acedemic Levelname is
+                        required</small>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Level Head <span class="text-danger">*</span></label>
+                      <select class="form-control" formControlName="selectlevelHeadId" required>
+                        <option value="" selected disabled>Please select</option>
+                        <option *ngFor="let item of levelHeads" [value]="item.id">
+                          {{item.name}}
+                        </option>
+                      </select>
+                    </div> 
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Is Active <span class="text-danger">*</span></label>
+                      <select class="form-control" formControlName="isActive" required>
+                        <option value="" selected disabled>Please select</option>
+                        <option *ngFor="let desig of designationType" [value]="desig.value">
+                          <!-- {{desig.value}} -->
+                        </option>
+                      </select>
+                    </div>                 
+                  </div>
+                  <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" [disabled]="!register.valid">Save</button>
+                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
             </div>
           </div>
         </div>

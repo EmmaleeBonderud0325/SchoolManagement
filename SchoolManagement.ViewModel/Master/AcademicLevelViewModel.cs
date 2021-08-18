@@ -21,5 +21,7 @@ namespace SchoolManagement.ViewModel.Master
         public int UpdatedById { get; set; }
         public string UpdatedByName { get; set; }
 
+        public int SelectedLevelHeadId { get; set; }
+
     }
 }
