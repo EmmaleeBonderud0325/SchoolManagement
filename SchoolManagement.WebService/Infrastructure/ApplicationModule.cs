@@ -133,9 +133,9 @@ namespace SchoolManagement.WebService.Infrastructure
             // .As<IMCQQuestionAnswerService>()
             // .InstancePerLifetimeScope();
 
-            //builder.RegisterType<MCQQuestionStudentAnswerService>()
-            // .As<IMCQQuestionStudentAnswerService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<MCQQuestionStudentAnswerService>()
+             .As<IMCQQuestionStudentAnswerService>()
+             .InstancePerLifetimeScope();
 
             //builder.RegisterType<QuestionService>()
             // .As<QuestionService>()

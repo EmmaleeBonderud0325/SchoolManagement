@@ -16,14 +16,12 @@ namespace SchoolManagement.Business.Master
 {
     public class AcademicLevelService : IAcademicLevelService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public AcademicLevelService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public AcademicLevelService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
