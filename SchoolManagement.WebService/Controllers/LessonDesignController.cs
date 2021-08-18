@@ -39,12 +39,12 @@ namespace SchoolManagement.WebService.Controllers
             var response = await lessonDesignService.SaveLesson(vm, userName);
             return Ok(response);
         }
-        //[HttpDelete("{Id}")]
 
-        //public async Task<ActionResult> Delete(int Id)
-        //{
-        //    //var response = await lessonDesignService.DeleteLesson(Id);
-        //    //return Ok(response);
-        //}
+        [HttpDelete("{Id}")]
+        public async Task<ActionResult> Delete(int Id)
+        {
+            var response = await lessonDesignService.DeleteLesson(Id);
+            return Ok(response);
+        }
     }
 }

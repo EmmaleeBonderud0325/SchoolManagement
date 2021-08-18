@@ -197,13 +197,13 @@ namespace SchoolManagement.Business
             await schoolDb.SaveChangesAsync();
             return response;
         }
-        public async Task<ResponseViewModel> DeleteLesson(int ID)
+        public async Task<ResponseViewModel> DeleteLesson(int id)
         {
             var response = new ResponseViewModel();
 
             try
             {
-                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == ID);
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == id);
 
                 lesson.IsActive = false;
 
@@ -220,11 +220,6 @@ namespace SchoolManagement.Business
                 response.Message = ex.ToString();
             }
             return response;
-
-
-
-
-
 
         }
     }
