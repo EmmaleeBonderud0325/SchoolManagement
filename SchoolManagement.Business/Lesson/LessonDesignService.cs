@@ -25,22 +25,22 @@ namespace SchoolManagement.Business
             this.config = config;
             this.currentUserService = currentUserService;
         }
-        public List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters,string userName)
+        public List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters, string userName)
         {
             var response = new List<LessonViewModel>();
 
             var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(x=>x.CreatedOn);
-            
-            if(filters.SelectedAcademicYearId>0)
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(x => x.CreatedOn);
+
+            if (filters.SelectedAcademicYearId > 0)
             {
                 query = query.Where(x => x.AcademicYearId == filters.SelectedAcademicYearId).OrderBy(o => o.CreatedOn);
             }
 
             if (filters.SelectedAcademicLevelId > 0)
             {
-                query = query.Where(x => x.AcademicLevelId ==filters.SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.AcademicLevelId == filters.SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
             }
 
             if (filters.SelectedClassNameId > 0)
@@ -57,7 +57,7 @@ namespace SchoolManagement.Business
 
             foreach (var lesson in lessonList)
             {
-                
+
                 var vm = new LessonViewModel
                 {
                     Id = lesson.Id,
@@ -121,7 +121,7 @@ namespace SchoolManagement.Business
                     schoolDb.Lessons.Add(lesson);
 
                     response.IsSuccess = true;
-                    response.Message = "Lesson Added Successfull.";
+                    response.Message = "Lesson Added Successfully.";
                 }
                 else
                 {
@@ -140,7 +140,7 @@ namespace SchoolManagement.Business
                     schoolDb.Lessons.Update(lesson);
 
                     response.IsSuccess = true;
-                    response.Message = "Lesson Update Successfull";
+                    response.Message = "Lesson Updated Successfully";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -166,7 +166,7 @@ namespace SchoolManagement.Business
 
                 var topic = schoolDb.Topics.FirstOrDefault(x => x.Id == vm.Id);
 
-                if(topic == null)
+                if (topic == null)
                 {
                     topic = new Topic()
                     {
@@ -182,14 +182,14 @@ namespace SchoolManagement.Business
                     schoolDb.Topics.Add(topic);
 
                     response.IsSuccess = true;
-                    response.Message = "Topic Added Successfull.";
+                    response.Message = "Topic Added Successfully.";
                 }
                 else
                 {
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = ex.ToString();
@@ -197,8 +197,35 @@ namespace SchoolManagement.Business
             await schoolDb.SaveChangesAsync();
             return response;
         }
+        public async Task<ResponseViewModel> DeleteLesson(int ID)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == ID);
+
+                lesson.IsActive = false;
+
+                schoolDb.Lessons.Update(lesson);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Lesson deleted Successfully";
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+            return response;
 
 
-    
+
+
+
+
+        }
     }
 }
