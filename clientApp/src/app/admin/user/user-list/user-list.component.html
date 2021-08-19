@@ -39,7 +39,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewUser(addRecord)' >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='saveUser(addRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                             <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -122,7 +122,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="register" (ngSubmit)="onAddRowSave(register)">
+                <form class="register-form" [formGroup]="addUserForm" (ngSubmit)="onAddRowSave(register)">
                   <!-- <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
@@ -138,38 +138,57 @@
 
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Name <span class="text-danger">*</span></label>
+                      <label>Full Name <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Name" 
-                          formControlName="name"
+                          placeholder="fullName" 
+                          formControlName="fullName"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveAcademmicLevel.get('name').valid && saveAcademmicLevel.get('name').touched"> Acedemic Levelname is
+                        *ngIf="!saveNewUser.get('fullName').valid && saveNewUser.get('fullName').touched"> Full Name is
                         required</small>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Level Head <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="selectlevelHeadId" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let item of levelHeads" [value]="item.id">
-                          {{item.name}}
-                        </option>
-                      </select>
-                    </div> 
+                      <label>Email<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="email" 
+                          formControlName="email"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveNewUser.get('email').valid && saveNewUser.get('email').touched"> Email is
+                        required</small>
+                    </div>  
                   </div>
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Is Active <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="isActive" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">
-                          <!-- {{desig.value}} -->
-                        </option>
-                      </select>
-                    </div>                 
+                      <label>Mobile Number<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="mobileNo" 
+                          formControlName="mobileNo"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveNewUser.get('mobileNo').valid && saveNewUser.get('mobileNo').touched"> Mobile is
+                        required</small>
+                    </div>
+                    
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>User Name<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="userName" 
+                          formControlName="userName"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveNewUser.get('userName').valid && saveNewUser.get('userName').touched"> Mobile is
+                        required</small>
+                    </div>
                   </div>
                   <div class="modal-footer">
                     <button type="submit" class="btn btn-primary" [disabled]="!register.valid">Save</button>
