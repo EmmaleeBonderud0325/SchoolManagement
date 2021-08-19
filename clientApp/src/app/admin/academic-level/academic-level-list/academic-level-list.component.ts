@@ -20,7 +20,7 @@ export class AcademicLevelListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveAcademmicLevel:FormGroup
+  saveAcademmicLevel:FormGroup;
   reorderable = true;
   academicLevel:AcademicLevelModel;
   levelHeads:DropDownModel[] = [];
