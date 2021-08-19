@@ -129,17 +129,17 @@ namespace SchoolManagement.WebService.Infrastructure
             // .As<ILessonDesignService>()
             // .InstancePerLifetimeScope();
 
-            //builder.RegisterType<MCQQuestionAnswerService>()
-            // .As<IMCQQuestionAnswerService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<MCQQuestionAnswerService>()
+            .As<IMCQQuestionAnswerService>()
+            .InstancePerLifetimeScope();
 
             builder.RegisterType<MCQQuestionStudentAnswerService>()
              .As<IMCQQuestionStudentAnswerService>()
              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<QuestionService>()
-            // .As<QuestionService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<QuestionService>()
+             .As<IQuestionService>()
+             .InstancePerLifetimeScope();
 
             //builder.RegisterType<StudentLessonService>()
             // .As<IStudentLessonService>()
@@ -153,9 +153,9 @@ namespace SchoolManagement.WebService.Infrastructure
             // .As<IStudentLessonTopicService>()
             // .InstancePerLifetimeScope();
 
-            //builder.RegisterType<StudentMCQQuestionService>()
-            // .As<IStudentMCQQuestionService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<StudentMCQQuestionService>()
+             .As<IStudentMCQQuestionService>()
+             .InstancePerLifetimeScope();
 
             //builder.RegisterType<TopicContentService>()
             // .As<ITopicContentService>()
