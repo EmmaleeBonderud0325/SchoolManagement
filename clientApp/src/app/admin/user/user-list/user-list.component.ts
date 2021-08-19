@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  addUserForm:FormGroup;
+  saveUserForm:FormGroup;
   reorderable = true;
   user:UserModel;
 
@@ -30,14 +30,14 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    this.addUserForm = this.fb.group({
+    this.saveUserForm = this.fb.group({
       fullName:['', Validators.required],
       email:['', Validators.required],
       mobileNo:['', Validators.required],
       userName:['', Validators.required],
       passwrod:['', Validators.required],
-      
-    })
+
+    });
   }
 
   getAll(){
@@ -45,7 +45,10 @@ export class UserListComponent implements OnInit {
   }
 
   saveUser(content){
-    
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
   }
 
   editRow(row, rowIndex, content) {
