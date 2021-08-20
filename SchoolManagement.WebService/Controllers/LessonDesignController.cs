@@ -47,13 +47,13 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Post([FromBody] TopicViewModel vm)
-        {
-            var userName = identityService.GetUserName();
-            var response = await lessonDesignService.SaveTopic(vm, userName);
-            return Ok(response);
-        }
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] TopicViewModel vm)
+        //{
+        //    var userName = identityService.GetUserName();
+        //    var response = await lessonDesignService.SaveTopic(vm, userName);
+        //    return Ok(response);
+        //}
 
 
         [HttpDelete("{Id}")]
