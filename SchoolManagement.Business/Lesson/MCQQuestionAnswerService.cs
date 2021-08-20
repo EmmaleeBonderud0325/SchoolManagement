@@ -1,4 +1,4 @@
-﻿using Castle.Core.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -28,7 +28,7 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
-        public List<MCQQuestionAnswerViewModel> GetAllMCQQuestionAnswer()
+        public List<MCQQuestionAnswerViewModel> GetMCQQuestionAnswers()
         {
             var response = new List<MCQQuestionAnswerViewModel>();
             var query = schoolDb.MCQQuestionAnswers.Where(u => u.IsCorrectAnswer == true);

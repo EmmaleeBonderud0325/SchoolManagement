@@ -39,7 +39,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewUser(addRecord)' >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='saveUser(addRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                             <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -113,7 +113,7 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new Academic Level</div>
+                       Add New User</div>
                     </div>
                   </div>
                 </h4>
@@ -122,7 +122,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="register" (ngSubmit)="onAddRowSave(register)">
+                <form class="register-form" [formGroup]="saveAcademmicLevelForm" (ngSubmit)="onAddRowSave(saveUserForm)">
                   <!-- <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
@@ -138,41 +138,120 @@
 
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Name <span class="text-danger">*</span></label>
+                      <label>Full Name <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Name" 
-                          formControlName="name"
+                          placeholder="Full Name" 
+                          formControlName="fullName"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveAcademmicLevel.get('name').valid && saveAcademmicLevel.get('name').touched"> Acedemic Levelname is
+                        *ngIf="!saveUserForm.get('fullName').valid && saveUserForm.get('fullName').touched"> Full Name is
                         required</small>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Level Head <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="selectlevelHeadId" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let item of levelHeads" [value]="item.id">
-                          {{item.name}}
-                        </option>
-                      </select>
-                    </div> 
+                      <label>Email<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Email" 
+                          formControlName="email"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveUserForm.get('email').valid && saveUserForm.get('email').touched"> Email is
+                        required</small>
+                    </div>  
                   </div>
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Is Active <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="isActive" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">
-                          <!-- {{desig.value}} -->
-                        </option>
-                      </select>
-                    </div>                 
+                      <label>Mobile Number<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Mobile Number" 
+                          formControlName="mobileNo"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveUserForm.get('mobileNo').valid && saveUserForm.get('mobileNo').touched"> Mobile number is
+                        required</small>
+                    </div>
+                    
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>User Name<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="User Name" 
+                          formControlName="userName"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched"> Mobile is
+                        required</small>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Password<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="password" 
+                          formControlName="password"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> Password is
+                        required</small>
+                    </div>
+                    <div class="form-group">
+                      <label class="d-block">Add User Roles</label>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck1">
+                        <label class="form-check-label" for="defaultCheck1">
+                          Supper Admin
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck2">
+                        <label class="form-check-label" for="defaultCheck2">
+                          Admin
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck3">
+                        <label class="form-check-label" for="defaultCheck3">
+                          Princple
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck4">
+                        <label class="form-check-label" for="defaultCheck4">
+                          Level Head
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck5">
+                        <label class="form-check-label" for="defaultCheck5">
+                          Head Of Department
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck6">
+                        <label class="form-check-label" for="defaultCheck6">
+                          Teacher
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="defaultCheck7">
+                        <label class="form-check-label" for="defaultCheck7">
+                          Student
+                        </label>
+                      </div>
+                    </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]="!register.valid">Save</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="!saveUserForm.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

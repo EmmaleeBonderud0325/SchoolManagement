@@ -39,6 +39,22 @@ namespace SchoolManagement.WebService.Controllers
             var response = await lessonDesignService.SaveLesson(vm, userName);
             return Ok(response);
         }
+        [HttpGet("GetAllTopics")]
+        public ActionResult GetAllTopics(LessonFilterViewModel filters)
+        {
+            var userName = identityService.GetUserName();
+            var response = lessonDesignService.GetAllLessons(filters, userName);
+            return Ok(response);
+        }
+
+        //[HttpPost]
+        //public async Task<ActionResult> Post([FromBody] TopicViewModel vm)
+        //{
+        //    var userName = identityService.GetUserName();
+        //    var response = await lessonDesignService.SaveTopic(vm, userName);
+        //    return Ok(response);
+        //}
+
 
         [HttpDelete("{Id}")]
         public async Task<ActionResult> Delete(int Id)

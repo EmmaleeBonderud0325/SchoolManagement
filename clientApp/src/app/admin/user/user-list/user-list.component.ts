@@ -2,7 +2,7 @@ import { UserModel } from './../../../models/user/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../../services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -18,7 +18,7 @@ export class UserListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveAcademmicLevel:FormGroup;
+  saveUserForm:FormGroup;
   reorderable = true;
   user:UserModel;
 
@@ -30,14 +30,25 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.saveUserForm = this.fb.group({
+      fullName:['', Validators.required],
+      email:['', Validators.required],
+      mobileNo:['', Validators.required],
+      userName:['', Validators.required],
+      passwrod:['', Validators.required],
+
+    });
   }
 
   getAll(){
-
+     
   }
 
-  addNewUser(content){
-
+  saveUser(content){
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
   }
 
   editRow(row, rowIndex, content) {

@@ -26,9 +26,9 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllMCQQuestionAnswers()
+        public ActionResult GetMCQQuestionAnswers()
         {
-            var response = MCQQuestionAnswer.GetAllMCQQuestionAnswers();
+            var response = mcqquestionanswerService.GetMCQQuestionAnswers();
             return Ok(response);
         }
 

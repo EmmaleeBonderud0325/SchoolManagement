@@ -4,6 +4,7 @@ using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Util;
+using SchoolManagement.Util.Constants;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -136,7 +137,7 @@ namespace SchoolManagement.Business
                     schoolDb.Users.Add(user);
 
                     response.IsSuccess = true;
-                    response.Message = "Mangement Level User Added Successfull.";                    
+                    response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
@@ -176,6 +177,9 @@ namespace SchoolManagement.Business
 
                     schoolDb.Users.Update(user);
 
+                    response.IsSuccess = true;
+                    response.Message = UserServiceConstants.EXISTING_USER_SAVE_SUCCESS_MESSAGE;
+
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -183,7 +187,7 @@ namespace SchoolManagement.Business
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE;
             }
             return response;
         }
