@@ -125,9 +125,9 @@ namespace SchoolManagement.WebService.Infrastructure
             // .As<ILessonAssignmentSubmissionService>()
             // .InstancePerLifetimeScope();
 
-            //builder.RegisterType<LessonDesignService>()
-            // .As<ILessonDesignService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<LessonDesignService>()
+            .As<ILessonDesignService>()
+            .InstancePerLifetimeScope();
 
             builder.RegisterType<MCQQuestionAnswerService>()
             .As<IMCQQuestionAnswerService>()
