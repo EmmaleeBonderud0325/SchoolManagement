@@ -20,7 +20,7 @@ export class AcademicLevelListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveAcademmicLevel:FormGroup;
+  saveAcademmicLevelForm:FormGroup;
   reorderable = true;
   academicLevel:AcademicLevelModel;
   levelHeads:DropDownModel[] = [];
@@ -34,7 +34,7 @@ export class AcademicLevelListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getAllLevelHeads();
-    this.saveAcademmicLevel = this.fb.group({
+    this.saveAcademmicLevelForm = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       selectlevelHeadId: [this.academicLevel.selectedLevelHeadId,'', [Validators.required]],
       isActive: ['', [Validators.required]],
