@@ -1,4 +1,5 @@
-﻿using Castle.Core.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;

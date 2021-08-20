@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.WebService.Controllers
@@ -17,7 +13,7 @@ namespace SchoolManagement.WebService.Controllers
         private readonly ILessonAssignmentSubmissionService lessonassignmentsubmissionService;
         private readonly IIdentityService identityService;
 
-        public LessonAssignmentSubmissionController(ILessonAssignmentSubmissionService essaystudentanswerService, IIdentityService identityService)
+        public LessonAssignmentSubmissionController(ILessonAssignmentSubmissionService lessonassignmentsubmissionService, IIdentityService identityService)
         {
             this.lessonassignmentsubmissionService = lessonassignmentsubmissionService;
             this.identityService = identityService;
@@ -34,9 +30,9 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
 
-        public ActionResult GetAllLessonAssignmentSubmissions()
+        public ActionResult GetLessonAssignmentSubmissions()
         {
-            var response = lessonassignmentsubmissionService.GetAllLessonAssignmentSubmissions();
+            var response = lessonassignmentsubmissionService.GetLessonAssignmentSubmissions();
             return Ok(response);
         }
 

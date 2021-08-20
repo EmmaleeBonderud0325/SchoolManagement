@@ -109,21 +109,21 @@ namespace SchoolManagement.WebService.Infrastructure
 
             ////Lesson Services
 
-            //builder.RegisterType<EssayQuestionAnswerService>()
-            // .As<IEssayQuestionAnswerService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<EssayQuestionAnswerService>()
+             .As<IEssayQuestionAnswerService>()
+             .InstancePerLifetimeScope();
 
-            //builder.RegisterType<EssayStudentAnswerService>()
-            // .As<IEssayStudentAnswerService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<EssayStudentAnswerService>()
+            .As<IEssayStudentAnswerService>()
+             .InstancePerLifetimeScope();
 
-            //builder.RegisterType<LessonAssignmentService>()
-            // .As<ILessonAssignmentService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<LessonAssignmentService>()
+             .As<ILessonAssignmentService>()
+             .InstancePerLifetimeScope();
 
-            //builder.RegisterType<LessonAssignmentSubmissionService>()
-            // .As<ILessonAssignmentSubmissionService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<LessonAssignmentSubmissionService>()
+             .As<ILessonAssignmentSubmissionService>()
+             .InstancePerLifetimeScope();
 
             //builder.RegisterType<LessonDesignService>()
             // .As<ILessonDesignService>()
