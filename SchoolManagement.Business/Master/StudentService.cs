@@ -79,7 +79,7 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        public async Task<ResponseViewModel> SaveStudent(StudentViewModel studentView, string userName)
+        public async Task<ResponseViewModel> SaveStudent(StudentViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -87,18 +87,31 @@ namespace SchoolManagement.Business.Master
             {
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var studentIsAvailable = schoolDb.Students.FirstOrDefault(a => a.Id == studentView.Id);
+                var student = schoolDb.Students.FirstOrDefault(a => a.Id == vm.Id);
 
-                if (studentIsAvailable == null)
+                if (student == null)
                 {
-                    studentIsAvailable = new Student()
+                    var user = new User();
+                    user.Id = vm.Id;
+                    user.Username = vm.Email;
+                    user.Email = vm.Email;
+                    user.FullName = vm.FullName;
+                    user.MobileNo = vm.MobileNo;
+                    user.Password = vm.Password;
+                    user.IsActive = true;
+                    user.CreatedById = loggedInUser.Id;
+                    user.CreatedOn = DateTime.UtcNow;
+                    user.UpdatedOn = DateTime.UtcNow;
+                    user.Address = vm.Address;
+                    
+                    user.Student = new Student()
                     {
-                        Id = studentView.Id,
-                        AdmissionNo = studentView.AdmissionNo,
-                        EmegencyContactNo1 = studentView.EmegencyContactNo1,
-                        EmegencyContactNo2 = studentView.EmegencyContactNo2,
-                        Gender = studentView.Gender,
-                        DateOfBirth = studentView.DateOfBirth,
+                        Id = vm.Id,
+                        AdmissionNo = vm.AdmissionNo,
+                        EmegencyContactNo1 = vm.EmegencyContactNo1,
+                        EmegencyContactNo2 = vm.EmegencyContactNo2,
+                        Gender = vm.Gender,
+                        DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
@@ -106,23 +119,23 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.Students.Add(studentIsAvailable);
+                    schoolDb.Students.Add(student);
 
                     response.IsSuccess = true;
                     response.Message = "Student added successfully";
                 }  
                 else
                 {
-                    studentIsAvailable.AdmissionNo = studentView.AdmissionNo;
-                    studentIsAvailable.EmegencyContactNo1 = studentView.EmegencyContactNo1;
-                    studentIsAvailable.EmegencyContactNo2 = studentView.EmegencyContactNo2;
-                    studentIsAvailable.Gender = studentView.Gender;
-                    studentIsAvailable.IsActive = true;
-                    studentIsAvailable.UpdatedById = loggedInUser.Id;
-                    studentIsAvailable.UpdateOn = DateTime.UtcNow;
-                    studentIsAvailable.DateOfBirth = studentView.DateOfBirth;
+                    student.AdmissionNo = vm.AdmissionNo;
+                    student.EmegencyContactNo1 = vm.EmegencyContactNo1;
+                    student.EmegencyContactNo2 = vm.EmegencyContactNo2;
+                    student.Gender = vm.Gender;
+                    student.IsActive = true;
+                    student.UpdatedById = loggedInUser.Id;
+                    student.UpdateOn = DateTime.UtcNow;
+                    student.DateOfBirth = vm.DateOfBirth;
 
-                    schoolDb.Students.Update(studentIsAvailable);
+                    schoolDb.Students.Update(student);
 
                     response.IsSuccess = true;
                     response.Message = "Student updated successfully";
