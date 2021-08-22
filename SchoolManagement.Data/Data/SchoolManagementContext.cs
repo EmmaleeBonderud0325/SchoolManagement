@@ -53,8 +53,8 @@ namespace SchoolManagement.Data.Data
                 //optionsBuilder.UseSqlServer(@"Server=MSI\SQLEXPRESS;Database=SchoolManagement;User Id=ra;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-33VQTC5\SQLEXPRESS;Database=SchoolManagement;User Id=cg;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=LAPTOP-8I5H1L3D;Database=SchoolManagement;User Id=se;Password=1qaz2wsx@;");
-                //optionsBuilder.UseSqlServer(@"Server=LAPTOP-OLUMFMFF\SQLEXPRESS;Database=SchoolManagement;User Id=sc;Password=1qaz2wsx@;");
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-9KTAG16\SQLEXPRESS;Database=SchoolManagement;User Id=hn;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=LAPTOP-OLUMFMFF\SQLEXPRESS;Database=SchoolManagement;User Id=sc;Password=1qaz2wsx@;");
+                //optionsBuilder.UseSqlServer(@"Server=DESKTOP-9KTAG16\SQLEXPRESS;Database=SchoolManagement;User Id=hn;Password=1qaz2wsx@;");
                 //optionsBuilder.UseSqlServer(@"Server=DESKTOP-JTSNI0P\SQLEXPRESS01;Database=SchoolManagement;User Id=dt;Password=1qaz2wsx@;");
             }
 
