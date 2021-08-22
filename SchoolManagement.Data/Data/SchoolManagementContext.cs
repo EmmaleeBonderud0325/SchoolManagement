@@ -48,6 +48,7 @@ namespace SchoolManagement.Data.Data
             {
                 optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagement;User Id=av;Password=1qaz2wsx@;");
                 
+
             }
 
         }
