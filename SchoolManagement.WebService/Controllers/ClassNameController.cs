@@ -24,9 +24,9 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetAllClassNames()
+        public ActionResult GetClassNames()
         {
-            var response = classNameService.GetAllClassNames();
+            var response = classNameService.GetClassNames();
             return Ok(response);
         }
 

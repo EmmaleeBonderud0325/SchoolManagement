@@ -8,6 +8,7 @@ namespace SchoolManagement.Model
 {
     public enum TopicContentType
     {
-
+        Text=1,
+        YoutubeVideo=2,
     }
 }

@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { SubjectRoutingModule } from './subject-routing.module';
 import { SubjectListComponent } from './subject-list/subject-list.component';
 import { SubjectDetailComponent } from './subject-detail/subject-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -13,7 +16,11 @@ import { SubjectDetailComponent } from './subject-detail/subject-detail.componen
   ],
   imports: [
     CommonModule,
-    SubjectRoutingModule
+    SubjectRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxDatatableModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class SubjectModule { }

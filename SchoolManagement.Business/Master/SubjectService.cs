@@ -83,7 +83,7 @@ namespace SchoolManagement.Business.Master
                     SubjectCategory = subject.SubjectCategory,
                     IsParentBasketSubject = subject.IsParentBasketSubject,
                     IsBuscketSubject = subject.IsBuscketSubject,
-                    ParentBasketSubjectId = subject.ParentBasketSubjectId,
+                    ParentBasketSubjectId = subject.ParentBasketSubjectId,         
                     SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
