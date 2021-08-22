@@ -108,7 +108,7 @@ namespace SchoolManagement.Business
                         SubjectId = vm.SelectedSubjectId,
                         LearningOutcome = vm.LearningOutcome,
                         PlannedDate = vm.PlannedDate,
-                        VersionNo = vm.VersionNo,
+                        VersionNo = 1,
                         Status = LessonStatus.Design,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
@@ -125,15 +125,15 @@ namespace SchoolManagement.Business
                 }
                 else
                 {
+                    lesson.Name = vm.Name;
                     lesson.Description = vm.Description;
-                    lesson.OwnerId = loggedInUser.Id;
+                    lesson.OwnerId = vm.selectedOwner.Id;
                     lesson.AcademicLevelId = vm.SelectedAcademicLevelId;
                     lesson.ClassNameId = vm.SelectedClassNameId;
                     lesson.AcademicYearId = vm.SelectedAcademicYearId;
                     lesson.SubjectId = vm.SelectedSubjectId;
                     lesson.LearningOutcome = vm.LearningOutcome;
                     lesson.PlannedDate = vm.PlannedDate;
-                    lesson.VersionNo = vm.VersionNo;
                     lesson.UpdatedOn = DateTime.UtcNow;
                     lesson.UpdatedById = loggedInUser.Id;
 
