@@ -59,13 +59,13 @@ namespace SchoolManagement.WebService.Infrastructure
               .As<IAcademicYearService>()
               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<ClassNameService>()
-            //  .As<IClassNameService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<ClassNameService>()
+              .As<IClassNameService>()
+              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<ClassService>()
-            //  .As<IClassService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<ClassService>()
+              .As<IClassService>()
+              .InstancePerLifetimeScope();
 
             builder.RegisterType<ClassTeacherService>()
               .As<IClassTeacherService>()

@@ -29,7 +29,7 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
-        public List<ClassNameViewModel> GetAllClassNames()
+        public List<ClassNameViewModel> GetClassNames()
         {
             var response = new List<ClassNameViewModel>();
 

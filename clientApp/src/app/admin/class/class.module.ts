@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { ClassRoutingModule } from './class-routing.module';
 import { ClassDetailComponent } from './class-detail/class-detail.component';
 import { ClassListComponent } from './class-list/class-list.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -13,7 +16,11 @@ import { ClassListComponent } from './class-list/class-list.component';
   ],
   imports: [
     CommonModule,
-    ClassRoutingModule
+    ClassRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxDatatableModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class ClassModule { }

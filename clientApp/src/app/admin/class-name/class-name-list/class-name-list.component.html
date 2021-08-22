@@ -83,7 +83,7 @@
 
                 <ngx-datatable-column name="CreatedOn" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedOn}}
+                    {{row.CreatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -95,7 +95,7 @@
 				
 				        <ngx-datatable-column name="UpdatedOn" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedOn}}
+                    {{row.UpdatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -135,6 +135,12 @@
                     </div>
                     <div class="modal-body">
                       <form class="register-form" [formGroup]="saveClassNameForm" (ngSubmit)="onAddRowSave(saveClassNameForm)">
+                        <!-- <div class="input-field col s12 d-none">
+                          <input 
+                            formControlName="id" 
+                            class="form-control" 
+                            type="hidden">
+                        </div>-->
                         <div class="row">
                             <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                               <label>Name <span class="text-danger">*</span></label>
@@ -161,6 +167,17 @@
                                   *ngIf="!saveClassNameForm.get('Description').valid && saveClassNameForm.get('Description').touched"> Description is
                                   required</small>
                               </div>  
+                            </div>
+                            <div class="row">
+                              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                                <label>Is Active <span class="text-danger">*</span></label>
+                                <select class="form-control" formControlName="isActive" required>
+                                  <option value="" selected disabled>Please select</option>
+                                  <option *ngFor="let desig of designationType" [value]="desig.value">
+                                    <!-- {{desig.value}} -->
+                                  </option>
+                                </select>
+                              </div>                 
                             </div>
 
                             <div class="modal-footer">

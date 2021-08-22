@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class classnameModel{
-    id:number;
+export class ClassModel{
+    classNameId:number;
+    academicLevelId:number;
+    academicYearId:number;
     name:string;
-    description:string;
-    isActive:boolean;
+    classCategory:string;
+    languageStream:string;
     createdOn:Date;
     createdById:number;
     createdByName:string;
