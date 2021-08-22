@@ -1,4 +1,5 @@
-﻿using Castle.Core.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -29,11 +30,11 @@ namespace SchoolManagement.Business
         }
 
 
-        public List<LessonAssignmentSubmissionViewModel> GetAllLessonAssignmentSubmissions()
+        public List<LessonAssignmentSubmissionViewModel> GetLessonAssignmentSubmissions()
         {
             var response = new List<LessonAssignmentSubmissionViewModel>();
 
-            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.StudentId == 123);
+            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.StudentId != null);
 
             var LessonAssignmentSubmissionList = query.ToList();
 

@@ -3,6 +3,8 @@ using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Util;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
@@ -41,7 +43,7 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Student deleted successfully";
+                response.Message = StudentServiceConstants.STUDENT_DISABLE_MESSAGE;
             }
             catch (Exception ex)
             {
@@ -79,7 +81,7 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        public async Task<ResponseViewModel> SaveStudent(StudentViewModel studentView, string userName)
+        public async Task<ResponseViewModel> SaveStudent(StudentViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -87,18 +89,36 @@ namespace SchoolManagement.Business.Master
             {
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var studentIsAvailable = schoolDb.Students.FirstOrDefault(a => a.Id == studentView.Id);
+                var student = schoolDb.Students.FirstOrDefault(a => a.Id == vm.Id);
 
-                if (studentIsAvailable == null)
+                if (student == null)
                 {
-                    studentIsAvailable = new Student()
+                    var user = new User()
                     {
-                        Id = studentView.Id,
-                        AdmissionNo = studentView.AdmissionNo,
-                        EmegencyContactNo1 = studentView.EmegencyContactNo1,
-                        EmegencyContactNo2 = studentView.EmegencyContactNo2,
-                        Gender = studentView.Gender,
-                        DateOfBirth = studentView.DateOfBirth,
+                        Id = vm.Id,
+                        Username = vm.Email,
+                        Email = vm.Email,
+                        FullName = vm.FullName,
+                        MobileNo = vm.MobileNo,
+                        Password = CustomPasswordHasher.GenerateHash(vm.Password),
+                        IsActive = true,
+                        CreatedById = loggedInUser.Id,
+                        CreatedOn = DateTime.UtcNow,
+                        UpdatedOn = DateTime.UtcNow,
+                        Address = vm.Address,
+                        ProfileImage = 0,
+                        LastLoginDate = DateTime.UtcNow,
+                        LoginSessionId = 0
+                    };
+                    
+                    user.Student = new Student()
+                    {
+                        Id = user.Id,
+                        AdmissionNo = vm.AdmissionNo,
+                        EmegencyContactNo1 = vm.EmegencyContactNo1,
+                        EmegencyContactNo2 = vm.EmegencyContactNo2,
+                        Gender = vm.Gender,
+                        DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
@@ -106,26 +126,26 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.Students.Add(studentIsAvailable);
+                    schoolDb.Students.Add(user.Student);
 
                     response.IsSuccess = true;
-                    response.Message = "Student added successfully";
+                    response.Message = StudentServiceConstants.NEW_STUDENT_ADD_SUCCESS_MESSAGE;
                 }  
                 else
                 {
-                    studentIsAvailable.AdmissionNo = studentView.AdmissionNo;
-                    studentIsAvailable.EmegencyContactNo1 = studentView.EmegencyContactNo1;
-                    studentIsAvailable.EmegencyContactNo2 = studentView.EmegencyContactNo2;
-                    studentIsAvailable.Gender = studentView.Gender;
-                    studentIsAvailable.IsActive = true;
-                    studentIsAvailable.UpdatedById = loggedInUser.Id;
-                    studentIsAvailable.UpdateOn = DateTime.UtcNow;
-                    studentIsAvailable.DateOfBirth = studentView.DateOfBirth;
+                    student.AdmissionNo = vm.AdmissionNo;
+                    student.EmegencyContactNo1 = vm.EmegencyContactNo1;
+                    student.EmegencyContactNo2 = vm.EmegencyContactNo2;
+                    student.Gender = vm.Gender;
+                    student.IsActive = true;
+                    student.UpdatedById = loggedInUser.Id;
+                    student.UpdateOn = DateTime.UtcNow;
+                    student.DateOfBirth = vm.DateOfBirth;
 
-                    schoolDb.Students.Update(studentIsAvailable);
+                    schoolDb.Students.Update(student);
 
                     response.IsSuccess = true;
-                    response.Message = "Student updated successfully";
+                    response.Message = StudentServiceConstants.STUDENT_UPDATE_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();

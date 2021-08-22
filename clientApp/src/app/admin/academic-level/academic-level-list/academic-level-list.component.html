@@ -39,7 +39,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addRecord)' >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addEditRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                             <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -86,7 +86,7 @@
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, editRecord)'>
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
                       <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
@@ -97,7 +97,7 @@
                 </ngx-datatable-column>
               </ngx-datatable>
               <!-- Add Record Modal Window -->
-            <ng-template #addRecord let-modal>
+            <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
                 <h4 class="modal-title" id="modal-basic-title">
                   <div class="table-modal-header">
@@ -112,7 +112,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="register" (ngSubmit)="addNewYear(register)">
+                <form class="register-form" [formGroup]="academicLevelFrom">
                   <!-- <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
@@ -136,18 +136,17 @@
                           formControlName="name"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveAcademmicLevel.get('name').valid && saveAcademmicLevel.get('name').touched"> Acedemic Levelname is
+                        *ngIf="!academicLevelFrom.get('name').valid && academicLevelFrom.get('name').touched"> Acedemic Levelname is
                         required</small>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Level Head <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="selectlevelHeadId" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let item of levelHeads" [value]="item.id">
-                          {{item.name}}
-                        </option>
-                      </select>
+                      <div class="form-group">
+                        <label>Level Head<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="selectlevelHeadId">
+                          <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
                     </div> 
                   </div>
                   <div class="row">
@@ -162,7 +161,7 @@
                     </div>                 
                   </div>
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]="!register.valid">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!academicLevelFrom.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

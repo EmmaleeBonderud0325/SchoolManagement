@@ -20,7 +20,7 @@ export class AcademicLevelListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveAcademmicLevel:FormGroup;
+  academicLevelFrom:FormGroup;
   reorderable = true;
   academicLevel:AcademicLevelModel;
   levelHeads:DropDownModel[] = [];
@@ -32,18 +32,23 @@ export class AcademicLevelListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
-    this.getAllLevelHeads();
-    this.saveAcademmicLevel = this.fb.group({
+
+    this.academicLevelFrom = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      selectlevelHeadId: [this.academicLevel.selectedLevelHeadId,'', [Validators.required]],
+      selectlevelHeadId: [null, [Validators.required]],
       isActive: ['', [Validators.required]],
     });
+    this.getAll();
+    this.getAllLevelHeads();
+
   }
   
   getAllLevelHeads(){
       this.academicLevelService.getAllLevelHeads()
         .subscribe(response=>{
+
+          console.log(response);
+          
           this.levelHeads = response;
         },error=>{
 
@@ -60,12 +65,23 @@ export class AcademicLevelListComponent implements OnInit {
       this.loadingIndicator=false;
     });
   }
+
+
   addNewAcademicLevel(content) {
+
+    this.academicLevelFrom = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      selectlevelHeadId: [null, [Validators.required]],
+      isActive: ['', [Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
   }
+
+
 
     onAddRowSave(form: FormGroup) {
       this.data.push(form.value);
@@ -76,13 +92,17 @@ export class AcademicLevelListComponent implements OnInit {
     }
 
 
-  editRow(row, rowIndex, content) {
+  editRow(row:AcademicLevelModel, rowIndex:number, content:any) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
 
-    
+    this.academicLevelFrom = this.fb.group({
+      name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      selectlevelHeadId: [row.selectedLevelHeadId, [Validators.required]],
+      isActive: [row.isActive, [Validators.required]],
+    });
   }
 
     deleteSingleRow(row) {

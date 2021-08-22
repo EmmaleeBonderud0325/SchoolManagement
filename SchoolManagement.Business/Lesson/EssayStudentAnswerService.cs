@@ -1,4 +1,5 @@
-﻿using Castle.Core.Configuration;
+﻿
+using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -32,7 +33,7 @@ namespace SchoolManagement.Business
         {
             var response = new List<EssayStudentAnswerViewModel>();
 
-            var query = schoolDb.EssayStudentAnswers.Where(u => u.StudentId == 123);
+            var query = schoolDb.EssayStudentAnswers.Where(u => u.StudentId != null);
 
             var EssayStudentAnswerList = query.ToList();
 
@@ -75,8 +76,8 @@ namespace SchoolManagement.Business
                     {
                         QuestionId = vm.QuestionId,
                         StudentId = vm.StudentId,
-                        //EssayQuestionAnswerId = vm.EssayQuestionAnswerId,
-                        //AnswerText = vm.AnswerText,
+                        EssayQuestionAnswerId = vm.EssayQuestionAnswerId,
+                        AnswerText = vm.AnswerText,
                         TeacherComments = vm.TeacherComments,
                         Marks = vm.Marks
                     };
