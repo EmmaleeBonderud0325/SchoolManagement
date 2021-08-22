@@ -42,6 +42,7 @@ export class SubjectListComponent implements OnInit {
     this.subjectService.getAll().subscribe(response=>
     {
         this.data= response;
+        console.log(response);
         this.loadingIndicator=false;
     },error=>{
         this.loadingIndicator=false;
