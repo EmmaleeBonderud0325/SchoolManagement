@@ -67,9 +67,9 @@ namespace SchoolManagement.WebService.Infrastructure
             //  .As<IClassService>()
             //  .InstancePerLifetimeScope();
 
-            //builder.RegisterType<ClassService>()
-            //  .As<IClassService>()
-            //  .InstancePerLifetimeScope();
+            builder.RegisterType<ClassTeacherService>()
+              .As<IClassTeacherService>()
+              .InstancePerLifetimeScope();
 
             builder.RegisterType<ClassSubjectTeacherService>()
               .As<IClassSubjectTeacherService>()

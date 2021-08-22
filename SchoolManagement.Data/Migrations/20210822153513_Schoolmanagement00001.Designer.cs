@@ -10,8 +10,8 @@ using SchoolManagement.Data.Data;
 namespace SchoolManagement.Data.Migrations
 {
     [DbContext(typeof(SchoolManagementContext))]
-    [Migration("20210803142132_Schoolmanagement00006")]
-    partial class Schoolmanagement00006
+    [Migration("20210822153513_Schoolmanagement00001")]
+    partial class Schoolmanagement00001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,6 +30,9 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -60,9 +63,7 @@ namespace SchoolManagement.Data.Migrations
             modelBuilder.Entity("SchoolManagement.Model.AcademicYear", b =>
                 {
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("int");
 
                     b.Property<int>("CreatedById")
                         .HasColumnType("int");
@@ -405,6 +406,9 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LearningOutcome")
                         .HasColumnType("nvarchar(max)");
 
@@ -442,7 +446,7 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasIndex("UpdatedById");
 
-                    b.HasIndex("AcademicLevelId", "ClassNameId", "AcademicYearId");
+                    b.HasIndex("ClassNameId", "AcademicLevelId", "AcademicYearId");
 
                     b.ToTable("Lesson", "Lesson");
                 });
@@ -552,7 +556,7 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("MCQAnswer", "Lesson");
+                    b.ToTable("MCQQuestionAnswer", "Lesson");
                 });
 
             modelBuilder.Entity("SchoolManagement.Model.MCQQuestionStudentAnswer", b =>
@@ -1206,7 +1210,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 969, DateTimeKind.Utc).AddTicks(1473),
+                            CreatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(923),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1215,13 +1219,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 969, DateTimeKind.Utc).AddTicks(1991),
+                            UpdatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(1394),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 969, DateTimeKind.Utc).AddTicks(4216),
+                            CreatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(2998),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1230,7 +1234,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 969, DateTimeKind.Utc).AddTicks(4220),
+                            UpdatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(3001),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1276,20 +1280,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 989, DateTimeKind.Utc).AddTicks(2927),
+                            CreatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 57, DateTimeKind.Utc).AddTicks(8686),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 989, DateTimeKind.Utc).AddTicks(3460)
+                            UpdatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 57, DateTimeKind.Utc).AddTicks(9369)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 989, DateTimeKind.Utc).AddTicks(5623),
+                            CreatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 58, DateTimeKind.Utc).AddTicks(1721),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 3, 14, 21, 29, 989, DateTimeKind.Utc).AddTicks(5626)
+                            UpdatedOn = new DateTime(2021, 8, 22, 15, 35, 12, 58, DateTimeKind.Utc).AddTicks(1724)
                         });
                 });
 
@@ -1495,7 +1499,7 @@ namespace SchoolManagement.Data.Migrations
                     b.HasOne("SchoolManagement.Model.EssayQuestionAnswer", "EssayQuestionAnswer")
                         .WithMany("EssayStudentAnswers")
                         .HasForeignKey("EssayQuestionAnswerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("SchoolManagement.Model.Question", "Question")
@@ -1596,7 +1600,7 @@ namespace SchoolManagement.Data.Migrations
 
                     b.HasOne("SchoolManagement.Model.Class", "Class")
                         .WithMany("Lessons")
-                        .HasForeignKey("AcademicLevelId", "ClassNameId", "AcademicYearId")
+                        .HasForeignKey("ClassNameId", "AcademicLevelId", "AcademicYearId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 

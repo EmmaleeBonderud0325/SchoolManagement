@@ -3,6 +3,8 @@ using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Util;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
@@ -41,7 +43,7 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Student deleted successfully";
+                response.Message = StudentServiceConstants.STUDENT_DISABLE_MESSAGE;
             }
             catch (Exception ex)
             {
@@ -91,22 +93,27 @@ namespace SchoolManagement.Business.Master
 
                 if (student == null)
                 {
-                    var user = new User();
-                    user.Id = vm.Id;
-                    user.Username = vm.Email;
-                    user.Email = vm.Email;
-                    user.FullName = vm.FullName;
-                    user.MobileNo = vm.MobileNo;
-                    user.Password = vm.Password;
-                    user.IsActive = true;
-                    user.CreatedById = loggedInUser.Id;
-                    user.CreatedOn = DateTime.UtcNow;
-                    user.UpdatedOn = DateTime.UtcNow;
-                    user.Address = vm.Address;
+                    var user = new User()
+                    {
+                        Id = vm.Id,
+                        Username = vm.Email,
+                        Email = vm.Email,
+                        FullName = vm.FullName,
+                        MobileNo = vm.MobileNo,
+                        Password = CustomPasswordHasher.GenerateHash(vm.Password),
+                        IsActive = true,
+                        CreatedById = loggedInUser.Id,
+                        CreatedOn = DateTime.UtcNow,
+                        UpdatedOn = DateTime.UtcNow,
+                        Address = vm.Address,
+                        ProfileImage = 0,
+                        LastLoginDate = DateTime.UtcNow,
+                        LoginSessionId = 0
+                    };
                     
                     user.Student = new Student()
                     {
-                        Id = vm.Id,
+                        Id = user.Id,
                         AdmissionNo = vm.AdmissionNo,
                         EmegencyContactNo1 = vm.EmegencyContactNo1,
                         EmegencyContactNo2 = vm.EmegencyContactNo2,
@@ -119,10 +126,10 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.Students.Add(student);
+                    schoolDb.Students.Add(user.Student);
 
                     response.IsSuccess = true;
-                    response.Message = "Student added successfully";
+                    response.Message = StudentServiceConstants.NEW_STUDENT_ADD_SUCCESS_MESSAGE;
                 }  
                 else
                 {
@@ -138,7 +145,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Students.Update(student);
 
                     response.IsSuccess = true;
-                    response.Message = "Student updated successfully";
+                    response.Message = StudentServiceConstants.STUDENT_UPDATE_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();

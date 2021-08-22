@@ -1,4 +1,117 @@
 <section class="main-content">
-    <p>subject-list works!</p>
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+          <h5 class="page-title m-b-0">Admin</h5>
+        </li>
+        <li class="breadcrumb-item bcrumb-1">
+          <a routerLink="/dashboard/main">
+            <i class="fas fa-home font-17"></i></a>
+        </li>
+        <li class="breadcrumb-item">Subject List</li>
+      </ul>
+      <div class="section-body">
+        <div class="row clearfix">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+              <div class="p-10">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="row m-0">
+                      <div class="col-lg-3 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-title">
+                            <h2><strong>Subjects</strong></h2>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-5 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-search-area">
+                            <div>
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Search" type="text" class="browser-default search-field"
+                                 aria-label="Search box">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="header-buttons-left">
+                            <div class="icon-button-demo buttons">
+                              <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                <i class="material-icons">add</i>
+                              </button>
+                              <button  class="btn btn-icon icon-left btn-danger rounded-button">
+                                <i class="material-icons">delete</i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.subjectCode}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.subjectCategory}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.subjectStreamName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.subjectStreamName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+
+               
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <button class="btn btn-tbl-edit h-auto" >
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button class="btn btn-tbl-delete h-auto">
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+ 
+           
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+            
+    
 </section>
 

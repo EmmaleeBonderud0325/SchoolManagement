@@ -28,7 +28,7 @@ namespace SchoolManagement.Model
         public int UpdatedById { get; set; }
 
         public virtual Class Class { get; set; }
-        public virtual Subject Subject { get; set; }
+        public virtual SubjectAcademicLevel SubjectAcedemicLevel { get; set; }
 
         public virtual User Owner { get; set; }
         public virtual User CreatedBy { get; set; }

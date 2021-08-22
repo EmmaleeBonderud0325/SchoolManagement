@@ -20,13 +20,13 @@ namespace SchoolManagement.Data.Configurations
 
             builder.HasOne<Class>(x => x.Class)
                 .WithMany(l => l.Lessons)
-                .HasForeignKey(f => new { f.AcademicLevelId, f.ClassNameId, f.AcademicYearId })
+                .HasForeignKey(f => new { f.ClassNameId, f.AcademicLevelId, f.AcademicYearId })
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
-            builder.HasOne<Subject>(x => x.Subject)
+            builder.HasOne<SubjectAcademicLevel>(x => x.SubjectAcedemicLevel)
                 .WithMany(l => l.Lessons)
-                .HasForeignKey(f => f.SubjectId)
+                .HasForeignKey(f => new {f.SubjectId, f.AcademicLevelId })
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
 
