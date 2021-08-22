@@ -31,7 +31,7 @@ namespace SchoolManagement.Model
         public virtual ICollection<ClassSubjectTeacher> ClassSubjectTeachers { get; set; }
         public virtual ICollection<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public virtual ICollection<HeadOfDepartment> HeadOfDepartments { get; set; } 
-        public virtual ICollection<Lesson> Lessons { get; set; }
+
         public virtual ICollection<Subject> ChildBasketSubjects { get; set; }
 
 

@@ -27,6 +27,7 @@ namespace SchoolManagement.ViewModel.Lesson
         public string Introduction { get; set; }
         public int TopicId { get; set; }
         public string Content { get; set; }
+        public DropDownViewModel selectedOwner { get; set; }
 
         public int SelectedOwnerId { get; set; }
         public int SelectedAcademicLevelId { get; set; }
