@@ -29,11 +29,11 @@ namespace SchoolManagement.Business.Master
             this.currentUserService = currentUserService;
         }
 
-        public List<ClassViewModel> GetAllClasses()
+        public List<ClassViewModel> GetClasses()
         {
             var response = new List<ClassViewModel>();
 
-            var query = schoolDb.Classes.Where(predicate: u => u.ClassNameId == null);
+            var query = schoolDb.Classes.Where(predicate: u => u.ClassNameId != null);
 
             var ClassList = query.ToList();
 
