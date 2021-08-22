@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Util", "Sc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.ViewModel", "SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj", "{79DEA8A8-CC6A-4119-B6BE-4A7530851D33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.Master.Data", "SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj", "{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Master.Data", "SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj", "{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

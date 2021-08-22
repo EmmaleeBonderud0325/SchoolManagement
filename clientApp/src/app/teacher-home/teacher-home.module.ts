@@ -7,12 +7,21 @@ import { CommonModule } from '@angular/common';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { EssayAnswerListComponent } from './essay-answer-list/essay-answer-list.component';
+import { EssayAnswerDetailComponent } from './essay-answer-detail/essay-answer-detail.component';
+
+
+
 
 
 @NgModule({
   declarations: [
     LessonsComponent,
-    LessonDetailComponent
+    LessonDetailComponent,
+    EssayAnswerListComponent,
+    EssayAnswerDetailComponent,
+
+
   ],
   imports: [
     CommonModule,
