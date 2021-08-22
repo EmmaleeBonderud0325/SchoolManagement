@@ -18,6 +18,8 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasKey(x => x.Id);
 
+            builder.Property(x => x.Id).ValueGeneratedNever();
+
             builder.HasOne<User>(x => x.CreatedBy)
                 .WithMany(u => u.CreatedAcademicYears)
                 .HasForeignKey(f => f.CreatedById)

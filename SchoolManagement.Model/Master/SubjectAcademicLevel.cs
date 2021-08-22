@@ -13,6 +13,7 @@ namespace SchoolManagement.Model
 
         public virtual AcademicLevel AcademicLevel { get; set; }
         public virtual Subject Subject { get; set; }
+        public virtual ICollection<Lesson> Lessons { get; set; }
 
         public virtual ICollection<StudentClassSubject> StudentClassSubjects { get; set; }
 
