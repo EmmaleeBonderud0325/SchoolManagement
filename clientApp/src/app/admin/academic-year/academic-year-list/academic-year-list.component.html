@@ -57,9 +57,9 @@
               columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
               [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">                
 
-                <ngx-datatable-column name="Name" [width]="100">
+                <ngx-datatable-column name="Academic Year" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.name}}
+                    {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
                 <ngx-datatable-column name="Is Active">
@@ -75,6 +75,11 @@
                 <ngx-datatable-column name="updated On">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <ngx-datatable-column name="Updated By">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
 

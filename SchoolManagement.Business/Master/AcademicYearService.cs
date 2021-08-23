@@ -16,14 +16,12 @@ namespace SchoolManagement.Business.Master
 {
     public class AcademicYearService : IAcademicYearService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public AcademicYearService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config , ICurrentUserService currentUserService)
+        public AcademicYearService(SchoolManagementContext schoolDb, IConfiguration config , ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
@@ -35,22 +33,23 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.AcademicYears.Where(u => u.IsActive == true);
 
-            var AcademicYearList = query.ToList();
+            var academicYears = query.ToList();
 
-            foreach (var AcademicYear in AcademicYearList)
+            foreach (var item in academicYears)
             {
-                var viewModel = new AcademicYearViewModel
+                var vm = new AcademicYearViewModel
                 {
-                    Id = AcademicYear.Id,
-                    IsActive = AcademicYear.IsActive,
-                    CreatedOn = AcademicYear.CreatedOn,
-                    CreatedById = AcademicYear.CreatedById,
-                    UpdatedOn = AcademicYear.UpdatedOn,
-                    UpdatedById = AcademicYear.UpdatedById,
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    createdByName = item.CreatedBy.FullName,
+                    UpdatedOn = item.UpdatedOn,
+                    updatedByName = item.UpdatedBy.FullName,
+                    UpdatedById = item.UpdatedById,
 
                 };
 
-                response.Add(viewModel);
+                response.Add(vm);
 
             }
 
