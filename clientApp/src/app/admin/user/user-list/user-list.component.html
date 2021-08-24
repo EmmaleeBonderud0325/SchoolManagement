@@ -122,7 +122,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="saveAcademmicLevelForm" (ngSubmit)="onAddRowSave(saveUserForm)">
+                <form class="register-form" [formGroup]="saveUserForm" (ngSubmit)="onAddRowSave(saveUserForm)">
                   <!-- <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
@@ -186,7 +186,7 @@
                           formControlName="userName"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched"> Mobile is
+                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched"> Mobile number is
                         required</small>
                     </div>
                   </div>
@@ -204,49 +204,11 @@
                         *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> Password is
                         required</small>
                     </div>
-                    <div class="form-group">
-                      <label class="d-block">Add User Roles</label>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck1">
-                        <label class="form-check-label" for="defaultCheck1">
-                          Supper Admin
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck2">
-                        <label class="form-check-label" for="defaultCheck2">
-                          Admin
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck3">
-                        <label class="form-check-label" for="defaultCheck3">
-                          Princple
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck4">
-                        <label class="form-check-label" for="defaultCheck4">
-                          Level Head
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck5">
-                        <label class="form-check-label" for="defaultCheck5">
-                          Head Of Department
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck6">
-                        <label class="form-check-label" for="defaultCheck6">
-                          Teacher
-                        </label>
-                      </div>
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="defaultCheck7">
-                        <label class="form-check-label" for="defaultCheck7">
-                          Student
-                        </label>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="row">
+                        <label>Roles<span class="text-danger ">*</span></label>
+                        <p-multiSelect [options]="userRoles"  formControlName="roles" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
                       </div>
                     </div>
                   </div>
