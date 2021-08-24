@@ -13,5 +13,4 @@ export class AcademicLevelModel{
     updatedOn:Date;
     updatedById:number;
     updatedByName:string;
-    selectedLevelHeadId:number;
 }

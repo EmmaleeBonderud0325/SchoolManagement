@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { AcademicLevelModel } from './../../../models/academic-level/acdemic.level.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { AcademicLevelService } from './../../../services/academic-level/academic-level.service';
@@ -33,14 +34,12 @@ export class AcademicLevelListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.academicLevelFrom = this.fb.group({
+    /* this.academicLevelFrom = this.fb.group({
       name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
       selectlevelHeadId: [null, [Validators.required]],
-      isActive: ['', [Validators.required]],
-    });
+    }); */
     this.getAll();
     this.getAllLevelHeads();
-
   }
   
   getAllLevelHeads(){
@@ -70,17 +69,39 @@ export class AcademicLevelListComponent implements OnInit {
   addNewAcademicLevel(content) {
 
     this.academicLevelFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      selectlevelHeadId: [null, [Validators.required]],
-      isActive: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      levelHeadId: [null, [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
   }
 
+  saveAcademicLevel(){   
+    
+    console.log(this.academicLevelFrom.value);
+    
+    this.academicLevelService.saveAcademicLevel(this.academicLevelFrom.value).subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
+  }
 
 
     onAddRowSave(form: FormGroup) {
@@ -100,7 +121,7 @@ export class AcademicLevelListComponent implements OnInit {
 
     this.academicLevelFrom = this.fb.group({
       name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      selectlevelHeadId: [row.selectedLevelHeadId, [Validators.required]],
+      selectlevelHeadId: [row.levelHeadId, [Validators.required]],
       isActive: [row.isActive, [Validators.required]],
     });
   }
