@@ -20,7 +20,7 @@ export class ClassNameListComponent implements OnInit {
   loadingIndicator = false;
   saveClassNameForm:FormGroup;
   reorderable = true;
-  user:classnameModel;
+  classname:classnameModel;
 
   constructor(
     private fb: FormBuilder,
@@ -29,25 +29,31 @@ export class ClassNameListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
     this.saveClassNameForm = this.fb.group({
       Name:['', Validators.required],
       Description:['', Validators.required],
+      isActive: ['', [Validators.required]],
     });
+    this.getAll();
   }
 
   getAll(){
-
+    this.loadingIndicator=true;
+    this.classnameService.getAll().subscribe(response=>{
+      this.data= response;
+        this.loadingIndicator=false;
+    },error=>{
+      this.loadingIndicator=false;
+    });
   }
 
-  saveClassName(content){
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    })
-  }
+  addNewClassName(content){
+    this.saveClassNameForm = this.fb.group({
+      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      Description:['', Validators.required],
+      isActive: ['', [Validators.required]],
+    });
 
-  editRow(row, rowIndex, content) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
@@ -60,6 +66,19 @@ export class ClassNameListComponent implements OnInit {
     form.reset();
     this.modalService.dismissAll();
     this.addRecordSuccess();
+  }
+
+  editRow(row:classnameModel, rowIndex:number, content:any) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+
+    this.saveClassNameForm = this.fb.group({
+      name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      description: [row.description,[Validators.required, Validators.pattern('[0-9]+[a-zA-Z]+')]],
+      isActive: [row.isActive, [Validators.required]],
+    });
   }
 
   deleteSingleRow(row) {

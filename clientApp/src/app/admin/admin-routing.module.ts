@@ -39,6 +39,17 @@ const routes: Routes = [
 
   {
     path: '',
+    redirectTo: 'class-name',
+    pathMatch: 'full',
+  },
+  {
+    path: 'class-name',
+    loadChildren: () =>
+          import('./class-name/class-name.module').then((m) => m.ClassNameModule)
+  },
+
+  {
+    path: '',
     redirectTo: 'class',
     pathMatch: 'full',
   },
@@ -50,13 +61,13 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'class-name',
+    redirectTo: 'class-teacher',
     pathMatch: 'full',
   },
   {
-    path: 'class-name',
+    path: 'class-teacher',
     loadChildren: () =>
-          import('./class-name/class-name.module').then((m) => m.ClassNameModule)
+          import('./class-teacher/class-teacher.module').then((m) => m.ClassTeacherModule)
   },
 
   {

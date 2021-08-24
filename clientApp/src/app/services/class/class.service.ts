@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from '../../models/common/response.model';
 import { environment } from '../../../environments/environment';
 import { ClassModel} from '../../models/class/class.model';
@@ -21,7 +22,27 @@ export class ClassService {
 
   save(vm: ClassModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'class/saveClass', vm);
+      post<ResponseModel>(environment.apiUrl + 'Class', vm);
+  }
+
+  delete(classNameId: number): Observable<ResponseModel> {
+    return this.httpClient.
+      delete<ResponseModel>(environment.apiUrl + 'Class' + classNameId);
+  }
+  
+  getAllClassNames():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Class/getAllClassNames');
+  }
+
+  getAllAcademicLevels():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Class/getAllAcademicLevels');
+  }
+
+  getAllAcademicYears():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Class/getAllAcademicYears');
   }
   
 }
