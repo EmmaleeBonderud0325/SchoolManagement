@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from './../../models/common/response.model';
 import { environment } from './../../../environments/environment';
 import { UserModel } from './../../models/user/user.model';
@@ -20,6 +21,15 @@ export class UserService {
   saveUser(user: UserModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'User/SaveUser', user);
+  }
+
+  getUserById(id:number): Observable<UserModel>{
+    return this.httpClient.get<UserModel>(environment.apiUrl + 'User/GetUserById/'+ id);
+  }
+
+  getAllRoles(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'User/getAllRoles')
   }
   
 }

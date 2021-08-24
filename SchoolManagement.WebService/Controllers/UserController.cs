@@ -17,21 +17,22 @@ namespace SchoolManagement.WebService.Controllers
         private readonly IUserService userService;
         private readonly IIdentityService identityService;
 
-        public UserController(IUserService userService,IIdentityService identityService)
+        public UserController(IUserService userService, IIdentityService identityService)
         {
             this.userService = userService;
             this.identityService = identityService;
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody]UserViewModel vm)
+        public async Task<ActionResult> Post([FromBody] UserViewModel vm)
         {
             var userName = identityService.GetUserName();
             var response = await userService.SaveUser(vm, userName);
             return Ok(response);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
+        [Route("getAllUsers/{id}")]
         public ActionResult GetAllUsers(int roleId)
         {
             var response = userService.GetAllUsers(roleId);
@@ -44,5 +45,23 @@ namespace SchoolManagement.WebService.Controllers
             var response = await userService.DeleteUser(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("GetUserById/{id}")]
+        public ActionResult GetUserById(int id)
+        {
+            var response = userService.GetUserbyId(id);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllRoles")]
+        public IActionResult GetAllRoles()
+        {
+            var response = userService.GetAllRoles();
+
+            return Ok(response);
+        }
+
     }
 }

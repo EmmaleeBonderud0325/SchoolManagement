@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace SchoolManagement.ViewModel.Account
     {
         public UserViewModel()
         {
-            Roles = new List<RoleViewModel>();
+            Roles = new List<DropDownViewModel>();
         }
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -24,7 +25,8 @@ namespace SchoolManagement.ViewModel.Account
         public string Address { get; set; }
        // public int LoginSessionId { get; set; }
         public bool IsActive { get; set; }
-        public List<RoleViewModel> Roles { get; set; }
+        public List<DropDownViewModel> Roles { get; set; }
+ 
         //public DateTime CreatedOn { get; set; }
         //public int? CreatedById { get; set; }
         //public DateTime UpdatedOn { get; set; }
