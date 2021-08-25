@@ -18,7 +18,7 @@ export class AcademicLevelService {
       get<AcademicLevelModel[]>(environment.apiUrl + 'AcademicLevel');
   }
 
-  save(vm: AcademicLevelModel): Observable<ResponseModel> {
+  saveAcademicLevel(vm: AcademicLevelModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'AcademicLevel', vm);
   }
