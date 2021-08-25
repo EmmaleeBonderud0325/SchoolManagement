@@ -42,10 +42,6 @@
                             <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addEditRecord)' >
                               <i class="material-icons">add</i>
                             </button>
-                            <button  class="btn btn-icon icon-left btn-danger rounded-button"
-                              >
-                              <i class="material-icons">delete</i>
-                            </button>
                           </div>
                         </div>
                       </div>
@@ -139,29 +135,19 @@
                         *ngIf="!academicLevelFrom.get('name').valid && academicLevelFrom.get('name').touched"> Acedemic Levelname is
                         required</small>
                     </div>
-
+                  </div>
+                  <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Level Head<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="selectlevelHeadId">
+                        <select class="form-select form-control" formControlName="levelHeadId">
                           <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div> 
                   </div>
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Is Active <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="isActive" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">
-                          <!-- {{desig.value}} -->
-                        </option>
-                      </select>
-                    </div>                 
-                  </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!academicLevelFrom.valid">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="saveAcademicLevel()" [disabled]="!academicLevelFrom.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

@@ -1,8 +1,9 @@
+import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../../services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -22,6 +23,8 @@ export class UserListComponent implements OnInit {
   reorderable = true;
   user:UserModel;
 
+  userRoles:DropDownModel[]=[];
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -30,18 +33,40 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getUserRoles();
+    this.createNewUser();
+  }
+
+  createNewUser()
+  {
     this.saveUserForm = this.fb.group({
       fullName:['', Validators.required],
       email:['', Validators.required],
+      address:['', Validators.required],
       mobileNo:['', Validators.required],
       userName:['', Validators.required],
-      passwrod:['', Validators.required],
-
+      password:['', Validators.required],
+      isActive:[true],
+      roles:[null,Validators.required]
     });
+  }
+
+  getUser()
+  {
+    
   }
 
   getAll(){
      
+  }
+
+  getUserRoles()
+  {
+    this.userService.getAllRoles().subscribe(response=>{
+        this.userRoles= response;
+    },error=>{
+
+    });
   }
 
   saveUser(content){
@@ -59,20 +84,17 @@ export class UserListComponent implements OnInit {
   }
 
   onAddRowSave(form: FormGroup) {
-    this.data.push(form.value);
-    this.data = [...this.data];
-    form.reset();
-    this.modalService.dismissAll();
-    this.addRecordSuccess();
+
+    
   }
 
   deleteSingleRow(row) {
 
   }
 
-  addRecordSuccess() {
-    this.toastr.success('Acedemic Level Add Successfully', '');
-  }
+
+
+
 
 
 }

@@ -14,6 +14,7 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName);
         List<UserViewModel> GetAllUsers(int roleId);
         Task<ResponseViewModel> DeleteUser(int id);
-
+        UserViewModel GetUserbyId(int id);
+        List<DropDownViewModel> GetAllRoles();
     }
 }
