@@ -39,7 +39,7 @@
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewClassName(addEditRecord)'  >
                                     <i class="material-icons">add</i>
                                   </button>
                                   <button  class="btn btn-icon icon-left btn-danger rounded-button">
@@ -53,15 +53,9 @@
                       </div>
                     </div>
 
-                    <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
-				
-				        <ngx-datatable-column name="Id" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Id}}
-                  </ng-template>
-                </ngx-datatable-column>
 				
                 <ngx-datatable-column name="Name" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
@@ -69,49 +63,49 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="Description" [width]="100">
+                <ngx-datatable-column name="Description">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Description}}
+                    {{row.description}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="IsActive" [width]="100">
+                <ngx-datatable-column name="IsActive">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.IsActive}}
+                    {{row.isActive}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="CreatedOn" [width]="100">
+                <ngx-datatable-column name="CreatedOn">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedOn | date}}
+                    {{row.createdOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="CreatedById" [width]="100">
+                <!--<ngx-datatable-column name="CreatedByName" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedById}}
+                    {{row.createdByName}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column>-->
 				
-				        <ngx-datatable-column name="UpdatedOn" [width]="100">
+				        <ngx-datatable-column name="UpdatedOn">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedOn | date}}
+                    {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="UpdatedById" [width]="100">
+                <!--<ngx-datatable-column name="UpdatedByName" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedById}}
+                    {{row.updatedByName}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column>-->
 
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                     <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                       <span>
-                        <button class="btn btn-tbl-edit h-auto" >
+                        <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                           <i class="fas fa-pen"></i>
                         </button>
-                        <button class="btn btn-tbl-delete h-auto">
+                        <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </span>
@@ -119,13 +113,13 @@
                   </ngx-datatable-column>
                 </ngx-datatable>
 
-                <ng-template #addRecord let-modal>
+                <ng-template #addEditRecord let-modal>
                     <div class="modal-header editRowModal">
                       <h4 class="modal-title" id="modal-basic-title">
                         <div class="table-modal-header">
                           <div class="modal-about">
                             <div class="fw-bold p-t-10 font-17">
-                             Add New ClassName</div>
+                             Add New Class Name</div>
                           </div>
                         </div>
                       </h4>
@@ -134,7 +128,7 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <form class="register-form" [formGroup]="saveClassNameForm" (ngSubmit)="onAddRowSave(saveClassNameForm)">
+                      <form class="register-form" [formGroup]="saveClassNameForm">
                         <!-- <div class="input-field col s12 d-none">
                           <input 
                             formControlName="id" 
@@ -181,8 +175,8 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" [disabled]="!saveClassNameForm.valid">Submit</button>
-                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+                                <button type="submit" class="btn btn-primary" (click)="save()" [disabled]="!saveClassNameForm.valid">Save</button>
+                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                               </div>
                             </form>
                         </div>

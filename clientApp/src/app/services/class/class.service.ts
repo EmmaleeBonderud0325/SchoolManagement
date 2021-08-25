@@ -19,7 +19,6 @@ export class ClassService {
       get<ClassModel[]>(environment.apiUrl + 'Class')
   }
 
-
   save(vm: ClassModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Class', vm);
@@ -27,7 +26,7 @@ export class ClassService {
 
   delete(classNameId: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'Class' + classNameId);
+      delete<ResponseModel>(environment.apiUrl + 'Class/' + classNameId);
   }
   
   getAllClassNames():Observable<DropDownModel[]>{
@@ -43,6 +42,16 @@ export class ClassService {
   getAllAcademicYears():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'Class/getAllAcademicYears');
+  }
+
+  getAllClassCategories():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Class/getAllClassCategories');
+  }
+
+  getAllLanguageStreams():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Class/getAllLanguageStreams');
   }
   
 }

@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Model.Common.Enums;
 
 namespace SchoolManagement.Business.Master
 {
@@ -132,6 +133,17 @@ namespace SchoolManagement.Business.Master
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllTeachers()
+        {
+            var classTeachers = schoolDb.UserRoles
+                .Where(x => x.RoleId == (int)RoleType.Teacher)
+                .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0}", u.User.FullName) })
+                .Distinct().ToList();
+
+            return classTeachers;
+
         }
     }
 }

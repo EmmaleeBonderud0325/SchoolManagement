@@ -6,6 +6,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ClassTeacherService } from 'src/app/services/class-teacher/class-teacher.service';
 import { classteacherModel } from 'src/app/models/class-teacher/class-teacher.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-teacher-list',
@@ -22,10 +23,10 @@ export class ClassTeacherListComponent implements OnInit {
   saveClassTeacherForm:FormGroup;
   reorderable = true;
   classteacher:classteacherModel;
-  classTeachers:DropDownModel[] = [];
+  classnames:DropDownModel[] = [];
   academicLavels:DropDownModel[] = [];
   academicYears:DropDownModel[] = [];
-  teachers:DropDownModel[] = [];
+  classTeachers:DropDownModel[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -35,63 +36,26 @@ export class ClassTeacherListComponent implements OnInit {
 
   ngOnInit(): void {
     this.saveClassTeacherForm = this.fb.group({
+      selectteacherId: [null, [Validators.required]],
       isActive: ['', [Validators.required]],
       isPrimary: ['', [Validators.required]],
     });
     this.getAll();
-    this.getAllClassNames();
-    this.getAllAcademicLevels();
-    this.getAllAcademicYears();
     this.getAllTeachers();
   }
 
-  getAllClassNames(){
-    this.classTeacherService.getAllClassNames()
-      .subscribe(response=>{
-
-        console.log(response);
-        
-        this.classTeachers = response;
-      },error=>{
-
-      });
-  }
-
-  getAllAcademicYears(){
-  this.classTeacherService.getAllAcademicYears()
+  getAllTeachers(){
+    this.classTeacherService.getAllTeachers()
     .subscribe(response=>{
 
       console.log(response);
-      
+
       this.classTeachers = response;
     },error=>{
 
     });
-  }
-
-getAllAcademicLevels(){
-  this.classTeacherService.getAllAcademicLevels()
-    .subscribe(response=>{
-
-      console.log(response);
-      
-      this.classTeachers = response;
-    },error=>{
-
-    });
-}
-
-getAllTeachers(){
-  this.classTeacherService.getAllTeachers()
-  .subscribe(response=>{
-
-    console.log(response);
     
-    this.classTeachers = response;
-  },error=>{
-
-  });
-}
+  }
 
   getAll(){
     this.loadingIndicator=true;

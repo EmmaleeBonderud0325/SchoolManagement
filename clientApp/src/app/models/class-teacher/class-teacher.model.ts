@@ -6,6 +6,7 @@ export class classteacherModel{
     academicLevelId:number;
     academicYearId:number;
     teacherId:number;
+    teacherName:string;
     isPrimary:boolean;
     isActive:boolean;
     createdOn:Date;
@@ -14,4 +15,5 @@ export class classteacherModel{
     updatedOn:Date;
     updatedById:number;
     updatedByName:string;
+    selectedTeacherId:number;
 }

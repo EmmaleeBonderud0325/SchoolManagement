@@ -44,5 +44,14 @@ namespace SchoolManagement.WebService.Controllers
             var response = await classTeacherService.DeleteClassTeacher(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("GetAllTeachers")]
+        public ActionResult GetAllTeachers()
+        {
+            var response = classTeacherService.GetAllTeachers();
+
+            return Ok(response);
+        }
     }
 }

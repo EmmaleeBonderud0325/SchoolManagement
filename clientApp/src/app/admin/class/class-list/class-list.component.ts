@@ -6,7 +6,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-list',
@@ -26,6 +26,8 @@ export class ClassListComponent implements OnInit {
   classNames:DropDownModel[] = [];
   academicLavels:DropDownModel[] = [];
   academicYears:DropDownModel[] = [];
+  classCategories:DropDownModel[] = [];
+  languageStreams:DropDownModel[] = [];
 
 
   constructor(
@@ -36,14 +38,18 @@ export class ClassListComponent implements OnInit {
 
     ngOnInit(): void {
       this.saveClassForm = this.fb.group({
+        selectclassNameId: [null, [Validators.required]],
+        selectedacademicLevelId: [null, [Validators.required]],
         Name:['', Validators.required],
-        ClassCategory:['', Validators.required],
-        LanguageStream:['', Validators.required],
+        classCategory:['', Validators.required],
+        languageStream:['', Validators.required],
       });
       this.getAll();
       this.getAllClassNames();
       this.getAllAcademicLevels();
       this.getAllAcademicYears();
+      this.getAllClassCategories();
+      this.getAllLanguageStreams();
     }
 
     getAllClassNames(){
@@ -64,7 +70,7 @@ export class ClassListComponent implements OnInit {
 
         console.log(response);
         
-        this.classNames = response;
+        this.academicLavels = response;
       },error=>{
 
       });
@@ -76,7 +82,31 @@ export class ClassListComponent implements OnInit {
 
         console.log(response);
         
-        this.classNames = response;
+        this.academicYears = response;
+      },error=>{
+
+      });
+  }
+
+  getAllClassCategories(){
+    this.classService.getAllClassCategories()
+      .subscribe(response=>{
+
+        console.log(response);
+        
+        this.classCategories = response;
+      },error=>{
+
+      });
+  }
+
+  getAllLanguageStreams(){
+    this.classService.getAllLanguageStreams()
+      .subscribe(response=>{
+
+        console.log(response);
+        
+        this.languageStreams = response;
       },error=>{
 
       });
@@ -93,13 +123,15 @@ export class ClassListComponent implements OnInit {
     });
     }
 
-    addNewAcademicLevel(content) {
+    addNewClass(content) {
 
       this.saveClassForm = this.fb.group({
         name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
         selectclassNameId: [null, [Validators.required]],
         selectacademicLevelId: [null, [Validators.required]],
         selectacademicYearId: [null, [Validators.required]],
+        classCategory:['', Validators.required],
+        languageStream:['', Validators.required],
       });
   
       this.modalService.open(content, {
@@ -124,9 +156,11 @@ export class ClassListComponent implements OnInit {
 
       this.saveClassForm = this.fb.group({
         name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-        selectclassNameId: [row.classNameId, [Validators.required]],
-        selectacademicLevelId: [row.academicLevelId, [Validators.required]],
-        selectacademicYearId: [row.academicYearId, [Validators.required]],
+        selectclassNameId: [row.selectedClassNameId, [Validators.required]],
+        selectacademicLevelId: [row.selectedAcademicLevelId, [Validators.required]],
+        ademicYearId: [row.academicYearId, [Validators.required]],
+        classCategory: [row.classCategory, [Validators.required]],
+        languageStream: [row.languageStream, [Validators.required]],
       });
     }
   

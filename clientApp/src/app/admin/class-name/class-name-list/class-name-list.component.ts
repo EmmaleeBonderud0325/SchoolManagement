@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-name-list',
@@ -39,9 +40,10 @@ export class ClassNameListComponent implements OnInit {
 
   getAll(){
     this.loadingIndicator=true;
-    this.classnameService.getAll().subscribe(response=>{
+    this.classnameService.getAll().subscribe(response=>
+    {
       this.data= response;
-        this.loadingIndicator=false;
+      this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
     });

@@ -26,22 +26,7 @@ export class ClassTeacherService {
 
   delete(classNameId: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'ClassTeacher' + classNameId);
-  }
-  
-  getAllClassNames():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'ClassTeacher/getAllClassNames');
-  }
-
-  getAllAcademicLevels():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'ClassTeacher/getAllAcademicLevels');
-  }
-
-  getAllAcademicYears():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'ClassTeacher/getAllAcademicYears');
+      delete<ResponseModel>(environment.apiUrl + 'ClassTeacher/' + classNameId);
   }
 
   getAllTeachers():Observable<DropDownModel[]>{
