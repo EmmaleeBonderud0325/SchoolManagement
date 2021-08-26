@@ -56,7 +56,9 @@ export class UserListComponent implements OnInit {
     
   }
 
-  getAll(){
+  //getUserByRole
+  getAll()
+  {
      
   }
 
@@ -69,26 +71,30 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  saveUser(content){
+  saveUser(content)
+  {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
   }
 
-  editRow(row, rowIndex, content) {
+  editRow(row, rowIndex, content) 
+  {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
   }
 
-  onAddRowSave(form: FormGroup) {
+  onAddRowSave(form: FormGroup)
+   {
 
     
   }
 
-  deleteSingleRow(row) {
+  deleteSingleRow(row) 
+  {
 
   }
 

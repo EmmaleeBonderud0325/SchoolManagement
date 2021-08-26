@@ -50,7 +50,6 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
         public UserViewModel GetUserbyId(int id)
         {
             var response = new UserViewModel();
@@ -75,23 +74,22 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
-        public List<UserViewModel> GetAllUsers(int roleId)
+        public List<UserViewModel> GetAllUsersByRole(DropDownViewModel vm)
         {
             var response =  new List<UserViewModel>();
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
-            if (roleId > 0)
+            if (vm.Id > 0)
             {
-                query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+                query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
             }
 
             var userList = query.ToList();
 
             foreach(var user in userList)
             {
-                var vm = new UserViewModel
+                var uvm = new UserViewModel
                 {
                     Id = user.Id,
                     FullName = user.FullName,
@@ -102,12 +100,11 @@ namespace SchoolManagement.Business
                     
                 };
 
-                response.Add(vm);
+                response.Add(uvm);
             }
 
             return response;
         }
-
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -213,7 +210,6 @@ namespace SchoolManagement.Business
             }
             return response;
         }
-
         public List<DropDownViewModel> GetAllRoles()
         {
             return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
