@@ -146,23 +146,23 @@ namespace SchoolManagement.Business
 
                     user.UserRoles = new HashSet<UserRole>();
 
-                    //foreach (var item in vm.Roles.Where(x=>x.IsChecked))
-                    //{
-                    //    var userRole = new UserRole()
-                    //    {
-                    //        RoleId = item.Id,
-                    //        IsActive = true,
-                    //        CreatedById = loggedInUser.Id,
-                    //        CreatedOn=DateTime.UtcNow,
-                    //        UpdatedById= loggedInUser.Id,
-                    //        UpdatedOn= DateTime.UtcNow
-                    //    };
+                    foreach (var item in vm.Roles)
+                    {
+                        var userRole = new UserRole()
+                        {
+                            RoleId = item.Id,
+                            IsActive = true,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = loggedInUser.Id,
+                            UpdatedOn = DateTime.UtcNow
+                        };
 
-                    //    user.UserRoles.Add(userRole);
-                    //}
+                        user.UserRoles.Add(userRole);
+                    }
 
                     schoolDb.Users.Add(user);
-
+                    //(var item in vm.Roles.Where(x => x.Id))
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -176,31 +176,31 @@ namespace SchoolManagement.Business
                     user.UpdatedOn = DateTime.UtcNow;
 
                     var existingRoles = user.UserRoles.ToList();
-                    //var selectedRols = vm.Roles.Where(x => x.IsChecked).ToList();
+                    var selectedRols = vm.Roles.ToList();
 
-                    //var newRoles = (from r in selectedRols where !existingRoles.Any(x => x.RoleId == r.Id) select r).ToList();
+                    var newRoles = (from r in selectedRols where !existingRoles.Any(x => x.RoleId == r.Id) select r).ToList();
 
-                    //var deletedRoles = (from r in existingRoles where selectedRols.Any(x => x.Id == r.RoleId) select r).ToList();
+                    var deletedRoles = (from r in existingRoles where selectedRols.Any(x => x.Id == r.RoleId) select r).ToList();
 
-                    //foreach (var item in newRoles)
-                    //{
-                    //    var userRole = new UserRole()
-                    //    {
-                    //        RoleId = item.Id,
-                    //        IsActive = true,
-                    //        CreatedById = loggedInUser.Id,
-                    //        CreatedOn = DateTime.UtcNow,
-                    //        UpdatedById = loggedInUser.Id,
-                    //        UpdatedOn = DateTime.UtcNow
-                    //    };   
+                    foreach (var item in newRoles)
+                    {
+                        var userRole = new UserRole()
+                        {
+                            RoleId = item.Id,
+                            IsActive = true,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = loggedInUser.Id,
+                            UpdatedOn = DateTime.UtcNow
+                        };
 
-                    //    user.UserRoles.Add(userRole);
-                    //}
+                        user.UserRoles.Add(userRole);
+                    }
 
-                    //foreach(var deletedRole in deletedRoles)
-                    //{
-                    //    user.UserRoles.Remove(deletedRole);
-                    //}
+                    foreach (var deletedRole in deletedRoles)
+                    {
+                        user.UserRoles.Remove(deletedRole);
+                    }
 
                     schoolDb.Users.Update(user);
 
@@ -218,44 +218,6 @@ namespace SchoolManagement.Business
             }
             return response;
         }
-
-        //public async Task<ResponseViewModel> SaveUser(UserViewModel vm, )
-        //{
-        //    var response = new ResponseViewModel();
-
-        //    try
-        //    {
-        //        var managementLevelUser = new User()
-
-        //        {
-        //            Id = vm.Id,
-        //            FullName = vm.FullName,
-        //            Email = vm.Email,
-        //            MobileNo = vm.MobileNo,
-        //            Username = vm.Username,
-        //            Address = vm.Address,
-        //            Password = CustomPasswordHasher.GenerateHash(vm.Password),
-        //            IsActive = true,
-        //            CreatedOn = DateTime.UtcNow,
-
-
-        //        };
-
-        //        schoolDb.Users.Add(managementLevelUser);
-        //        await schoolDb.SaveChangesAsync();
-
-        //        response.IsSuccess = true;
-        //        response.Message = "Mangement Level User Added Successfull.";
-
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        response.IsSuccess = false;
-        //        response.Message = ex.ToString();
-        //    }
-
-        //    return response;
-        //}
 
 
         public List<DropDownViewModel> GetAllRoles()
