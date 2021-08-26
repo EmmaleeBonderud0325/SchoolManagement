@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class classteacherModel{
     classNameId:number;
+    teacherClassName:string;
     academicLevelId:number;
+    academicLevelName:string;
     academicYearId:number;
     teacherId:number;
     teacherName:string;
@@ -15,5 +17,4 @@ export class classteacherModel{
     updatedOn:Date;
     updatedById:number;
     updatedByName:string;
-    selectedTeacherId:number;
 }

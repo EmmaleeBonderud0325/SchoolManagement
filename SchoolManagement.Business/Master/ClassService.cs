@@ -37,16 +37,24 @@ namespace SchoolManagement.Business.Master
 
             var ClassList = query.ToList();
 
-            foreach (var classes in ClassList)
+            foreach (var item in ClassList)
             {
                 var vm = new ClassViewModel
                 {
-                    ClassNameId = classes.ClassNameId,
-                    AcademicLevelId = classes.AcademicLevelId,
-                    AcademicYearId = classes.AcademicYearId,
-                    Name = classes.Name,
-                    ClassCategory = classes.ClassCategory,
-                    LanguageStream = classes.LanguageStream,
+                    ClassNameId = item.ClassNameId,
+                    ClassClassName = item.ClassName.Name,
+                    AcademicLevelId = item.AcademicLevelId,
+                    AcademicLevelName = item.AcademicLevel.Name,
+                    AcademicYearId = item.AcademicYearId,
+                    Name = item.Name,
+                    ClassCategory = item.ClassCategory,
+                    ClassCategoryName = item.ClassCategory.ToString(),
+                    LanguageStream = item.LanguageStream,
+                    LanguageStreamName = item.LanguageStream.ToString(),
+                    CreatedOn = item.CreatedOn,
+                    CreatedById = item.CreatedById,
+                    UpdatedOn = item.UpdatedOn,
+                    UpdatedById = item.UpdatedById,
                 };
 
                 response.Add(vm);
@@ -74,7 +82,11 @@ namespace SchoolManagement.Business.Master
                         AcademicYearId = vm.AcademicYearId,
                         Name = vm.Name,
                         ClassCategory = vm.ClassCategory,
-                        LanguageStream = vm.LanguageStream
+                        LanguageStream = vm.LanguageStream,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = vm.CreatedById,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = vm.UpdatedById
                     };
 
                     schoolDb.Classes.Add(classes);

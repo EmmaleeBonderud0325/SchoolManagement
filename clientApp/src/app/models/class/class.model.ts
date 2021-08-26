@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class ClassModel{
     classNameId:number;
-    classNameName:string;
+    classClassName:string;
     academicLevelId:number;
     academicLevelName:string;
     academicYearId:number;

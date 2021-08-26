@@ -1,3 +1,4 @@
+import { logging } from 'protractor';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -22,7 +23,7 @@ export class ClassTeacherListComponent implements OnInit {
   loadingIndicator = false;
   saveClassTeacherForm:FormGroup;
   reorderable = true;
-  classteacher:classteacherModel;
+  classTeacher:classteacherModel;
   classnames:DropDownModel[] = [];
   academicLavels:DropDownModel[] = [];
   academicYears:DropDownModel[] = [];
@@ -35,11 +36,11 @@ export class ClassTeacherListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.saveClassTeacherForm = this.fb.group({
+    /*this.saveClassTeacherForm = this.fb.group({
       selectteacherId: [null, [Validators.required]],
       isActive: ['', [Validators.required]],
       isPrimary: ['', [Validators.required]],
-    });
+    });*/
     this.getAll();
     this.getAllTeachers();
   }
@@ -57,7 +58,8 @@ export class ClassTeacherListComponent implements OnInit {
     
   }
 
-  getAll(){
+  getAll()
+  {
     this.loadingIndicator=true;
       this.classTeacherService.getAll().subscribe(response=>
     {
@@ -71,17 +73,34 @@ export class ClassTeacherListComponent implements OnInit {
   addNewClassteacher(content) {
 
     this.saveClassTeacherForm = this.fb.group({
-      selectclassNameId: [null, [Validators.required]],
-      selectacademicLevelId: [null, [Validators.required]],
-      selectacademicYearId: [null, [Validators.required]],
-      selectteacherId: [null, [Validators.required]],
-      isActive: ['', [Validators.required]],
-      isPrimary: ['', [Validators.required]],
+      classNameId: [null, [Validators.required]],
+      academicLevelId: [null, [Validators.required]],
+      academicYearId: [null, [Validators.required]],
+      teacherId: [null, [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
+    });
+  }
+
+  saveClassTeacher(){
+    console.log(this.saveClassTeacherForm.value);
+
+    this.classTeacherService.saveClassTeacher(this.saveClassTeacherForm.value).subscribe(response=>{
+      if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
 
@@ -92,7 +111,6 @@ export class ClassTeacherListComponent implements OnInit {
     this.modalService.dismissAll();
     this.addRecordSuccess();
   }
-
   
   editRow(row:classteacherModel, rowIndex:number, content:any) {
     this.modalService.open(content, {

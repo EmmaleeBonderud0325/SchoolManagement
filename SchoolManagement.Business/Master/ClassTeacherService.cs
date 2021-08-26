@@ -36,22 +36,25 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.ClassTeachers.Where(u => u.IsActive == true);
 
-            var ClassTeacherList = query.ToList();
+            var classTeacherList = query.ToList();
 
-            foreach (var classteacher in ClassTeacherList)
+            foreach (var item in classTeacherList)
             {
                 var vm = new ClassTeacherViewModel
                 {
-                    ClassNameId = classteacher.ClassNameId,
-                    AcademicLevelId = classteacher.AcademicLevelId,
-                    AcademicYearId = classteacher.AcademicYearId,
-                    TeacherId = classteacher.TeacherId,
-                    IsPrimary = classteacher.IsPrimary,
-                    IsActive = classteacher.IsActive,
-                    CreatedOn = classteacher.CreatedOn,
-                    CreatedById = classteacher.CreatedById,
-                    UpdatedOn = classteacher.UpdatedOn,
-                    UpdatedById = classteacher.UpdatedById,
+                    ClassNameId = item.ClassNameId,
+                    TeacherClassName = item.Class.ClassName.Name, 
+                    AcademicLevelId = item.AcademicLevelId,
+                    AcademicLevelName = item.Class.AcademicLevel.Name,
+                    AcademicYearId = item.AcademicYearId,
+                    TeacherId = item.TeacherId,
+                    TeacherName = item.Teacher.FullName,
+                    IsPrimary = item.IsPrimary,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    CreatedById = item.CreatedById,
+                    UpdatedOn = item.UpdatedOn,
+                    UpdatedById = item.UpdatedById,
                 };
 
                 response.Add(vm);

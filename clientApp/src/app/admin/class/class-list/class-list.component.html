@@ -59,13 +59,13 @@
 
               <ngx-datatable-column name="Class Name" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.classNameId}}
+                  {{row.classClassName}}
                 </ng-template>
               </ngx-datatable-column>
       
               <ngx-datatable-column name="Academic Level" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.academicLevelId}}
+                  {{row.academicLevelName}}
                 </ng-template>
               </ngx-datatable-column>
 
@@ -83,26 +83,39 @@
 
               <ngx-datatable-column name="Class Category" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.classCategory}}
+                  {{row.classCategoryName}}
                 </ng-template>
               </ngx-datatable-column>
 
               <ngx-datatable-column name="Language Stream" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.languageStream}}
+                  {{row.languageStreamName}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Created On">
+              <ngx-datatable-column name="Created On" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.createdOn | date}}
                 </ng-template>
               </ngx-datatable-column>
-              <ngx-datatable-column name="updated On">
+
+              <!--<ngx-datatable-column name="CreatedById" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.CreatedById}}
+                </ng-template>
+              </ngx-datatable-column>-->
+      
+              <ngx-datatable-column name="Updated On" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.updatedOn | date}}
                 </ng-template>
               </ngx-datatable-column>
+
+              <!--<ngx-datatable-column name="UpdatedById" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.UpdatedById}}
+                </ng-template>
+              </ngx-datatable-column>-->
 
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
