@@ -17,19 +17,16 @@ namespace SchoolManagement.Business
 {
     public class UserService: IUserService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public UserService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public UserService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
         }
-
         public async Task<ResponseViewModel> DeleteUser(int id)
         {
             var response = new ResponseViewModel();
@@ -43,12 +40,12 @@ namespace SchoolManagement.Business
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "User has been deleted.";
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error occured. Please try again.";
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -110,8 +107,6 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
-
 
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
@@ -218,7 +213,6 @@ namespace SchoolManagement.Business
             }
             return response;
         }
-
 
         public List<DropDownViewModel> GetAllRoles()
         {
