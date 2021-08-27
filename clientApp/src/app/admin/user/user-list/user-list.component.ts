@@ -65,7 +65,15 @@ export class UserListComponent implements OnInit {
   //getUserByRole
   getAll()
   {
-     
+     this.loadingIndicator = true;
+     this.userService.getAll().subscribe(response=>
+    {
+      this.data=response;
+      this.loadingIndicator = false;
+     },error=>{
+       this.loadingIndicator = false;
+       this.toastr.error("Network error has been occured. Please try again.","Error");
+     });
   }
 
   getUserRoles()

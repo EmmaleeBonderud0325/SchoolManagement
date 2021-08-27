@@ -12,7 +12,7 @@ namespace SchoolManagement.Business.Interfaces.AccountData
     public interface IUserService
     {
         Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName);
-        List<UserViewModel> GetAllUsersByRole(DropDownViewModel vm);
+        List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/);
         Task<ResponseViewModel> DeleteUser(int id);
         UserViewModel GetUserbyId(int id);
         List<DropDownViewModel> GetAllRoles();

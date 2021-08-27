@@ -33,10 +33,10 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getAllUsers/{id}")]
-        public ActionResult GetAllUsers(DropDownViewModel vm)
+        [Route("getAllUsers")]
+        public ActionResult GetAllUsers(/*DropDownViewModel vm*/)
         {
-            var response = userService.GetAllUsersByRole(vm);
+            var response = userService.GetAllUsersByRole(/*vm*/);
             return Ok(response);
         }
 
