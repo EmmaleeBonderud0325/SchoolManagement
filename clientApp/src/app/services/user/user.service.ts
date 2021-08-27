@@ -18,9 +18,9 @@ export class UserService {
       get<UserModel[]>(environment.apiUrl + 'User')
   }
 
-  saveUser(user: UserModel): Observable<ResponseModel> {
+  saveUser(vm: UserModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'User/SaveUser', user);
+      post<ResponseModel>(environment.apiUrl + 'User', vm);
   }
 
   getUserById(id:number): Observable<UserModel>{
