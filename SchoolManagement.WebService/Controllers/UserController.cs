@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -32,10 +33,10 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getAllUsers/{id}")]
-        public ActionResult GetAllUsers(int roleId)
+        [Route("getAllUsers")]
+        public ActionResult GetAllUsers(/*DropDownViewModel vm*/)
         {
-            var response = userService.GetAllUsers(roleId);
+            var response = userService.GetAllUsersByRole(/*vm*/);
             return Ok(response);
         }
 
