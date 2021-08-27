@@ -1,4 +1,4 @@
-//import { QuestionService } from './../../services/question/question.service';
+/* //import { QuestionService } from './../../services/question/question.service';
 //import { questionModel } from './../../models/question/question.model';
 
 import { ToastrService } from 'ngx-toastr';
@@ -75,3 +75,4 @@ export class QuestionListComponent implements OnInit {
         this.toastr.success('FUCK', '');
       }
 }
+ */

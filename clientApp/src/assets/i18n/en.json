@@ -14,7 +14,10 @@
     "HOME": {
       "TEXT": "Home",
       "LIST": {
-        "TEACHER_LESSONS": "My Lessons"
+        "TEACHER_LESSONS": "My Lessons",
+        "QUESTION_LIST": "Questions",
+        "ESSAY_QUESTION_ANSWER_LIST":"Essay answers"
+       
       }
     },
     "ADMIN": {
