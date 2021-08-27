@@ -39,7 +39,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='saveUser(addRecord)' >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewUser(addEditRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                           </div>
@@ -68,7 +68,7 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                 <!-- Full Column -->
+                 <!-- Full Name Column -->
                 <ngx-datatable-column name="Full Name" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.fullName}}
@@ -117,17 +117,18 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!-- updated ob Column -->
+                <!-- updated on Column -->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                 <!-- Action Column -->
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, editRecord)'>
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
                       <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
@@ -137,8 +138,9 @@
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
-              <!-- Add Record Modal Window -->
-            <ng-template #addRecord let-modal>
+
+              <!-- Add new User Modal Window -->
+            <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
                 <h4 class="modal-title" id="modal-basic-title">
                   <div class="table-modal-header">
@@ -153,7 +155,7 @@
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="saveUserForm" (ngSubmit)="onAddRowSave(saveUserForm)">
+                <form class="register-form" [formGroup]="saveUserForm">
                   <!-- <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
@@ -194,6 +196,7 @@
                         required</small>
                     </div>  
                   </div>
+
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Mobile Number<span class="text-danger">*</span></label>
@@ -224,6 +227,19 @@
 
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Address<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Address" 
+                          formControlName="address"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!saveUserForm.get('address').valid && saveUserForm.get('address').touched"> Address is
+                        required</small>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Password<span class="text-danger">*</span></label>
                       <input 
                           type="text" 
@@ -235,7 +251,10 @@
                         *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> Password is
                         required</small>
                     </div>
+                    
+                  </div>
 
+                  <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="row">
                         <label>Roles<span class="text-danger ">*</span></label>
@@ -243,8 +262,9 @@
                       </div>
                     </div>
                   </div>
+                  <!-- Modal Footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]="!saveUserForm.valid">Save</button>
+                    <button type="submit" class="btn btn-primary" (click)="saveUser()"[disabled]="!saveUserForm.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>
