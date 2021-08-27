@@ -214,5 +214,7 @@ namespace SchoolManagement.Business
         {
             return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
         }
+
+        
     }
 }
