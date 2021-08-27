@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
@@ -41,7 +42,7 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Subject Delete Successfull";
+                response.Message = SubjectServiceConstants.SUBJECT_DELETE_SUCCESS_MESSAGE;
             }
             catch(Exception ex)
             {
@@ -65,12 +66,12 @@ namespace SchoolManagement.Business.Master
                  
                  var subjectAcademicLevelList = schoolDb.SubjectAcademicLevels.Where(row => row.SubjectId == subject.Id).ToList();
 
-                    foreach (var test in subjectAcademicLevelList)
+                    foreach (var item in subjectAcademicLevelList)
                     {
                         var subjectAcademicLevelVM = new SubjectAcademicLevelViewModel
                         {                            
-                            AcademicLevelId = test.AcademicLevelId,
-                            AcademicLevelName = test.AcademicLevel.Name,
+                            AcademicLevelId = item.AcademicLevelId,
+                            AcademicLevelName = item.AcademicLevel.Name,
                         };
                         subjectAcademicLevel.Add(subjectAcademicLevelVM);
                     }
@@ -81,12 +82,16 @@ namespace SchoolManagement.Business.Master
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
                     SubjectCategory = subject.SubjectCategory,
+                    SubjectCategoryName = GetSubjectCategoryName((int?)subject.SubjectCategory),
                     IsParentBasketSubject = subject.IsParentBasketSubject,
                     IsBuscketSubject = subject.IsBuscketSubject,
-                    ParentBasketSubjectId = subject.ParentBasketSubjectId,         
+                    ParentBasketSubjectId = subject.ParentBasketSubjectId,
+                    ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
                     SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
+                    CreatedOn = subject.CreatedOn,
+                    UpdatedOn = subject.UpdatedOn,
                     SubjectAcademicLevels = subjectAcademicLevel,
                 };
                 response.Add(vm);
@@ -141,7 +146,7 @@ namespace SchoolManagement.Business.Master
                         schoolDb.SubjectAcademicLevels.Add(subjectAcademicLevel);
                     }
                     response.IsSuccess = true;
-                    response.Message = "Subject Add Successfull.";
+                    response.Message = SubjectServiceConstants.NEW_SUBJECT_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
@@ -159,7 +164,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Subjects.Update(subject);
 
                     response.IsSuccess = true;
-                    response.Message = "Subject Update Successfull.";
+                    response.Message = SubjectServiceConstants.SUBJECT_UPDATE_SUCCESS_MESSAGE;
                 }
                 await schoolDb.SaveChangesAsync();
             }
@@ -169,6 +174,37 @@ namespace SchoolManagement.Business.Master
                 response.Message = ex.ToString();
             }
             return response;
+        }
+
+        private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
+        {
+            var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
+           
+            if (quary == null)
+            {
+                return SubjectServiceConstants.SUBJECT_EMPTY_PARENT_SUBJECT_NAME;
+            }
+            else
+            {
+                return quary.Name;
+            }
+        
+        }
+       
+        private string GetSubjectCategoryName(int? SubjectCategory)
+        {
+            if (SubjectCategory == 1)
+             {
+                return "Primary School Subject";
+             }
+            else if (SubjectCategory == 1)
+             {
+                return "Junior School Subject";
+             }
+            else 
+            {
+                return "High School Subject";
+            }
         }
     }
 }

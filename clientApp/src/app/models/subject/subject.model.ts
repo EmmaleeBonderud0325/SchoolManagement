@@ -5,11 +5,15 @@ export class SubjectModel{
     id:number;
     name:string;
     subjectCode:string;
-    subjectCategory:string;
+    subjectCategory:number;
+    subjectCategoryName:string;
     isParentBasketSubject:boolean;
     isBuscketSubject:boolean;
     parentBasketSubjectId:number;
+    parentBasketSubjectName:string;
     subjectStreamId:number;
     subjectStreamName:string;
     isActive:boolean;
+    createdOn:Date;
+    updatedOn:Date;
 }

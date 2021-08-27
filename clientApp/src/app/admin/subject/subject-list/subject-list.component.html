@@ -42,9 +42,6 @@
                               <button class="btn btn-icon icon-left btn-primary rounded-button" >
                                 <i class="material-icons">add</i>
                               </button>
-                              <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                <i class="material-icons">delete</i>
-                              </button>
                             </div>
                           </div>
                         </div>
@@ -70,10 +67,16 @@
                 </ngx-datatable-column>
 
                 <ngx-datatable-column name="Category" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.subjectCategory}}
-                  </ng-template>
+                  <ng-template #p let-row="row" ngx-datatable-cell-template>
+                     {{row.subjectCategoryName}}
+                   </ng-template>
                 </ngx-datatable-column>
+
+
+
+               
+
+
 
                 <ngx-datatable-column name="Stream" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
@@ -81,11 +84,25 @@
                   </ng-template>
                 </ngx-datatable-column>
 
+                <ngx-datatable-column name="Parent Subject" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.parentBasketSubjectName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Created On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column name="Updated On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
               
-
-
-               
-
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>

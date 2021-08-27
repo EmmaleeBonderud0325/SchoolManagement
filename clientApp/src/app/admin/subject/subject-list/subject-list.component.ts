@@ -48,6 +48,7 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
+ 
 /*
   addSubject(content) {
     this.modalService.open(content, {
@@ -78,4 +79,6 @@ export class SubjectListComponent implements OnInit {
     this.toastr.success('Acedemic Level Add Successfully', '');
   }*/
 
+  
 }
+
