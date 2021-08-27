@@ -62,6 +62,7 @@ export class AcademicLevelListComponent implements OnInit {
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
 

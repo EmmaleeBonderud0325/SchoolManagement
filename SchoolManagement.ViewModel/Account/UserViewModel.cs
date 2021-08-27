@@ -26,10 +26,12 @@ namespace SchoolManagement.ViewModel.Account
        // public int LoginSessionId { get; set; }
         public bool IsActive { get; set; }
         public List<DropDownViewModel> Roles { get; set; }
- 
-        //public DateTime CreatedOn { get; set; }
-        //public int? CreatedById { get; set; }
-        //public DateTime UpdatedOn { get; set; }
-        //public int? UpdatedById { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        public int? CreatedById { get; set; }
+        public string CreatedByName { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public string UpdatedByName { get; set; }
+        public int? UpdatedById { get; set; }
     }
 }

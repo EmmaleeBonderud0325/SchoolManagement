@@ -34,20 +34,26 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getUserRoles();
-    this.createNewUser();
+  
   }
 
-  createNewUser()
+  //create new user (Reactive Form)
+  createNewUser(content)
   {
     this.saveUserForm = this.fb.group({
-      fullName:['', Validators.required],
-      email:['', Validators.required],
-      address:['', Validators.required],
-      mobileNo:['', Validators.required],
-      userName:['', Validators.required],
-      password:['', Validators.required],
+      fullName:['', [Validators.required]],
+      email:['', [Validators.required]],
+      mobileNo:['', [Validators.required]],
+      userName:['', [Validators.required]],
+      address:['', [Validators.required]],
+      password:['', [Validators.required]],
       isActive:[true],
-      roles:[null,Validators.required]
+      roles:[null,[Validators.required]]
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
     });
   }
 
@@ -56,7 +62,9 @@ export class UserListComponent implements OnInit {
     
   }
 
-  getAll(){
+  //getUserByRole
+  getAll()
+  {
      
   }
 
@@ -69,26 +77,47 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  saveUser(content){
+  //save User 
+  saveUser()
+  {
+    console.log(this.saveUserForm.value);
+
+    this.userService.saveUser(this.saveUserForm.value)
+      .subscribe(response=>{
+        
+        if(response.isSuccess)
+        {
+            this.modalService.dismissAll();
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+        }
+        else
+        {
+            this.toastr.error(response.message,"Error");
+        }
+      },error=>{
+
+            this.toastr.error("Network error has been occre.Please try again","Error");
+      });
+    
+  }
+
+  editRow(row, rowIndex, content) 
+  {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
   }
 
-  editRow(row, rowIndex, content) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
-
-  onAddRowSave(form: FormGroup) {
+  onAddRowSave(form: FormGroup)
+   {
 
     
   }
 
-  deleteSingleRow(row) {
+  deleteSingleRow(row) 
+  {
 
   }
 
