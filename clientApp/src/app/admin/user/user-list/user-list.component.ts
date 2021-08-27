@@ -37,7 +37,7 @@ export class UserListComponent implements OnInit {
   
   }
 
-  //create new user
+  //create new user (Reactive Form)
   createNewUser(content)
   {
     this.saveUserForm = this.fb.group({
@@ -77,6 +77,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  //save User 
   saveUser()
   {
     console.log(this.saveUserForm.value);
