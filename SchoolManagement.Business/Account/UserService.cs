@@ -74,16 +74,16 @@ namespace SchoolManagement.Business
 
             return response;
         }
-        public List<UserViewModel> GetAllUsersByRole(DropDownViewModel vm)
+        public List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/)
         {
             var response =  new List<UserViewModel>();
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
-            if (vm.Id > 0)
-            {
-                query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
-            }
+            //if (vm.Id > 0)
+            //{
+            //    query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
+            //}
 
             var userList = query.ToList();
 
@@ -97,7 +97,11 @@ namespace SchoolManagement.Business
                     Address = user.Address,
                     Email = user.Email,
                     MobileNo = user.MobileNo,
-                    
+                    CreatedByName = user.CreatedBy.FullName,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedBy.FullName,
+                    UpdatedOn = user.UpdatedOn,
+
                 };
 
                 response.Add(uvm);
