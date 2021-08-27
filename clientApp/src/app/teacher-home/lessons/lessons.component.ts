@@ -1,4 +1,4 @@
-import { LessonService } from './../../services/lesson/lesson.service';
+/* import { LessonService } from './../../services/lesson/lesson.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 @Component({
@@ -31,3 +31,4 @@ export class LessonsComponent implements OnInit {
   }
 
 }
+ */

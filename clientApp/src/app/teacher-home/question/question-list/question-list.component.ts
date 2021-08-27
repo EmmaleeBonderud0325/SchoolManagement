@@ -1,9 +1,5 @@
-//import { QuestionService } from './../../services/question/question.service';
-//import { questionModel } from './../../models/question/question.model';
-
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';

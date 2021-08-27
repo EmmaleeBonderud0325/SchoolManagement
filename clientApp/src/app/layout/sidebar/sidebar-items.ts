@@ -34,6 +34,19 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+      },
+
+      {
+        path: '/teacher-home/question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_QUESTION',
+        moduleName: 'question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
       }
     ],
   },

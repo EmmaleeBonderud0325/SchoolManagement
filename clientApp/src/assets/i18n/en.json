@@ -14,7 +14,8 @@
     "HOME": {
       "TEXT": "Home",
       "LIST": {
-        "TEACHER_LESSONS": "My Lessons"
+        "TEACHER_LESSONS": "My Lessons",
+        "TEACHER_QUESTION": "Question"
       }
     },
     "ADMIN": {
