@@ -97,7 +97,7 @@ export class UserListComponent implements OnInit {
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-            this.getAll();
+            //this.getAll();
         }
         else
         {
