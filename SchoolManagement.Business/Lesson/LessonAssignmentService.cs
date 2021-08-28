@@ -70,7 +70,7 @@ namespace SchoolManagement.Business
                     Id = lessonassignment.Id,
                     LessonId = lessonassignment.LessonId,
                     Name = lessonassignment.Name,
-                    Descripstion = lessonassignment.Descripstion,
+                    Descripstion = lessonassignment.Description,
                     IsActive = lessonassignment.IsActive,
                     CreatedOn = lessonassignment.CreatedOn,
                     CreatedById = lessonassignment.CreatedById,
@@ -104,7 +104,7 @@ namespace SchoolManagement.Business
                         Id = vm.Id,
                         LessonId = vm.LessonId,
                         Name = vm.Name,
-                        Descripstion = vm.Descripstion,
+                        Description = vm.Descripstion,
                         IsActive = vm.IsActive,
                         CreatedOn = vm.CreatedOn,
                         CreatedById = vm.CreatedById,
@@ -122,7 +122,7 @@ namespace SchoolManagement.Business
                 else
                 {
                     LessonAssignments.Name = vm.Name;
-                    LessonAssignments.Descripstion = vm.Descripstion;
+                    LessonAssignments.Description = vm.Descripstion;
                     LessonAssignments.IsActive = vm.IsActive;
                     LessonAssignments.CreatedOn = vm.CreatedOn;
                     //LessonAssignments.CreatedById = vm.CreatedById;
