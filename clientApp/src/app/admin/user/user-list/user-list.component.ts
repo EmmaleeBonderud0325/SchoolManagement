@@ -32,7 +32,7 @@ export class UserListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
+    //this.getAll();
     this.getUserRoles();
   
   }
@@ -62,7 +62,7 @@ export class UserListComponent implements OnInit {
     
   }
 
-  //getUserByRole
+ /*  //getUserByRole
   getAll()
   {
      this.loadingIndicator = true;
@@ -74,7 +74,7 @@ export class UserListComponent implements OnInit {
        this.loadingIndicator = false;
        this.toastr.error("Network error has been occured. Please try again.","Error");
      });
-  }
+  } */
 
   getUserRoles()
   {
