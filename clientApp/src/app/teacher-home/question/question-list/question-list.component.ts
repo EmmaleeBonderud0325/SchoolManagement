@@ -15,8 +15,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 export class QuestionListComponent implements OnInit {
  
-    @ViewChild(DatatableComponent, { static: false }) table: 
-    DatatableComponent;
+    @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
     data = [];
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
