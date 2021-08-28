@@ -1,3 +1,4 @@
+import { QuestionService } from './../../../services/question/question.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +27,7 @@ export class QuestionListComponent implements OnInit {
     constructor(
       private fb: FormBuilder,
       private modalService: NgbModal,
-      //private QuestionService : QuestionService,
+      private QuestionService : QuestionService,
       private toastr: ToastrService) { }
 
 
@@ -68,6 +69,6 @@ export class QuestionListComponent implements OnInit {
       }
      
       addRecordSuccess() {
-        this.toastr.success('FUCK', '');
+        this.toastr.success('succes', '');
       }
 }
