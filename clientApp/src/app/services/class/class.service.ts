@@ -19,7 +19,7 @@ export class ClassService {
       get<ClassModel[]>(environment.apiUrl + 'Class')
   }
 
-  save(vm: ClassModel): Observable<ResponseModel> {
+  saveClass(vm: ClassModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Class', vm);
   }
