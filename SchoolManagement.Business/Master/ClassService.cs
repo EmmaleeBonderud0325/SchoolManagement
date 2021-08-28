@@ -33,7 +33,7 @@ namespace SchoolManagement.Business.Master
         {
             var response = new List<ClassViewModel>();
 
-            var query = schoolDb.Classes.Where(predicate: u => u.ClassNameId != null);
+            var query = schoolDb.Classes.Where(predicate: cn => cn.ClassNameId != null);
 
             var ClassList = query.ToList();
 
@@ -53,8 +53,10 @@ namespace SchoolManagement.Business.Master
                     LanguageStreamName = item.LanguageStream.ToString(),
                     CreatedOn = item.CreatedOn,
                     CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
                     UpdatedOn = item.UpdatedOn,
                     UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
                 };
 
                 response.Add(vm);
@@ -84,15 +86,15 @@ namespace SchoolManagement.Business.Master
                         ClassCategory = vm.ClassCategory,
                         LanguageStream = vm.LanguageStream,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
+                        UpdatedById = currentuser.Id,
                     };
 
                     schoolDb.Classes.Add(classes);
 
                     response.IsSuccess = true;
-                    response.Message = "Class is Added Successfull.";
+                    response.Message = "Class is Successfully Created.";
                 }
                 else
                 {
@@ -100,9 +102,12 @@ namespace SchoolManagement.Business.Master
                     classes.ClassCategory = vm.ClassCategory;
                     classes.LanguageStream = vm.LanguageStream;
                     classes.UpdatedOn = DateTime.UtcNow;
-                   // classes.UpdatedById = vm.UpdatedById;
+                    classes.UpdatedById = currentuser.Id;
 
                     schoolDb.Classes.Update(classes);
+
+                    response.IsSuccess = true;
+                    response.Message = "Class Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -110,25 +115,25 @@ namespace SchoolManagement.Business.Master
             catch(Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = "Error has been occured while saving the acdemic level.";
             }
 
             return response;
         }
 
-        public async Task<ResponseViewModel> DeleteClass(int id)
+        public async Task<ResponseViewModel> DeleteClass(int classNameid)
         {
             var response = new ResponseViewModel();
 
             try
             {
-                var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == id);
+                var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == classNameid);
 
                 schoolDb.Classes.Update(classes);
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Class Deleted Successfull.";
+                response.Message = "Class successfully deleted.";
             }
             catch (Exception ex)
             {
@@ -137,6 +142,50 @@ namespace SchoolManagement.Business.Master
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllClassNames()
+        {
+            var classNames = schoolDb.ClassNames
+                .Where(x => x.IsActive == true)
+                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
+                .Distinct().ToList();
+
+            return classNames;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            var academicLevels = schoolDb.AcademicLevels
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = string.Format("{0}", al.Name) })
+                .Distinct().ToList();
+
+            return academicLevels;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            var academicYears = schoolDb.AcademicYears
+                .Where(x => x.IsActive == true)
+                .Select(ay => new DropDownViewModel() { Id = ay.Id })
+                .Distinct().ToList();
+
+            return academicYears;
+        }
+
+        public List<DropDownViewModel> GetAllClassCategories()
+        {
+            return schoolDb.Classes.Where(x => x.ClassCategory != null)
+                                   .Select(cc => new DropDownViewModel() { Id = cc.ClassNameId, Name = cc.Name })
+                                   .ToList();
+        }
+
+        public List<DropDownViewModel> GetAllLanguageStreams()
+        {
+            return schoolDb.Classes.Where(x => x.LanguageStream != null)
+                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = ls.Name })
+                                   .ToList();
         }
     }
 }

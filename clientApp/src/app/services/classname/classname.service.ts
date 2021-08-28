@@ -18,7 +18,7 @@ export class ClassNameService {
       get<classnameModel[]>(environment.apiUrl + 'ClassName')
   }
 
-  save(vm: classnameModel): Observable<ResponseModel> {
+  saveClassName(vm: classnameModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'ClassName', vm);
   }

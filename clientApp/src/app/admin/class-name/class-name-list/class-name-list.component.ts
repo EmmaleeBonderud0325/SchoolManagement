@@ -49,17 +49,43 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
-  addNewClassName(content){
+  //create new user (Reactive Form)
+  addNewClassName(content) {
+
     this.saveClassNameForm = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      Description:['', Validators.required],
-      isActive: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
+  }
+
+  saveClassName(){   
+    
+    console.log(this.saveClassNameForm.value);
+    
+    this.classnameService.saveClassName(this.saveClassNameForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
   }
 
   onAddRowSave(form: FormGroup) {
@@ -83,8 +109,34 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
-  deleteSingleRow(row) {
+  //deleteAcademic Level
+  deleteClassName(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class Name ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
 
+        this.classnameService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
   }
 
   addRecordSuccess() {

@@ -37,13 +37,6 @@ export class ClassListComponent implements OnInit {
     private toastr: ToastrService) { }
 
     ngOnInit(): void {
-      this.saveClassForm = this.fb.group({
-        selectclassNameId: [null, [Validators.required]],
-        selectedacademicLevelId: [null, [Validators.required]],
-        Name:['', Validators.required],
-        classCategory:['', Validators.required],
-        languageStream:['', Validators.required],
-      });
       this.getAll();
       this.getAllClassNames();
       this.getAllAcademicLevels();
@@ -52,86 +45,84 @@ export class ClassListComponent implements OnInit {
       this.getAllLanguageStreams();
     }
 
-    getAllClassNames(){
-      this.classService.getAllClassNames()
-        .subscribe(response=>{
+    getAllClassNames()
+      {
+        this.classService.getAllClassNames()
+          .subscribe(response=>
+          { 
+            this.classNames = response;
+          },error=>{
+            this.toastr.error("Network error has been occured. Please try again.","Error");
+           });
+      }
 
-          console.log(response);
-          
-          this.classNames = response;
+    getAllAcademicYears()
+    {
+      this.classService.getAllAcademicYears()
+        .subscribe(response=>
+        { 
+          this.academicYears = response;
         },error=>{
-
-        });
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
     }
 
-    getAllAcademicYears(){
-    this.classService.getAllAcademicYears()
-      .subscribe(response=>{
-
-        console.log(response);
-        
+  getAllAcademicLevels()
+  {
+    this.classService.getAllAcademicLevels()
+      .subscribe(response=>
+      { 
         this.academicLavels = response;
       },error=>{
-
-      });
-    }
-
-  getAllAcademicLevels(){
-    this.classService.getAllAcademicLevels()
-      .subscribe(response=>{
-
-        console.log(response);
-        
-        this.academicYears = response;
-      },error=>{
-
-      });
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
 
-  getAllClassCategories(){
+  getAllClassCategories()
+  {
     this.classService.getAllClassCategories()
-      .subscribe(response=>{
-
-        console.log(response);
-        
+      .subscribe(response=>
+      { 
         this.classCategories = response;
       },error=>{
-
-      });
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
 
-  getAllLanguageStreams(){
+  getAllLanguageStreams()
+  {
     this.classService.getAllLanguageStreams()
-      .subscribe(response=>{
-
-        console.log(response);
-        
+      .subscribe(response=>
+      { 
         this.languageStreams = response;
       },error=>{
-
-      });
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
   
-    getAll(){
-      this.loadingIndicator=true;
-      this.classService.getAll().subscribe(response=>
+  getAll()
+  {
+    this.loadingIndicator=true;
+    this.classService.getAll()
+    .subscribe(response=>
     {
         this.data= response;
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
-    }
+  }
 
     addNewClass(content) {
 
       this.saveClassForm = this.fb.group({
-        name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-        selectclassNameId: [null, [Validators.required]],
-        selectacademicLevelId: [null, [Validators.required]],
-        selectacademicYearId: [null, [Validators.required]],
-        classCategory:['', Validators.required],
-        languageStream:['', Validators.required],
+        name: ['', [Validators.required]],
+        classNameId: [null, [Validators.required]],
+        academicLevelId: [null, [Validators.required]],
+        academicYearId: [null, [Validators.required]],
+        classCategory: [null, [Validators.required]],
+        languageStream: [null, [Validators.required]],
       });
   
       this.modalService.open(content, {
@@ -164,9 +155,35 @@ export class ClassListComponent implements OnInit {
       });
     }
   
-    deleteSingleRow(row) {
-  
-    }
+//deleteAcademic Level
+deleteClass(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+
+        this.classService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
   
     addRecordSuccess() {
       this.toastr.success('Class Add Successfully', '');

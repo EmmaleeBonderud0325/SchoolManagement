@@ -46,6 +46,33 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("GetAllClassNames")]
+        public ActionResult GetAllClassNames()
+        {
+            var response = classTeacherService.GetAllClassNames();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("GetAllAcademicLevels")]
+        public ActionResult GetAllAcademicLevels()
+        {
+            var response = classTeacherService.GetAllAcademicLevels();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("GetAllAcademicYears")]
+        public ActionResult GetAllAcademicYears()
+        {
+            var response = classTeacherService.GetAllAcademicYears();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
         [Route("GetAllTeachers")]
         public ActionResult GetAllTeachers()
         {

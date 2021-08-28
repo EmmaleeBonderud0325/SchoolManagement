@@ -53,8 +53,10 @@ namespace SchoolManagement.Business.Master
                     IsActive = item.IsActive,
                     CreatedOn = item.CreatedOn,
                     CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
                     UpdatedOn = item.UpdatedOn,
                     UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
                 };
 
                 response.Add(vm);
@@ -136,6 +138,36 @@ namespace SchoolManagement.Business.Master
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllClassNames()
+        {
+            var classNames = schoolDb.ClassNames
+                .Where(x => x.IsActive == true)
+                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
+                .Distinct().ToList();
+
+            return classNames;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            var academicLevels = schoolDb.AcademicLevels
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = string.Format("{0}", al.Name) })
+                .Distinct().ToList();
+
+            return academicLevels;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            var academicYears = schoolDb.AcademicYears
+                .Where(x => x.IsActive == true)
+                .Select(ay => new DropDownViewModel() { Id = ay.Id })
+                .Distinct().ToList();
+
+            return academicYears;
         }
 
         public List<DropDownViewModel> GetAllTeachers()

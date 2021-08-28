@@ -44,5 +44,50 @@ namespace SchoolManagement.WebService.Controllers
             var response = await classService.DeleteClass(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllClassNames")]
+        public ActionResult GetAllClassNames()
+        {
+            var response = classService.GetAllClassNames();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllAcademicLevels")]
+        public ActionResult GetAllAcademicLevels()
+        {
+            var response = classService.GetAllAcademicLevels();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllAcademicYears")]
+        public ActionResult GetAllAcademicYears()
+        {
+            var response = classService.GetAllAcademicYears();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllClassCategories")]
+        public ActionResult GetAllClassCategories()
+        {
+            var response = classService.GetAllClassCategories();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllLanguageStreams")]
+        public ActionResult GetAllLanguageStreams()
+        {
+            var response = classService.GetAllLanguageStreams();
+
+            return Ok(response);
+        }
     }
 }
