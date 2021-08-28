@@ -49,6 +49,7 @@ export class SubjectListComponent implements OnInit {
     });
   }
  
+  
 /*
   addSubject(content) {
     this.modalService.open(content, {

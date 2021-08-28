@@ -19,7 +19,6 @@ namespace SchoolManagement.ViewModel.Master
         public string SubjectCode { get; set; }
         public SubjectCategory SubjectCategory { get; set; }
         public string SubjectCategoryName { get; set; }
-        public string SubjectCategoryname { get; set; }
         public bool IsParentBasketSubject { get; set; }
         public bool IsBuscketSubject { get; set; }
         public int? ParentBasketSubjectId { get; set; }

@@ -16,4 +16,5 @@ export class SubjectModel{
     isActive:boolean;
     createdOn:Date;
     updatedOn:Date;
+    academicLevelName:string;
 }

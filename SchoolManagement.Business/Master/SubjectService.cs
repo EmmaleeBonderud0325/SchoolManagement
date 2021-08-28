@@ -82,7 +82,7 @@ namespace SchoolManagement.Business.Master
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
                     SubjectCategory = subject.SubjectCategory,
-                    SubjectCategoryName = GetSubjectCategoryName((int?)subject.SubjectCategory),
+                    SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory),
                     IsParentBasketSubject = subject.IsParentBasketSubject,
                     IsBuscketSubject = subject.IsBuscketSubject,
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
@@ -98,6 +98,8 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+
+       
 
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {
@@ -191,21 +193,23 @@ namespace SchoolManagement.Business.Master
         
         }
        
-        private string GetSubjectCategoryName(int? SubjectCategory)
+        private string GetSubjectCategoryName(SubjectCategory SubjectCategory)
         {
-            if (SubjectCategory == 1)
-             {
-                return "Primary School Subject";
-             }
-            else if (SubjectCategory == 1)
-             {
-                return "Junior School Subject";
-             }
+            if (((int)SubjectCategory) == 1)
+                 {
+                    return "Primary School Subject";
+                 }
+            else if (((int)SubjectCategory) == 2)
+                {
+                    return "Junior School Subject";
+                }
             else 
-            {
-                return "High School Subject";
-            }
+                {
+                    return "High School Subject";
+                }
         }
+
+      
     }
 }
                 
