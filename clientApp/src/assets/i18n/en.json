@@ -15,7 +15,8 @@
       "TEXT": "Home",
       "LIST": {
         "TEACHER_LESSONS": "My Lessons",
-        "TEACHER_QUESTION": "Question"
+        "TEACHER_QUESTION": "Question",
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer"
       }
     },
     "ADMIN": {

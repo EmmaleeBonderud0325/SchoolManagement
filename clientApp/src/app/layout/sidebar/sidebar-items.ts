@@ -36,10 +36,25 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
 
+      //question
       {
         path: '/teacher-home/question',
         title: 'MENUITEMS.HOME.LIST.TEACHER_QUESTION',
         moduleName: 'question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+
+      // mcq-question-answer
+      {
+        path: '/teacher-home/mcq-question-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_ANSWER',
+        moduleName: 'mcq-question-answer',
         iconType: '',
         icon: '',
         class: 'ml-menu',

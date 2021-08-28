@@ -17,6 +17,7 @@ const routes: Routes = [
     component: LessonsComponent,
   },
 
+
   {
     path: '',
     redirectTo: 'question',
@@ -26,6 +27,18 @@ const routes: Routes = [
     path: 'question',
     loadChildren:() =>
           import('./question/question.module').then((m)=>m.QuestionModule)
+  },
+
+
+  {
+    path: '',
+    redirectTo: 'mcq-question-answer',
+    pathMatch: 'full',
+  },
+  {
+    path: 'mcq-question-answer',
+    loadChildren:() =>
+          import('./mcq-question-answer/mcq-question-answer.module').then((m)=>m.McqQuestionAnswerModule)
   },
   
   

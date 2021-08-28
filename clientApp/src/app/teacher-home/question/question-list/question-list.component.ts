@@ -38,10 +38,29 @@ export class QuestionListComponent implements OnInit {
          });
       }
 
+      //add new question using form
+      createNewQuestion(content)
+      {
+        this.questionForm = this.fb.group({
+          lessonname:['', [Validators.required]],
+          topic:['', [Validators.required]],
+          sequenceno:['', [Validators.required]],
+          marks:['', [Validators.required]],
+          questiontext:['', [Validators.required]],
+          questionlevel:['', [Validators.required]],
+          questiontype:['',[Validators.required]],
+        });
+    
+        this.modalService.open(content, {
+          ariaLabelledBy: 'modal-basic-title',
+          size: 'lg',
+        });
+      }
+
       getAll(){ }
 
 
-      saveQuestion(content){
+      /* saveQuestion(content){
         this.modalService.open(content, {
           ariaLabelledBy: 'modal-basic-title',
           size: 'lg',
@@ -69,5 +88,5 @@ export class QuestionListComponent implements OnInit {
      
       addRecordSuccess() {
         this.toastr.success('succes', '');
-      }
+      } */
 }

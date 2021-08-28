@@ -1,3 +1,8 @@
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { QuestionRoutingModule } from './../question/question-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { McqQuestionAnswerRoutingModule } from './mcq-question-answer-routing.module';
@@ -13,7 +18,14 @@ import { McqQuestionAnswerDetailComponent } from './mcq-question-answer-detail/m
   ],
   imports: [
     CommonModule,
-    McqQuestionAnswerRoutingModule
+    McqQuestionAnswerRoutingModule,
+    QuestionRoutingModule,
+    NgxDatatableModule,
+    MultiSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgxDatatableModule,
+    ToastrModule.forRoot(),
   ]
 })
 export class McqQuestionAnswerModule { }

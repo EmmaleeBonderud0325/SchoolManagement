@@ -11,6 +11,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./mcq-question-answer-list.component.sass'],
   providers: [ToastrService],
 })
+
 export class McqQuestionAnswerListComponent implements OnInit {
 
   @ViewChild(DatatableComponent, { static: false }) table: 
@@ -37,9 +38,31 @@ export class McqQuestionAnswerListComponent implements OnInit {
         marks:['', Validators.required],
          });
   }
+
+  //add new question using form
+  createNewQuestion(content)
+  {
+    this.McqQuestionAnswerForm = this.fb.group({
+      /* lessonname:['', [Validators.required]],
+      topic:['', [Validators.required]],
+      sequenceno:['', [Validators.required]],
+      marks:['', [Validators.required]],
+      questiontext:['', [Validators.required]],
+      questionlevel:['', [Validators.required]],
+      questiontype:['',[Validators.required]], */
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
+
+  
   getAll() {}
 
-  saveMcqQuestionAnswer(content){
+  /* saveMcqQuestionAnswer(content){
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
@@ -67,7 +90,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
  
   addRecordSuccess() {
     this.toastr.success('successful', '');
-  }
+  } */
 
 
 }
