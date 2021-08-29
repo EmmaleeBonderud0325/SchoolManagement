@@ -39,7 +39,7 @@
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewEssayanswer(addEditRecord)' >
                                     <i class="material-icons">add</i>
                                   </button>
                                   <button  class="btn btn-icon icon-left btn-danger rounded-button">
@@ -109,7 +109,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form class="register-form" [formGroup]="essayAnswerFrom">
+                  <form class="register-form" [formGroup]="essayAnswerForm">
                     <!-- <div class="input-field col s12 d-none">
                       <input 
                         formControlName="id" 
@@ -129,36 +129,36 @@
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Name" 
-                            formControlName="name"
+                            placeholder="Question" 
+                            formControlName="question"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayAnswerFrom.get('id').valid && essayAnswerFrom.get('QuestionId').touched"> Question is
+                          *ngIf="!essayAnswerForm.get('question').valid && essayAnswerFormm.get('question').touched"> Question is
                           required</small>
                       </div>
   
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <!--  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <div class="form-group">
                           <label>Essay Answer<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="selectQuestionId">
                             <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                           </select>
                         </div>
-                      </div> 
+                      </div>  -->
                     </div>
-                    <div class="row">
+                   <!-- <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <label>Sequence No <span class="text-danger">*</span></label>
                         <select class="form-control" formControlName="answerText" required>
                           <option value="" selected disabled>Please select</option>
                           <option *ngFor="let desig of designationType" [value]="desig.value">
-                            <!-- {{desig.value}} -->
+                           {{desig.value}} 
                           </option>
                         </select>
                       </div>                 
-                    </div>
+                    </div> -->
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayAnswerFrom.valid">ADD NEW MCQ ANSWER</button>
+                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayAnswerForm.valid">ADD NEW MCQ ANSWER</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                     </div>
                   </form>

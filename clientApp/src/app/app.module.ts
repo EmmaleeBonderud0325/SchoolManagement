@@ -1,5 +1,4 @@
 
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CoreModule } from './core/core.module';
@@ -35,6 +34,7 @@ import {
 } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './core/guard/auth.guard';
+import { NgModule } from '@angular/core';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,

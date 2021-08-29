@@ -10,8 +10,8 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'essay-answer-list',
-    component: EssayAnswerListComponent,
+    path: 'essay-answer',
+    component:EssayAnswerListComponent,
   },
   //{
    // path: 'mcq-question-answer-detail',

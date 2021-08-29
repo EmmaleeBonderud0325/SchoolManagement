@@ -5,9 +5,9 @@ export class LessonAssignmentModel{
     id:number;
     lessonId :number ;
     name :string;
-    descripstion:string;
-    //startDate:Date;
-    //dueDate:Date;
+    description:string;
+    startDate:Date;
+    dueDate:Date;
     isActive :boolean;
     createdOn :Date;
     createdById: number;

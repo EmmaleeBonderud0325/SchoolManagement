@@ -62,7 +62,7 @@
         
                 <ngx-datatable-column name="LessonAssignmentId" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.lessonId}}
+                    {{row.lessonAssignmentId}}
                   </ng-template>
                 </ngx-datatable-column>
         
@@ -72,59 +72,31 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="Name" [width]="100">
+                <ngx-datatable-column name="SubmissionPath" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.name}}
+                      {{row.submissionPath}}
                     </ng-template>
                   </ngx-datatable-column>
           
-                  <ngx-datatable-column name="Descripstion" [width]="100">
+                  <ngx-datatable-column name="SubmissionDate" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.descripstion}}
+                      {{row.submissionDate}}
                     </ng-template>
                   </ngx-datatable-column>
                   
-                <ngx-datatable-column name="IsActive" [width]="100">
+                <ngx-datatable-column name="Marks" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.isActive}}
+                      {{row.marks}}
                     </ng-template>
                   </ngx-datatable-column>
           
-                  <ngx-datatable-column name="CreatedOn" [width]="100">
+                  <ngx-datatable-column name="TeacherComments" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.createdOn}}
+                      {{row.teacherComments}}
                     </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column name="CreatedById" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.createdById}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                  
-                <ngx-datatable-column name="UpdatedOn" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.updateOn}}
-                    </ng-template>
-                  </ngx-datatable-column>
-          
-                  <ngx-datatable-column name="UpdateById" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.updatedById}}
-                    </ng-template>
-                  </ngx-datatable-column>
-  
-                <!-- <ngx-datatable-column name="StartDate" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.sequenceNo}}
-                  </ng-template>
                 </ngx-datatable-column>
-
-                <ngx-datatable-column name="DueDate" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.sequenceNo}}
-                    </ng-template>
-                  </ngx-datatable-column> -->
+                  
+        
                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
@@ -147,7 +119,7 @@
                     <div class="table-modal-header">
                       <div class="modal-about">
                         <div class="fw-bold p-t-10 font-17">
-                          Add new Lesson Assignment</div>
+                          Update Lesson Assignment Submission</div>
                       </div>
                     </div>
                   </h4>
@@ -172,7 +144,7 @@
   
                     <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Lesson<span class="text-danger">*</span></label>
+                        <label>Lesson Assignment Submission<span class="text-danger">*</span></label>
                         <input 
                             type="text" 
                             class="form-control" 
@@ -180,13 +152,13 @@
                             formControlName="name"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('LessonId').touched"> Lesson  is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('LessonId').touched"> Lesson  is
                           required</small>
                       </div>
   
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <div class="form-group">
-                          <label>Name<span class="text-danger">*</span></label>
+                          <label>Lesson Assignment<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="selectQuestionId">
                             <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                           </select>
@@ -195,7 +167,7 @@
                     </div>
                     <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Description<span class="text-danger">*</span></label>
+                        <label>Student<span class="text-danger">*</span></label>
                         <select class="form-control" formControlName="descripstion" required>
                           <option value="" selected disabled>Please select</option>
                           <option *ngFor="let desig of designationType" [value]="desig.value">
@@ -206,7 +178,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>IsActive<span class="text-danger">*</span></label>
+                          <label>Submission Path<span class="text-danger">*</span></label>
                           <input 
                               type="text" 
                               class="form-control" 
@@ -220,7 +192,7 @@
     
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <div class="form-group">
-                            <label>Created On<span class="text-danger">*</span></label>
+                            <label>Submission Date<span class="text-danger">*</span></label>
                             <select class="form-select form-control" formControlName="selectQuestionId">
                               <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                             </select>
@@ -230,7 +202,7 @@
 
                       <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Created By Id<span class="text-danger">*</span></label>
+                          <label>Marks<span class="text-danger">*</span></label>
                           <input 
                               type="text" 
                               class="form-control" 
@@ -244,7 +216,7 @@
     
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <div class="form-group">
-                            <label>Updated On<span class="text-danger">*</span></label>
+                            <label>Teacher Comments<span class="text-danger">*</span></label>
                             <select class="form-select form-control" formControlName="selectQuestionId">
                               <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                             </select>
@@ -252,20 +224,7 @@
                         </div> 
                       </div>
 
-                      <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Updated By Id<span class="text-danger">*</span></label>
-                          <input 
-                              type="text" 
-                              class="form-control" 
-                              placeholder="Name" 
-                              formControlName="name"
-                              required>
-                          <small class="form-text text-danger"
-                            *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('LessonId').touched"> Lesson  is
-                            required</small>
-                        </div>
-                      </div>
+        
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerFrom.valid">ADD NEW MCQ ANSWER</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>

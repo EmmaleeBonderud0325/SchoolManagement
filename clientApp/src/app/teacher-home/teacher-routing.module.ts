@@ -17,6 +17,18 @@ const routes: Routes = [
     path: 'lesson-detail',
     component: LessonDetailComponent,
   },
+  {
+    path: '',
+    redirectTo: 'essay-answer',
+    pathMatch: 'full',
+  },
+  {
+    path: 'essay-answer',
+    loadChildren:() =>
+          import('./essay-answer/essay-answer.module').then((m)=>m.EssayAnswerModule)
+  },
+
+
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

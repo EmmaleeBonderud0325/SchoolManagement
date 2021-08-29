@@ -48,7 +48,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/teacher-home/essay-answer-list',
+        path: '/teacher-home/essay-answer',
         title: 'MENUITEMS.HOME.LIST.ESSAY_QUESTION_ANSWER_LIST',
         moduleName: 'essay-answer-list',
         iconType: '',
