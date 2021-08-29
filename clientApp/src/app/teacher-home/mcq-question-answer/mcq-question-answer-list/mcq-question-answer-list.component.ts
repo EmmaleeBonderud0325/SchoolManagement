@@ -33,14 +33,14 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    this.McqQuestionAnswerForm = this.fb.group({
+    /* this.McqQuestionAnswerForm = this.fb.group({
         questionText:['', Validators.required],
         marks:['', Validators.required],
-         });
+         }); */
   }
 
   //add new question using form
-  createNewQuestion(content)
+  createNewMcqQuestionAnswer(content)
   {
     this.McqQuestionAnswerForm = this.fb.group({
       /* lessonname:['', [Validators.required]],

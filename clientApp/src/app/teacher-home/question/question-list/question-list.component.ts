@@ -32,10 +32,10 @@ export class QuestionListComponent implements OnInit {
 
     ngOnInit(): void {
       this.getAll();
-      this.questionForm = this.fb.group({
+      /* this.questionForm = this.fb.group({
         questionText:['', Validators.required],
         marks:['', Validators.required],
-         });
+         }); */
       }
 
       //add new question using form
@@ -60,13 +60,14 @@ export class QuestionListComponent implements OnInit {
       getAll(){ }
 
 
-      /* saveQuestion(content){
+       saveQuestion(content){
         this.modalService.open(content, {
           ariaLabelledBy: 'modal-basic-title',
           size: 'lg',
         })
       }
-     
+      
+     /*
       editRow(row, rowIndex, content) {
         this.modalService.open(content, {
           ariaLabelledBy: 'modal-basic-title',
