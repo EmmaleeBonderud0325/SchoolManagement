@@ -99,7 +99,7 @@
                  <!-- Created byy Column -->
                 <ngx-datatable-column name="Created By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.createdBy}}
+                    {{row.createdByName}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -113,14 +113,14 @@
                 <!-- updated By Column -->
                 <ngx-datatable-column name="Updated By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updatedBy}}
+                    {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <!-- updated on Column -->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updatedOn}}
+                    {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -128,10 +128,10 @@
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
+                      <button class="btn btn-tbl-edit h-auto" (click)='updateUser(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteUser(row)'>
                         <i class="far fa-trash-alt"></i>
                       </button>
                     </span>
