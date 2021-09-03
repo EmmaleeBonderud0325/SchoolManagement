@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:4200',
+  apiUrl: 'http://itp2021.southeastasia.cloudapp.azure.com:8080',
 };
