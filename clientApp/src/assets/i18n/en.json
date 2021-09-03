@@ -23,8 +23,9 @@
         "USER": "Users",
         "ACADEMIC_LEVEL": "Academic Levels",
         "ACADEMIC_YEAR": "Academic Years",
-        "CLASS": "Classes",
         "CLASS-NAME": "Class Names",
+        "CLASS": "Classes",
+        "CLASS-TEACHER": "Class Teachers",
         "STUDENT": "Students",
         "SUBJECT": "Subjects",
         "EXAMPLE": "Example"

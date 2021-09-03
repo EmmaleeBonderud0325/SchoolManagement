@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-name-list',
@@ -20,7 +21,7 @@ export class ClassNameListComponent implements OnInit {
   loadingIndicator = false;
   saveClassNameForm:FormGroup;
   reorderable = true;
-  user:classnameModel;
+  classname:classnameModel;
 
   constructor(
     private fb: FormBuilder,
@@ -29,29 +30,62 @@ export class ClassNameListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
     this.saveClassNameForm = this.fb.group({
       Name:['', Validators.required],
       Description:['', Validators.required],
+      isActive: ['', [Validators.required]],
     });
+    this.getAll();
   }
 
   getAll(){
-
+    this.loadingIndicator=true;
+    this.classnameService.getAll().subscribe(response=>
+    {
+      this.data= response;
+      this.loadingIndicator=false;
+    },error=>{
+      this.loadingIndicator=false;
+    });
   }
 
-  saveClassName(content){
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    })
-  }
+  //create new user (Reactive Form)
+  addNewClassName(content) {
 
-  editRow(row, rowIndex, content) {
+    this.saveClassNameForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
+  }
+
+  saveClassName(){   
+    
+    console.log(this.saveClassNameForm.value);
+    
+    this.classnameService.saveClassName(this.saveClassNameForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
   }
 
   onAddRowSave(form: FormGroup) {
@@ -62,8 +96,47 @@ export class ClassNameListComponent implements OnInit {
     this.addRecordSuccess();
   }
 
-  deleteSingleRow(row) {
+  editRow(row:classnameModel, rowIndex:number, content:any) {
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
 
+    this.saveClassNameForm = this.fb.group({
+      name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
+      description: [row.description,[Validators.required, Validators.pattern('[0-9]+[a-zA-Z]+')]],
+      isActive: [row.isActive, [Validators.required]],
+    });
+  }
+
+  //deleteAcademic Level
+  deleteClassName(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class Name ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+
+        this.classnameService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
   }
 
   addRecordSuccess() {
