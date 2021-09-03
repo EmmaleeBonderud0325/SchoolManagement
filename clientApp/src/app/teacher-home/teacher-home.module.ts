@@ -1,25 +1,22 @@
-import { EssayAnswerListComponent } from './essay-answer-list/essay-answer-list.component';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { CustomFormsModule } from 'ngx-custom-validators';
-import { ArchwizardModule } from 'angular-archwizard';
-import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { NgxMaskModule } from 'ngx-mask';
 import { TeacherHomeRoutingModule } from './teacher-routing.module'; 
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { LessonsComponent } from './lessons/lessons.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+import { CommonModule } from '@angular/common';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgModule } from '@angular/core';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-//import { EssayAnswerListComponent } from './essay-answer/essay-answer-list/essay-answer-list.component';
 import { NgxMaskModule } from 'ngx-mask';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArchwizardModule } from 'angular-archwizard';
-import { CustomFormsModule } from 'ngx-custom-validators';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+//import { EssayAnswerListComponent } from './essay-answer/essay-answer-list/essay-answer-list.component';
+
+
+//import { QuestionListComponent } from './question/question-list/question-list.component';
+//import { QuestionDetailComponent } from './question/question-detail/question-detail.component';
 
 
 @NgModule({
@@ -27,13 +24,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     LessonsComponent,
     LessonDetailComponent,
-    LessonDetailComponent,
-    //EssayAnswerListComponent,
-    
-  ],
-    LessonDetailComponent,
-    QuestionListComponent,
-    QuestionDetailComponent,
+ 
     
   ],
   imports: [
