@@ -1,178 +1,221 @@
 <section class="main-content">
-    <ul class="breadcrumb breadcrumb-style ">
-        <li class="breadcrumb-item">
-          <h5 class="page-title m-b-0">Admin</h5>
-        </li>
-        <li class="breadcrumb-item bcrumb-1">
-          <a routerLink="/dashboard/main">
-            <i class="fas fa-home font-17"></i></a>
-        </li>
-        <li class="breadcrumb-item">Class List</li>
-    </ul>
-        <div class="section-body">
-            <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                  <div class="p-10">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="row m-0">
-                          <div class="col-lg-3 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-title">
-                                <h2><strong>Classes</strong></h2>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-5 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-search-area">
-                                <div>
-                                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                  <input placeholder="Search" type="text" class="browser-default search-field"
-                                     aria-label="Search box">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-4 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="header-buttons-left">
-                                <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
-                                    <i class="material-icons">add</i>
-                                  </button>
-                                  <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                    <i class="material-icons">delete</i>
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">Admin</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/dashboard/main">
+        <i class="fas fa-home font-17"></i></a>
+    </li>
+    <li class="breadcrumb-item">Class List</li>
+  </ul>
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="row m-0">
+                  <div class="col-lg-3 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-title">
+                        <h2><strong>Classes</strong></h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-search-area">
+                        <div>
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" class="browser-default search-field"
+                             aria-label="Search box">
                         </div>
                       </div>
                     </div>
-
-                    <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
-				
-				        <ngx-datatable-column name="ClassNameId" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.ClassNameId}}
-                  </ng-template>
-                </ngx-datatable-column>
-				
-                <ngx-datatable-column name="AcademicLevelid" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.AcademicLevelid}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="AcademicYearid" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.AcademicYearid}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Name" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Name}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="ClassCategory" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.ClassCategory}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column name="LanguageStream" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.LanguageStream}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                <ngx-datatable-column name="CreatedOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="CreatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedById}}
-                  </ng-template>
-                </ngx-datatable-column>
-				
-				        <ngx-datatable-column name="UpdatedOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="UpdatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedById}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                      <span>
-                        <button class="btn btn-tbl-edit h-auto" >
-                          <i class="fas fa-pen"></i>
-                        </button>
-                        <button class="btn btn-tbl-delete h-auto">
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                      </span>
-                    </ng-template>
-                  </ngx-datatable-column>
-                </ngx-datatable>
-
-                <ng-template #addRecord let-modal>
-                    <div class="modal-header editRowModal">
-                      <h4 class="modal-title" id="modal-basic-title">
-                        <div class="table-modal-header">
-                          <div class="modal-about">
-                            <div class="fw-bold p-t-10 font-17">
-                             Add New Class</div>
-                          </div>
+                  </div>
+                  <div class="col-lg-4 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="header-buttons-left">
+                        <div class="icon-button-demo buttons">
+                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewClass(addEditRecord)' >
+                            <i class="material-icons">add</i>
+                          </button>
                         </div>
-                      </h4>
-                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                        <span aria-hidden="true"><i class="material-icons">close</i></span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="register-form" [formGroup]="saveClassForm" (ngSubmit)="onAddRowSave(saveClassForm)">
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                              <label>Name <span class="text-danger">*</span></label>
-                              <input 
-                                  type="text" 
-                                  class="form-control" 
-                                  placeholder="Name" 
-                                  formControlName="Name"
-                                  required>
-                              <small class="form-text text-danger"
-                                *ngIf="!saveClassForm.get('Name').valid && saveClassForm.get('Name').touched"> Name is
-                                required</small>
-                            </div>  
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" [disabled]="!saveClassForm.valid">Submit</button>
-                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
-                              </div>
-                            </form>
-                        </div>
-                    </ng-template>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-</section>
+            <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+              columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+              <!-- ClassName Column -->
+              <ngx-datatable-column name="Class Name" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.classClassName}}
+                </ng-template>
+              </ngx-datatable-column>
+              
+              <!-- academicLevelName Column -->
+              <ngx-datatable-column name="Academic Level" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.academicLevelName}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- academicYearId Column -->
+              <ngx-datatable-column name="Academic Year " [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.academicYearId}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- name Column -->
+              <ngx-datatable-column name="Name" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.name}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- classCategoryName Column -->
+              <ngx-datatable-column name="Class Category" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.classCategoryName}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- languageStreamName Column -->
+              <ngx-datatable-column name="Language Stream" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.languageStreamName}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- createdOn Column -->
+              <ngx-datatable-column name="Created On" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.createdOn | date}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- CreatedById Column -->
+              <ngx-datatable-column name="CreatedById" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.createdByName}}
+                </ng-template>
+              </ngx-datatable-column>
+              
+              <!-- updatedOn Column -->
+              <ngx-datatable-column name="Updated On" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.updatedOn | date}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- UpdatedById Column -->
+              <ngx-datatable-column name="UpdatedById" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.updatedByName}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span>
+                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
+                      <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="btn btn-tbl-delete h-auto" (click)='deleteClass(row)'>
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+            <!-- Add Record Modal Window -->
+          <ng-template #addEditRecord let-modal>
+            <div class="modal-header editRowModal">
+              <h4 class="modal-title" id="modal-basic-title">
+                <div class="table-modal-header">
+                  <div class="modal-about">
+                    <div class="fw-bold p-t-10 font-17">
+                      Add new Class</div>
+                  </div>
+                </div>
+              </h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true"><i class="material-icons">close</i></span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form class="register-form" [formGroup]="saveClassFrom">
+
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label>Class Name<span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="classNameId">
+                        <option *ngFor="let item of classNames" [value]="item.id">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label>Academic Level<span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="academicLevelId">
+                        <option *ngFor="let item of academicLavels" [value]="item.id">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label>Academic Year<span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="academicYearId">
+                        <option *ngFor="let item of academicYears" [value]="item.id">{{item.id}}</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <label>Name <span class="text-danger">*</span></label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="Name" 
+                        formControlName="name"
+                        required>
+                    <small class="form-text text-danger"
+                      *ngIf="!saveClassFrom.get('name').valid && saveClassFrom.get('name').touched"> Name is
+                      required</small>
+                  </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="row">
+                      <label>Class Category<span class="text-danger">*</span></label>
+                      <p-multiSelect [options]="classCategories"  formControlName="classCategories" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
+                    </div>
+                  </div>
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="row">
+                      <label>Language Stream<span class="text-danger">*</span></label>
+                      <p-multiSelect [options]="languageStream"  formControlName="languageStream" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
+                    </div>
+                  </div>  
+                </div>
+                <div class="modal-footer">
+                  <button type="submit" class="btn btn-primary" (click)="saveClass()" [disabled]="!saveClassFrom.valid">Save</button>
+                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                </div>
+              </form>
+            </div>
+          </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
