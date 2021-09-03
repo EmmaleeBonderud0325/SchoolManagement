@@ -37,17 +37,31 @@
                   </div>
                   <div class="col-lg-4 p-0">
                     <div class="ngxTableHeader">
-                      <div class="header-buttons-left">
-                        <div class="icon-button-demo buttons">
-                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewMcqQuestionAnswer(addEditRecord)' >
+                      <div class="header-buttons-left" >
+                        <div class="icon-button-demo buttons" >
+                          <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewMcqQuestionAnswer(addEditRecord)' >
                             <i class="material-icons">add</i>
                           </button>
-                          <button  class="btn btn-icon icon-left btn-danger rounded-button"
-                            >
+                          <button  class="btn btn-icon icon-left btn-danger rounded-button">
                             <i class="material-icons">delete</i>
                           </button>
                         </div>
                       </div>
+
+                      <div class="header-buttons-left">
+                        <div class="icon-button-dleftemo buttons">
+                        </div>
+                      </div>
+                      <!-- dropdown for the pages-->
+                      <div class="header-buttons">
+                        <div>
+                          <!--<label>PAGES</label>-->
+                          <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
+                        </div>
+                      </div>
+                     
+
+
                     </div>
                   </div>
                 </div>
@@ -80,11 +94,11 @@
               </ngx-datatable-column>
 
               <!-- Sequence No -->
-              <ngx-datatable-column name="SequenceNo">
+              <!-- <ngx-datatable-column name="SequenceNo">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.sequenceNo}}
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
 
               <!-- Is Correct Answer -->
               <ngx-datatable-column name="IsCorrectAnswer">
@@ -142,25 +156,67 @@
 
             <div class="modal-body">
               <form class="register-form" [formGroup]="McqQuestionAnswerForm" (ngSubmit)="onAddRowSave(McqQuestionAnswerForm)">
+                <!--row one-->
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <label> AnswerID <span class="text-danger">*</span></label>
+                    <label> Question ID <span class="text-danger">*</span></label>
                     <input 
-                        type="id" 
+                        type="text" 
                         class="form-control" 
-                        placeholder="Answer id" 
-                        formControlName="answerid"
+                        placeholder="Question Id" 
+                        formControlName="questionid"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!McqQuestionAnswerForm.get('AnswerID').valid && McqQuestionAnswerForm.get('AnswerID').touched"> Answer ID required</small>
+                      *ngIf="!McqQuestionAnswerForm.get('questionid').valid && McqQuestionAnswerForm.get('questionid').touched">
+                       Answer ID required
+                    </small>
                   </div>
 
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <div class="form-group">
                       <label> AnswerText <span class="text-danger">*</span></label>
-                      <select class="form-select form-control" formControlName="selectanswerid">
-                        <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
-                      </select>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Answer Text" 
+                          formControlName="answertext"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!McqQuestionAnswerForm.get('answertext').valid && McqQuestionAnswerForm.get('answertext').touched"> Answer ID required
+                      </small>
+                    </div>
+                  </div> 
+                </div>
+
+                <!--row two-->
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <label> Modified Date <span class="text-danger">*</span></label>
+                    <input 
+                        type="datetime" 
+                        class="form-control" 
+                        placeholder="Modified Date" 
+                        formControlName="modifieddate"
+                        required>
+                    <small class="form-text text-danger"
+                      *ngIf="!McqQuestionAnswerForm.get('modifieddate').valid && McqQuestionAnswerForm.get('modifieddate').touched">
+                       Answer ID required
+                    </small>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label> Created On <span class="text-danger">*</span></label>
+                      <input 
+                          type="datetime" 
+                          class="form-control" 
+                          placeholder="Created On" 
+                          formControlName="createdon"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!McqQuestionAnswerForm.get('createdon').valid && McqQuestionAnswerForm.get('createdon').touched">
+                        Created On required
+                      </small>
                     </div>
                   </div> 
                 </div>

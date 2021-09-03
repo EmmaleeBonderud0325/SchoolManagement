@@ -32,10 +32,6 @@ export class QuestionListComponent implements OnInit {
 
     ngOnInit(): void {
       this.getAll();
-      /* this.questionForm = this.fb.group({
-        questionText:['', Validators.required],
-        marks:['', Validators.required],
-         }); */
       }
 
       //add new question using form
@@ -59,35 +55,29 @@ export class QuestionListComponent implements OnInit {
 
       getAll(){ }
 
+      //save Question button 
+      saveQuestion()
+      {
+        console.log(this.questionForm.value);
 
-       saveQuestion(content){
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        })
+        this.QuestionService.saveQuestion(this.questionForm.value)
+          .subscribe(response=>{
+            
+            if(response.isSuccess)
+            {
+                this.modalService.dismissAll();
+                this.toastr.success(response.message,"Success");
+                //this.getAll();
+            }
+            else
+            {
+                this.toastr.error(response.message,"Error");
+            }
+          },error=>{
+
+                this.toastr.error("Network error has been occre.Please try again","Error");
+          });
+        
       }
-      
-     /*
-      editRow(row, rowIndex, content) {
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        });
-      }
-     
-      onAddRowSave(form: FormGroup) {
-        this.data.push(form.value);
-        this.data = [...this.data];
-        form.reset();
-        this.modalService.dismissAll();
-        this.addRecordSuccess();
-      }
-     
-      deleteSingleRow(row) {
-     
-      }
-     
-      addRecordSuccess() {
-        this.toastr.success('succes', '');
-      } */
+    
 }

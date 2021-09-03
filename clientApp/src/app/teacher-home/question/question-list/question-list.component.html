@@ -35,10 +35,11 @@
                         </div>
                       </div>
                     </div>
+
                     <div class="col-lg-4 p-0">
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
-                          <div class="icon-button-demo buttons">
+                          <div class="icon-button-dleftemo buttons">
                             <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewQuestion(addEditRecord)' >
                               <i class="material-icons">add</i>
                             </button>
@@ -48,6 +49,22 @@
                             </button>
                           </div>
                         </div>
+
+
+
+                        <div class="header-buttons-left">
+                          <div class="icon-button-dleftemo buttons">
+                          </div>
+                        </div>
+                        <!-- dropdown for the pages-->
+                        <div class="header-buttons">
+                          <div>
+                            <!--<label>PAGES</label>-->
+                            <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
+                          </div>
+                        </div>
+                        
+                        
                       </div>
                     </div>
                   </div>
@@ -66,21 +83,21 @@
                 </ngx-datatable-column>
   
                 <!--Lesson ID-->
-                <ngx-datatable-column name="LessonId" [width]="100">
+                <ngx-datatable-column name="LessonId" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.lessonId}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Topic ID-->
-                <ngx-datatable-column name="TopicId" [width]="100">
+                <ngx-datatable-column name="TopicId" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.topicId}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Sequence Number-->
-                <ngx-datatable-column name="SequenceNo" [width]="100">
+                <ngx-datatable-column name="SequenceNo" [width]="95">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.sequenceNo}}
                   </ng-template>
@@ -94,18 +111,18 @@
                 </ngx-datatable-column>
   
                 <!--Question marks-->
-                <ngx-datatable-column name="Marks" [width]="100">
+                <ngx-datatable-column name="Marks" [width]="95">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.marks}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Difficulty Level-->
-                <ngx-datatable-column name="DifficultyLevel" [width]="100">
+                <!-- <ngx-datatable-column name="DifficultyLevel" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.difficultyLevel}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
   
                 <!--Question Type-->
                 <ngx-datatable-column name="QuestionType" [width]="100">
@@ -115,11 +132,11 @@
                 </ngx-datatable-column>
   
                 <!--IS Active-->
-                <ngx-datatable-column name="IsActive" [width]="100">
+               <!--  <ngx-datatable-column name="IsActive" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.isActive}}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> -->
   
                 <!-- Create on date-->
                 <ngx-datatable-column name="CreateOn" [width]="100">
@@ -251,7 +268,7 @@
 
                   <!-- this is a row three -->
                   <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
                       <label> Question Text <span class="text-danger">*</span></label>
                       <input 
                           type="textarea" 
@@ -265,25 +282,12 @@
                     </div>
                   </div>
 
-                  <!-- this is a row four - radio button 01 -->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Question Level <span class="text-danger">*</span></label>
-                      <input type="radio" class="form-control" value ="low" formControlName="questionlevel" required> Low
-                      <input type="radio" class="form-control" value ="medium" formControlName="questionlevel" > Medium
-                      <input type="radio" class="form-control" value ="high" formControlName="questionlevel" > High
-                      <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('questionlevel').valid && QuestionForm.get('questionlevel').touched">
-                      </small>
-                    </div>
-                  </div>
-
                   <!-- this is a row five - radio button 02 -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Question Type <span class="text-danger">*</span></label>
-                      <input type="radio" class="form-control" value ="mcq" formControlName="questiontype" required> MCQ
-                      <input type="radio" class="form-control" value ="essay" formControlName="questiontype" > Essay
+                      <label> Question Type <span class="text-danger">*</span></label><br><br>
+                        <input type="radio" value="mcq" name="questiontype" required ngModel> MCQ <br>
+                        <input type="radio" value="essay" name="questiontype" ngModel> ESSAY
                       <small class="form-text text-danger"
                         *ngIf="!QuestionForm.get('questiontype').valid && QuestionForm.get('questiontype').touched">
                       </small>
@@ -291,7 +295,7 @@
                   </div>
   
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!QuestionForm.valid">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="saveQuestion()" [disabled]="!QuestionForm.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
 
