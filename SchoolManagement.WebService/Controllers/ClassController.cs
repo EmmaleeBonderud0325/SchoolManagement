@@ -74,7 +74,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllClassCategories")]
-        public ActionResult GetAllClassCategories()
+        public IActionResult GetAllClassCategories()
         {
             var response = classService.GetAllClassCategories();
 
@@ -83,7 +83,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllLanguageStreams")]
-        public ActionResult GetAllLanguageStreams()
+        public IActionResult GetAllLanguageStreams()
         {
             var response = classService.GetAllLanguageStreams();
 

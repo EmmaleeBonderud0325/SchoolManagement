@@ -9,9 +9,9 @@ namespace SchoolManagement.Model
 {
 	public enum ClassCategory
     {
-        [Description("O/Level")]
+        [Description("Primary")]
         Primary = 1,
-        [Description("O/Level")]
+        [Description("Secondary")]
         Secondary = 2,
         [Description("O/Level")]
         OLevel = 3,

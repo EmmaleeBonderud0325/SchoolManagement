@@ -130,6 +130,30 @@ export class ClassListComponent implements OnInit {
         size: 'lg',
       });
     }
+
+    saveClass(){   
+    
+      console.log(this.saveClassForm.value);
+      
+      this.classService.saveClass(this.saveClassForm.value)
+      .subscribe(response=>{
+  
+          if(response.isSuccess)
+          {
+            this.modalService.dismissAll();
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+  
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+  
+    }
   
     onAddRowSave(form: FormGroup) {
       this.data.push(form.value);
@@ -147,15 +171,15 @@ export class ClassListComponent implements OnInit {
 
       this.saveClassForm = this.fb.group({
         name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-        selectclassNameId: [row.selectedClassNameId, [Validators.required]],
-        selectacademicLevelId: [row.selectedAcademicLevelId, [Validators.required]],
+        classNameId: [row.classNameId, [Validators.required]],
+        academicLevelId: [row.academicLevelId, [Validators.required]],
         ademicYearId: [row.academicYearId, [Validators.required]],
         classCategory: [row.classCategory, [Validators.required]],
         languageStream: [row.languageStream, [Validators.required]],
       });
     }
   
-//deleteAcademic Level
+//delete class
 deleteClass(row) {
     Swal.fire({
       title: 'Are you sure Delete Class ?',

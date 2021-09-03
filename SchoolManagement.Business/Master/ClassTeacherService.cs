@@ -98,10 +98,18 @@ namespace SchoolManagement.Business.Master
                 }
                 else
                 {
+                    classTeacher.AcademicLevelId = vm.AcademicLevelId;
+                    classTeacher.AcademicYearId = vm.AcademicYearId;
+                    classTeacher.TeacherId = vm.TeacherId;
                     classTeacher.IsPrimary = true;
                     classTeacher.IsActive = true;
                     classTeacher.UpdatedOn = DateTime.UtcNow;
                     classTeacher.UpdatedById = vm.UpdatedById;
+
+                    schoolDb.ClassTeachers.Update(classTeacher);
+
+                    response.IsSuccess = true;
+                    response.Message = "Class Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();

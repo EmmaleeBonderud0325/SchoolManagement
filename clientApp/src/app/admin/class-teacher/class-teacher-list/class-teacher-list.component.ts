@@ -77,6 +77,8 @@ export class ClassTeacherListComponent implements OnInit {
       academicLevelId: [null, [Validators.required]],
       academicYearId: [null, [Validators.required]],
       teacherId: [null, [Validators.required]],
+      isActive:[true],
+      isPrimary:[true],
     });
 
     this.modalService.open(content, {
@@ -128,9 +130,35 @@ export class ClassTeacherListComponent implements OnInit {
     });
   }
 
-  deleteSingleRow(row) {
+//delete class teacher
+deleteClassTeacher(row) {
+  Swal.fire({
+    title: 'Are you sure Delete Class Teacher ?',
+    showCancelButton: true,
+    confirmButtonColor: 'red',
+    cancelButtonColor: 'green',
+    confirmButtonText: 'Yes',
+  }).then((result) => {
+    if (result.value) {
 
-  }
+      this.classTeacherService.delete(row.id).subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+  
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+    }
+  });
+}
 
   addRecordSuccess() {
     this.toastr.success('ClassTeacher Add Successfully', '');

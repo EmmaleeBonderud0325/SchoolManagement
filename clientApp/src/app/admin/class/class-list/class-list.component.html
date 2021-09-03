@@ -188,29 +188,26 @@
                         formControlName="name"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!saveClassFrom.get('name').valid && saveClassFrom.get('name').touched"> class name is
+                      *ngIf="!saveClassFrom.get('name').valid && saveClassFrom.get('name').touched"> Name is
                       required</small>
                   </div>
-
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
+                  </div>
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="row">
                       <label>Class Category<span class="text-danger">*</span></label>
-                      <select class="form-select form-control" formControlName="classCategoryId">
-                        <option *ngFor="let item of classCategories" [value]="item.id">{{item.name}}</option>
-                      </select>
+                      <p-multiSelect [options]="classCategories"  formControlName="classCategories" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
                     </div>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
+                    <div class="row">
                       <label>Language Stream<span class="text-danger">*</span></label>
-                      <select class="form-select form-control" formControlName="languageStreamId">
-                        <option *ngFor="let item of languageStreams" [value]="item.id">{{item.name}}</option>
-                      </select>
+                      <p-multiSelect [options]="languageStream"  formControlName="languageStream" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
                     </div>
                   </div>  
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" (click)="saveClass()" [disabled]="!saveClassFrom.valid">Save</button>
+                  <button type="submit" class="btn btn-primary" (click)="saveClass()" [disabled]="!saveClassFrom.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
               </form>

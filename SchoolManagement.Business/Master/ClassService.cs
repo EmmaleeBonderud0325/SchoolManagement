@@ -177,14 +177,14 @@ namespace SchoolManagement.Business.Master
         public List<DropDownViewModel> GetAllClassCategories()
         {
             return schoolDb.Classes.Where(x => x.ClassCategory != null)
-                                   .Select(cc => new DropDownViewModel() { Id = cc.ClassNameId, Name = cc.Name })
+                                   .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Name) })
                                    .ToList();
         }
 
         public List<DropDownViewModel> GetAllLanguageStreams()
         {
             return schoolDb.Classes.Where(x => x.LanguageStream != null)
-                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = ls.Name })
+                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = string.Format("{0}", ls.Name ) })
                                    .ToList();
         }
     }
