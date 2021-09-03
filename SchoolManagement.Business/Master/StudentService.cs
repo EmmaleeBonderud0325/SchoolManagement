@@ -60,22 +60,22 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.Students.Where(u => u.IsActive == true);
 
-            var StudentList = query.ToList();
+            var studentList = query.ToList();
 
-            foreach (var Student in StudentList)
+            foreach (var item in studentList)
             {
-                var viewModelOb = new StudentViewModel
+                var vm = new StudentViewModel
                 {
-                    Id = Student.Id,
-                    AdmissionNo = Student.AdmissionNo,
-                    EmegencyContactNo1 = Student.EmegencyContactNo1,
-                    EmegencyContactNo2 = Student.EmegencyContactNo2,
-                    Gender = Student.Gender,
-                    DateOfBirth = Student.DateOfBirth,
-                    IsActive = Student.IsActive,
+                    Id = item.Id,
+                    AdmissionNo = item.AdmissionNo,
+                    EmegencyContactNo1 = item.EmegencyContactNo1,
+                    EmegencyContactNo2 = item.EmegencyContactNo2,
+                    Gender = item.Gender,
+                    DateOfBirth = item.DateOfBirth,
+                    IsActive = item.IsActive,
                 };
 
-                response.Add(viewModelOb);
+                response.Add(vm);
             }
 
             return response;
@@ -93,7 +93,7 @@ namespace SchoolManagement.Business.Master
 
                 if (student == null)
                 {
-                    var user = new User()
+                    /*var user = new User()
                     {
                         Id = vm.Id,
                         Username = vm.Email,
@@ -109,11 +109,11 @@ namespace SchoolManagement.Business.Master
                         ProfileImage = 0,
                         LastLoginDate = DateTime.UtcNow,
                         LoginSessionId = 0
-                    };
+                    };*/
                     
-                    user.Student = new Student()
+                    student = new Student()
                     {
-                        Id = user.Id,
+                        Id = vm.Id,
                         AdmissionNo = vm.AdmissionNo,
                         EmegencyContactNo1 = vm.EmegencyContactNo1,
                         EmegencyContactNo2 = vm.EmegencyContactNo2,
@@ -126,7 +126,7 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.Students.Add(user.Student);
+                    schoolDb.Students.Add(student);
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.NEW_STUDENT_ADD_SUCCESS_MESSAGE;

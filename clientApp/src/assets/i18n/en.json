@@ -15,9 +15,8 @@
       "TEXT": "Home",
       "LIST": {
         "TEACHER_LESSONS": "My Lessons",
-        "QUESTION_LIST": "Questions",
-        "ESSAY_QUESTION_ANSWER_LIST":"Essay answers"
-       
+        "TEACHER_QUESTION": "Question",
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer"
       }
     },
     "ADMIN": {
@@ -26,8 +25,9 @@
         "USER": "Users",
         "ACADEMIC_LEVEL": "Academic Levels",
         "ACADEMIC_YEAR": "Academic Years",
-        "CLASS": "Classes",
         "CLASS-NAME": "Class Names",
+        "CLASS": "Classes",
+        "CLASS-TEACHER": "Class Teachers",
         "STUDENT": "Students",
         "SUBJECT": "Subjects",
         "EXAMPLE": "Example"
