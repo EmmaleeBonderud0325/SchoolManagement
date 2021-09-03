@@ -13,5 +13,9 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<ClassTeacherViewModel> GetClassTeachers();
         Task<ResponseViewModel> SavaClassTeacher(ClassTeacherViewModel vm, string userName);
         Task<ResponseViewModel> DeleteClassTeacher(int id);
+        List<DropDownViewModel> GetAllClassNames();
+        List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllAcademicYears();
+        List<DropDownViewModel> GetAllTeachers();
     }
 }

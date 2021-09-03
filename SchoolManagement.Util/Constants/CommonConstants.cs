@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Util.Constants
 {
-    class CommanConstants
+    class CommonConstants
     {
     }
 }

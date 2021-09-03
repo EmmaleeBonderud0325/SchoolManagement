@@ -11,14 +11,19 @@ namespace SchoolManagement.ViewModel.Master
     {
 
 		public int ClassNameId { get; set; }
-		public int AcademicLevelId { get; set; }
-		public int AcademicYearId { get; set; }
+        public string TeacherClassName { get; set; }
+        public int AcademicLevelId { get; set; }
+        public string AcademicLevelName { get; set; }
+        public int AcademicYearId { get; set; }
 		public int TeacherId { get; set; }
-		public bool IsPrimary { get; set; }
+        public string TeacherName { get; set; }
+        public bool IsPrimary { get; set; }
 		public bool IsActive { get; set; }
 		public DateTime CreatedOn { get; set; }
 		public int CreatedById { get; set; }
-		public DateTime UpdatedOn { get; set; }
+        public string CreatedByName { get; set; }
+        public DateTime UpdatedOn { get; set; }
 		public int UpdatedById { get; set; }
-	}
+        public string UpdatedByName { get; set; }
+    }
 }
