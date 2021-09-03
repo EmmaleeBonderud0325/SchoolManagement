@@ -42,9 +42,6 @@
                                   <button class="btn btn-icon icon-left btn-primary rounded-button" >
                                     <i class="material-icons">add</i>
                                   </button>
-                                  <!--<button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                    <i class="material-icons">delete</i>
-                                  </button>-->
                                 </div>
                               </div>
                             </div>
@@ -57,42 +54,50 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 				
+                
+                <!-- Student ID column -->
 				        <ngx-datatable-column name="Student Id" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.id}}
                     </ng-template>
                 </ngx-datatable-column>
 				
+                <!-- Admission no column -->
                 <ngx-datatable-column name="Admission no" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.admissionNo}}
                     </ng-template>
                 </ngx-datatable-column>
 
+                <!-- Contact no 1 column -->
                 <ngx-datatable-column name="Contact no1" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.emegencyContactNo1}}
                     </ng-template>
                 </ngx-datatable-column>
 
+                <!-- Contact no 2 column -->
                 <ngx-datatable-column name="Contact no2" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.emegencyContactNo2}}
                     </ng-template>
                   </ngx-datatable-column>
 
+                <!-- Gender column -->  
                 <ngx-datatable-column name="Gender" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.gender}}
                     </ng-template>
                   </ngx-datatable-column>
 
+                  <!-- Birth date column -->
                   <ngx-datatable-column name="Date of birth" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.dateOfBirth}}
                     </ng-template>
                   </ngx-datatable-column>
 
+                  <!-- Is active column -->
                   <ngx-datatable-column name="IsActive" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.isActive}}
