@@ -23,8 +23,9 @@ export const ROUTES: RouteInfo[] = [
     badge: '',
     badgeClass: '',
     submenu: [
+      //lesson
       {
-        path: '/teacher-home/lessons',
+        path: '/teacher-home/lesson',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
         moduleName: 'teacher-home',
         iconType: '',

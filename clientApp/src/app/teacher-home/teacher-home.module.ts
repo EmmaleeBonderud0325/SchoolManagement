@@ -10,16 +10,12 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LessonsComponent } from './lessons/lessons.component';
-import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { EssayAnswerDetailComponent } from './essay-answer-detail/essay-answer-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
-    LessonsComponent,
-    LessonDetailComponent,
     EssayAnswerListComponent,
     EssayAnswerDetailComponent,
   ],
