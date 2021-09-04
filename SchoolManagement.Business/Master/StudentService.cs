@@ -93,9 +93,9 @@ namespace SchoolManagement.Business.Master
 
                 if (student == null)
                 {
-                    /*var user = new User()
+                    //Add student as a user
+                    var user = new User()
                     {
-                        Id = vm.Id,
                         Username = vm.Email,
                         Email = vm.Email,
                         FullName = vm.FullName,
@@ -109,11 +109,40 @@ namespace SchoolManagement.Business.Master
                         ProfileImage = 0,
                         LastLoginDate = DateTime.UtcNow,
                         LoginSessionId = 0
-                    };*/
-                    
+                    };
+                    schoolDb.Users.Add(user);
+                    await schoolDb.SaveChangesAsync();
+
+                    //get inserted user id
+                    var insertedId = schoolDb.Users.Max(i => i.Id);
+
+                    //Add student role to UserRoles table
+                    var roleItems = schoolDb.Roles.Where(s => s.Name == "student");
+                    foreach (var item in roleItems)
+                    {
+                        var role = new Role()
+                        {
+                            Id = item.Id
+                        };
+
+                        var userRole = new UserRole()
+                        {
+                            UserId = insertedId,
+                            RoleId = role.Id,
+                            IsActive = true,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedOn = DateTime.UtcNow,
+                            CreatedById = loggedInUser.Id,
+                            UpdatedById = loggedInUser.Id
+                        };
+                        schoolDb.UserRoles.Add(userRole);
+                        await schoolDb.SaveChangesAsync();
+                    }
+
+                    //Add student to Student table
                     student = new Student()
                     {
-                        Id = vm.Id,
+                        Id = insertedId,
                         AdmissionNo = vm.AdmissionNo,
                         EmegencyContactNo1 = vm.EmegencyContactNo1,
                         EmegencyContactNo2 = vm.EmegencyContactNo2,
@@ -143,6 +172,12 @@ namespace SchoolManagement.Business.Master
                     student.DateOfBirth = vm.DateOfBirth;
 
                     schoolDb.Students.Update(student);
+                    await schoolDb.SaveChangesAsync();
+
+                    var user = schoolDb.Users.Find(student.Id);
+                    user.FullName = vm.FullName;
+                    
+
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.STUDENT_UPDATE_MESSAGE;

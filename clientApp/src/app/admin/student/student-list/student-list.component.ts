@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { StudentModel } from './../../../models/student/student.model'
 import { StudentService } from './../../../services/student/student.service'
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-student-list',
@@ -17,7 +18,7 @@ export class StudentListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveClassForm:FormGroup;
+  saveStudentForm:FormGroup;
   reorderable = true;
   user:StudentModel;
   
@@ -40,6 +41,49 @@ export class StudentListComponent implements OnInit {
         this.loadingIndicator=false;
     },error=>{
         this.loadingIndicator=false;
+    });
+  }
+
+  //create new user (Reactive Form)
+  addNewStudent(content) {
+
+    this.saveStudentForm = this.fb.group({
+      name: ['', [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+
+  }
+
+  deleteStudent(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Student?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+
+        this.studentService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
     });
   }
 
