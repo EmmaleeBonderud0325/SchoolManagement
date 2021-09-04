@@ -16,7 +16,12 @@
       "LIST": {
         "TEACHER_LESSONS": "My Lessons",
         "TEACHER_QUESTION": "Question",
-        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer"
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer",
+        "ESSAY_QUESTION_ANSWER_LIST":"Essay Question Answers",
+        "ESSAY_STUDENT_LIST":"Essay Student Answers",
+        "LESSON-ASSIGNMENT-SUBMISSION-LIST":"Lesson Assignment Submission",
+       "LESSON-ASSIGNMENT":"Lesson Assignment"
+      
       }
     },
     "ADMIN": {

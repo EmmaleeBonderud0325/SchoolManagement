@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { DatatableComponent } from "@swimlane/ngx-datatable";
+import { ToastrService } from "ngx-toastr";
+import Swal from "sweetalert2";
+import {LessonAssignmentService} from './../../../services/lesson-assignment/lesson-assignment.service';
+
 
 @Component({
   selector: 'app-lesson-assignment-list',
@@ -11,7 +14,7 @@ import { ToastrService } from 'ngx-toastr';
   providers: [ToastrService],
   
 })
-export class LessonAssignmentListComponent implements OnInit {
+export class LessonAssignmentListComponent implements OnInit{
 
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
   data = [];
@@ -23,6 +26,7 @@ export class LessonAssignmentListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
+    private LessonAssignmentService:LessonAssignmentService,
     private toastr: ToastrService
   ) { }
 
@@ -35,11 +39,74 @@ export class LessonAssignmentListComponent implements OnInit {
       });
   }
 
+  createNewLessonAssignment(content)
+      {
+        this.lessonAssignmentForm = this.fb.group({
+          id:['', [Validators.required]],
+          lesson:['', [Validators.required]],
+          name:['', [Validators.required]],
+          description:['', [Validators.required]],
+          isActive:['', [Validators.required]],
+          createdOn:['', [Validators.required]],
+          createdById:['', [Validators.required]],
+          updatedOn:['', [Validators.required]],
+          updatedById:['', [Validators.required]],
 
+        });
+    
+        this.modalService.open(content, {
+          ariaLabelledBy: 'modal-basic-title',
+          size: 'lg',
+        });
+      }
 
-getAll(){ }
+      getAll(){
+
+        this.loadingIndicator = true;
+
+        this.LessonAssignmentService .getAll().subscribe(response => {
+
+          this.data=response;
+          this.loadingIndicator = false;
+        }, error =>{
+
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured!, Please try again", "Error")
+        })
+
+       }
  
-      saveLessonAssignment(content){
+
+       //delete lessonAssignment
+deleteLessonAssignment(row) {
+  Swal.fire({
+    title: 'Are you sure Delete Lesson Assignment ?',
+    showCancelButton: true,
+    confirmButtonColor: 'red',
+    cancelButtonColor: 'green',
+    confirmButtonText: 'Yes',
+  }).then((result) => {
+    if (result.value) {
+
+      this.LessonAssignmentService.delete(row.id).subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+  
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+    }
+  });
+}
+      /* saveLessonAssignment(content){
         this.modalService.open(content, {
           ariaLabelledBy: 'modal-basic-title',
           size: 'lg',
@@ -67,5 +134,5 @@ getAll(){ }
      
       addRecordSuccess() {
         this.toastr.success('SUCCESS', '');
-      }
+      } */
     }

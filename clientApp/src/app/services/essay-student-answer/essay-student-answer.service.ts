@@ -22,4 +22,8 @@ export class EssayStudentAnswerService {
   post<ResponseModel>(environment.apiUrl + 'essay-student-answer/saveEssayStudentAnswer', essaystudentanswer);
     }​​​​​​​​
   
+    delete(QuestionId: number): Observable<ResponseModel> { 
+      return this.httpClient.
+       delete<ResponseModel>(environment.apiUrl + 'essay-student-answer' + QuestionId);
+      }
   }​​​​​​​​

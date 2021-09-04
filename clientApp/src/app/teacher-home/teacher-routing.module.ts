@@ -1,9 +1,6 @@
 import { QuestionListComponent } from './question/question-list/question-list.component';
 import { LessonsComponent } from './lessons/lessons.component';
-
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
-
-
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
@@ -50,6 +47,45 @@ const routes: Routes = [
     loadChildren:() =>
           import('./essay-answer/essay-answer.module').then((m)=>m.EssayAnswerModule)
   },
+
+  {
+    path: '',
+    redirectTo: 'essay-student-answer',
+    pathMatch: 'full',
+  },
+  {
+    path: 'essay-student-answer',
+    loadChildren:() =>
+          import('./essay-student-answer/essay-student-answer.module').then((m)=>m.EssayStudentAnswerModule)
+  },
+
+
+  {
+    path: '',
+    redirectTo: 'lesson-assignment',
+    pathMatch: 'full',
+  },
+  
+  {
+    path: 'lesson-assignment',
+    loadChildren:() =>
+          import('./lesson-assignment/lesson-assignment.module').then((m)=>m.LessonAssignmentModule)
+  }, 
+
+  
+  {
+    path: '',
+    redirectTo: 'lesson-assignment-submission',
+    pathMatch: 'full',
+  },
+  
+  {
+    path: 'lesson-assignment-submission',
+    loadChildren:() =>
+          import('./lesson-assignment-submission/lesson-assignment-submission.module').then((m)=>m.LessonAssignmentSubmissionModule)
+  }, 
+
+ 
 
 
 ];

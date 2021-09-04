@@ -1,4 +1,3 @@
-
 <section class="main-content">
     <ul class="breadcrumb breadcrumb-style ">
         <li class="breadcrumb-item">
@@ -21,7 +20,7 @@
                           <div class="col-lg-3 p-0">
                             <div class="ngxTableHeader">
                               <div class="table-title">
-                                <h2><strong>Lesson Assignment Submission</strong></h2>
+                                <h2><strong>Lesson Assignment Submission </strong></h2>
                               </div>
                             </div>
                           </div>
@@ -40,7 +39,7 @@
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewLessonAssignmentSubmission(addEditRecord)' >
                                     <i class="material-icons">add</i>
                                   </button>
                                   <button  class="btn btn-icon icon-left btn-danger rounded-button">
@@ -54,50 +53,50 @@
                       </div>
                     </div>
   
-  
-                                    <!--Table-->
-             <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                   <!--Table-->
+                <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
-        
-                <ngx-datatable-column name="LessonAssignmentId" [width]="100">
+                <!--Column 01-->
+                <ngx-datatable-column name="Id" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.lessonAssignmentId}}
+                    {{row.Id}}
                   </ng-template>
                 </ngx-datatable-column>
-        
+                     <!--Column 02-->
+                     <ngx-datatable-column name="LessonAssignmentId" [width]="100">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.lessonAssignmentId}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                         <!--Column 03-->
                 <ngx-datatable-column name="StudentId" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.studentId}}
                   </ng-template>
                 </ngx-datatable-column>
-
-                <ngx-datatable-column name="SubmissionPath" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.submissionPath}}
-                    </ng-template>
-                  </ngx-datatable-column>
-          
-                  <ngx-datatable-column name="SubmissionDate" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.submissionDate}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                  
-                <ngx-datatable-column name="Marks" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.marks}}
-                    </ng-template>
-                  </ngx-datatable-column>
-          
-                  <ngx-datatable-column name="TeacherComments" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.teacherComments}}
-                    </ng-template>
+                <!--Column 04-->
+                <ngx-datatable-column name="Submission Path" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.submissionPath}}
+                  </ng-template>
                 </ngx-datatable-column>
-                  
-        
-                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <!--Column 05-->
+                <ngx-datatable-column name="Submisson Date" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.submissionDate}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!--Column 06-->
+                <ngx-datatable-column name="Marks" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.marks}}
+                  </ng-template>
+                </ngx-datatable-column>
+               
+  
+                
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
                       <button class="btn btn-tbl-edit h-auto" >
@@ -112,7 +111,7 @@
               </ngx-datatable>
               
   
-                            <!-- Add Record Modal Window -->
+            <!-- Add Record Modal Window -->
             <ng-template #addEditRecord let-modal>
                 <div class="modal-header editRowModal">
                   <h4 class="modal-title" id="modal-basic-title">
@@ -127,106 +126,119 @@
                     <span aria-hidden="true"><i class="material-icons">close</i></span>
                   </button>
                 </div>
-                <div class="modal-body">
-                  <form class="register-form" [formGroup]="lessonAssignmentForm">
-                    <!-- <div class="input-field col s12 d-none">
-                      <input 
-                        formControlName="id" 
-                        class="form-control" 
-                        type="hidden">
-                    </div>
-                    <div class="input-field col s12 d-none">
-                      <input 
-                        formControlName="img" 
-                        class="form-control" 
-                        type="hidden">
-                    </div> -->
   
-                    <div class="row">
+                <!--Form-->
+                <div class="modal-body">
+                  <form class="register-form" [formGroup]="lessonAssignmentSubmissionForm">
+  
+                      <!--Row 01-->
+                      <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Lesson Assignment Submission<span class="text-danger">*</span></label>
+                        <label>Id<span class="text-danger">*</span></label>
                         <input 
                             type="text" 
                             class="form-control" 
-                            placeholder="Name" 
-                            formControlName="name"
+                            placeholder="Id" 
+                            formControlName="id"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('LessonId').touched"> Lesson  is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('id').touched"> Question is
                           required</small>
                       </div>
   
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <div class="form-group">
                           <label>Lesson Assignment<span class="text-danger">*</span></label>
-                          <select class="form-select form-control" formControlName="selectQuestionId">
-                            <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
-                          </select>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Lesson Assignment" 
+                            formControlName="lessonAssignment"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('lessonAssignment').valid && lessonAssignmentSubmissionForm.get('lessonAssignment').touched">Sequence  No is
+                          required</small>
                         </div>
-                      </div> 
+                      </div>  
                     </div>
+                    <!--Row 02-->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Student <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Student" 
+                          formControlName="student"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!lessonAssignmentSubmissionForm.get('studentr').valid && lessonAssignmentSubmissionForm.get('student').touched">Sequence  No is
+                        required</small>
+                      </div>
+                    </div> 
+                     <!--Row 03-->
+                     <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Submission Path<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Submission Path" 
+                            formControlName="submisionPath"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submisionPath').valid && lessonAssignmentSubmissionForm.get('submisionPath').touched"> Question is
+                          required</small>
+                      </div>
+  
+                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
+                          <label>Submission Date<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Submission Date" 
+                            formControlName="submissionDate"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submissionDate').valid && lessonAssignmentSubmissionForm.get('submissionDate').touched"> Question is
+                          required</small>
+                        </div>
+                      </div>  
+                    </div>
+
+                    <!--Row 04-->
                     <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Student<span class="text-danger">*</span></label>
-                        <select class="form-control" formControlName="descripstion" required>
-                          <option value="" selected disabled>Please select</option>
-                          <option *ngFor="let desig of designationType" [value]="desig.value">
-                            <!-- {{desig.value}} -->
-                          </option>
-                        </select>
-                      </div>                 
-                    </div>
-                    <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Submission Path<span class="text-danger">*</span></label>
-                          <input 
-                              type="text" 
-                              class="form-control" 
-                              placeholder="Name" 
-                              formControlName="name"
-                              required>
-                          <small class="form-text text-danger"
-                            *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('LessonId').touched"> Lesson  is
-                            required</small>
-                        </div>
-    
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <div class="form-group">
-                            <label>Submission Date<span class="text-danger">*</span></label>
-                            <select class="form-select form-control" formControlName="selectQuestionId">
-                              <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
-                            </select>
-                          </div>
-                        </div> 
+                        <label>Teacher Comments<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="TeacherComments" 
+                            formControlName="teacherComments"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Question is
+                          required</small>
                       </div>
-
-                      <div class="row">
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+  
+                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
                           <label>Marks<span class="text-danger">*</span></label>
-                          <input 
-                              type="text" 
-                              class="form-control" 
-                              placeholder="Name" 
-                              formControlName="name"
-                              required>
-                          <small class="form-text text-danger"
-                            *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('LessonId').touched"> Lesson  is
-                            required</small>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Marks" 
+                            formControlName="marks"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Question is
+                          required</small>
                         </div>
-    
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <div class="form-group">
-                            <label>Teacher Comments<span class="text-danger">*</span></label>
-                            <select class="form-select form-control" formControlName="selectQuestionId">
-                              <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
-                            </select>
-                          </div>
-                        </div> 
-                      </div>
-
-        
+                      </div>  
+                    </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerFrom.valid">ADD NEW MCQ ANSWER</button>
+                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                     </div>
                   </form>

@@ -14,7 +14,7 @@ export class LessonAssignmentService {
 
   getAll(): Observable<LessonAssignmentModel[]>{
     return this.httpClient.
-      get<LessonAssignmentModel[]>(environment.apiUrl + 'Class')
+      get<LessonAssignmentModel[]>(environment.apiUrl + 'lesson-assignment')
   }
 
   saveLessonAssignment(lessonassignment: LessonAssignmentModel): Observable<ResponseModel> {​​​​​​​​
@@ -24,7 +24,14 @@ export class LessonAssignmentService {
   //save(vm: LessonAssignmentModel): Observable<ResponseModel> {
     //return this.httpClient.
       //post<ResponseModel>(environment.apiUrl + 'class/saveClass', vm);
-  }
+  }  
+  
+    delete(Id: number): Observable<ResponseModel> { 
+    return this.httpClient.
+     delete<ResponseModel>(environment.apiUrl + 'lesson-assignment' + Id);
+     }
+
+
   
 }
 

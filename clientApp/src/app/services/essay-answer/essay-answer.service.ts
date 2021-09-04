@@ -24,5 +24,9 @@ return this.httpClient.
 post<ResponseModel>(environment.apiUrl + 'essay-answer/saveEssayQuestionAnswer', essayanswer);
   }​​​​​​​​
 
+delete(Id: number): Observable<ResponseModel> {
+   return this.httpClient. 
+   delete<ResponseModel>(environment.apiUrl + 'essay-answer/' + Id);
+   }
 }​​​​​​​​
 

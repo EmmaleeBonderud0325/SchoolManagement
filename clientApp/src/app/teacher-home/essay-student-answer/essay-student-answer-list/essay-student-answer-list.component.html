@@ -1,13 +1,13 @@
 <section class="main-content">
   <ul class="breadcrumb breadcrumb-style ">
       <li class="breadcrumb-item">
-        <h5 class="page-title m-b-0">Essay  Answer</h5>
+        <h5 class="page-title m-b-0">Essay Student Answer</h5>
       </li>
       <li class="breadcrumb-item bcrumb-1">
         <a routerLink="/dashboard/main">
           <i class="fas fa-home font-17"></i></a>
       </li>
-      <li class="breadcrumb-item"> Essay  Answer List</li>
+      <li class="breadcrumb-item"> Essay Student Answer List</li>
   </ul>
       <div class="section-body">
           <div class="row clearfix">
@@ -20,7 +20,7 @@
                         <div class="col-lg-3 p-0">
                           <div class="ngxTableHeader">
                             <div class="table-title">
-                              <h2><strong>Essay Answers</strong></h2>
+                              <h2><strong>Essay Student Answers</strong></h2>
                             </div>
                           </div>
                         </div>
@@ -39,7 +39,7 @@
                           <div class="ngxTableHeader">
                             <div class="header-buttons-left">
                               <div class="icon-button-demo buttons">
-                                <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewEssayStudentanswer(addEditRecord)' >
                                   <i class="material-icons">add</i>
                                 </button>
                                 <button  class="btn btn-icon icon-left btn-danger rounded-button">
@@ -53,29 +53,47 @@
                     </div>
                   </div>
 
-
-                                  <!--Table-->
-           <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                 <!--Table-->
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
               columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
               [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
-      
+              <!--Column 01-->
               <ngx-datatable-column name="QuestionId" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.questionId}}
                 </ng-template>
               </ngx-datatable-column>
-      
+                   <!--Column 02-->
+                   <ngx-datatable-column name="StudentId" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.studentId}}
+                    </ng-template>
+                  </ngx-datatable-column>
+                       <!--Column 03-->
+              <ngx-datatable-column name="EssayAnswerId" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.essayAnswerId}}
+                </ng-template>
+              </ngx-datatable-column>
+              <!--Column 04-->
               <ngx-datatable-column name="AnswerText" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.answerText}}
                 </ng-template>
-              </ngx-datatable-column>ng
-
-              <ngx-datatable-column name="SequenceNo" [width]="100">
+              </ngx-datatable-column>
+              <!--Column 05-->
+              <ngx-datatable-column name="TeacherComments" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.sequenceNo}}
+                  {{row.teacherComments}}
                 </ng-template>
               </ngx-datatable-column>
+              <!--Column 06-->
+              <ngx-datatable-column name="Marks" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.marks}}
+                </ng-template>
+              </ngx-datatable-column>
+             
 
               
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
@@ -93,14 +111,14 @@
             </ngx-datatable>
             
 
-                          <!-- Add Record Modal Window -->
+          <!-- Add Record Modal Window -->
           <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
                 <h4 class="modal-title" id="modal-basic-title">
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new Essay  Answer</div>
+                        Update Student Essay  Answer</div>
                     </div>
                   </div>
                 </h4>
@@ -108,57 +126,102 @@
                   <span aria-hidden="true"><i class="material-icons">close</i></span>
                 </button>
               </div>
-              <div class="modal-body">
-                <form class="register-form" [formGroup]="essayStudentAnswerFrom">
-                  <!-- <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="id" 
-                      class="form-control" 
-                      type="hidden">
-                  </div>
-                  <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="img" 
-                      class="form-control" 
-                      type="hidden">
-                  </div> -->
 
-                  <div class="row">
+              <!--Form-->
+              <div class="modal-body">
+                <form class="register-form" [formGroup]="essayStudentAnswerForm">
+
+                    <!--Row 01-->
+                    <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Question<span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Name" 
-                          formControlName="name"
+                          placeholder="Question" 
+                          formControlName="question"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerFrom.get('id').valid && essayStudentAnswerFrom.get('QuestionId').touched"> Question is
+                        *ngIf="!essayStudentAnswerForm.get('question').valid && essayStudentAnswerFormm.get('question').touched"> Question is
                         required</small>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label>Essay Answer<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="selectQuestionId">
-                          <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
-                        </select>
+                        <label>Student<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Student" 
+                          formControlName="student"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!essayStudentAnswerForm.get('student').valid && essayStudentAnswerFormm.get('sequenceno').touched">Sequence  No is
+                        required</small>
                       </div>
-                    </div> 
+                    </div>  
                   </div>
+                  <!--Row 02-->
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label>Essay Answer<span class="text-danger">*</span></label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        placeholder="EssayAnswer" 
+                        formControlName="essayAnswer"
+                        required>
+                    <small class="form-text text-danger"
+                      *ngIf="!essayStudentAnswerForm.get('essayAnswer').valid && essayStudentAnswerFormm.get('essayAnswer').touched">Sequence  No is
+                      required</small>
+                    </div>
+                  </div> 
+                 <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Answer Text <span class="text-danger">*</span></label>
+                      <input 
+                      type="textarea"  style="width:50vw" 
+                      class="form-control" 
+                      placeholder="Answer Text" 
+                      formControlName="answerText"
+                      required>
+                  <small class="form-text text-danger"
+                    *ngIf="!essayStudentAnswerForm.get('answerText').valid && essayStudentAnswerFormm.get('answerText').touched"> Question is
+                    required</small>
+                    </div>                 
+                  </div> 
+                  <!--Row 03-->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Sequence No <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="answerText" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">
-                          <!-- {{desig.value}} -->
-                        </option>
-                      </select>
-                    </div>                 
+                      <label>Teacher Comments<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="TeacherComments" 
+                          formControlName="teacherComments"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Question is
+                        required</small>
+                    </div>
+
+                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Marks<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Marks" 
+                          formControlName="marks"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Question is
+                        required</small>
+                      </div>
+                    </div>  
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerFrom.valid">ADD NEW MCQ ANSWER</button>
+                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

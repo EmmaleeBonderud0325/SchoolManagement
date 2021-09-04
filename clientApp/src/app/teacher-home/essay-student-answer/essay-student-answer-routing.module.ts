@@ -6,25 +6,19 @@ import { EssayStudentAnswerListComponent } from './essay-student-answer-list/ess
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'essay-Student-answer',
+    redirectTo: 'essay-student-answer',
     pathMatch: 'full',
   },
   {
-    path: 'essay-studeny-answer-list',
+    path: 'essay-student-answer',
     component: EssayStudentAnswerListComponent,
   },
-  //{
-   // path: 'mcq-question-answer-detail',
-   // component: McqQuestionAnswerDetailComponent,
- // },
+ 
 ];
-
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    RouterModule.forChild(routes)
-  ]
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
 })
 export class EssayStudentAnswerRoutingModule { }

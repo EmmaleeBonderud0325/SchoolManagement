@@ -12,11 +12,6 @@ import { NgxMaskModule } from 'ngx-mask';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArchwizardModule } from 'angular-archwizard';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-//import { EssayAnswerListComponent } from './essay-answer/essay-answer-list/essay-answer-list.component';
-
-
-//import { QuestionListComponent } from './question/question-list/question-list.component';
-//import { QuestionDetailComponent } from './question/question-detail/question-detail.component';
 
 
 @NgModule({

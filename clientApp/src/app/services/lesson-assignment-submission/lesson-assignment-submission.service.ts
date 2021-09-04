@@ -22,4 +22,9 @@ export class LessonAssignmentSubmissionService {
   post<ResponseModel>(environment.apiUrl + 'lessopn-assignment-submission/saveLessonAssignmentSubmission', lessonassignmentsubmission);
     }​​​​​​​​
   
+    
+    delete(Id: number): Observable<ResponseModel> { 
+      return this.httpClient.
+       delete<ResponseModel>(environment.apiUrl + 'lesson-assignment-submission' + Id); 
+      }
 }

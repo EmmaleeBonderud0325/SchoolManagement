@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EssayQuestionAnswerService} from './../../../services/essay-answer/essay-answer.service';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
-
 import { ToastrService } from 'ngx-toastr';
+import { DatatableComponent } from '@swimlane/ngx-datatable';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-essay-answer-list',
@@ -15,8 +15,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EssayAnswerListComponent implements OnInit {
   
-  @ViewChild(DatatableComponent, { static: false }) table: 
-    DatatableComponent;
+  @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
     data = [];
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
@@ -43,13 +42,11 @@ export class EssayAnswerListComponent implements OnInit {
       {
         this.essayAnswerForm = this.fb.group({
           question:['', [Validators.required]],
-          //:['', [Validators.required]],
-          /* topic:['', [Validators.required]],
           sequenceno:['', [Validators.required]],
-          marks:['', [Validators.required]],
-          questiontext:['', [Validators.required]],
-          questionlevel:['', [Validators.required]],
-          questiontype:['',[Validators.required]], */
+          answerText:['', [Validators.required]],
+          createdOn:['', [Validators.required]],
+          modifiedOn:['', [Validators.required]],
+
         });
     
         this.modalService.open(content, {
@@ -58,8 +55,22 @@ export class EssayAnswerListComponent implements OnInit {
         });
       }
 
-  getAll() {}
- 
+      getAll(){
+
+        this.loadingIndicator = true;
+
+        this.EssayQuestionAnswerService.getAll().subscribe(response => {
+
+          this.data=response;
+          this.loadingIndicator = false;
+        }, error =>{
+
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured!, Please try again", "Error")
+        })
+
+       }
+ //save essay answer
   saveEssayQuestionAnswer(content){
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
@@ -67,6 +78,7 @@ export class EssayAnswerListComponent implements OnInit {
     })
   }
  
+  //update
   editRow(row, rowIndex, content) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
@@ -82,10 +94,36 @@ export class EssayAnswerListComponent implements OnInit {
     this.addRecordSuccess();
   }
  
-  deleteSingleRow(row) {
- 
-  }
- 
+ //delete essayAnswer
+deletEssayAnswer(row) {
+  Swal.fire({
+    title: 'Are you sure Delete Essay Answer ?',
+    showCancelButton: true,
+    confirmButtonColor: 'red',
+    cancelButtonColor: 'green',
+    confirmButtonText: 'Yes',
+  }).then((result) => {
+    if (result.value) {
+
+      this.EssayQuestionAnswerService.delete(row.id).subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+  
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+    }
+  });
+}
+ //add a record
   addRecordSuccess() {
     this.toastr.success('SUCCESS', '');
   }

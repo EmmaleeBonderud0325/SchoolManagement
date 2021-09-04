@@ -36,9 +36,9 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/teacher-home/question-list',
-        title: 'MENUITEMS.HOME.LIST.QUESTION_LIST',
-        moduleName: 'question-list',
+        path: '/teacher-home/essay-student-answer',
+        title: 'MENUITEMS.HOME.LIST.ESSAY_STUDENT_LIST',
+        moduleName: 'essay-student-answer',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -50,7 +50,7 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/teacher-home/essay-answer',
         title: 'MENUITEMS.HOME.LIST.ESSAY_QUESTION_ANSWER_LIST',
-        moduleName: 'essay-answer-list',
+        moduleName: 'essay-answer',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -59,6 +59,7 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [],
       },
+    
 
       //question
       {
@@ -86,7 +87,35 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-      }
+      },
+
+
+      {
+        path: '/teacher-home/lesson-assignment-submission',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT-SUBMISSION-LIST',
+        moduleName: 'lesson-assignment-submission',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+
+      {
+        path: '/teacher-home/lesson-assignment',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT',
+        moduleName: 'lesson-assignment',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+   
     ],
   },
   {

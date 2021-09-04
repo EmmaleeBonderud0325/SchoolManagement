@@ -12,17 +12,14 @@ const routes: Routes = [
   {
     path: 'essay-answer',
     component:EssayAnswerListComponent,
+    
   },
-  //{
-   // path: 'mcq-question-answer-detail',
-   // component: McqQuestionAnswerDetailComponent,
- // },
+ 
 ];
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
     RouterModule.forChild(routes)
   ]
 })
