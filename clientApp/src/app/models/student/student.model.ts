@@ -9,8 +9,4 @@ export class StudentModel {
     gender:number;
     dateOfBirth:Date;
     isActive:boolean;
-    //fullName:string;
-    //email:string;
-    //password:string;
-    //address:string;
 }

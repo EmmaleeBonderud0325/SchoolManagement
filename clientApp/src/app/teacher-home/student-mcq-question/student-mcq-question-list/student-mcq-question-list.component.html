@@ -1,13 +1,13 @@
 <section class="main-content">
     <ul class="breadcrumb breadcrumb-style ">
       <li class="breadcrumb-item">
-        <h5 class="page-title m-b-0">Question</h5>
+        <h5 class="page-title m-b-0">Student MCQ Question</h5>
       </li>
       <li class="breadcrumb-item bcrumb-1">
         <a routerLink="/dashboard/main">
           <i class="fas fa-home font-17"></i></a>
       </li>
-      <li class="breadcrumb-item">Question List</li>
+      <li class="breadcrumb-item">Student MCQ Question List</li>
     </ul>
     <div class="section-body">
       <div class="row clearfix">
@@ -20,7 +20,7 @@
                     <div class="col-lg-3 p-0">
                       <div class="ngxTableHeader">
                         <div class="table-title">
-                          <h2><strong>Question Level</strong></h2>
+                          <h2><strong>Student MCQ Question Level</strong></h2>
                         </div>
                       </div>
                     </div>
@@ -40,7 +40,7 @@
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
                           <div class="icon-button-dleftemo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewQuestion(addEditRecord)' >
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createStudentMCQQuestion(addEditRecord)' >
                               <i class="material-icons">add</i>
                             </button>
                             <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -71,6 +71,9 @@
                 </div>
               </div>
   
+
+
+
               <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                   columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                   [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
@@ -83,89 +86,26 @@
                 </ngx-datatable-column>
   
                 <!--Lesson ID-->
-                <ngx-datatable-column name="LessonId" [width]="75">
+                <ngx-datatable-column name="StudentID" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.lessonId}}
+                    {{row.studentID}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Topic ID-->
-                <ngx-datatable-column name="TopicId" [width]="75">
+                <ngx-datatable-column name="TeacherComments" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.topicId}}
+                    {{row.teacherComments}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Sequence Number-->
-                <ngx-datatable-column name="SequenceNo" [width]="95">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.sequenceNo}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--Question Text-->
-                <ngx-datatable-column name="QuestionText" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.QuestionText}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--Question marks-->
                 <ngx-datatable-column name="Marks" [width]="95">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.marks}}
                   </ng-template>
                 </ngx-datatable-column>
-  
-                <!--Difficulty Level-->
-                <!-- <ngx-datatable-column name="DifficultyLevel" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.difficultyLevel}}
-                  </ng-template>
-                </ngx-datatable-column> -->
-  
-                <!--Question Type-->
-                <ngx-datatable-column name="QuestionType" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.questionType}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--IS Active-->
-               <!--  <ngx-datatable-column name="IsActive" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.isActive}}
-                  </ng-template>
-                </ngx-datatable-column> -->
-  
-                <!-- Create on date-->
-                <ngx-datatable-column name="CreateOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.createOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--Question Creator ID-->
-                <ngx-datatable-column name="CreatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.createdById}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--Question updated date-->
-                <ngx-datatable-column name="UpdateOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updateOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
-                <!--Question Updater ID-->
-                <ngx-datatable-column name="UpdatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updatedById}}
-                  </ng-template>
-                </ngx-datatable-column>
-  
+    
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
@@ -197,38 +137,42 @@
               </div>
 
 
-              <!-- New question add form-->
+
+
+              
               <!-- New question add form-->
               <div class="modal-body">
-                <form class="register-form" [formGroup]="QuestionForm" (ngSubmit)="onAddRowSave(QuestionForm)">
+                <form class="register-form" [formGroup]="StudentMCQQuestionForm" (ngSubmit)="onAddRowSave(StudentMCQQuestionForm)">
                   
                   <!-- this is a row one -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Lesson Name <span class="text-danger">*</span></label>
+                      <label> Question ID <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Lesson Name" 
-                          formControlName="lessonname"
+                          placeholder="Question ID" 
+                          formControlName="questionid"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('lessonname').valid && QuestionForm.get('lessonname').touched"> Lesson name is  required
+                        *ngIf="!StudentMCQQuestionForm.get('questionid').valid && StudentMCQQuestionForm.get('questionid').touched"> 
+                        Question ID is  required
                       </small>
                     </div>
   
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label> Topic <span class="text-danger">*</span></label>
+                        <label> Student ID <span class="text-danger">*</span></label>
                         <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Topic" 
-                          formControlName="topic"
+                          placeholder="Student ID" 
+                          formControlName="studentid"
                           required>
 
                         <small class="form-text text-danger"
-                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> Topic is  required
+                          *ngIf="!StudentMCQQuestionForm.get('studentid').valid && StudentMCQQuestionForm.get('studentid').touched"> 
+                          Student ID is  required
                         </small>
                       </div>
                     </div> 
@@ -237,15 +181,16 @@
                   <!-- this is a row two -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Sequence No <span class="text-danger">*</span></label>
+                      <label> Teacher Comments <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
-                          placeholder="Sequence No" 
-                          formControlName="sequenceno"
+                          placeholder="Teacher Comments" 
+                          formControlName="teachercomments"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('sequenceno').valid && QuestionForm.get('sequenceno').touched">Sequnce No is  required
+                        *ngIf="!StudentMCQQuestionForm.get('teachercomments').valid && StudentMCQQuestionForm.get('teachercomments').touched">
+                        Teacher comment is  required
                       </small>
                     </div>
   
@@ -260,43 +205,15 @@
                           required>
 
                         <small class="form-text text-danger"
-                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> Topic is  required
+                          *ngIf="!StudentMCQQuestionForm.get('marks').valid && StudentMCQQuestionForm.get('marks').touched"> 
+                          Marks is  required
                         </small>
                       </div>
                     </div> 
                   </div>
-
-                  <!-- this is a row three -->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
-                      <label> Question Text <span class="text-danger">*</span></label>
-                      <input 
-                          type="textarea" 
-                          class="form-control" 
-                          placeholder="Question Text" 
-                          formControlName="questiontext"
-                          style="width: 49vw"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('questiontext').valid && QuestionForm.get('questiontext').touched">Question Text is  required
-                      </small>
-                    </div>
-                  </div>
-
-                  <!-- this is a row five - radio button 02 -->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Question Type <span class="text-danger">*</span></label><br><br>
-                        <input type="radio" value="mcq" name="questiontype" required ngModel> MCQ <br>
-                        <input type="radio" value="essay" name="questiontype" ngModel> ESSAY
-                      <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('questiontype').valid && QuestionForm.get('questiontype').touched">
-                      </small>
-                    </div>
-                  </div>
   
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="saveQuestion()" [disabled]="!QuestionForm.valid">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="saveStudentMCQQuestion()" [disabled]="!StudentMCQQuestionForm.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
 

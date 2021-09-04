@@ -20,7 +20,6 @@ export class QuestionListComponent implements OnInit {
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
     reorderable = true;
-    //user:questionModel;
     questionForm: FormGroup;
 
     constructor(
