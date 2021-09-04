@@ -22,4 +22,8 @@ export class StudentMcqQuestionAnswerService {
       post<ResponseModel>(environment.apiUrl + 'studentmcqquestionanswer/saveStudentMcqQuestionAnswer', studentmcqquestionanswer);
   }
 
+  delete(classNameId: number): Observable <ResponseModel> { 
+    return this.httpClient. 
+      delete<ResponseModel>(environment.apiUrl + 'question/' + classNameId); }
+
 }

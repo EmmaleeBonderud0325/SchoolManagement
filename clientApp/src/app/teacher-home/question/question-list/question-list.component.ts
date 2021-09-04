@@ -1,3 +1,4 @@
+import  Swal  from 'sweetalert2';
 import { QuestionService } from './../../../services/question/question.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -52,7 +53,46 @@ export class QuestionListComponent implements OnInit {
         });
       }
 
-      getAll(){ }
+      //retrive method
+      getAll(){
+        this.loadingIndicator = true;
+        this.QuestionService.getAll().subscribe(response => {
+          this.data=response;
+          this.loadingIndicator = false;
+
+        }, error =>{
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured!, Please try again", "Error")
+        })
+       }
+
+      //delete class
+       deleteClass(row) {
+          Swal.fire({
+            title: 'Are you sure Delete Class ?',
+            showCancelButton: true,
+            confirmButtonColor: 'red',
+            cancelButtonColor: 'green',
+            confirmButtonText: 'Yes',
+          }).then((result) => {
+            if (result.value) {
+              this.QuestionService.delete(row.id).subscribe(response=>{
+              
+                if(response.isSuccess){
+                  this.toastr.success(response.message,"Success");
+                  this.getAll();
+                }
+                else{
+                  this.toastr.error(response.message,"Error");
+                }
+        
+            },error=>{
+                this.toastr.error("Network error has been occured. Please try again.","Error");
+              }); 
+            }
+          });
+        }
+
 
       //save Question button 
       saveQuestion()

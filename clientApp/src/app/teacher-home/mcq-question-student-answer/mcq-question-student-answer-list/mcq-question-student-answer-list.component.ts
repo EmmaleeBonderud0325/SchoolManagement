@@ -1,3 +1,4 @@
+import Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { McqQuestionStudentAnswerService } from './../../../services/mcq-question-student-answer/mcq-question-student-answer.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -33,7 +34,47 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
   }
-  getAll() {}
+
+  //retreve method
+  getAll(){
+    this.loadingIndicator = true;
+    this.McqQuestionStudentAnswerService.getAll().subscribe(response => {
+      this.data=response;
+      this.loadingIndicator = false;
+
+    }, error =>{
+      this.loadingIndicator = false;
+      this.toastr.error("Network error has been occured!, Please try again", "Error")
+    })
+   }
+
+   //delete class
+  deleteClass(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+        this.McqQuestionStudentAnswerService.delete(row.id).subscribe(response=>{
+        
+          if(response.isSuccess){
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else{
+            this.toastr.error(response.message,"Error");
+          }
+  
+      },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        }); 
+      }
+    });
+  }
+
 
 
   //add new mcq question student answerusing form

@@ -21,4 +21,10 @@ export class McqQuestionAnswerService {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'mcqquestionanswer/saveMcqQuestionAnswer', mcqquestionanswer);
   }
+
+  delete(classNameId: number): Observable <ResponseModel> { 
+    return this.httpClient. 
+      delete<ResponseModel>(environment.apiUrl + 'question/' + classNameId); 
+  }
+  
 }

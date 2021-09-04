@@ -23,6 +23,9 @@ export class QuestionService {
       post<ResponseModel>(environment.apiUrl + 'question/saveQuestion', question);
   }
   
+  delete(classNameId: number): Observable <ResponseModel> { 
+    return this.httpClient. 
+      delete<ResponseModel>(environment.apiUrl + 'question/' + classNameId); }
 }
 
 

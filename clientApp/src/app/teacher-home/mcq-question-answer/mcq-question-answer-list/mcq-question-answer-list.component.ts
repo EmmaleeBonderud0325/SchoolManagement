@@ -1,3 +1,4 @@
+import  Swal  from 'sweetalert2';
 import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -50,8 +51,45 @@ export class McqQuestionAnswerListComponent implements OnInit {
     });
   }
 
-  getAll() {}
+  //retrive method
+  getAll(){
+    this.loadingIndicator = true;
+    this.McqQuestionAnswerService.getAll().subscribe(response => {
+      this.data=response;
+      this.loadingIndicator = false;
 
+    }, error =>{
+      this.loadingIndicator = false;
+      this.toastr.error("Network error has been occured!, Please try again", "Error")
+    })
+   }
+
+  //delete method
+  deleteClass(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+        this.McqQuestionAnswerService.delete(row.id).subscribe(response=>{
+        
+          if(response.isSuccess){
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else{
+            this.toastr.error(response.message,"Error");
+          }
+  
+      },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        }); 
+      }
+    });
+  }
 
 
   //save MCQ Student Answer button 
