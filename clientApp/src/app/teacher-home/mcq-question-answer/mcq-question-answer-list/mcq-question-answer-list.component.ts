@@ -35,7 +35,21 @@ export class McqQuestionAnswerListComponent implements OnInit {
     this.getAll();
   }
 
-  //add new question using form
+  //retrive method
+  getAll(){
+    this.loadingIndicator = true;
+    this.McqQuestionAnswerService.getAll().subscribe(response => {
+      this.data=response;
+      this.loadingIndicator = false;
+
+    }, error =>{
+      this.loadingIndicator = false;
+      this.toastr.error("Network error has been occured!, Please try again", "Error")
+    })
+   }
+
+
+   //add new question using form
   createNewMcqQuestionAnswer(content)
   {
     this.McqQuestionAnswerForm = this.fb.group({
@@ -50,19 +64,6 @@ export class McqQuestionAnswerListComponent implements OnInit {
       size: 'lg',
     });
   }
-
-  //retrive method
-  getAll(){
-    this.loadingIndicator = true;
-    this.McqQuestionAnswerService.getAll().subscribe(response => {
-      this.data=response;
-      this.loadingIndicator = false;
-
-    }, error =>{
-      this.loadingIndicator = false;
-      this.toastr.error("Network error has been occured!, Please try again", "Error")
-    })
-   }
 
   //delete method
   deleteClass(row) {

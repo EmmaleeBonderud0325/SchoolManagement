@@ -34,41 +34,41 @@ export class QuestionListComponent implements OnInit {
       this.getAll();
       }
 
-      //add new question using form
-      createNewQuestion(content)
-      {
-        this.questionForm = this.fb.group({
-          lessonname:['', [Validators.required]],
-          topic:['', [Validators.required]],
-          sequenceno:['', [Validators.required]],
-          marks:['', [Validators.required]],
-          questiontext:['', [Validators.required]],
-          questionlevel:['', [Validators.required]],
-          questiontype:['',[Validators.required]],
-        });
+    //retrive method
+    getAll(){
+      this.loadingIndicator = true;
+      this.QuestionService.getAll().subscribe(response => {
+      this.data=response;
+      this.loadingIndicator = false;
+
+      }, error =>{
+        this.loadingIndicator = false;
+        this.toastr.error("Network error has been occured!, Please try again", "Error")
+       })
+    }
+
+    //add new question using form
+    createNewQuestion(content)
+    {
+      this.questionForm = this.fb.group({
+        lessonname:['', [Validators.required]],
+        topic:['', [Validators.required]],
+        sequenceno:['', [Validators.required]],
+        marks:['', [Validators.required]],
+        questiontext:['', [Validators.required]],
+        questionlevel:['', [Validators.required]],
+        questiontype:['',[Validators.required]],
+      });
     
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        });
-      }
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        size: 'lg',
+      });
+    }
 
-      //retrive method
-      getAll(){
-        this.loadingIndicator = true;
-        this.QuestionService.getAll().subscribe(response => {
-          this.data=response;
-          this.loadingIndicator = false;
-
-        }, error =>{
-          this.loadingIndicator = false;
-          this.toastr.error("Network error has been occured!, Please try again", "Error")
-        })
-       }
-
-      //delete class
-       deleteClass(row) {
-          Swal.fire({
+    //delete method
+    deleteClass(row) {
+       Swal.fire({
             title: 'Are you sure Delete Class ?',
             showCancelButton: true,
             confirmButtonColor: 'red',
@@ -91,7 +91,7 @@ export class QuestionListComponent implements OnInit {
               }); 
             }
           });
-        }
+      }
 
 
       //save Question button 

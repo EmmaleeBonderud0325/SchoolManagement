@@ -48,7 +48,24 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     })
    }
 
-   //delete class
+  //add new mcq question student answerusing form
+  createNewMcqStudentAnswer(content)
+  {
+    this.McqStudenAnswerForm = this.fb.group({
+      questionid:['', [Validators.required]],
+      studentid:['', [Validators.required]],
+      mcqanswerid:['', [Validators.required]],
+      answertext:['', [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
+  
+  //delete class
   deleteClass(row) {
     Swal.fire({
       title: 'Are you sure Delete Class ?',
@@ -74,25 +91,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
       }
     });
   }
-
-
-
-  //add new mcq question student answerusing form
-  createNewMcqStudentAnswer(content)
-  {
-    this.McqStudenAnswerForm = this.fb.group({
-      questionid:['', [Validators.required]],
-      studentid:['', [Validators.required]],
-      mcqanswerid:['', [Validators.required]],
-      answertext:['', [Validators.required]],
-    });
-
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
-
+  
 
   //save MCQ Student Answer button 
   saveMcqStudentAnswer()
