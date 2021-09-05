@@ -49,11 +49,37 @@ export class StudentListComponent implements OnInit {
 
     this.saveStudentForm = this.fb.group({
       name: ['', [Validators.required]],
+      admission: ['', [Validators.required]],
+      address: ['', [Validators.required]],
+      phone1: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
+    });
+  }
+
+  saveStudent(){   
+    
+    console.log(this.saveStudentForm.value);
+    
+    this.studentService.saveStudent(this.saveStudentForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
 
   }

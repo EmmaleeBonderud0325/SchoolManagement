@@ -55,10 +55,10 @@
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 				
                 
-                  <!-- Student ID column -->
-                  <ngx-datatable-column name="Student Id" [width]="100">
+                  <!-- Student name column -->
+                  <ngx-datatable-column name="Student name" [width]="100">
                       <ng-template let-row="row" ngx-datatable-cell-template>
-                        {{row.id}}
+                        {{row.fullName}}
                       </ng-template>
                   </ngx-datatable-column>
 				
@@ -97,10 +97,10 @@
                     </ng-template>
                   </ngx-datatable-column>
 
-                  <!-- Is active column -->
-                  <ngx-datatable-column name="IsActive" [width]="100">
+                  <!-- address column -->
+                  <ngx-datatable-column name="Address" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.isActive}}
+                      {{row.address}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -136,8 +136,9 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <form class="register-form" [formGroup]="studentForm">
-      
+                      <form class="register-form" [formGroup]="saveStudentForm">
+                        
+                        <!-- Form rows starts here -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <label>Student Name <span class="text-danger">*</span></label>
@@ -148,13 +149,54 @@
                                 formControlName="name"
                                 required>
                             <small class="form-text text-danger"
-                              *ngIf="!studentForm.get('name').valid && studentForm.get('name').touched"> Student name is
+                              *ngIf="!saveStudentForm.get('name').valid && saveStudentForm.get('name').touched"> Student name is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Admission number <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Admission number" 
+                                formControlName="admission"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('admission').valid && saveStudentForm.get('admission').touched"> Admission number is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Address <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Address" 
+                                formControlName="address"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('address').valid && saveStudentForm.get('address').touched"> Address is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Phone number <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Phone number" 
+                                formControlName="phone1"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('phone1').valid && saveStudentForm.get('phone1').touched"> Admission number is
                               required</small>
                           </div>
                         </div>
 
                         <div class="modal-footer">
-                          <button type="submit" class="btn btn-primary" [disabled]="!studentForm.valid">Submit</button>
+                          <button type="submit" class="btn btn-primary" (click)="saveStudent()" [disabled]="!saveStudentForm.valid">Submit</button>
                           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
                         </div>
                       </form>
