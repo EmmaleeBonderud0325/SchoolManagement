@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -73,12 +74,40 @@ export class SubjectListComponent implements OnInit {
     });
   }
   
-  deleteSingleRow(row) {
-  }
+ 
   
   addRecordSuccess() {
     this.toastr.success('Acedemic Level Add Successfully', '');
   }*/
+  deleteSubject(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Subject ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+
+      if (result.value) {
+
+        this.subjectService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
 
   
 }
