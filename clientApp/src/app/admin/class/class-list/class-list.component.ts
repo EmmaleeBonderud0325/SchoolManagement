@@ -119,10 +119,10 @@ export class ClassListComponent implements OnInit {
     addNewClass(content) {
 
       this.saveClassForm = this.fb.group({
-        name: ['', [Validators.required]],
         classNameId: [null, [Validators.required]],
         academicLevelId: [null, [Validators.required]],
         academicYearId: [null, [Validators.required]],
+        name: ['', [Validators.required]],
         classCategory: [null, [Validators.required]],
         languageStream: [null, [Validators.required]] 
       });
