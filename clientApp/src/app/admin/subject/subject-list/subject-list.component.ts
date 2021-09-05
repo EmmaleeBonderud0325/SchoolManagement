@@ -108,7 +108,5 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
-
-  
 }
 

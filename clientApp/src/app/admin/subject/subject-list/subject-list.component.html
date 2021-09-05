@@ -55,43 +55,49 @@
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
                 
-                
+                <!--Subject Name Column-->
                 <ngx-datatable-column name="Name" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.name}}
                   </ng-template>
                 </ngx-datatable-column>
-
+                
+                <!--Subject Code Column-->
                 <ngx-datatable-column name="Code" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectCode}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Category Column-->
                 <ngx-datatable-column name="Category" [width]="100">
                   <ng-template #p let-row="row" ngx-datatable-cell-template>
                      {{row.subjectCategoryName}}
                    </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Stream Column-->
                 <ngx-datatable-column name="Stream" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectStreamName}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Parent Column-->
                 <ngx-datatable-column name="Parent Subject" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.parentBasketSubjectName}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject CreatedOn Column-->
                 <ngx-datatable-column name="Created On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject UpdateOn Column-->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn | date}}
