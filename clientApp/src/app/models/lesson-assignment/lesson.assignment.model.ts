@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class LessonAssignmentModel{
     id:number;
     lessonId :number ;
+    lessonName :string ;
     name :string;
     description:string;
     startDate:Date;
@@ -11,8 +12,10 @@ export class LessonAssignmentModel{
     isActive :boolean;
     createdOn :Date;
     createdById: number;
+    createdByName: string;
     updatedOn : Date;
     updatedById :number;
+    updatedByName :string;
 }
 
        

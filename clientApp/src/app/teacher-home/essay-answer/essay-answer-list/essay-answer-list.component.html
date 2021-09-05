@@ -58,9 +58,9 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
                 <!--Column 01-->
-                <ngx-datatable-column name="QuestionId" [width]="100">
+                <ngx-datatable-column name="Question" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.questionId}}
+                    {{row.questionName}}
                   </ng-template>
                 </ngx-datatable-column>
                 <!--Column 02-->
@@ -165,7 +165,7 @@
                         formControlName="answerText"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!essayAnswerForm.get('question').valid && essayAnswerFormm.get('question').touched"> Question is
+                      *ngIf="!essayAnswerForm.get('answerText').valid && essayAnswerFormm.get('answerText').touched"> Answer Text is
                       required</small>
                       </div>                 
                     </div> 
@@ -180,7 +180,7 @@
                             formControlName="createdOn"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('createdOn').valid && essayAnswerFormm.get('createdOn').touched"> Question is
+                          *ngIf="!essayAnswerForm.get('createdOn').valid && essayAnswerFormm.get('createdOn').touched"> Created Date is
                           required</small>
                       </div>
   
@@ -194,13 +194,13 @@
                             formControlName="modifiedOn"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('modifiedOn').valid && essayAnswerFormm.get('modifiedOn').touched"> Question is
+                          *ngIf="!essayAnswerForm.get('modifiedOn').valid && essayAnswerFormm.get('modifiedOn').touched"> Nodified Date is
                           required</small>
                         </div>
                       </div>  
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayAnswerForm.valid">ADD NEW MCQ ANSWER</button>
+                      <button type="button" class="btn btn-primary" (click)="saveEssayQuestionAnswer()" [disabled]="!essayAnswerForm.valid">ADD NEW MCQ ANSWER</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                     </div>
                   </form>
