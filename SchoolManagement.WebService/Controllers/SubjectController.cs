@@ -50,7 +50,15 @@ namespace SchoolManagement.WebService.Controllers
         public ActionResult GetAllSubjectStreams()
         {
             var response = subjectService.GetAllSubjectStreams();
-            return Ok(response) ;
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllAcademicLevels")]
+        public IActionResult GetAllAcademicLevels()
+        {
+            var response = subjectService.GetAllAcademicLevels();
+            return Ok(response);
         }
     }
 }

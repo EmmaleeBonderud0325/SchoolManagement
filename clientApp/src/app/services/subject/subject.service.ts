@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -24,5 +25,15 @@ export class SubjectService {
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Subject/' + id);
+  }
+
+  getAllSubjectStreams():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectStreams');
+  }
+
+  getAllAcademicLevels(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllAcademicLevels');
   }
 }

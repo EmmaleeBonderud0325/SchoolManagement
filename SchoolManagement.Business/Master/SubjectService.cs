@@ -52,6 +52,8 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+       
+
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
@@ -99,15 +101,6 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        public List<DropDownViewModel> GetAllSubjectStreams()
-        {
-            var subjectStream = schoolDb.SubjectStreams
-                .Where(x => x.IsActive == true)
-                .Select(ss => new DropDownViewModel() { Id = ss.Id, Name = string.Format("{0}", ss.Name) })
-                .Distinct().ToList();
-
-            return subjectStream;
-        }
 
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {
@@ -184,6 +177,25 @@ namespace SchoolManagement.Business.Master
                 response.Message = ex.ToString();
             }
             return response;
+        }
+
+
+        public List<DropDownViewModel> GetAllSubjectStreams()
+        {
+            var subjectStream = schoolDb.SubjectStreams
+                .Where(x => x.IsActive == true)
+                .Select(ss => new DropDownViewModel() { Id = ss.Id, Name = string.Format("{0}", ss.Name) })
+                .Distinct().ToList();
+
+            return subjectStream;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            return schoolDb.AcademicLevels
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                .ToList();
         }
 
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)

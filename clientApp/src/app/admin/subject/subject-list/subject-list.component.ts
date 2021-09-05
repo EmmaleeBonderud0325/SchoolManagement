@@ -2,7 +2,7 @@ import { SubjectModel } from './../../../models/subject/subject.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { SubjectService} from './../../../services/subject/subject.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
@@ -22,9 +22,11 @@ export class SubjectListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveSubject:FormGroup;
+  subjectForm:FormGroup;
   reorderable = true;
   subject:SubjectModel;
+  subjectstreams:DropDownModel[] = [];
+  subjectAcademicLevels:DropDownModel[]=[]
   
 
   constructor(
@@ -35,6 +37,8 @@ export class SubjectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllSubjectStreams();
+    this.getAllAcademicLevels()
   }
 
   getAll()
@@ -49,15 +53,72 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
+
+  getAllSubjectStreams()
+  {
+    this.subjectService.getAllSubjectStreams()
+      .subscribe(response=>
+      { 
+        this.subjectstreams = response;
+        console.log(response);
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
+  }
+
+  getAllAcademicLevels()
+  {
+    this.subjectService.getAllAcademicLevels()
+     .subscribe(response=>{
+        this.subjectAcademicLevels= response;
+        console.log(response);
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
  
-  
-/*
-  addSubject(content) {
+  addNewSubject(content) {
+
+    this.subjectForm = this.fb.group({
+      name: ['', [Validators.required]],
+      subjectstreamId: [null, [Validators.required]],
+      subjectCode:['',[Validators.required]],
+      academicLevels:[null,[Validators.required]]
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
   }
+
+  saveSubject(){   
+    
+    console.log(this.subjectForm.value);
+    
+    this.subjectService.saveSubject(this.subjectForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
+  }
+  
+/*
+ 
   
   onAddRowSave(form: FormGroup) {
     this.data.push(form.value);

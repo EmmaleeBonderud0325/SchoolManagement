@@ -1,3 +1,4 @@
+import { CheckBoxModel } from './../common/check-box-model';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -16,5 +17,5 @@ export class SubjectModel{
     isActive:boolean;
     createdOn:Date;
     updatedOn:Date;
-    academicLevelName:string;
+    academicLevels:CheckBoxModel[];
 }
