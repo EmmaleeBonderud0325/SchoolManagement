@@ -99,7 +99,15 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-       
+        public List<DropDownViewModel> GetAllSubjectStreams()
+        {
+            var subjectStream = schoolDb.SubjectStreams
+                .Where(x => x.IsActive == true)
+                .Select(ss => new DropDownViewModel() { Id = ss.Id, Name = string.Format("{0}", ss.Name) })
+                .Distinct().ToList();
+
+            return subjectStream;
+        }
 
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {

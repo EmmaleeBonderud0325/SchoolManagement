@@ -16,7 +16,7 @@ export class SubjectService {
       get<SubjectModel[]>(environment.apiUrl + 'Subject');
   }
 
-  save(vm: SubjectModel): Observable<ResponseModel> {
+  saveSubject(vm: SubjectModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Subject', vm);
   }

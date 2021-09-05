@@ -44,5 +44,13 @@ namespace SchoolManagement.WebService.Controllers
             var response = await subjectService.DeleteSubject(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllSubjectStreams")]
+        public ActionResult GetAllSubjectStreams()
+        {
+            var response = subjectService.GetAllSubjectStreams();
+            return Ok(response);
+        }
     }
 }
