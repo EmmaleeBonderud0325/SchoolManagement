@@ -26,8 +26,8 @@ export class SubjectListComponent implements OnInit {
   reorderable = true;
   subject:SubjectModel;
   subjectstreams:DropDownModel[] = [];
-  subjectAcademicLevels:DropDownModel[]=[]
-  
+  subjectAcademicLevels:DropDownModel[]=[];
+  SubjectCategorys:DropDownModel[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -38,7 +38,8 @@ export class SubjectListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getAllSubjectStreams();
-    this.getAllAcademicLevels()
+    this.getAllAcademicLevels();
+    this.getAllSubjectCategorys();
   }
 
   getAll()
@@ -70,7 +71,18 @@ export class SubjectListComponent implements OnInit {
   {
     this.subjectService.getAllAcademicLevels()
      .subscribe(response=>{
-        this.subjectAcademicLevels= response;
+        this.subjectAcademicLevels = response;
+        console.log(response);
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+
+  getAllSubjectCategorys()
+  {
+    this.subjectService.getAllSubjectCategorys()
+     .subscribe(response=>{
+        this.SubjectCategorys = response;
         console.log(response);
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
@@ -82,8 +94,9 @@ export class SubjectListComponent implements OnInit {
     this.subjectForm = this.fb.group({
       name: ['', [Validators.required]],
       subjectstreamId: [null, [Validators.required]],
+      categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
-      academicLevels:[null,[Validators.required]]
+      academicLevels:[null,[Validators.required]],
     });
 
     this.modalService.open(content, {

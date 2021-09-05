@@ -197,6 +197,19 @@ namespace SchoolManagement.Business.Master
                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
                 .ToList();
         }
+       
+        public List<DropDownViewModel> GetAllSubjectCategorys()
+        {
+            var response = new List<DropDownViewModel>();
+            var subjectcategory = new DropDownViewModel() { Id = 1, Name = SubjectServiceConstants.SUBJECT_CATEGORY_PRIMARY_SCHOOL_SUBJECT };
+            response.Add(subjectcategory);
+            subjectcategory = new DropDownViewModel() { Id = 2, Name = SubjectServiceConstants.SUBJECT_CATEGORY_JUNIOR_SCHOOL_SUBJECT };
+            response.Add(subjectcategory);
+            subjectcategory = new DropDownViewModel() { Id = 3, Name = SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT };
+            response.Add(subjectcategory);
+
+            return response;
+        }
 
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
@@ -217,20 +230,18 @@ namespace SchoolManagement.Business.Master
         {
             if (((int)SubjectCategory) == 1)
                  {
-                    return "Primary School Subject";
+                    return SubjectServiceConstants.SUBJECT_CATEGORY_PRIMARY_SCHOOL_SUBJECT;
                  }
             else if (((int)SubjectCategory) == 2)
                 {
-                    return "Junior School Subject";
+                    return SubjectServiceConstants.SUBJECT_CATEGORY_JUNIOR_SCHOOL_SUBJECT;
                 }
             else 
                 {
-                    return "High School Subject";
-                }
+                    return SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT;
+            }
         }
-
-      
-    }
+     }
 }
                 
                  

@@ -15,6 +15,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         Task<ResponseViewModel> DeleteSubject(int id);
         List<DropDownViewModel> GetAllSubjectStreams();
         List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllSubjectCategorys();
 
     }
 }

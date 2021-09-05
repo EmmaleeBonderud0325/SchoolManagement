@@ -36,4 +36,9 @@ export class SubjectService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllAcademicLevels');
   }
+
+  getAllSubjectCategorys(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectCategorys');
+  }
 }
