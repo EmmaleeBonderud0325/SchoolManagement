@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 export class McqQuestionAnswerModel{
     id : number;
     questionId : number;
+    questionName : string;
     answerText : string;
     sequenceNo : number;
     isCorrectAnswer : boolean;

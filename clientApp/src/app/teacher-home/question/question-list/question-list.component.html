@@ -78,21 +78,21 @@
                 <!--Question ID-->
                 <ngx-datatable-column name="Id" [width]="50">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.id}}
+                    {{row.questionName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Lesson ID-->
                 <ngx-datatable-column name="LessonId" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.lessonId}}
+                    {{row.lessonName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Topic ID-->
                 <ngx-datatable-column name="TopicId" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.topicId}}
+                    {{row.topicName}}
                   </ng-template>
                 </ngx-datatable-column>
   
@@ -116,27 +116,13 @@
                     {{row.marks}}
                   </ng-template>
                 </ngx-datatable-column>
-  
-                <!--Difficulty Level-->
-                <!-- <ngx-datatable-column name="DifficultyLevel" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.difficultyLevel}}
-                  </ng-template>
-                </ngx-datatable-column> -->
-  
+   
                 <!--Question Type-->
                 <ngx-datatable-column name="QuestionType" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.questionType}}
                   </ng-template>
                 </ngx-datatable-column>
-  
-                <!--IS Active-->
-               <!--  <ngx-datatable-column name="IsActive" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.isActive}}
-                  </ng-template>
-                </ngx-datatable-column> -->
   
                 <!-- Create on date-->
                 <ngx-datatable-column name="CreateOn" [width]="100">
@@ -196,8 +182,6 @@
                 </button>
               </div>
 
-
-              <!-- New question add form-->
               <!-- New question add form-->
               <div class="modal-body">
                 <form class="register-form" [formGroup]="QuestionForm" (ngSubmit)="onAddRowSave(QuestionForm)">
@@ -213,7 +197,8 @@
                           formControlName="lessonname"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('lessonname').valid && QuestionForm.get('lessonname').touched"> Lesson name is  required
+                        *ngIf="!QuestionForm.get('lessonname').valid && QuestionForm.get('lessonname').touched"> 
+                        Lesson name is  required
                       </small>
                     </div>
   
@@ -228,7 +213,8 @@
                           required>
 
                         <small class="form-text text-danger"
-                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> Topic is  required
+                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> 
+                          Topic is  required
                         </small>
                       </div>
                     </div> 
@@ -245,7 +231,8 @@
                           formControlName="sequenceno"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!QuestionForm.get('sequenceno').valid && QuestionForm.get('sequenceno').touched">Sequnce No is  required
+                        *ngIf="!QuestionForm.get('sequenceno').valid && QuestionForm.get('sequenceno').touched">
+                        Sequnce No is  required
                       </small>
                     </div>
   
@@ -260,7 +247,8 @@
                           required>
 
                         <small class="form-text text-danger"
-                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> Topic is  required
+                          *ngIf="!QuestionForm.get('topic').valid && QuestionForm.get('topic').touched"> 
+                          Topic is  required
                         </small>
                       </div>
                     </div> 

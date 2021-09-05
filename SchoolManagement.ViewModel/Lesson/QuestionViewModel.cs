@@ -14,8 +14,11 @@ namespace SchoolManagement.ViewModel.Lesson
             DifficultyLevel = new List<string>();
         }
         public int Id { get; set; }
+        public string questionName { get; set; }
         public int LessonId { get; set; }
+        public string LessonName { get; set; }
         public int? TopicId { get; set; }
+        public string TopicName { get; set; }
         public int SequenceNo { get; set; }
         public string QuestionText { get; set; }
         public decimal Marks { get; set; }
