@@ -1,13 +1,13 @@
 <section class="main-content">
   <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
-      <h5 class="page-title m-b-0">Admin</h5>
+      <h5 class="page-title m-b-0">MCQ Question Answer</h5>
     </li>
     <li class="breadcrumb-item bcrumb-1">
       <a routerLink="/dashboard/main">
         <i class="fas fa-home font-17"></i></a>
     </li>
-    <li class="breadcrumb-item">Question List</li>
+    <li class="breadcrumb-item">MCQ Question Answer List</li>
   </ul>
   <div class="section-body">
     <div class="row clearfix">
@@ -20,7 +20,7 @@
                   <div class="col-lg-3 p-0">
                     <div class="ngxTableHeader">
                       <div class="table-title">
-                        <h2><strong>Question Level</strong></h2>
+                        <h2><strong>MCQ Question Answer Level</strong></h2>
                       </div>
                     </div>
                   </div>
@@ -39,7 +39,7 @@
                     <div class="ngxTableHeader">
                       <div class="header-buttons-left">
                         <div class="icon-button-demo buttons">
-                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='(addEditRecord)' >
+                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewMcqQuestionAnswer(addEditRecord)' >
                             <i class="material-icons">add</i>
                           </button>
                           <button  class="btn btn-icon icon-left btn-danger rounded-button"
@@ -58,81 +58,52 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+              <!-- Answer Id -->
               <ngx-datatable-column name="Id" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.id}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="LessonId">
+              <!-- Question Id -->
+              <ngx-datatable-column name="QuestionId">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.lessonId}}
+                  {{row.questionId}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="TopicId">
+              <!-- Answer Text -->
+              <ngx-datatable-column name="AnswerText">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.topicId}}
+                  {{row.answerText}}
                 </ng-template>
               </ngx-datatable-column>
 
+              <!-- Sequence No -->
               <ngx-datatable-column name="SequenceNo">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.sequenceNo}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="QuestionText">
+              <!-- Is Correct Answer -->
+              <ngx-datatable-column name="IsCorrectAnswer">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.QuestionText}}
+                  {{row.isCorrectAnswer}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="Marks">
+              <!-- Modified Date -->
+              <ngx-datatable-column name="ModifiedDate">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.marks}}
+                  {{row.modifiedDate}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column name="DifficultyLevel">
+              <!-- Created On -->
+              <ngx-datatable-column name="CreatedOn">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.difficultyLevel}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="QuestionType">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.questionType}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="IsActive">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.isActive}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="CreateOn">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createOn | date}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="CreatedById">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdById}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="UpdateOn">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.updateOn | date}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column name="UpdatedById">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.updatedById}}
+                  {{row.createdOn}}
                 </ng-template>
               </ngx-datatable-column>
 
@@ -157,7 +128,7 @@
                 <div class="table-modal-header">
                   <div class="modal-about">
                     <div class="fw-bold p-t-10 font-17">
-                      Add new Essay Question Answer</div>
+                      Add new MCQ Question Answer</div>
                   </div>
                 </div>
               </h4>
@@ -165,62 +136,46 @@
                 <span aria-hidden="true"><i class="material-icons">close</i></span>
               </button>
             </div>
-            <div class="modal-body">
-              <form class="register-form" [formGroup]="QuestionForm">
-                <!-- <div class="input-field col s12 d-none">
-                  <input 
-                    formControlName="id" 
-                    class="form-control" 
-                    type="hidden">
-                </div>
-                <div class="input-field col s12 d-none">
-                  <input 
-                    formControlName="img" 
-                    class="form-control" 
-                    type="hidden">
-                </div> -->
 
+
+
+
+            <div class="modal-body">
+              <form class="register-form" [formGroup]="McqQuestionAnswerForm" (ngSubmit)="onAddRowSave(McqQuestionAnswerForm)">
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <label>Mark <span class="text-danger">*</span></label>
+                    <label> AnswerID <span class="text-danger">*</span></label>
                     <input 
-                        type="text" 
+                        type="id" 
                         class="form-control" 
-                        placeholder="Name" 
-                        formControlName="name"
+                        placeholder="Answer id" 
+                        formControlName="answerid"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!QuestionForm.get('Mark').valid && QuestionForm.get('Mark').touched"> Question required</small>
+                      *ngIf="!McqQuestionAnswerForm.get('AnswerID').valid && McqQuestionAnswerForm.get('AnswerID').touched"> Answer ID required</small>
                   </div>
 
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <div class="form-group">
-                      <label>QuestionText<span class="text-danger">*</span></label>
-                      <select class="form-select form-control" formControlName="selectQuestionId">
+                      <label> AnswerText <span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="selectanswerid">
                         <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
                       </select>
                     </div>
                   </div> 
                 </div>
 
-                <!--<div class="row">
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <label>Answer Text <span class="text-danger">*</span></label>
-                    <select class="form-control" formControlName="answerText" required>
-                      <option value="" selected disabled>Please select</option>
-                      <option *ngFor="let desig of designationType" [value]="desig.value">
-                         {{desig.value}} 
-                      </option>
-                    </select>
-                  </div>                 
-                </div> -->
+                
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!QuestionForm.valid">Save</button>
+                  <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!McqQuestionAnswerForm.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
               </form>
             </div>
+
+
+  
           </ng-template>
           </div>
         </div>

@@ -34,6 +34,34 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+      },
+
+      //question
+      {
+        path: '/teacher-home/question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_QUESTION',
+        moduleName: 'question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+
+      // mcq-question-answer
+      {
+        path: '/teacher-home/mcq-question-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_ANSWER',
+        moduleName: 'mcq-question-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
       }
     ],
   },
@@ -85,6 +113,18 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
+        path: '/admin/class-name',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS-NAME',
+        moduleName: 'class-name',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },
+      {
         path: '/admin/class',
         title: 'MENUITEMS.ADMIN.LIST.CLASS',
         moduleName: 'class',
@@ -97,9 +137,9 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
       },
       {
-        path: '/admin/class-name',
-        title: 'MENUITEMS.ADMIN.LIST.CLASS-NAME',
-        moduleName: 'class-name',
+        path: '/admin/class-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS-TEACHER',
+        moduleName: 'class-teacher',
         iconType: '',
         icon: '',
         class: 'ml-menu',

@@ -1,4 +1,3 @@
-import { logging } from 'protractor';
 import { AcademicLevelModel } from './../../../models/academic-level/acdemic.level.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { AcademicLevelService } from './../../../services/academic-level/academic-level.service';
@@ -33,30 +32,25 @@ export class AcademicLevelListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-
-    /* this.academicLevelFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      selectlevelHeadId: [null, [Validators.required]],
-    }); */
     this.getAll();
     this.getAllLevelHeads();
   }
   
-  getAllLevelHeads(){
-      this.academicLevelService.getAllLevelHeads()
-        .subscribe(response=>{
-
-          console.log(response);
-          
-          this.levelHeads = response;
-        },error=>{
-
-        });
+  getAllLevelHeads()
+  {
+    this.academicLevelService.getAllLevelHeads()
+      .subscribe(response=>
+      { 
+        this.levelHeads = response;
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
   getAll()
   {
     this.loadingIndicator=true;
-    this.academicLevelService.getAll().subscribe(response=>
+    this.academicLevelService.getAll()
+    .subscribe(response=>
     {
         this.data= response;
         this.loadingIndicator=false;
@@ -85,7 +79,8 @@ export class AcademicLevelListComponent implements OnInit {
     
     console.log(this.academicLevelFrom.value);
     
-    this.academicLevelService.saveAcademicLevel(this.academicLevelFrom.value).subscribe(response=>{
+    this.academicLevelService.saveAcademicLevel(this.academicLevelFrom.value)
+    .subscribe(response=>{
 
         if(response.isSuccess)
         {
@@ -127,9 +122,39 @@ export class AcademicLevelListComponent implements OnInit {
     });
   }
 
-    deleteSingleRow(row) {
+  //deleteAcademic Level
+  deleteAcademicLevel(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Academic level ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
 
-    }
+      if (result.value) {
+
+        this.academicLevelService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
+  
+
+  
 
     addRecordSuccess() {
       this.toastr.success('Acedemic Level Add Successfully', '');

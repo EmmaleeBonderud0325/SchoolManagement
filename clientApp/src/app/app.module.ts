@@ -1,3 +1,4 @@
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
@@ -37,6 +38,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './core/guard/auth.guard';
 
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false,
@@ -64,6 +66,7 @@ export function createTranslateLoader(http: HttpClient): any {
     HttpClientModule,
     ReactiveFormsModule,
     PerfectScrollbarModule,
+    NgxDatatableModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
