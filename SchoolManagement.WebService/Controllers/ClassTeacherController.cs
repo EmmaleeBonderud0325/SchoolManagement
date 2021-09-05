@@ -31,10 +31,10 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ClassTeacherViewModel vm)
+        public async Task<ActionResult> Post([FromBody] ClassTeacherViewModel classTeacherVM)
         {
             var userName = identityService.GetUserName();
-            var response = await classTeacherService.SavaClassTeacher(vm, userName);
+            var response = await classTeacherService.SavaClassTeacher(classTeacherVM, userName);
             return Ok(response);
         }
 

@@ -3,10 +3,10 @@ import { DropDownModel } from './../../../models/common/drop-down.model';
 import { ToastrService } from 'ngx-toastr';
 import { ClassService } from './../../../services/class/class.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import Swal from 'sweetalert2';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-class-list',
@@ -42,7 +42,7 @@ export class ClassListComponent implements OnInit {
       this.getAllAcademicLevels();
       this.getAllAcademicYears();
       this.getAllClassCategories();
-      this.getAllLanguageStreams();
+      this.getAllLanguageStreams(); 
     }
 
     getAllClassNames()
@@ -51,6 +51,8 @@ export class ClassListComponent implements OnInit {
           .subscribe(response=>
           { 
             this.classNames = response;
+            console.log(response);
+            
           },error=>{
             this.toastr.error("Network error has been occured. Please try again.","Error");
            });
@@ -98,7 +100,7 @@ export class ClassListComponent implements OnInit {
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });
-  }
+  } 
   
   getAll()
   {
@@ -122,7 +124,7 @@ export class ClassListComponent implements OnInit {
         academicLevelId: [null, [Validators.required]],
         academicYearId: [null, [Validators.required]],
         classCategory: [null, [Validators.required]],
-        languageStream: [null, [Validators.required]],
+        languageStream: [null, [Validators.required]] 
       });
   
       this.modalService.open(content, {
@@ -190,7 +192,7 @@ deleteClass(row) {
     }).then((result) => {
       if (result.value) {
 
-        this.classService.delete(row.id).subscribe(response=>{
+        this.classService.delete(row.classNameId).subscribe(response=>{
 
           if(response.isSuccess)
           {

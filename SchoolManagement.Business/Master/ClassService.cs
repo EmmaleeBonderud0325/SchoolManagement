@@ -71,7 +71,7 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var currentuser = currentUserService.GetUserByUsername(userName);
 
                 var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
 
@@ -115,7 +115,7 @@ namespace SchoolManagement.Business.Master
             catch(Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error has been occured while saving the acdemic level.";
+                response.Message = "Error has been occured while saving the Class.";
             }
 
             return response;
@@ -178,14 +178,14 @@ namespace SchoolManagement.Business.Master
         {
             return schoolDb.Classes.Where(x => x.ClassCategory != null)
                                    .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Name) })
-                                   .ToList();
+                                   .Distinct().ToList();
         }
 
         public List<DropDownViewModel> GetAllLanguageStreams()
         {
             return schoolDb.Classes.Where(x => x.LanguageStream != null)
-                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = string.Format("{0}", ls.Name ) })
-                                   .ToList();
+                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = string.Format("{0}", ls.Name) })
+                                   .Distinct().ToList();
         }
     }
 }

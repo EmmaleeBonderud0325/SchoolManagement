@@ -30,14 +30,10 @@ export class ClassNameListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.saveClassNameForm = this.fb.group({
-      Name:['', Validators.required],
-      Description:['', Validators.required],
-      isActive: ['', [Validators.required]],
-    });
     this.getAll();
   }
 
+  //Retrive class name details
   getAll(){
     this.loadingIndicator=true;
     this.classnameService.getAll().subscribe(response=>
@@ -49,7 +45,7 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
-  //create new user (Reactive Form)
+  //create new class name (Reactive Form)
   addNewClassName(content) {
 
     this.saveClassNameForm = this.fb.group({
@@ -64,6 +60,7 @@ export class ClassNameListComponent implements OnInit {
 
   }
 
+  //Save created class name
   saveClassName(){   
     
     console.log(this.saveClassNameForm.value);
@@ -96,6 +93,7 @@ export class ClassNameListComponent implements OnInit {
     this.addRecordSuccess();
   }
 
+  //Update class name
   editRow(row:classnameModel, rowIndex:number, content:any) {
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
@@ -109,7 +107,7 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
-  //deleteAcademic Level
+  //delete class name
   deleteClassName(row) {
     Swal.fire({
       title: 'Are you sure Delete Class Name ?',
@@ -139,6 +137,7 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
+  //Success save message
   addRecordSuccess() {
     this.toastr.success('ClassName Add Successfully', '');
   }

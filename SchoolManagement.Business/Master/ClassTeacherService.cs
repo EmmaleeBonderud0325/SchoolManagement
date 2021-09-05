@@ -71,9 +71,9 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var classTeacher = schoolDb.ClassTeachers.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
+                var classTeacher = schoolDb.ClassTeachers.FirstOrDefault(ct => ct.ClassNameId == vm.ClassNameId);
 
                 if (classTeacher == null)
                 {
@@ -86,9 +86,9 @@ namespace SchoolManagement.Business.Master
                         IsPrimary = true,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
+                        UpdatedById = currentuser.Id,
                     };
 
                     schoolDb.ClassTeachers.Add(classTeacher);
@@ -150,9 +150,8 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllClassNames()
         {
-            var classNames = schoolDb.ClassNames
-                .Where(x => x.IsActive == true)
-                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
+            var classNames = schoolDb.Classes
+                .Select(cn => new DropDownViewModel() { Id = cn.ClassNameId, Name = string.Format("{0}", cn.Name) })
                 .Distinct().ToList();
 
             return classNames;
@@ -160,9 +159,8 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllAcademicLevels()
         {
-            var academicLevels = schoolDb.AcademicLevels
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = string.Format("{0}", al.Name) })
+            var academicLevels = schoolDb.Classes
+                .Select(al => new DropDownViewModel() { Id = al.AcademicLevelId, Name = string.Format("{0}", al.AcademicLevel.Name) })
                 .Distinct().ToList();
 
             return academicLevels;
@@ -170,9 +168,8 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllAcademicYears()
         {
-            var academicYears = schoolDb.AcademicYears
-                .Where(x => x.IsActive == true)
-                .Select(ay => new DropDownViewModel() { Id = ay.Id })
+            var academicYears = schoolDb.Classes
+                .Select(ay => new DropDownViewModel() { Id = ay.AcademicYearId })
                 .Distinct().ToList();
 
             return academicYears;
