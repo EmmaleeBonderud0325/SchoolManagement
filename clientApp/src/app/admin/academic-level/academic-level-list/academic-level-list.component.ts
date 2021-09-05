@@ -117,7 +117,7 @@ export class AcademicLevelListComponent implements OnInit {
     this.academicLevelFrom = this.fb.group({
       id:[row.id],
       name: [row.name, [Validators.required]],
-      levelHeadId: [row.levelHeadId, [Validators.required]],
+      levelHeadId: [row.levelHeadName, [Validators.required]],
     });
 
     this.modalService.open(content, {
