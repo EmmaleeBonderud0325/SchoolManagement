@@ -96,7 +96,7 @@
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
-              <!-- Add Record Modal Window -->
+               Add Record Modal Window 
             <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
                 <h4 class="modal-title" id="modal-basic-title">
@@ -113,7 +113,7 @@
               </div>
               <div class="modal-body">
                 <form class="register-form" [formGroup]="essayQuestionAnswerFrom">
-                  <!-- <div class="input-field col s12 d-none">
+                   <div class="input-field col s12 d-none">
                     <input 
                       formControlName="id" 
                       class="form-control" 
@@ -124,7 +124,7 @@
                       formControlName="img" 
                       class="form-control" 
                       type="hidden">
-                  </div> -->
+                  </div> 
 
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -155,7 +155,7 @@
                       <select class="form-control" formControlName="answerText" required>
                         <option value="" selected disabled>Please select</option>
                         <option *ngFor="let desig of designationType" [value]="desig.value">
-                          <!-- {{desig.value}} -->
+                           {{desig.value}} 
                         </option>
                       </select>
                     </div>                 
