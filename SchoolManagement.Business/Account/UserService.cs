@@ -97,9 +97,9 @@ namespace SchoolManagement.Business
                     Address = user.Address,
                     Email = user.Email,
                     MobileNo = user.MobileNo,
-                    CreatedByName = user.CreatedBy.FullName,
+                    CreatedByName = user.CreatedById.HasValue? user.CreatedBy.FullName:string.Empty,
                     CreatedOn = user.CreatedOn,
-                    UpdatedByName = user.UpdatedBy.FullName,
+                    UpdatedByName = user.UpdatedById.HasValue? user.UpdatedBy.FullName:string.Empty,
                     UpdatedOn = user.UpdatedOn,
 
                 };

@@ -1,3 +1,4 @@
+import { User } from './../../core/models/user';
 import { Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -31,6 +32,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
   headerHeight = 60;
   routerObj = null;
   currentRoute: string;
+  currentUser:User;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -49,6 +52,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
         this.renderer.removeClass(this.document.body, 'overlay-open');
         this.sidebbarClose();
       }
+
+      this.currentUser = this.authService.currentUserValue;
     });
   }
   @HostListener('window:resize', ['$event'])
@@ -93,7 +98,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     if (this.authService.currentUserValue) {
-      this.sidebarItems = ROUTES.filter((sidebarItem) => sidebarItem);
+      this.sidebarItems = ROUTES.filter((sidebarItem) => 
+      {
+        if(sidebarItem.title=="MENUITEMS.ADMIN.TEXT")
+        {
+          sidebarItem.isVisible=this.isUseRoleExsits("Admin") || this.isUseRoleExsits("SuperAdmin");
+
+        }
+
+        return sidebarItem
+      });
     }
     this.initLeftSidebar();
     this.bodyTag = this.document.body;
@@ -142,5 +156,18 @@ export class SidebarComponent implements OnInit, OnDestroy {
     if (window.innerWidth < 1025) {
       this.renderer.addClass(this.document.body, 'sidebar-gone');
     }
+  }
+
+  isUseRoleExsits(role:string):boolean
+  {
+    for (let index = 0; index < this.currentUser.roles.length; index++) {
+      if(this.currentUser.roles[index]==role)
+      {
+        return true;
+      }
+      
+    }
+
+    return false;
   }
 }

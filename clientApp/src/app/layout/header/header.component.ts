@@ -149,6 +149,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     }
   }
+
+  //toggle Right Siderbar
   public toggleRightSidebar(): void {
     this.rightSidebarService.sidebarState.subscribe((isRunning) => {
       this.isOpenSidebar = isRunning;
@@ -158,6 +160,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       (this.isOpenSidebar = !this.isOpenSidebar)
     );
   }
+
+  //logout and Routing signin page
   logout() {
     this.authService.logout().subscribe((res) => {
       if (!res.success) {
