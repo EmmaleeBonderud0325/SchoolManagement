@@ -1,10 +1,11 @@
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { DatatableComponent, id } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { LessonModel } from 'src/app/models/lesson/lesson.model';
+import { LessonFilterModel } from 'src/app/models/lesson/lesson.filter.model';
 import Swal from 'sweetalert2';
 import { LessonService } from './../../../services/lesson/lesson.service';
 
@@ -21,8 +22,11 @@ export class LessonListComponent implements OnInit {
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   lessonForm:FormGroup;
+  lessonFilterForm:FormGroup;
   lesson:LessonModel;
+  lessonFilter:LessonFilterModel;
   reorderable = true;
+ 
 
   constructor(
     private fb:FormBuilder,
@@ -32,7 +36,7 @@ export class LessonListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllLesson();
-    this.delete(row);
+    this.lessonFilterForm = this.createLessonFilterForm();
    
   }
    //add new lesson using form
@@ -63,10 +67,16 @@ export class LessonListComponent implements OnInit {
          
       
     }
-  
-   
 
   }
+
+  createLessonFilterForm() : FormGroup{
+
+    return new FormGroup({
+      selectedAcademicLevelId:new FormControl(0),
+    });
+  }
+
   delete(row){
     
       Swal.fire({
@@ -76,26 +86,27 @@ export class LessonListComponent implements OnInit {
       cancelButtonColor: 'green',
       confirmButtonText: 'Yes',
        }).then((result) => {
-      if (result.value) {
-      this.lessonService.delete(row.id).subscribe(response=>{
-      if(response.isSuccess)
-       {
-      this.toastr.success(response.message,"Success");
-      this.getAllLesson();
-       }
-      else
-       {
-      this.toastr.error(response.message,"Error");
-       }
-       
-       },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
-       }
-       });
-       
 
+        if (result.value) {
+
+          this.lessonService.delete(row.id).subscribe(response=>{
+            if(response.isSuccess)
+           {
+              this.toastr.success(response.message,"Success");
+              this.getAllLesson();
+            }
+           else
+            {
+              this.toastr.error(response.message,"Error");
+            }
+       
+           }  ,error=>{
+              this.toastr.error("Network error has been occured. Please try again.","Error");
+           });
+          }
+       });   
   }
+
   updateLesson(row:LessonModel,rowIndex:number,content:any){
 
     this.modalService.open(content, {
@@ -106,13 +117,15 @@ export class LessonListComponent implements OnInit {
   }
   getAllLesson(){
       this.loadingIndicator = true;
-      this.lessonService.getAllLesson().subscribe(response => {
+      this.lessonService.getAllLesson(this.slectedAcademicYearFilterId).subscribe(response => {
       this.lesson = response;
+      console.log(response);
+      
       this.loadingIndicator = false;
       }, error =>{
      this.loadingIndicator = false;
      this.toastr.error("Network error has been occured!, Please try again", "Error")
-      }) 
+      })  
      }
 
   addNewLesson(content){
@@ -127,8 +140,17 @@ export class LessonListComponent implements OnInit {
       size: 'lg',
     });
   }
+
+  onAcademicYearFilterChanged(item:any)
+  {
+     this.lessonFilterForm.get("selectedAcademicLevelId").setValue(0);
+  }
+
+  //list genarate
+  get slectedAcademicYearFilterId()
+  {
+    return this.lessonFilterForm.get("selectedAcademicLevelId").value;
+  }
 }
-function row(row: any) {
-  throw new Error('Function not implemented.');
-}
+
 

@@ -46,9 +46,26 @@
                         </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
               </div>
+              <form [formGroup]="lessonFilterForm">
+                <div class="row">
+                  <div class="col-lg-4 p-0">
+                    <div class="ngxTableHeader">
+                        <label>Lesson<span class="text-danger"></span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="selectedAcademicYearId"
+                          (change)="onAcademicYearFilterChanged($event.target.value)">
+                          <option [value]="0">0</option>
+                        </select> 
+                    </div>
+                  </div>
+                </div>
+                
+              </form>
               <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
@@ -56,7 +73,7 @@
                  <!--Lesson ID Column-->
                  <ngx-datatable-column name="ID" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.ID}}
+                    {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -70,28 +87,28 @@
                 <!--Lesson Learning Outcome Column-->
                 <ngx-datatable-column name="Learning Outcome" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.LearningOutcome}}
+                    {{row.learningOutcome}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <!--Lesson Planned Date Column-->
                 <ngx-datatable-column name="Planned Date" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.PlannedDate|date}}
+                    {{row.plannedDate|date}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <!--Lesson Completed Date Column -->
                 <ngx-datatable-column name="Completed Date" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CompletedDate| date}}
+                    {{row.completedDate| date}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <!--Lesson Status-->
                 <ngx-datatable-column name="Status" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Status}}
+                    {{row.status}}
                   </ng-template>
                 </ngx-datatable-column>
 

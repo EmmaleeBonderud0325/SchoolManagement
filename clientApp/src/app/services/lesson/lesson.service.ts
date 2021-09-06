@@ -16,21 +16,19 @@ export class LessonService {
   
   constructor(private httpClient: HttpClient) { }
 
-  getAllLesson(): Observable<LessonModel>{
+   getAllLesson(LessonFilterModel): Observable<LessonModel>{
     return this.httpClient
-        .get<LessonModel>(environment.apiUrl + '/Lesson' );
-  }
+        .post<LessonModel>(environment.apiUrl +'LessonDesign/getAllLessons',LessonFilterModel);
+  } 
 
   delete(id: number): Observable <ResponseModel> { 
           return this.httpClient
-            .delete<ResponseModel>(environment.apiUrl + 'lesson/' + id); 
-  }
+            .delete<ResponseModel>(environment.apiUrl + 'LessonDesign/' + id); 
+  }       
 
-         
-         
   saveLesson(vm, LessonModel): Observable <ResponseModel>{
            return this.httpClient
-              .post<ResponseModel>(environment.apiUrl + 'lesson', vm);
+              .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
   
         
  
