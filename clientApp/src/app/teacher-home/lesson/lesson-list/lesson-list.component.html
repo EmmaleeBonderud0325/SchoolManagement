@@ -1,0 +1,248 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Home</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Lesson</li>
+    </ul>
+    <div class="section-body">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="p-10">
+              <div class="row">
+                <div class="col-lg-6">
+                  <div class="row m-0">
+                    <div class="col-lg-3 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-title">
+                          <h2><strong>My Lessons</strong></h2>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-5 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-search-area">
+                          <div>
+                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                            <input placeholder="Search" type="text" class="browser-default search-field"
+                               aria-label="Search box">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="header-buttons-left">
+                          <div class="icon-button-demo buttons">
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewLesson(addEditRecord)' >
+                              <i class="material-icons">add</i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              <form [formGroup]="lessonFilterForm">
+                <div class="row">
+                  <div class="col-lg-4 p-0">
+                    <div class="ngxTableHeader">
+                        <label>Lesson<span class="text-danger"></span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="selectedAcademicYearId"
+                          (change)="onAcademicYearFilterChanged($event.target.value)">
+                          <option [value]="0">0</option>
+                        </select> 
+                    </div>
+                  </div>
+                </div>
+                
+              </form>
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+                 
+                 <!--Lesson ID Column-->
+                 <ngx-datatable-column name="ID" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.id}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Lesson Name Column-->
+                <ngx-datatable-column name="Name" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.name}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Lesson Learning Outcome Column-->
+                <ngx-datatable-column name="Learning Outcome" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.learningOutcome}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Lesson Planned Date Column-->
+                <ngx-datatable-column name="Planned Date" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.plannedDate|date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Lesson Completed Date Column -->
+                <ngx-datatable-column name="Completed Date" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.completedDate| date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Lesson Status-->
+                <ngx-datatable-column name="Status" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.status}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+               
+
+               
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <button class="btn btn-tbl-edit h-auto" (click)='updateLesson(row, rowIndex, addEditRecord)'>
+                        <i class="fas fa-pen"></i>
+                      </button>
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteLesson(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              <!-- Add Lesson Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                       Add Lesson</div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+               <!-- New Lesson add form-->
+              <div class="modal-body">
+                <form class="register-form" [formGroup]="lessonForm">
+                 
+
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Name <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="name"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!lessonForm.get('name').valid && lessonForm.get('name').touched"> Lesson Name is
+                        required</small>
+                    </div>
+                  
+    
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Owner ID<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="OwnerID">
+                          <option *ngFor="let item of Lesson" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                   </div>
+                  </div>
+                  <!-- this is a row two -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Academic Level ID<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="AcademicLevelID">
+                          <option *ngFor="let item of Lesson" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                  
+                 
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label>Academic Year ID<span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="AcademicID">
+                        <option *ngFor="let item of Lesson" [value]="item.id">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div> 
+                  </div>
+
+                   <!-- this is a row three -->
+                   <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Class Name ID<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="ClassNameID">
+                          <option *ngFor="let item of Lesson" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject ID<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="SubjectID">
+                          <option *ngFor="let item of Lesson" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                   </div>
+                   <!-- this is a row four-->
+                   <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Learning Outcome<span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Enter text here" 
+                          formControlName="LearningOutcome"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!lessonForm.get('name').valid && lessonForm.get('name').touched"> Lesson Name is
+                        required</small>
+                    </div>
+                   </div>
+                   
+
+                 
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="saveLesson()" [disabled]="!lessonForm.valid">Save</button>
+                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+

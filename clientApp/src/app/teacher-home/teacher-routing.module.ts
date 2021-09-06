@@ -1,7 +1,7 @@
 import { QuestionListComponent } from './question/question-list/question-list.component';
-import { LessonsComponent } from './lessons/lessons.component';
 
-import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+
+
 
 
 import { NgModule } from '@angular/core';
@@ -9,12 +9,13 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'lessons',
+    redirectTo: 'lesson',
     pathMatch: 'full',
   },
   {
-    path: 'lessons',
-    component: LessonsComponent,
+    path: 'lesson',
+    loadChildren:() =>
+          import('./lesson/lesson.module').then((m)=>m.LessonModule)
   },
 
 
