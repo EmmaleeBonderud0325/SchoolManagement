@@ -106,7 +106,7 @@ deleteLessonAssignment(row) {
     }
   });
 }
-      /* saveLessonAssignment(content){
+       saveLessonAssignment(content){
         this.modalService.open(content, {
           ariaLabelledBy: 'modal-basic-title',
           size: 'lg',
@@ -134,5 +134,5 @@ deleteLessonAssignment(row) {
      
       addRecordSuccess() {
         this.toastr.success('SUCCESS', '');
-      } */
+      } 
     }

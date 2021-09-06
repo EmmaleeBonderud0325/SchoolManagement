@@ -58,21 +58,21 @@
               columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
               [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
               <!--Column 01-->
-              <ngx-datatable-column name="QuestionId" [width]="100">
+              <ngx-datatable-column name="Question" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.questionId}}
+                  {{row.questionName}}
                 </ng-template>
               </ngx-datatable-column>
                    <!--Column 02-->
-                   <ngx-datatable-column name="StudentId" [width]="100">
+                   <ngx-datatable-column name="Student" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.studentId}}
+                      {{row.studentName}}
                     </ng-template>
                   </ngx-datatable-column>
                        <!--Column 03-->
-              <ngx-datatable-column name="EssayAnswerId" [width]="100">
+              <ngx-datatable-column name="EssayAnswer" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.essayAnswerId}}
+                  {{row.essayAnswerName}}
                 </ng-template>
               </ngx-datatable-column>
               <!--Column 04-->
@@ -142,7 +142,7 @@
                           formControlName="question"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('question').valid && essayStudentAnswerFormm.get('question').touched"> Question is
+                        *ngIf="!essayStudentAnswerForm.get('question').valid && essayStudentAnswerForm.get('question').touched"> Question is
                         required</small>
                     </div>
 
@@ -156,7 +156,7 @@
                           formControlName="student"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('student').valid && essayStudentAnswerFormm.get('sequenceno').touched">Sequence  No is
+                        *ngIf="!essayStudentAnswerForm.get('student').valid && essayStudentAnswerForm.get('sequenceno').touched">Student is
                         required</small>
                       </div>
                     </div>  
@@ -172,7 +172,7 @@
                         formControlName="essayAnswer"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!essayStudentAnswerForm.get('essayAnswer').valid && essayStudentAnswerFormm.get('essayAnswer').touched">Sequence  No is
+                      *ngIf="!essayStudentAnswerForm.get('essayAnswer').valid && essayStudentAnswerForm.get('essayAnswer').touched">Essay answer is
                       required</small>
                     </div>
                   </div> 
@@ -186,7 +186,7 @@
                       formControlName="answerText"
                       required>
                   <small class="form-text text-danger"
-                    *ngIf="!essayStudentAnswerForm.get('answerText').valid && essayStudentAnswerFormm.get('answerText').touched"> Question is
+                    *ngIf="!essayStudentAnswerForm.get('answerText').valid && essayStudentAnswerForm.get('answerText').touched"> Answer Text is
                     required</small>
                     </div>                 
                   </div> 
@@ -201,7 +201,7 @@
                           formControlName="teacherComments"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Question is
+                        *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerForm.get('teacherComments').touched"> Comments are
                         required</small>
                     </div>
 
@@ -215,13 +215,13 @@
                           formControlName="marks"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Question is
+                        *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerForm.get('marks').touched"> Marks is
                         required</small>
                       </div>
                     </div>  
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
+                    <button type="button" class="btn btn-primary" (click)="saveEssayStudentAnswer()" [disabled]="!essayStudentAnswerForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

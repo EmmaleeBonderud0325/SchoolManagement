@@ -42,9 +42,6 @@
                                   <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewEssayanswer(addEditRecord)' >
                                     <i class="material-icons">add</i>
                                   </button>
-                                  <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                    <i class="material-icons">delete</i>
-                                  </button>
                                 </div>
                               </div>
                             </div>
@@ -70,32 +67,26 @@
                   </ng-template>
                 </ngx-datatable-column>
                 <!--Column 03-->
-                <ngx-datatable-column name="SequenceNo" [width]="100">
+                <ngx-datatable-column name="CreatedOn" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.sequenceNo}}
+                    {{row.createdOn |date }}
                   </ng-template>
                 </ngx-datatable-column>
                 <!--Column 04-->
-                <ngx-datatable-column name="CreatedOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.createdOn}}
-                  </ng-template>
-                </ngx-datatable-column>
-                <!--Column 05-->
                 <ngx-datatable-column name="Nodified On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.modifiedOn}}
+                    {{row.modifiedOn |date }}
                   </ng-template>
-                </ngx-datatable-column>
+                </ngx-datatable-column> 
  
                 
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" >
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto">
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteEssayAnswer(row)'>
                         <i class="far fa-trash-alt"></i>
                       </button>
                     </span>
@@ -126,79 +117,32 @@
 
                       <!--Row 01-->
                       <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Question<span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Question" 
-                            formControlName="question"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('question').valid && essayAnswerFormm.get('question').touched"> Question is
-                          required</small>
-                      </div>
-  
-                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <div class="form-group">
-                          <label>Sequence No<span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Sequence No" 
-                            formControlName="sequenceno"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('sequenceno').valid && essayAnswerFormm.get('sequenceno').touched">Sequence  No is
-                          required</small>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <div class="form-group">
+                            <label>Question<span class="text-danger">*</span></label>
+                            <select class="form-select form-control" formControlName="QuestionId" required>
+                              <option *ngFor="let item of questionName" [value]="item.id">{{item.name}}</option>
+                            </select>
+                          </div>
                         </div>
-                      </div>  
+
                     </div>
                     <!--Row 02-->
                    <div class="row">
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <label>Answer Text <span class="text-danger">*</span></label>
                         <input 
-                        type="textarea"  style="width:50vw" 
+                        type="textarea"  style="width:25vw" 
                         class="form-control" 
                         placeholder="Answer Text" 
                         formControlName="answerText"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!essayAnswerForm.get('answerText').valid && essayAnswerFormm.get('answerText').touched"> Answer Text is
+                      *ngIf="!essayAnswerForm.get('answerText').valid && essayAnswerForm.get('answerText').touched"> Answer Text is
                       required</small>
                       </div>                 
                     </div> 
-                    <!--Row 03-->
-                    <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Created On<span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Created On" 
-                            formControlName="createdOn"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('createdOn').valid && essayAnswerFormm.get('createdOn').touched"> Created Date is
-                          required</small>
-                      </div>
-  
-                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <div class="form-group">
-                          <label>Modified On<span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Modified On" 
-                            formControlName="modifiedOn"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!essayAnswerForm.get('modifiedOn').valid && essayAnswerFormm.get('modifiedOn').touched"> Nodified Date is
-                          required</small>
-                        </div>
-                      </div>  
-                    </div>
+
                     <div class="modal-footer">
                       <button type="button" class="btn btn-primary" (click)="saveEssayQuestionAnswer()" [disabled]="!essayAnswerForm.valid">ADD NEW MCQ ANSWER</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>

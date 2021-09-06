@@ -32,6 +32,16 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await essayquestionanswerService.DeleteEssayAnswer(id);
+            return Ok(response);
+        }
+
+
         [HttpGet]
 
         public ActionResult GetAllEssayQuestionAnswer()
@@ -40,7 +50,14 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-    }   
+        [HttpGet]
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var response = essayquestionanswerService.GetAllQuestions();
 
+            return Ok(response);
+        }
 
+    }
 }

@@ -5,6 +5,7 @@ import { EssayQuestionAnswerService} from './../../../services/essay-answer/essa
 import { ToastrService } from 'ngx-toastr';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 @Component({
   selector: 'app-essay-answer-list',
@@ -21,6 +22,7 @@ export class EssayAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     essayAnswerForm: FormGroup;
+    questionName:DropDownModel[] = [];
 
     
   constructor(
@@ -33,19 +35,30 @@ export class EssayAnswerListComponent implements OnInit {
   ngOnInit(): void {
 
     this.getAll();
-    this.essayAnswerForm = this.fb.group({
-        //questionText:['', Validators.required],
-        //marks:['', Validators.required],
-         });
+    this.getAllQuestions();
+  
   }
+
+
+  getAllQuestions()
+      {
+        this.EssayQuestionAnswerService.getAllQuestions()
+          .subscribe(response=>
+          { 
+            this.questionName = response;
+            console.log(response);
+            
+          },error=>{
+            this.toastr.error("Network error has been occured. Please try again.","Error");
+           });
+      }
+
   createNewEssayanswer(content)
       {
         this.essayAnswerForm = this.fb.group({
-          question:['', [Validators.required]],
-          sequenceno:['', [Validators.required]],
+          questionName:[null , [Validators.required]],
           answerText:['', [Validators.required]],
-          createdOn:['', [Validators.required]],
-          modifiedOn:['', [Validators.required]],
+         
 
         });
     
@@ -54,8 +67,9 @@ export class EssayAnswerListComponent implements OnInit {
           size: 'lg',
         });
       }
-
-      getAll(){
+    
+    //get all
+    getAll(){
 
         this.loadingIndicator = true;
 
@@ -70,14 +84,7 @@ export class EssayAnswerListComponent implements OnInit {
         })
 
        }
- //save essay answer
-  saveEssayQuestionAnswer(content){
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    })
-  }
- 
+
   //update
   editRow(row, rowIndex, content) {
     this.modalService.open(content, {
@@ -95,7 +102,7 @@ export class EssayAnswerListComponent implements OnInit {
   }
  
  //delete essayAnswer
-deletEssayAnswer(row) {
+deleteEssayAnswer(row) {
   Swal.fire({
     title: 'Are you sure Delete Essay Answer ?',
     showCancelButton: true,
@@ -127,5 +134,29 @@ deletEssayAnswer(row) {
   addRecordSuccess() {
     this.toastr.success('SUCCESS', '');
   }
+
+   //save essay answer
+   saveEssayQuestionAnswer(){   
+    
+    console.log(this.essayAnswerForm.value);
+    
+    this.EssayQuestionAnswerService.saveEssayQuestionAnswer(this.essayAnswerForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
   }
 
+}

@@ -64,15 +64,15 @@
                   </ng-template>
                 </ngx-datatable-column>
                      <!--Column 02-->
-                     <ngx-datatable-column name="LessonAssignmentId" [width]="100">
+                     <ngx-datatable-column name="LessonAssignment" [width]="100">
                       <ng-template let-row="row" ngx-datatable-cell-template>
-                        {{row.lessonAssignmentId}}
+                        {{row.lessonAssignmentName}}
                       </ng-template>
                     </ngx-datatable-column>
                          <!--Column 03-->
-                <ngx-datatable-column name="StudentId" [width]="100">
+                <ngx-datatable-column name="Student" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.studentId}}
+                    {{row.studentName}}
                   </ng-template>
                 </ngx-datatable-column>
                 <!--Column 04-->
@@ -142,7 +142,7 @@
                             formControlName="id"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('id').touched"> Question is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('id').touched"> Id is
                           required</small>
                       </div>
   
@@ -156,7 +156,7 @@
                             formControlName="lessonAssignment"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('lessonAssignment').valid && lessonAssignmentSubmissionForm.get('lessonAssignment').touched">Sequence  No is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('lessonAssignment').valid && lessonAssignmentSubmissionForm.get('lessonAssignment').touched">Assignment is
                           required</small>
                         </div>
                       </div>  
@@ -172,7 +172,7 @@
                           formControlName="student"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentSubmissionForm.get('studentr').valid && lessonAssignmentSubmissionForm.get('student').touched">Sequence  No is
+                        *ngIf="!lessonAssignmentSubmissionForm.get('studentr').valid && lessonAssignmentSubmissionForm.get('student').touched">Student is
                         required</small>
                       </div>
                     </div> 
@@ -187,7 +187,7 @@
                             formControlName="submisionPath"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('submisionPath').valid && lessonAssignmentSubmissionForm.get('submisionPath').touched"> Question is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submisionPath').valid && lessonAssignmentSubmissionForm.get('submisionPath').touched"> Submission Path is
                           required</small>
                       </div>
   
@@ -201,7 +201,7 @@
                             formControlName="submissionDate"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('submissionDate').valid && lessonAssignmentSubmissionForm.get('submissionDate').touched"> Question is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submissionDate').valid && lessonAssignmentSubmissionForm.get('submissionDate').touched"> Submisson Date is
                           required</small>
                         </div>
                       </div>  
@@ -218,7 +218,7 @@
                             formControlName="teacherComments"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Question is
+                          *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Comments are
                           required</small>
                       </div>
   
@@ -232,13 +232,13 @@
                             formControlName="marks"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Question is
+                          *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Mark is
                           required</small>
                         </div>
                       </div>  
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!essayStudentAnswerForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
+                      <button type="button" class="btn btn-primary" (click)="saveLessonAssignmentSubmission()" [disabled]="!essayStudentAnswerForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                     </div>
                   </form>

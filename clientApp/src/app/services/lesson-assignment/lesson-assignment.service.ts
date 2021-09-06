@@ -14,7 +14,7 @@ export class LessonAssignmentService {
 
   getAll(): Observable<LessonAssignmentModel[]>{
     return this.httpClient.
-      get<LessonAssignmentModel[]>(environment.apiUrl + 'lesson-assignment')
+      get<LessonAssignmentModel[]>(environment.apiUrl + 'LessonAssignment')
   }
 
   saveLessonAssignment(lessonassignment: LessonAssignmentModel): Observable<ResponseModel> {​​​​​​​​

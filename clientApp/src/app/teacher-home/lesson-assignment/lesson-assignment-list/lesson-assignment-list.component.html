@@ -64,9 +64,9 @@
                 </ng-template>
               </ngx-datatable-column>
                    <!--Column 02-->
-                   <ngx-datatable-column name="LessonId" [width]="100">
+                   <ngx-datatable-column name="Lesson" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.lessonId}}
+                      {{row.lessonName}}
                     </ng-template>
                   </ngx-datatable-column>
                        <!--Column 03-->
@@ -94,9 +94,9 @@
               </ng-template>
               </ngx-datatable-column>
               <!--Column 06-->
-              <ngx-datatable-column name="CreatedById" [width]="100">
+              <ngx-datatable-column name="CreatedBy" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdById}}
+                  {{row.createdByName}}
                 </ng-template>
               </ngx-datatable-column>
               <!--Column 07-->
@@ -106,9 +106,9 @@
                 </ng-template>
               </ngx-datatable-column>
               <!--Column 08-->
-            <ngx-datatable-column name="UpdatedById" [width]="100">
+            <ngx-datatable-column name="UpdatedBy" [width]="100">
             <ng-template let-row="row" ngx-datatable-cell-template>
-             {{row.updatedById}}
+             {{row.updatedByName}}
             </ng-template>
              </ngx-datatable-column>
 
@@ -159,7 +159,7 @@
                           formControlName="id"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('id').touched"> Question is
+                        *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('id').touched"> Id is
                         required</small>
                     </div>
 
@@ -173,7 +173,7 @@
                           formControlName="lesson"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('lesson').valid && lessonAssignmentForm.get('lesson').touched">Sequence  No is
+                        *ngIf="!lessonAssignmentForm.get('lesson').valid && lessonAssignmentForm.get('lesson').touched">Lesson is
                         required</small>
                       </div>
                     </div>  
@@ -189,7 +189,7 @@
                         formControlName="name"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('name').valid && lessonAssignmentFormm.get('name').touched">Sequence  No is
+                      *ngIf="!lessonAssignmentForm.get('name').valid && lessonAssignmentForm.get('name').touched">Name is
                       required</small>
                     </div>
                   </div> 
@@ -204,7 +204,7 @@
                       formControlName="description"
                       required>
                   <small class="form-text text-danger"
-                    *ngIf="!lessonAssignmentForm.get('description').valid && lessonAssignmentFormm.get('description').touched"> Question is
+                    *ngIf="!lessonAssignmentForm.get('description').valid && lessonAssignmentForm.get('description').touched"> Description is
                     required</small>
                     </div>                 
                   </div> 
@@ -212,14 +212,10 @@
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>IsActive<span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="TeacherComments" 
-                          formControlName="teacherComments"
-                          required>
+                      <input type="radio" value="yes" name="isActive" required ngModel> Yes<br>
+                       <input type="radio" value="no" name="isActive" ngModel> No
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Question is
+                       *ngIf="!essayStudentAnswerForm.get('isActive').valid && essayStudentAnswerForm.get('isActive').touched"> IsActive is
                         required</small>
                     </div>
 
@@ -233,7 +229,7 @@
                           formControlName="createdOn"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('createdOn').valid && lessonAssignmentForm.get('createdOn').touched"> Question is
+                        *ngIf="!lessonAssignmentForm.get('createdOn').valid && lessonAssignmentForm.get('createdOn').touched"> CreatedOn is
                         required</small>
                       </div>
                     </div>  
@@ -249,7 +245,7 @@
                           formControlName="startDate"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('startDate').valid && essayStudentAnswerFormm.get('startDate').touched"> Question is
+                        *ngIf="!essayStudentAnswerForm.get('startDate').valid && essayStudentAnswerForm.get('startDate').touched"> Start Date is
                         required</small>
                     </div>
                      <!--Row 06-->
@@ -263,7 +259,7 @@
                           formControlName="dueDate"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('dueDate').valid && lessonAssignmentForm.get('dueDate').touched"> Question is
+                        *ngIf="!lessonAssignmentForm.get('dueDate').valid && lessonAssignmentForm.get('dueDate').touched"> Due Date is
                         required</small>
                       </div>
                     </div>  
@@ -271,15 +267,15 @@
                   <!--Row 07-->
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <div class="form-group">
-                      <label>Created By Id<span class="text-danger">*</span></label>
+                      <label>Created By<span class="text-danger">*</span></label>
                     <input 
                         type="text" 
                         class="form-control" 
-                        placeholder="CreatedById" 
-                        formControlName="createdById"
+                        placeholder="CreatedBy" 
+                        formControlName="createdByName"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('createdById').valid && lessonAssignmentForm.get('createdById').touched"> Question is
+                      *ngIf="!lessonAssignmentForm.get('createdByName').valid && lessonAssignmentForm.get('createdByName').touched"> Created By Name is
                       required</small>
                     </div>
                   </div>  
@@ -294,7 +290,7 @@
                         formControlName="updatedOn"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('updatedOn').valid && lessonAssignmentForm.get('updatedOn').touched"> Question is
+                      *ngIf="!lessonAssignmentForm.get('updatedOn').valid && lessonAssignmentForm.get('updatedOn').touched"> Updated Date is
                       required</small>
                     </div>
                   </div>  
@@ -310,13 +306,13 @@
                       formControlName="updatedById"
                       required>
                   <small class="form-text text-danger"
-                    *ngIf="!lessonAssignmentForm.get('updatedById').valid && lessonAssignmentForm.get('updatedById').touched"> Question is
+                    *ngIf="!lessonAssignmentForm.get('updatedById').valid && lessonAssignmentForm.get('updatedById').touched"> Updated by Name is
                     required</small>
                   </div>
                 </div>  
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!lessonAssignmentForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
+                    <button type="button" class="btn btn-primary" (click)="saveLessonAssignment()" [disabled]="!lessonAssignmentForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

@@ -42,16 +42,17 @@ namespace SchoolManagement.Business
 
             var EssayQuestionAnswerList = query.ToList();
 
-            foreach (var essayquestionanswer in EssayQuestionAnswerList)
+            foreach (var item in EssayQuestionAnswerList)
             {
                 var vm = new EssayQuestionAnswerViewModel
                 {
 
-                    Id = essayquestionanswer.Id,
-                    QuestionId = essayquestionanswer.QuestionId,
-                    AnswerText = essayquestionanswer.AnswerText,
-                    ModifiedOn = essayquestionanswer.ModifiedOn,
-                    CreatedOn = essayquestionanswer.CreatedOn
+                    Id = item.Id,
+                    QuestionId = item.QuestionId,
+                    QuestionName = item.Question.QuestionText,
+                    AnswerText = item.AnswerText,
+                    ModifiedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
                 };
 
                 response.Add(vm);
@@ -59,6 +60,8 @@ namespace SchoolManagement.Business
 
             return response;
         }
+
+
 
         public async Task<ResponseViewModel> SaveEssayQuestionAnswer(EssayQuestionAnswerViewModel vm, string userName)
         {
@@ -109,5 +112,38 @@ namespace SchoolManagement.Business
             return response;
         }
 
+
+        public async Task<ResponseViewModel> DeleteEssayAnswer(int essayAnswerid)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var essayanswers = schoolDb.EssayQuestionAnswers.FirstOrDefault(x => x.Id == essayAnswerid);
+
+                schoolDb.EssayQuestionAnswers.Update(essayanswers);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Essay Answer is successfully deleted.";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        public List<DropDownViewModel> GetAllQuestions()
+        {
+            var questions = schoolDb.Questions
+           .Where(x => x.IsActive == true)
+           .Select(qe => new DropDownViewModel() { Id = qe.Id, Name = string.Format("{0}", qe.QuestionText) })
+           .Distinct().ToList();
+
+            return questions;
+        }
     }
 }

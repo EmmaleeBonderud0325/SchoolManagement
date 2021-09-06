@@ -5,6 +5,7 @@ import { EssayQuestionAnswerModel } from '../../models/essay-answer/essay.answer
 import {​​​​​​​​ Observable }​​​​​​​​ from'rxjs';
 import {​​​​​​​​ HttpClient }​​​​​​​​ from'@angular/common/http';
 import {​​​​​​​​ Injectable }​​​​​​​​ from'@angular/core';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
  
 @Injectable({​​​​​​​​
 providedIn:'root'
@@ -21,12 +22,18 @@ get<EssayQuestionAnswerModel[]>(environment.apiUrl + 'EssayQuestionAnswer')
  
 saveEssayQuestionAnswer(essayanswer: EssayQuestionAnswerModel): Observable<ResponseModel> {​​​​​​​​
 return this.httpClient.
-post<ResponseModel>(environment.apiUrl + 'essay-answer/saveEssayQuestionAnswer', essayanswer);
+post<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer/saveEssayQuestionAnswer', essayanswer);
   }​​​​​​​​
 
-delete(Id: number): Observable<ResponseModel> {
+delete(id: number): Observable<ResponseModel> {
    return this.httpClient. 
-   delete<ResponseModel>(environment.apiUrl + 'essay-answer/' + Id);
+   delete<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer/deleteEssayAnswer' + id);
    }
+
+getAllQuestions():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'EssayQuestionAnswer/getAllQuestions');
+  }
+
 }​​​​​​​​
 
