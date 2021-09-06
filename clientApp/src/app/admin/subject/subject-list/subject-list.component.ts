@@ -27,7 +27,8 @@ export class SubjectListComponent implements OnInit {
   subject:SubjectModel;
   subjectstreams:DropDownModel[] = [];
   subjectAcademicLevels:DropDownModel[]=[];
-  SubjectCategorys:DropDownModel[]=[];
+  subjectCategorys:DropDownModel[]=[];
+  parentBasketSubjects:DropDownModel[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -40,6 +41,7 @@ export class SubjectListComponent implements OnInit {
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
     this.getAllSubjectCategorys();
+    this.getAllParentBasketSubjects();
   }
 
   getAll()
@@ -61,7 +63,7 @@ export class SubjectListComponent implements OnInit {
       .subscribe(response=>
       { 
         this.subjectstreams = response;
-        console.log(response);
+        
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });
@@ -72,7 +74,7 @@ export class SubjectListComponent implements OnInit {
     this.subjectService.getAllAcademicLevels()
      .subscribe(response=>{
         this.subjectAcademicLevels = response;
-        console.log(response);
+        
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
@@ -82,7 +84,18 @@ export class SubjectListComponent implements OnInit {
   {
     this.subjectService.getAllSubjectCategorys()
      .subscribe(response=>{
-        this.SubjectCategorys = response;
+        this.subjectCategorys = response;
+        
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+
+  getAllParentBasketSubjects()
+  {
+    this.subjectService.getAllParentBasketSubjects()
+     .subscribe(response=>{
+        this.parentBasketSubjects = response;
         console.log(response);
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
@@ -97,6 +110,7 @@ export class SubjectListComponent implements OnInit {
       categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
       academicLevels:[null,[Validators.required]],
+      parentBasketSubjectId:[null,[Validators.required]],
     });
 
     this.modalService.open(content, {

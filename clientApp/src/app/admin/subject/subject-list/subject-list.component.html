@@ -171,7 +171,7 @@
                       <div class="form-group">
                         <label>Subject Category<span class="text-danger">*</span></label>
                         <select class="form-select form-control" formControlName="categorysId">
-                          <option *ngFor="let item of SubjectCategorys" [value]="item.id">{{item.name}}</option>
+                          <option *ngFor="let item of subjectCategorys" [value]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div> 
@@ -194,6 +194,19 @@
                     </div>
                   </div>
 
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+
+                    </div> 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Parent Basket Subject<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="parentBasketSubjectId" >
+                          <option *ngFor="let item of parentBasketSubjects" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                  </div> 
                  
                   
                   

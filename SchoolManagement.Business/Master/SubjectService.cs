@@ -211,6 +211,14 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        public List<DropDownViewModel> GetAllParentBasketSubjects()
+        {
+            return schoolDb.Subjects
+                 .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
+                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                 .ToList();
+        }
+
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
             var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
@@ -241,7 +249,8 @@ namespace SchoolManagement.Business.Master
                     return SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT;
             }
         }
-     }
+
+    }
 }
                 
                  
