@@ -66,6 +66,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true
       },
 
 
@@ -81,6 +82,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true
       },
 
       // student-mcq-question-answer
@@ -95,11 +97,10 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true
       },
 
 
-        isVisible:true
-      }
     ],
   },
   {

@@ -57,23 +57,31 @@ namespace SchoolManagement.Business
             var query = schoolDb.Questions.Where(u => u.IsActive == true);
             var QuestionList = query.ToList();
 
-            foreach (var Question in QuestionList) 
+            foreach (var item in QuestionList) 
             {
                 var vm = new QuestionViewModel
                 {
-                    Id = Question.Id,
-                    LessonId = Question.LessonId,
-                    TopicId = Question.TopicId,
-                    SequenceNo = Question.SequenceNo,
-                    QuestionText = Question.QuestionText,
-                    Marks = Question.Marks,
-                    //DifficultyLevel = Question.DifficultyLevel,
-                    //QuestionType = Question.QuestionType,
-                    IsActive = Question.IsActive,
-                    CreateOn = Question.CreateOn,
-                    CreatedById = Question.CreatedById,
-                    UpdateOn = Question.UpdateOn,
-                    UpdatedById = Question.UpdatedById
+                    Id = item.Id,
+                    LessonId = item.LessonId,
+                    LessonName = item.Lesson.Name,
+                    TopicId = item.TopicId,
+                    TopicName = item.Topic.Name,
+                    SequenceNo = item.SequenceNo,
+                    QuestionText = item.QuestionText,
+                    QuestionName = item.QuestionText,
+                    Marks = item.Marks,
+                    DifficultyLevel = item.DifficultyLevel,
+                    DifficultyLevelName = item.DifficultyLevel.ToString(),
+                    QuestionType = item.QuestionType,
+                    QuestionTypeName = item.QuestionType.ToString(),
+                    IsActive = item.IsActive,
+                    CreateOn = item.CreateOn,
+                    CreatedById = item.CreatedById,
+                    CreatedByName =item.CreatedBy.FullName,
+                    UpdateOn = item.UpdateOn,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
+
                 };
                 response.Add(vm);
             }
@@ -138,6 +146,18 @@ namespace SchoolManagement.Business
             }
 
             return respone;
+        }
+
+
+
+        public List<DropDownViewModel> GetAllLessonName()
+        {
+            var lesson = schoolDb.Lessons
+            .Where(x => x.IsActive == true)
+            .Select(le => new DropDownViewModel() { Id = le.Id, Name = string.Format("{0}", le.Name) })
+            .Distinct().ToList();
+
+            return lesson;
         }
 
     }

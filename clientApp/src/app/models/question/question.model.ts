@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class questionModel{
     id : number;
-    questionName : string;
     lessonId : number;
     lessonName : string;
     topicId : number;
@@ -12,11 +11,13 @@ export class questionModel{
     questionText : string;
     marks : number;
     difficultyLevel : number;
+    difficultyLevelName : String;
     questionType : number;
+    questionTypeName : string;
     isActive : boolean;    
     CreatedById : number;
     CreatedByName : string;
     UpdateOn : Date;
     UpdatedById : number;
-    UpdateByName : string;
+    UpdatedByName : string;
 }

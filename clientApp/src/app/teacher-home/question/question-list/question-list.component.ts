@@ -1,8 +1,10 @@
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import  Swal  from 'sweetalert2';
 import { QuestionService } from './../../../services/question/question.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -22,6 +24,7 @@ export class QuestionListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     questionForm: FormGroup;
+    lessonName :DropDownModel[] = [];
 
     constructor(
       private fb: FormBuilder,
@@ -32,7 +35,20 @@ export class QuestionListComponent implements OnInit {
 
     ngOnInit(): void {
       this.getAll();
-      }
+      this.getAllLessonName();
+    }
+
+    getAllLessonName(){
+      this.QuestionService.getAllLessonName()
+        .subscribe(response=>
+        { 
+          this.lessonName = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+    }
 
     //retrive method
     getAll(){
@@ -51,8 +67,8 @@ export class QuestionListComponent implements OnInit {
     createNewQuestion(content)
     {
       this.questionForm = this.fb.group({
-        lessonname:['', [Validators.required]],
-        topic:['', [Validators.required]],
+        lessonName:[null, [Validators.required]],
+        topic:[null, [Validators.required]],
         sequenceno:['', [Validators.required]],
         marks:['', [Validators.required]],
         questiontext:['', [Validators.required]],
@@ -67,9 +83,9 @@ export class QuestionListComponent implements OnInit {
     }
 
     //delete method
-    deleteClass(row) {
+    deleteQuestion(row) {
        Swal.fire({
-            title: 'Are you sure Delete Class ?',
+            title: 'Are you sure Delete Question?',
             showCancelButton: true,
             confirmButtonColor: 'red',
             cancelButtonColor: 'green',
@@ -77,7 +93,7 @@ export class QuestionListComponent implements OnInit {
           }).then((result) => {
             if (result.value) {
               this.QuestionService.delete(row.id).subscribe(response=>{
-              
+
                 if(response.isSuccess){
                   this.toastr.success(response.message,"Success");
                   this.getAll();

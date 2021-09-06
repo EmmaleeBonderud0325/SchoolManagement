@@ -13,6 +13,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         Task<ResponseViewModel> SaveQuestion(QuestionViewModel vm, string userName);
         List<QuestionViewModel> GetAllQuestions();
         Task<ResponseViewModel> DeleteQuestion(int Id);
+        List<DropDownViewModel> GetAllLessonName();
+
         
     }
 }

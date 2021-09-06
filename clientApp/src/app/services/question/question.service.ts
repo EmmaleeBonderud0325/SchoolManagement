@@ -1,3 +1,4 @@
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { questionModel } from './../../models/question/question.model';
 import { ResponseModel } from '../../models/common/response.model';
 import { environment } from '../../../environments/environment';
@@ -23,9 +24,16 @@ export class QuestionService {
       post<ResponseModel>(environment.apiUrl + 'question/saveQuestion', question);
   }
   
-  delete(classNameId: number): Observable <ResponseModel> { 
+  delete(id: number): Observable <ResponseModel> { 
     return this.httpClient. 
-      delete<ResponseModel>(environment.apiUrl + 'question/' + classNameId); }
+      delete<ResponseModel>(environment.apiUrl + 'question/' + id); 
+  }
+
+  getAllLessonName():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllLessonName');
+  }
+
 }
 
 

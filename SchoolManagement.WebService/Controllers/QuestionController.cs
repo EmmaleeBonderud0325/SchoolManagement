@@ -45,5 +45,14 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
 
         }
+
+
+        [HttpGet]
+        [Route("getAllLessonName")]
+        public IActionResult GetAllLessonName()
+        {
+            var response = questionService.GetAllLessonName();
+            return Ok(response);
+        }
     }
 }
