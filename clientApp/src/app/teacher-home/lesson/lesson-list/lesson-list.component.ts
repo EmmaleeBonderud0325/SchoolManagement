@@ -18,7 +18,7 @@ import { LessonService } from './../../../services/lesson/lesson.service';
 })
 export class LessonListComponent implements OnInit {
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
+  data:LessonModel[] = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   lessonForm:FormGroup;
@@ -26,17 +26,21 @@ export class LessonListComponent implements OnInit {
   lesson:LessonModel;
   lessonFilter:LessonFilterModel;
   reorderable = true;
- 
+
+  
 
   constructor(
     private fb:FormBuilder,
     private modalService:NgbModal,
     private lessonService:LessonService,
-    private toastr:ToastrService ) { }
+    private toastr:ToastrService ) {
+      this.lessonFilterForm = this.createLessonFilterForm();
+     }
 
   ngOnInit(): void {
+
     this.getAllLesson();
-    this.lessonFilterForm = this.createLessonFilterForm();
+  
    
   }
    //add new lesson using form
@@ -73,7 +77,11 @@ export class LessonListComponent implements OnInit {
   createLessonFilterForm() : FormGroup{
 
     return new FormGroup({
+      selectedAcademicYearId:new FormControl(0),
       selectedAcademicLevelId:new FormControl(0),
+      selectedClassNameId:new FormControl(0),
+      selectedSubjectId:new FormControl(0)
+
     });
   }
 
@@ -117,8 +125,8 @@ export class LessonListComponent implements OnInit {
   }
   getAllLesson(){
       this.loadingIndicator = true;
-      this.lessonService.getAllLesson(this.slectedAcademicYearFilterId).subscribe(response => {
-      this.lesson = response;
+      this.lessonService.getAllLesson(this.lessonFilterForm.getRawValue()).subscribe(response => {
+      this.data = response;
       console.log(response);
       
       this.loadingIndicator = false;

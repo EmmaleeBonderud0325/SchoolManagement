@@ -5,6 +5,7 @@ import { ResponseModel } from '../../models/common/response.model';
 import {Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { id } from '@swimlane/ngx-datatable';
+import { LessonFilterModel } from 'src/app/models/lesson/lesson.filter.model';
 ;
 
 @Injectable({
@@ -16,9 +17,9 @@ export class LessonService {
   
   constructor(private httpClient: HttpClient) { }
 
-   getAllLesson(LessonFilterModel): Observable<LessonModel>{
+   getAllLesson(filter:LessonFilterModel): Observable<LessonModel[]>{
     return this.httpClient
-        .post<LessonModel>(environment.apiUrl +'LessonDesign/getAllLessons',LessonFilterModel);
+        .post<LessonModel[]>(environment.apiUrl +'LessonDesign/getAllLessons',filter);
   } 
 
   delete(id: number): Observable <ResponseModel> { 
