@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model.Master;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,11 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     public interface IHeadOfDepartmentService
     {
         List<HeadOfDepartmentViewModel> GetAllHeadOfDepartment();
+        Task<ResponseViewModel> SaveHeadOfDepartment(HeadOfDepartmentViewModel HeadOfDepartmentVM, String userName);
+        Task<ResponseViewModel> DeleteHeadOfDepartment(int id);
+        List<DropDownViewModel> GetAllAcademicYears();
+        List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllSubjects();
+        List<DropDownViewModel> GetAllTeachers();
     }
 }
