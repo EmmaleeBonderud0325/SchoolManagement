@@ -110,7 +110,9 @@ export class SubjectListComponent implements OnInit {
       categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
       academicLevels:[null,[Validators.required]],
-      parentBasketSubjectId:[null,[Validators.required]],
+      parentBasketSubjectId:[null],
+      isParentBasketSubject:[null],
+      isBuscketSubject:[null],
     });
 
     this.modalService.open(content, {
@@ -196,5 +198,6 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
+  
 }
 
