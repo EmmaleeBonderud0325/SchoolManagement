@@ -61,6 +61,21 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+                <ngx-datatable-column [width]="80" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <button class="btn btn-icon btn-sm btn-primary" (click)='updateUser(row, rowIndex, addEditRecord)'>
+                          <i class="far fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" (click)='deleteUser(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>  
+                  </ng-template>
+                </ngx-datatable-column>
+
                 <!-- Id Column -->
                 <ngx-datatable-column name="Id" [width]="5">
                   <ng-template let-row="row" ngx-datatable-cell-template>
@@ -76,7 +91,7 @@
                 </ngx-datatable-column>
 
                  <!-- Email Column -->
-                <ngx-datatable-column name="Email" [width]="250">
+                <ngx-datatable-column name="Email" [width]="200">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.email}}
                   </ng-template>
@@ -125,18 +140,7 @@
                 </ngx-datatable-column>
 
                  <!-- Action Column -->
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='updateUser(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteUser(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
-                  </ng-template>
-                </ngx-datatable-column>
+                
               </ngx-datatable>
 
               <!-- Add new User Modal Window -->
