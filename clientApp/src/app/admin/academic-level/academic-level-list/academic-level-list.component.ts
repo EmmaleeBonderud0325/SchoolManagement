@@ -64,6 +64,7 @@ export class AcademicLevelListComponent implements OnInit {
   addNewAcademicLevel(content) {
 
     this.academicLevelFrom = this.fb.group({
+      id:[0],
       name: ['', [Validators.required]],
       levelHeadId: [null, [Validators.required]],
     });
@@ -110,15 +111,18 @@ export class AcademicLevelListComponent implements OnInit {
 
 
   editRow(row:AcademicLevelModel, rowIndex:number, content:any) {
+
+    console.log(row);
+    
+    this.academicLevelFrom = this.fb.group({
+      id:[row.id],
+      name: [row.name, [Validators.required]],
+      levelHeadId: [row.levelHeadName, [Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
-    });
-
-    this.academicLevelFrom = this.fb.group({
-      name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      selectlevelHeadId: [row.levelHeadId, [Validators.required]],
-      isActive: [row.isActive, [Validators.required]],
     });
   }
 

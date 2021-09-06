@@ -4,5 +4,8 @@ export class User {
   password: string;
   firstName: string;
   lastName: string;
+  displayName:string;
+  roles:[];
   token: string;
+  schoolDomain:string;
 }
