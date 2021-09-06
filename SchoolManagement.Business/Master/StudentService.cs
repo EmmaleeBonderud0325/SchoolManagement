@@ -133,7 +133,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Users.Add(user);
                     await schoolDb.SaveChangesAsync();
 
-                    //get inserted user id
+                    //get inserted user id  sss
                     var insertedId = schoolDb.Users.Max(i => i.Id);
 
                     //Add student role to UserRoles table
