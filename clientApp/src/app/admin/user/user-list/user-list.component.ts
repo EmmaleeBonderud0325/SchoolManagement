@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
 import { ToastrService } from 'ngx-toastr';
@@ -22,7 +23,7 @@ export class UserListComponent implements OnInit {
   saveUserForm:FormGroup;
   reorderable = true;
   user:UserModel;
-
+  isDisabled: boolean;
   userRoles:DropDownModel[]=[];
 
   constructor(
@@ -32,7 +33,7 @@ export class UserListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    //this.getAll();
+    this.getAll();
     this.getUserRoles();
   
   }
@@ -41,6 +42,7 @@ export class UserListComponent implements OnInit {
   createNewUser(content)
   {
     this.saveUserForm = this.fb.group({
+      id:[0],
       fullName:['', [Validators.required]],
       email:['', [Validators.required]],
       mobileNo:['', [Validators.required]],
@@ -57,12 +59,42 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  deleteUser(row) {
+    Swal.fire({
+      title: 'Are you sure Delete User ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+
+      if (result.value) {
+
+        this.userService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
+
   getUser()
   {
     
   }
 
- /*  //getUserByRole
+  //getUserByRole
   getAll()
   {
      this.loadingIndicator = true;
@@ -74,7 +106,7 @@ export class UserListComponent implements OnInit {
        this.loadingIndicator = false;
        this.toastr.error("Network error has been occured. Please try again.","Error");
      });
-  } */
+  } 
 
   getUserRoles()
   {
@@ -97,7 +129,7 @@ export class UserListComponent implements OnInit {
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-            //this.getAll();
+            this.getAll();
         }
         else
         {
@@ -110,28 +142,26 @@ export class UserListComponent implements OnInit {
     
   }
 
-  editRow(row, rowIndex, content) 
-  {
+  updateUser(row:UserModel, rowIndex:number, content:any) {
+
+    console.log(row);
+    
+    this.saveUserForm = this.fb.group({
+      id:[row.id],
+      fullName:[row.fullName, [Validators.required]],
+      email:[row.email, [Validators.required]],
+      mobileNo:[row.email, [Validators.required]],
+      userName:[row.username, [Validators.required]],
+      address:[row.address, [Validators.required]],
+      password:[row.password],
+      isActive:[true],
+      roles:[row.roles,[Validators.required]]
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
   }
-
-  onAddRowSave(form: FormGroup)
-   {
-
-    
-  }
-
-  deleteSingleRow(row) 
-  {
-
-  }
-
-
-
-
-
 
 }

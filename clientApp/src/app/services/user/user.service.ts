@@ -31,5 +31,9 @@ export class UserService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'User/getAllRoles')
   }
-  
+
+  delete(id: number): Observable<ResponseModel> {
+    return this.httpClient.
+      delete<ResponseModel>(environment.apiUrl + 'User/' + id);
+  }
 }
