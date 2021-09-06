@@ -39,7 +39,7 @@
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewStudent(addEditRecord)'>
                                     <i class="material-icons">add</i>
                                   </button>
                                 </div>
@@ -50,41 +50,41 @@
                       </div>
                     </div>
 
-                    <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 				
                 
-                <!-- Student ID column -->
-				        <ngx-datatable-column name="Student Id" [width]="100">
+                  <!-- Student name column -->
+                  <ngx-datatable-column name="Student name" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.id}}
+                      {{row.fullName}}
                     </ng-template>
-                </ngx-datatable-column>
+                  </ngx-datatable-column>
 				
-                <!-- Admission no column -->
-                <ngx-datatable-column name="Admission no" [width]="100">
+                  <!-- Admission no column -->
+                  <ngx-datatable-column name="Admission no" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.admissionNo}}
                     </ng-template>
-                </ngx-datatable-column>
+                  </ngx-datatable-column>
 
-                <!-- Contact no 1 column -->
-                <ngx-datatable-column name="Contact no1" [width]="100">
+                  <!-- Contact no 1 column -->
+                  <ngx-datatable-column name="Contact no1" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.emegencyContactNo1}}
-                    </ng-template>
-                </ngx-datatable-column>
-
-                <!-- Contact no 2 column -->
-                <ngx-datatable-column name="Contact no2" [width]="100">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.emegencyContactNo2}}
+                      {{row.mobileNo}}
                     </ng-template>
                   </ngx-datatable-column>
 
-                <!-- Gender column -->  
-                <ngx-datatable-column name="Gender" [width]="100">
+                  <!-- Contact no 2 column -->
+                  <ngx-datatable-column name="Contact no2" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.emegencyContactNo}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- Gender column -->  
+                  <ngx-datatable-column name="Gender" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.gender}}
                     </ng-template>
@@ -93,38 +93,41 @@
                   <!-- Birth date column -->
                   <ngx-datatable-column name="Date of birth" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.dateOfBirth}}
+                      {{row.dateOfBirth | date}}
                     </ng-template>
                   </ngx-datatable-column>
 
-                  <!-- Is active column -->
-                  <ngx-datatable-column name="IsActive" [width]="100">
+                  <!-- address column -->
+                  <ngx-datatable-column name="Address" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.isActive}}
+                      {{row.address}}
                     </ng-template>
                   </ngx-datatable-column>
 
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <!-- Edit and delete icon column -->
+                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                     <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                       <span>
-                        <button class="btn btn-tbl-edit h-auto" >
+                        <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                           <i class="fas fa-pen"></i>
                         </button>
-                        <button class="btn btn-tbl-delete h-auto">
+                        <button class="btn btn-tbl-delete h-auto" (click)='deleteStudent(row)'>
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </span>
                     </ng-template>
                   </ngx-datatable-column>
+
                 </ngx-datatable>
 
-                <ng-template #addRecord let-modal>
+                <!-- Add new student model -->
+                <ng-template #addEditRecord let-modal>
                     <div class="modal-header editRowModal">
                       <h4 class="modal-title" id="modal-basic-title">
                         <div class="table-modal-header">
                           <div class="modal-about">
                             <div class="fw-bold p-t-10 font-17">
-                             Add New Class</div>
+                             Add New Student</div>
                           </div>
                         </div>
                       </h4>
@@ -133,29 +136,145 @@
                       </button>
                     </div>
                     <div class="modal-body">
-                      <form class="register-form" [formGroup]="saveClassForm" (ngSubmit)="onAddRowSave(saveClassForm)">
+                      <form class="register-form" [formGroup]="saveStudentForm">
+                        
+                        <!-- Form rows starts here -->
+                        <!-- Student name and admissionNo -->
                         <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                              <label>Name <span class="text-danger">*</span></label>
-                              <input 
-                                  type="text" 
-                                  class="form-control" 
-                                  placeholder="Name" 
-                                  formControlName="Name"
-                                  required>
-                              <small class="form-text text-danger"
-                                *ngIf="!saveClassForm.get('Name').valid && saveClassForm.get('Name').touched"> Name is
-                                required</small>
-                            </div>  
-                            </div>
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Student Name <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Full Name" 
+                                formControlName="fullName"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('fullName').valid && saveStudentForm.get('fullName').touched"> This field is
+                              required</small>
+                          </div>
 
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" [disabled]="!saveClassForm.valid">Submit</button>
-                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
-                              </div>
-                            </form>
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Admission number <span class="text-danger">*</span></label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                placeholder="Admission number" 
+                                formControlName="admissionNo"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('admissionNo').valid && saveStudentForm.get('admissionNo').touched"> This field is
+                              required</small>
+                          </div>
                         </div>
-                    </ng-template>
+
+                        <!-- Address and Date of birth -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Address <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="Address" 
+                                formControlName="address"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('address').valid && saveStudentForm.get('address').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Date of birth <span class="text-danger">*</span></label>
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                formControlName="dateOfBirth"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('dateOfBirth').valid && saveStudentForm.get('dateOfBirth').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Mobile number and emergency contact number -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Mobile number <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="077xxxxxxx" 
+                                formControlName="mobileNo"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('mobileNo').valid && saveStudentForm.get('mobileNo').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Emergency contact number <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="033xxxxxxx" 
+                                formControlName="emegencyContactNo"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('emegencyContactNo').valid && saveStudentForm.get('emegencyContactNo').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Gender <span class="text-danger">*</span></label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                placeholder="Male 1, Female 2" 
+                                formControlName="gender"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Email and Password -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                formControlName="email"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('email').valid && saveStudentForm.get('email').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Password <span class="text-danger">*</span></label>
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                formControlName="password"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('password').valid && saveStudentForm.get('password').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <div class="modal-footer">
+                          <button type="submit" class="btn btn-primary" (click)="saveStudent()" [disabled]="!saveStudentForm.valid">Submit</button>
+                          <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+                        </div>
+                      </form>
+                    </div>
+                </ng-template>
                     </div>
                   </div>
                 </div>
