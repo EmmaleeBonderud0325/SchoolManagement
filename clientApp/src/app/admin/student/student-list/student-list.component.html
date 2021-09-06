@@ -57,29 +57,29 @@
                 
                   <!-- Student name column -->
                   <ngx-datatable-column name="Student name" [width]="100">
-                      <ng-template let-row="row" ngx-datatable-cell-template>
-                        {{row.fullName}}
-                      </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.fullName}}
+                    </ng-template>
                   </ngx-datatable-column>
 				
                   <!-- Admission no column -->
                   <ngx-datatable-column name="Admission no" [width]="100">
-                      <ng-template let-row="row" ngx-datatable-cell-template>
-                        {{row.admissionNo}}
-                      </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.admissionNo}}
+                    </ng-template>
                   </ngx-datatable-column>
 
                   <!-- Contact no 1 column -->
                   <ngx-datatable-column name="Contact no1" [width]="100">
-                      <ng-template let-row="row" ngx-datatable-cell-template>
-                        {{row.emegencyContactNo1}}
-                      </ng-template>
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.mobileNo}}
+                    </ng-template>
                   </ngx-datatable-column>
 
                   <!-- Contact no 2 column -->
                   <ngx-datatable-column name="Contact no2" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.emegencyContactNo2}}
+                      {{row.emegencyContactNo}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -139,6 +139,7 @@
                       <form class="register-form" [formGroup]="saveStudentForm">
                         
                         <!-- Form rows starts here -->
+                        <!-- Student name and admissionNo -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <label>Student Name <span class="text-danger">*</span></label>
@@ -146,27 +147,28 @@
                                 type="text" 
                                 class="form-control" 
                                 placeholder="Full Name" 
-                                formControlName="name"
+                                formControlName="fullName"
                                 required>
                             <small class="form-text text-danger"
-                              *ngIf="!saveStudentForm.get('name').valid && saveStudentForm.get('name').touched"> Student name is
+                              *ngIf="!saveStudentForm.get('fullName').valid && saveStudentForm.get('fullName').touched"> This field is
                               required</small>
                           </div>
 
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <label>Admission number <span class="text-danger">*</span></label>
                             <input 
-                                type="text" 
+                                type="number" 
                                 class="form-control" 
                                 placeholder="Admission number" 
-                                formControlName="admission"
+                                formControlName="admissionNo"
                                 required>
                             <small class="form-text text-danger"
-                              *ngIf="!saveStudentForm.get('admission').valid && saveStudentForm.get('admission').touched"> Admission number is
+                              *ngIf="!saveStudentForm.get('admissionNo').valid && saveStudentForm.get('admissionNo').touched"> This field is
                               required</small>
                           </div>
                         </div>
 
+                        <!-- Address and Date of birth -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <label>Address <span class="text-danger">*</span></label>
@@ -177,20 +179,91 @@
                                 formControlName="address"
                                 required>
                             <small class="form-text text-danger"
-                              *ngIf="!saveStudentForm.get('address').valid && saveStudentForm.get('address').touched"> Address is
+                              *ngIf="!saveStudentForm.get('address').valid && saveStudentForm.get('address').touched"> This field is
                               required</small>
                           </div>
 
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                            <label>Phone number <span class="text-danger">*</span></label>
+                            <label>Date of birth <span class="text-danger">*</span></label>
+                            <input 
+                                type="date" 
+                                class="form-control" 
+                                formControlName="dateOfBirth"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('dateOfBirth').valid && saveStudentForm.get('dateOfBirth').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Mobile number and emergency contact number -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Mobile number <span class="text-danger">*</span></label>
                             <input 
                                 type="text" 
                                 class="form-control" 
-                                placeholder="Phone number" 
-                                formControlName="phone1"
+                                placeholder="077xxxxxxx" 
+                                formControlName="mobileNo"
                                 required>
                             <small class="form-text text-danger"
-                              *ngIf="!saveStudentForm.get('phone1').valid && saveStudentForm.get('phone1').touched"> Admission number is
+                              *ngIf="!saveStudentForm.get('mobileNo').valid && saveStudentForm.get('mobileNo').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Emergency contact number <span class="text-danger">*</span></label>
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                placeholder="033xxxxxxx" 
+                                formControlName="emegencyContactNo"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('emegencyContactNo').valid && saveStudentForm.get('emegencyContactNo').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Gender -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Gender <span class="text-danger">*</span></label>
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                placeholder="Male 1, Female 2" 
+                                formControlName="gender"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- Email and Password -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Email <span class="text-danger">*</span></label>
+                            <input 
+                                type="email" 
+                                class="form-control" 
+                                formControlName="email"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('email').valid && saveStudentForm.get('email').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Password <span class="text-danger">*</span></label>
+                            <input 
+                                type="password" 
+                                class="form-control" 
+                                formControlName="password"
+                                required>
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('password').valid && saveStudentForm.get('password').touched"> This field is
                               required</small>
                           </div>
                         </div>

@@ -13,8 +13,8 @@ namespace SchoolManagement.ViewModel.Master
 
         public int Id { get; set; }
         public int AdmissionNo { get; set; }
-        public string EmegencyContactNo1 { get; set; }
-        public string EmegencyContactNo2 { get; set; }
+        public string EmegencyContactNo { get; set; }
+        //public string EmegencyContactNo2 { get; set; }
         public Gender Gender { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool IsActive { get; set; }

@@ -82,8 +82,8 @@ namespace SchoolManagement.Business.Master
                     {
                         Id = item.Id,
                         AdmissionNo = item.AdmissionNo,
-                        EmegencyContactNo1 = item.EmegencyContactNo1,
-                        EmegencyContactNo2 = item.EmegencyContactNo2,
+                        EmegencyContactNo = item.EmegencyContactNo2,
+                        //EmegencyContactNo2 = user.MobileNo,
                         Gender = item.Gender,
                         DateOfBirth = item.DateOfBirth,
                         IsActive = item.IsActive,
@@ -164,8 +164,8 @@ namespace SchoolManagement.Business.Master
                     {
                         Id = insertedId,
                         AdmissionNo = vm.AdmissionNo,
-                        EmegencyContactNo1 = vm.EmegencyContactNo1,
-                        EmegencyContactNo2 = vm.EmegencyContactNo2,
+                        EmegencyContactNo1 = user.MobileNo,
+                        EmegencyContactNo2 = vm.EmegencyContactNo,
                         Gender = vm.Gender,
                         DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
@@ -183,8 +183,8 @@ namespace SchoolManagement.Business.Master
                 else
                 {
                     student.AdmissionNo = vm.AdmissionNo;
-                    student.EmegencyContactNo1 = vm.EmegencyContactNo1;
-                    student.EmegencyContactNo2 = vm.EmegencyContactNo2;
+                    student.EmegencyContactNo1 = vm.MobileNo;
+                    student.EmegencyContactNo2 = vm.EmegencyContactNo;
                     student.Gender = vm.Gender;
                     student.IsActive = true;
                     student.UpdatedById = loggedInUser.Id;

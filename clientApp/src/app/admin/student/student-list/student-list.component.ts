@@ -48,10 +48,15 @@ export class StudentListComponent implements OnInit {
   addNewStudent(content) {
 
     this.saveStudentForm = this.fb.group({
-      name: ['', [Validators.required]],
-      admission: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
+      admissionNo: ['', [Validators.required]],
       address: ['', [Validators.required]],
-      phone1: ['', [Validators.required]],
+      mobileNo: ['', [Validators.required]],
+      emegencyContactNo: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      dateOfBirth: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
+      email: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
