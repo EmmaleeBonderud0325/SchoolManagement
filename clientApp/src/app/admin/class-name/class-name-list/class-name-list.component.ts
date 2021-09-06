@@ -95,15 +95,18 @@ export class ClassNameListComponent implements OnInit {
 
   //Update class name
   editRow(row:classnameModel, rowIndex:number, content:any) {
+
+    console.log(row);
+
+    this.saveClassNameForm = this.fb.group({
+      id:[row.id],
+      name: [row.name, [Validators.required]],
+      description: [row.description,[Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
-    });
-
-    this.saveClassNameForm = this.fb.group({
-      name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-      description: [row.description,[Validators.required, Validators.pattern('[0-9]+[a-zA-Z]+')]],
-      isActive: [row.isActive, [Validators.required]],
     });
   }
 

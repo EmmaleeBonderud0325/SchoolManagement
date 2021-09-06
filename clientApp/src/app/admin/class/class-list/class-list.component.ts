@@ -166,18 +166,21 @@ export class ClassListComponent implements OnInit {
     }
 
     editRow(row:ClassModel, rowIndex:number, content:any) {
+
+      console.log(row);
+
+      this.saveClassForm = this.fb.group({
+        classNameId: [row.classNameId, [Validators.required]],
+        academicLevelId: [row.academicLevelId, [Validators.required]],
+        academicYearId: [row.academicYearId, [Validators.required]],
+        name: [row.name, [Validators.required]],
+        classCategory: [row.classCategory, [Validators.required]],
+        languageStream: [row.languageStream, [Validators.required]],
+      });
+
       this.modalService.open(content, {
         ariaLabelledBy: 'modal-basic-title',
         size: 'lg',
-      });
-
-      this.saveClassForm = this.fb.group({
-        name: [row.name, [Validators.required, Validators.pattern('[a-zA-Z]+')]],
-        classNameId: [row.classNameId, [Validators.required]],
-        academicLevelId: [row.academicLevelId, [Validators.required]],
-        ademicYearId: [row.academicYearId, [Validators.required]],
-        classCategory: [row.classCategory, [Validators.required]],
-        languageStream: [row.languageStream, [Validators.required]],
       });
     }
   

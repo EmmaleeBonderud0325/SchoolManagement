@@ -11,7 +11,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     public interface IClassService
     {
         List<ClassViewModel> GetClasses();
-        Task<ResponseViewModel> SavaClass(ClassViewModel vm, string userName);
+        Task<ResponseViewModel> SavaClass(ClassViewModel classVM, string userName);
         Task<ResponseViewModel> DeleteClass(int id);
         List<DropDownViewModel> GetAllClassNames();
         List<DropDownViewModel> GetAllAcademicLevels();

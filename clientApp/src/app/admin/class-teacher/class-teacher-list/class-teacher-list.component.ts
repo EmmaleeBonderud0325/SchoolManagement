@@ -153,18 +153,20 @@ export class ClassTeacherListComponent implements OnInit {
   }
   
   editRow(row:classteacherModel, rowIndex:number, content:any) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+
+    console.log(row);
 
     this.saveClassTeacherForm = this.fb.group({
       selectclassNameId: [row.classNameId, [Validators.required]],
       selectacademicLevelId: [row.academicLevelId, [Validators.required]],
       selectacademicYearId: [row.academicYearId, [Validators.required]],
       selectteacherId: [row.teacherId, [Validators.required]],
-      isActive: [row.isActive, [Validators.required]],
       isPrimary: [row.isPrimary, [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
     });
   }
 
