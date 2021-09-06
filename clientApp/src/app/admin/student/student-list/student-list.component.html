@@ -86,7 +86,7 @@
                   <!-- Gender column -->  
                   <ngx-datatable-column name="Gender" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.gender}}
+                      {{row.genderName}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -158,8 +158,8 @@
                             <label>Admission number <span class="text-danger">*</span></label>
                             <input 
                                 type="number" 
-                                class="form-control" 
-                                placeholder="Admission number" 
+                                class="form-control"
+                                placeholder="Admission number"
                                 formControlName="admissionNo"
                                 required>
                             <small class="form-text text-danger"
@@ -226,19 +226,25 @@
                         </div>
 
                         <!-- Gender -->
-                        <div class="row">
-                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                            <label>Gender <span class="text-danger">*</span></label>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <!-- <div class="form-group"> -->
+                            <label>Gender<span class="text-danger">*</span></label>
+                            <select class="form-select form-control" formControlName="gender">
+                              <option [value]=1>Male</option>
+                              <option [value]=2>Female</option>
+                            </select>
+                            <!-- <label>Gender <span class="text-danger">*</span></label>
                             <input 
                                 type="number" 
                                 class="form-control" 
                                 placeholder="Male 1, Female 2" 
                                 formControlName="gender"
-                                required>
+                                required> -->
+
                             <small class="form-text text-danger"
                               *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
                               required</small>
-                          </div>
+                          <!-- </div> -->
                         </div>
 
                         <!-- Email and Password -->

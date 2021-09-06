@@ -64,6 +64,13 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        public List<DropDownViewModel> GetAllGenders()
+        {
+            return schoolDb.Students.Where(u => u.Gender != null)
+                .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Gender) })
+                .ToList();
+        }
+
         public List<StudentViewModel> GetAllStudent()
         {
             var response = new List<StudentViewModel>();
@@ -85,6 +92,7 @@ namespace SchoolManagement.Business.Master
                         EmegencyContactNo = item.EmegencyContactNo2,
                         //EmegencyContactNo2 = user.MobileNo,
                         Gender = item.Gender,
+                        GenderName = item.Gender.ToString(),
                         DateOfBirth = item.DateOfBirth,
                         IsActive = item.IsActive,
                         FullName = user.FullName,

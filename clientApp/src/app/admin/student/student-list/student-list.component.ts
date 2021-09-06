@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StudentModel } from './../../../models/student/student.model'
 import { StudentService } from './../../../services/student/student.service'
 import Swal from 'sweetalert2';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 @Component({
   selector: 'app-student-list',
@@ -21,6 +22,7 @@ export class StudentListComponent implements OnInit {
   saveStudentForm:FormGroup;
   reorderable = true;
   user:StudentModel;
+  allGenders:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -30,6 +32,7 @@ export class StudentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllGenders();
   }
 
   getAll(){
@@ -63,6 +66,17 @@ export class StudentListComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+  }
+
+  getAllGenders()
+  {
+    this.studentService.getAllGenders()
+      .subscribe(response=>
+      { 
+        this.allGenders = response;
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
 
   saveStudent(){   

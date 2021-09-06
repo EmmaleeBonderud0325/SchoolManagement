@@ -1,5 +1,6 @@
 ﻿using SchoolManagement.Model;
 using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,11 @@ namespace SchoolManagement.ViewModel.Master
         public string EmegencyContactNo { get; set; }
         //public string EmegencyContactNo2 { get; set; }
         public Gender Gender { get; set; }
+        //public List<DropDownViewModel> AllGenders { get; set; }
+        public string GenderName { get; set; }
         public DateTime? DateOfBirth { get; set; }
         public bool IsActive { get; set; }
+
 
         public string FullName { get; set; }
         public string Email { get; set; }
