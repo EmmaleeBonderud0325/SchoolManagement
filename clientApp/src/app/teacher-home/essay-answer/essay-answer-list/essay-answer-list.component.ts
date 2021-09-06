@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
+import { EssayQuestionAnswerModel } from 'src/app/models/essay-answer/essay.answer.model';
 
 @Component({
   selector: 'app-essay-answer-list',
@@ -40,18 +41,7 @@ export class EssayAnswerListComponent implements OnInit {
   }
 
 
-  getAllQuestions()
-      {
-        this.EssayQuestionAnswerService.getAllQuestions()
-          .subscribe(response=>
-          { 
-            this.questionNames = response;
-            console.log(response);
-            
-          },error=>{
-            this.toastr.error("Network error has been occured. Please try again.","Error");
-           });
-      }
+
 
   createNewEssayanswer(content)
       {
@@ -85,9 +75,34 @@ export class EssayAnswerListComponent implements OnInit {
         })
 
        }
+     
+    //get all questions
+    getAllQuestions()
+       {
+         this.EssayQuestionAnswerService.getAllQuestions()
+           .subscribe(response=>
+           { 
+             this.questionNames = response;
+             console.log(response);
+             
+           },error=>{
+             this.toastr.error("Network error has been occured. Please try again.","Error");
+            });
+       }
 
   //update
-  editRow(row, rowIndex, content) {
+  editRow(row:EssayQuestionAnswerModel, rowIndex:number, content) 
+  {
+
+    console.log(row);
+
+    this.essayAnswerForm = this.fb.group({
+      id:[row.id],
+      questionId:[row.questionId, [Validators.required]],
+      answerText:[row.answerText, [Validators.required]],
+      
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
@@ -120,10 +135,7 @@ deleteEssayAnswer(row) {
           this.toastr.success(response.message,"Success");
           this.getAll();
         }
-        else
-        {
-          this.toastr.error(response.message,"Error");
-        }
+       
   
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
