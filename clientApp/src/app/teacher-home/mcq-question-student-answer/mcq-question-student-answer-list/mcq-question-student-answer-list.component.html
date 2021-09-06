@@ -20,7 +20,7 @@
                     <div class="col-lg-3 p-0">
                       <div class="ngxTableHeader">
                         <div class="table-title">
-                          <h2><strong>MCQ Question Student Answer Level</strong></h2>
+                          <h2><strong>MCQ Question Student Answer</strong></h2>
                         </div>
                       </div>
                     </div>
@@ -68,7 +68,7 @@
                 </div>
               </div>
   
-              <ngx-datatable #table class="material" [rows]="" [loadingIndicator]="loadingIndicator"
+              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                   columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                   [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
     

@@ -1,3 +1,4 @@
+import { questionModel } from './../../../models/question/question.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import  Swal  from 'sweetalert2';
@@ -25,6 +26,7 @@ export class QuestionListComponent implements OnInit {
     reorderable = true;
     questionForm: FormGroup;
     lessonName :DropDownModel[] = [];
+    topicNames :DropDownModel[] = [];
 
     constructor(
       private fb: FormBuilder,
@@ -36,8 +38,10 @@ export class QuestionListComponent implements OnInit {
     ngOnInit(): void {
       this.getAll();
       this.getAllLessonName();
+      this.getAllTopic();
     }
-
+  
+    //display lesson name nad topic
     getAllLessonName(){
       this.QuestionService.getAllLessonName()
         .subscribe(response=>
@@ -49,6 +53,20 @@ export class QuestionListComponent implements OnInit {
           this.toastr.error("Network error has been occured. Please try again.","Error");
          });
     }
+
+    getAllTopic() {
+      this.QuestionService.getAllTopic()
+      .subscribe(response=>
+      { 
+          this.topicNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+    }
+
+    
 
     //retrive method
     getAll(){
@@ -67,8 +85,9 @@ export class QuestionListComponent implements OnInit {
     createNewQuestion(content)
     {
       this.questionForm = this.fb.group({
+        id:[0],
         lessonName:[null, [Validators.required]],
-        topic:[null, [Validators.required]],
+        topicId:[null, [Validators.required]],
         sequenceno:['', [Validators.required]],
         marks:['', [Validators.required]],
         questiontext:['', [Validators.required]],
@@ -133,6 +152,25 @@ export class QuestionListComponent implements OnInit {
                 this.toastr.error("Network error has been occre.Please try again","Error");
           });
         
+      }
+
+      //update button
+      editRow(row:questionModel, rowIndex:number, content) 
+      {
+        console.log(row);
+    
+        this.questionForm = this.fb.group({
+          id:[row.id],
+          sequenceno:[row.sequenceNo, [Validators.required]],
+          marks:[row.marks, [Validators.required]],
+          questiontext:[row.questionText, [Validators.required]],
+          questiontype:[row.questionType, [Validators.required]],
+        });
+    
+        this.modalService.open(content, {
+          ariaLabelledBy: 'modal-basic-title',
+          size: 'lg',
+        });
       }
     
 }

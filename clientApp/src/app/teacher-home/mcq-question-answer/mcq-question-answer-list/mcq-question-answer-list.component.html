@@ -42,9 +42,6 @@
                           <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewMcqQuestionAnswer(addEditRecord)' >
                             <i class="material-icons">add</i>
                           </button>
-                          <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                            <i class="material-icons">delete</i>
-                          </button>
                         </div>
                       </div>
 
@@ -68,7 +65,7 @@
               </div>
             </div>
 
-            <ngx-datatable #table class="material" [rows]="" [loadingIndicator]="loadingIndicator"
+            <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 

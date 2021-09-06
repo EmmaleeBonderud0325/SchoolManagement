@@ -160,5 +160,15 @@ namespace SchoolManagement.Business
             return lesson;
         }
 
+
+        public List<DropDownViewModel> GetAllTopic()
+        {
+            var topic = schoolDb.Topics
+            .Where(x => x.IsActive == true)
+            .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t.Name) })
+            .Distinct().ToList();
+
+            return topic;
+        }
     }
 }
