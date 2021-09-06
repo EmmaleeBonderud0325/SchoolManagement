@@ -23,7 +23,7 @@ export class UserListComponent implements OnInit {
   saveUserForm:FormGroup;
   reorderable = true;
   user:UserModel;
-
+  isDisabled: boolean;
   userRoles:DropDownModel[]=[];
 
   constructor(
@@ -42,6 +42,7 @@ export class UserListComponent implements OnInit {
   createNewUser(content)
   {
     this.saveUserForm = this.fb.group({
+      id:[0],
       fullName:['', [Validators.required]],
       email:['', [Validators.required]],
       mobileNo:['', [Validators.required]],
@@ -128,7 +129,7 @@ export class UserListComponent implements OnInit {
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-            //this.getAll();
+            this.getAll();
         }
         else
         {
@@ -162,21 +163,5 @@ export class UserListComponent implements OnInit {
       size: 'lg',
     });
   }
-
-  onAddRowSave(form: FormGroup)
-   {
-
-    
-  }
-
-  deleteSingleRow(row) 
-  {
-
-  }
-
-
-
-
-
 
 }
