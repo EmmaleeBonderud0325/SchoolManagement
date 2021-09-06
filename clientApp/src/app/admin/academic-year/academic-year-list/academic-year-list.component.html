@@ -42,10 +42,7 @@
                           <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicYear(addEditRecord)' >
                             <i class="material-icons">add</i>
                           </button>
-                          <button  class="btn btn-icon icon-left btn-danger rounded-button"
-                            >
-                            <i class="material-icons">delete</i>
-                          </button>
+                          
                         </div>
                       </div>
                     </div>
@@ -89,7 +86,7 @@
                       <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteAcademicYear(row)'>
                         <i class="far fa-trash-alt"></i>
                       </button>
                     </span>
@@ -153,7 +150,7 @@
                     </div>                 
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!academicYearFrom.valid">Save</button>
+                    <button type="button" class="btn btn-primary" (click)="saveAcademicLevel()" [disabled]="!academicYearFrom.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
                   </div>
                 </form>

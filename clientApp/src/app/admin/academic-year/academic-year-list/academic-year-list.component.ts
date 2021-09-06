@@ -47,9 +47,11 @@ export class AcademicYearListComponent implements OnInit {
     this.academicYearService.getAll().subscribe(response=>
     {
         this.data= response;
+        console.log(response);
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
 
@@ -66,6 +68,33 @@ export class AcademicYearListComponent implements OnInit {
       size: 'lg',
     });
   }
+
+  //Save Academic Year
+
+  saveAcademicYear(){   
+    
+    console.log(this.academicYearFrom.value);
+    
+    this.academicYearService.saveAcademicYear(this.academicYearFrom.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
+  }
+  
 
     onAddRowSave(form: FormGroup) {
       this.data.push(form.value);
@@ -88,11 +117,42 @@ export class AcademicYearListComponent implements OnInit {
     });
   }
 
-    deleteSingleRow(row) {
 
-    }
+  // delete Academic Year
+
+  deleteAcademicYear(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Academic Year ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+
+      if (result.value) {
+
+        this.academicYearService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
+
+
 
     addRecordSuccess() {
-      this.toastr.success('Acedemic Year Added Successfully', '');
+      this.toastr.success('Academic Year Added Successfully', '');
     }
 }

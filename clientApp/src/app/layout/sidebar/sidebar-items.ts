@@ -156,6 +156,18 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [],
       }
+      /*{
+        path: '/admin/head-of-department',
+        title: 'MENUITEMS.ADMIN.LIST.HEAD_OF_DEPARTMENT',
+        moduleName: 'head-of-department',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+      },*/
     ],
   }
   //section end admin 

@@ -17,7 +17,7 @@ export class AcademicYearService {
       get<AcademicYearModel[]>(environment.apiUrl + 'AcademicYear');
   }
 
-  save(vm: AcademicYearModel): Observable<ResponseModel> {
+  saveAcademicYear(vm: AcademicYearModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'AcademicYear', vm);
   }
