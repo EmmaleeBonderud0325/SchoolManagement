@@ -27,7 +27,9 @@ namespace SchoolManagement.ViewModel.Lesson
         public bool IsActive { get; set; }
         public DateTime CreateOn { get; set; }
         public int CreatedById { get; set; }
+        public string CreatedByName { get; set; }
         public DateTime UpdateOn { get; set; }
         public int UpdatedById { get; set; }
+        public string UpdateByName { get; set; }
     }
 }

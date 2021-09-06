@@ -13,5 +13,10 @@ export class questionModel{
     marks : number;
     difficultyLevel : number;
     questionType : number;
-    isActive : boolean;
+    isActive : boolean;    
+    CreatedById : number;
+    CreatedByName : string;
+    UpdateOn : Date;
+    UpdatedById : number;
+    UpdateByName : string;
 }

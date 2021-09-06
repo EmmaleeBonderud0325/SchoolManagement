@@ -24,7 +24,7 @@ export class McqQuestionAnswerService {
 
   delete(classNameId: number): Observable <ResponseModel> { 
     return this.httpClient. 
-      delete<ResponseModel>(environment.apiUrl + 'question/' + classNameId); 
+      delete<ResponseModel>(environment.apiUrl + 'McqQuestionAnswer/' + classNameId); 
   }
   
 }
