@@ -22,7 +22,7 @@ get<EssayQuestionAnswerModel[]>(environment.apiUrl + 'EssayQuestionAnswer')
  
 saveEssayQuestionAnswer(essayanswer: EssayQuestionAnswerModel): Observable<ResponseModel> {​​​​​​​​
 return this.httpClient.
-post<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer/saveEssayQuestionAnswer', essayanswer);
+post<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer', essayanswer);
   }​​​​​​​​
 
 delete(id: number): Observable<ResponseModel> {

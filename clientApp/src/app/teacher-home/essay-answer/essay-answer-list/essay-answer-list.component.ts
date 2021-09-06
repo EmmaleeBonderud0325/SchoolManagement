@@ -22,7 +22,7 @@ export class EssayAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     essayAnswerForm: FormGroup;
-    questionName:DropDownModel[] = [];
+    questionNames:DropDownModel[] = [];
 
     
   constructor(
@@ -45,7 +45,7 @@ export class EssayAnswerListComponent implements OnInit {
         this.EssayQuestionAnswerService.getAllQuestions()
           .subscribe(response=>
           { 
-            this.questionName = response;
+            this.questionNames = response;
             console.log(response);
             
           },error=>{
@@ -56,7 +56,8 @@ export class EssayAnswerListComponent implements OnInit {
   createNewEssayanswer(content)
       {
         this.essayAnswerForm = this.fb.group({
-          questionName:[null , [Validators.required]],
+          id:[0],
+          questionId:[null , [Validators.required]],
           answerText:['', [Validators.required]],
          
 
