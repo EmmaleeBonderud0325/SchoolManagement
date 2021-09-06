@@ -75,8 +75,7 @@ export class AcademicYearListComponent implements OnInit {
     
     console.log(this.academicYearFrom.value);
     
-    this.academicYearService.saveAcademicYear(this.academicYearFrom.value)
-    .subscribe(response=>{
+    this.academicYearService.saveAcademicYear(this.academicYearFrom.value).subscribe(response=>{
 
         if(response.isSuccess)
         {
@@ -106,15 +105,19 @@ export class AcademicYearListComponent implements OnInit {
 
 
   editRow(row:AcademicYearModel, rowIndex:number, content:any) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+
+    console.log(row);
 
     this.academicYearFrom = this.fb.group({
       name: [row.name, [Validators.required, Validators.pattern('[0-9]+')]],
       isActive: [row.isActive, [Validators.required]],
     });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+    
   }
 
 
@@ -149,8 +152,6 @@ export class AcademicYearListComponent implements OnInit {
       }
     });
   }
-
-
 
     addRecordSuccess() {
       this.toastr.success('Academic Year Added Successfully', '');

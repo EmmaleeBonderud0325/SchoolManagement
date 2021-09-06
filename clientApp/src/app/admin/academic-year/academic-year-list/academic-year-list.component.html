@@ -52,28 +52,37 @@
             </div>
             <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
               columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">                
+              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">       
 
+                <!--Academic Year Column-->
                 <ngx-datatable-column name="Academic Year" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!--IsActive Column-->
                 <ngx-datatable-column name="Is Active">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.isActive}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!--Created on Column-->
                 <ngx-datatable-column name="Created On">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!--Updated on Column-->
                 <ngx-datatable-column name="updated On">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!--Updated by Column-->
                 <ngx-datatable-column name="Updated By">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedByName}}
@@ -93,6 +102,7 @@
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
+
               <!-- Add Record Modal Window -->
             <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
@@ -115,17 +125,11 @@
                       formControlName="id" 
                       class="form-control" 
                       type="hidden">
-                  </div>
-                  <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="img" 
-                      class="form-control" 
-                      type="hidden">
                   </div> -->
-
+                  
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Name <span class="text-danger">*</span></label>
+                      <label>Year <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
@@ -133,22 +137,31 @@
                           formControlName="name"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!academicYearFrom.get('name').valid && academicYearFrom.get('name').touched"> Academic Year name is
+                        *ngIf="!academicYearFrom.get('name').valid && academicYearFrom.get('name').touched"> Academic Year is
                         required</small>
                     </div>
-
                   </div>
+
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Is Active <span class="text-danger">*</span></label>
+                      
+                      <!--<label>Is Active <span class="text-danger">*</span></label>
                       <select class="form-control" formControlName="isActive" required>
                         <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">
+                        <option *ngFor="let desig of designationType" [value]="desig.value">-->
                           <!-- {{desig.value}} -->
-                        </option>
-                      </select>
+                        <!--</option>
+                      </select>-->
+
+                      <div class="form-group">
+                        <label>Is Active<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="levelHeadId">
+                          <option *ngFor="let item of IsActive" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
                     </div>                 
                   </div>
+                  
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="saveAcademicLevel()" [disabled]="!academicYearFrom.valid">Save</button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
