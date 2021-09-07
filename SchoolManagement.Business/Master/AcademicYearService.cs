@@ -66,8 +66,7 @@ namespace SchoolManagement.Business.Master
 
                 var academicYear = schoolDb.AcademicYears.FirstOrDefault(ay => ay.Id == vm.Id);
 
-                if (academicYear == null)
-                {
+                   
                     academicYear = new AcademicYear()
                     {
                         Id = vm.Id,
@@ -82,27 +81,32 @@ namespace SchoolManagement.Business.Master
 
                     response.IsSuccess = true;
                     response.Message = AcademicYearServiceConstants.NEW_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
-                }
-                else
-                {
-                    academicYear.Id = vm.Id;
-                    academicYear.IsActive = true;
-                    academicYear.UpdatedOn = DateTime.UtcNow;
-                    academicYear.UpdatedById = loggedInUser.Id;
 
-                    schoolDb.AcademicYears.Update(academicYear);
+                    await schoolDb.SaveChangesAsync();
+                
+                //else
+                //{
+                //    academicYear.Id = vm.Id;
+                //    academicYear.IsActive = true;
+                //    academicYear.UpdatedOn = DateTime.UtcNow;
+                //    academicYear.UpdatedById = loggedInUser.Id;
 
-                    response.IsSuccess = true;
-                    response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
-                    
-                }
+                //    //schoolDb.AcademicYears.Update(academicYear);
 
-                await schoolDb.SaveChangesAsync();
+                //response.IsSuccess = true;
+                //response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
+
+                //    
+
+                //}
+
+                
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = AcademicYearServiceConstants.ACADEMICYEAR_SAVE_EXCEPTION_MESSAGE;
+                
             }
             return response;
         }

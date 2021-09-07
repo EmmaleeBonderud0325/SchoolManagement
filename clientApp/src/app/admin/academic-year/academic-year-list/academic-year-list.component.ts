@@ -33,10 +33,6 @@ export class AcademicYearListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.academicYearFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      isActive: ['', [Validators.required]],
-    });
     this.getAll();
     
   }
@@ -47,7 +43,6 @@ export class AcademicYearListComponent implements OnInit {
     this.academicYearService.getAll().subscribe(response=>
     {
         this.data= response;
-        console.log(response);
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
@@ -59,8 +54,9 @@ export class AcademicYearListComponent implements OnInit {
   addNewAcademicYear(content) {
 
     this.academicYearFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      isActive: ['', [Validators.required]],
+      academicYearName: ['', [Validators.required]],
+      isActive:[true]
+     
     });
 
     this.modalService.open(content, {
@@ -109,7 +105,7 @@ export class AcademicYearListComponent implements OnInit {
     console.log(row);
 
     this.academicYearFrom = this.fb.group({
-      name: [row.name, [Validators.required, Validators.pattern('[0-9]+')]],
+      
       isActive: [row.isActive, [Validators.required]],
     });
 
