@@ -24,6 +24,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("getClasses")]
         public ActionResult GetClasses()
         {
             var response = classService.GetClasses();
@@ -31,6 +32,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
+        [Route("savaClass")]
         public async Task<ActionResult> Post([FromBody] ClassViewModel classVM)
         {
             var userName = identityService.GetUserName();

@@ -216,8 +216,17 @@
 
                   <!-- Modal Footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" (click)="saveClass()" [disabled]="!saveClassForm.valid">Save</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    <button 
+                      type="submit" 
+                      class="btn btn-primary"
+                      (click)="saveClass()" 
+                      [disabled]="!saveClassForm.valid">Save Class
+                    </button>
+                    <button 
+                      type="button" 
+                      class="btn btn-light" 
+                      (click)="modal.close('Close click')">Close
+                    </button>
                   </div>
                 </form>
               </div>

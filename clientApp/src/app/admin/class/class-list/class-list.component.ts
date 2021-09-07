@@ -58,7 +58,7 @@ export class ClassListComponent implements OnInit {
            });
       }
 
-    getAllAcademicYears()
+   getAllAcademicYears()
     {
       this.classService.getAllAcademicYears()
         .subscribe(response=>
@@ -135,11 +135,12 @@ export class ClassListComponent implements OnInit {
 
     saveClass(){   
     
-      console.log(this.saveClassForm.value);
+     // console.log(this.saveClassForm.value);
       
+      //this.classService.saveClass(this.saveClassForm.value)
       this.classService.saveClass(this.saveClassForm.value)
       .subscribe(response=>{
-  
+          console.log("Hellow world")
           if(response.isSuccess)
           {
             this.modalService.dismissAll();
@@ -155,33 +156,6 @@ export class ClassListComponent implements OnInit {
         this.toastr.error("Network error has been occured. Please try again.","Error");
       });
   
-    }
-  
-    onAddRowSave(form: FormGroup) {
-      this.data.push(form.value);
-      this.data = [...this.data];
-      form.reset();
-      this.modalService.dismissAll();
-      this.addRecordSuccess();
-    }
-
-    editRow(row:ClassModel, rowIndex:number, content:any) {
-
-      console.log(row);
-
-      this.saveClassForm = this.fb.group({
-        classNameId: [row.classNameId, [Validators.required]],
-        academicLevelId: [row.academicLevelId, [Validators.required]],
-        academicYearId: [row.academicYearId, [Validators.required]],
-        name: [row.name, [Validators.required]],
-        classCategory: [row.classCategory, [Validators.required]],
-        languageStream: [row.languageStream, [Validators.required]],
-      });
-
-      this.modalService.open(content, {
-        ariaLabelledBy: 'modal-basic-title',
-        size: 'lg',
-      });
     }
   
 //delete class
@@ -214,8 +188,5 @@ deleteClass(row) {
     });
   }
   
-    addRecordSuccess() {
-      this.toastr.success('Class Add Successfully', '');
-    }
-
+  
 }
