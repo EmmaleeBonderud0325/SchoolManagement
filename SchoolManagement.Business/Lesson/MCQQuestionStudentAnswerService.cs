@@ -129,8 +129,8 @@ namespace SchoolManagement.Business
         public List<DropDownViewModel> GetAllTeacherAnswer()
         {
             var teacher = schoolDb.MCQQuestionAnswers
-             .Where(x => x.QuestionId != null)
-             .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t) })
+             .Where(x => x.Question.Id != null)
+             .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t.AnswerText) })
              .Distinct().ToList();
 
             return teacher;

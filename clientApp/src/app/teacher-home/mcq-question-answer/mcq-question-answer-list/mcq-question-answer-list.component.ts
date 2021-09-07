@@ -36,27 +36,28 @@ export class McqQuestionAnswerListComponent implements OnInit {
   }
 
   //retrive method
-  getAll(){
+  getAll() {
     this.loadingIndicator = true;
-    this.McqQuestionAnswerService.getAll().subscribe(response => {
+      this.McqQuestionAnswerService.getAll().subscribe(response => {
       this.data=response;
       this.loadingIndicator = false;
 
-    }, error =>{
-      this.loadingIndicator = false;
-      this.toastr.error("Network error has been occured!, Please try again", "Error")
-    })
-   }
+      }, error =>{
+        this.loadingIndicator = false;
+        this.toastr.error("Network error has been occured!, Please try again", "Error")
+       })
+  }
+
 
 
    //add new question using form
   createNewMcqQuestionAnswer(content)
   {
     this.mcqQuestionAnswerForm = this.fb.group({
-      questionid:['', [Validators.required]],
-      answertext:['', [Validators.required]],
-      modifieddate:['', [Validators.required]],
-      createdon:['', [Validators.required]],
+      questionId:['', [Validators.required]],
+      answerText:['', [Validators.required]],
+      modifiedDate:['', [Validators.required]],
+      createdOn:['', [Validators.required]],
     });
 
     this.modalService.open(content, {

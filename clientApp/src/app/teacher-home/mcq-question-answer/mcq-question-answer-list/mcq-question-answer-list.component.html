@@ -70,44 +70,38 @@
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
               <!-- Answer Id -->
-              <ngx-datatable-column name="Id" [width]="100">
-                <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.id}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <!-- Question Id -->
-              <ngx-datatable-column name="QuestionId">
+              <ngx-datatable-column name="Question" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.questionName}}
                 </ng-template>
               </ngx-datatable-column>
 
+              
               <!-- Answer Text -->
-              <ngx-datatable-column name="AnswerText">
+              <ngx-datatable-column name="Answer Text">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.answerText}}
                 </ng-template>
               </ngx-datatable-column>
 
               <!-- Is Correct Answer -->
-              <ngx-datatable-column name="IsCorrectAnswer">
+              <ngx-datatable-column name="Is Correct Answer">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.isCorrectAnswer}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <!-- Modified Date -->
-              <ngx-datatable-column name="ModifiedDate">
+              <!-- Created On -->
+              <ngx-datatable-column name="Created On">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.modifiedDate}}
+                  {{row.createdOn}}
                 </ng-template>
               </ngx-datatable-column>
 
-              <!-- Created On -->
-              <ngx-datatable-column name="CreatedOn">
+              <!-- Modified Date -->
+              <ngx-datatable-column name="Modified Date">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdOn}}
+                  {{row.modifiedDate}}
                 </ng-template>
               </ngx-datatable-column>
 
@@ -145,7 +139,7 @@
 
 
             <div class="modal-body">
-              <form class="register-form" [formGroup]="mcqQuestionAnswerForm" (ngSubmit)="onAddRowSave(mcqQuestionAnswerForm)">
+              <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
                 <!--row one-->
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -154,25 +148,25 @@
                         type="text" 
                         class="form-control" 
                         placeholder="Question Id" 
-                        formControlName="questionid"
+                        formControlName="questionId"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!mcqQuestionAnswerForm.get('questionid').valid && mcqQuestionAnswerForm.get('questionid').touched">
+                      *ngIf="!mcqQuestionAnswerForm.get('questionId').valid && mcqQuestionAnswerForm.get('questionId').touched">
                        Answer ID required
                     </small>
                   </div>
 
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <div class="form-group">
-                      <label> AnswerText <span class="text-danger">*</span></label>
+                      <label> Answer Text <span class="text-danger">*</span></label>
                       <input 
                           type="text" 
                           class="form-control" 
                           placeholder="Answer Text" 
-                          formControlName="answertext"
+                          formControlName="answerText"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!mcqQuestionAnswerForm.get('answertext').valid && mcqQuestionAnswerForm.get('answertext').touched"> Answer ID required
+                        *ngIf="!mcqQuestionAnswerForm.get('answerText').valid && mcqQuestionAnswerForm.get('answerText').touched"> Answer ID required
                       </small>
                     </div>
                   </div> 
@@ -186,10 +180,10 @@
                         type="datetime" 
                         class="form-control" 
                         placeholder="Modified Date" 
-                        formControlName="modifieddate"
+                        formControlName="modifiedDate"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!mcqQuestionAnswerForm.get('modifieddate').valid && mcqQuestionAnswerForm.get('modifieddate').touched">
+                      *ngIf="!mcqQuestionAnswerForm.get('modifiedDate').valid && mcqQuestionAnswerForm.get('modifiedDate').touched">
                        Answer ID required
                     </small>
                   </div>
@@ -201,10 +195,10 @@
                           type="datetime" 
                           class="form-control" 
                           placeholder="Created On" 
-                          formControlName="createdon"
+                          formControlName="createdOn"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!mcqQuestionAnswerForm.get('createdon').valid && mcqQuestionAnswerForm.get('createdon').touched">
+                        *ngIf="!mcqQuestionAnswerForm.get('createdOn').valid && mcqQuestionAnswerForm.get('createdOn').touched">
                         Created On required
                       </small>
                     </div>

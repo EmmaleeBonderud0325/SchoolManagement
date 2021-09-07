@@ -21,27 +21,22 @@ export class McqQuestionStudentAnswerService {
  
   saveMcqStudentAnswer(mcqquestionstudentanswer: McqQuestionStudentAnswerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'mcqquestionstudentanswer/saveMcqStudentAnswer', mcqquestionstudentanswer);
+      post<ResponseModel>(environment.apiUrl + 'McqQuestionStudentAnswer/saveMcqStudentAnswer', mcqquestionstudentanswer);
   }
   
-  delete(classNameId: number): Observable <ResponseModel> { 
-    return this.httpClient. 
-    delete<ResponseModel>(environment.apiUrl + 'mcqquestionstudentanswer/' + classNameId); 
-  }
-
   getAllQuestion():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllQuestion');
+      get<DropDownModel[]>(environment.apiUrl + 'McqQuestionStudentAnswer/getAllQuestion');
   }
   
   getAllStudentName():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllStudentName');
+      get<DropDownModel[]>(environment.apiUrl + 'McqQuestionStudentAnswer/getAllStudentName');
   }
 
   getAllTeacherAnswer():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllTeacherAnswer');
+      get<DropDownModel[]>(environment.apiUrl + 'McqQuestionStudentAnswer/getAllTeacherAnswer');
   }
 
 }

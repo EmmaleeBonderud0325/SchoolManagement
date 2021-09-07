@@ -4,7 +4,7 @@ import Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { McqQuestionStudentAnswerService } from './../../../services/mcq-question-student-answer/mcq-question-student-answer.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { DatatableComponent } from '@swimlane/ngx-datatable';
+import { DatatableComponent, id } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
@@ -24,9 +24,9 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     McqStudenAnswerForm: FormGroup;
-    questionName :DropDownModel[] = [];
-    studentName :DropDownModel[] = [];
-    mCQQuestionAnswerName :DropDownModel[] = [];
+    questionNames :DropDownModel[] = [];
+    studentNames :DropDownModel[] = [];
+    mCQQuestionAnswerNames :DropDownModel[] = [];
 
 
   constructor(
@@ -40,6 +40,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.getAll();
     this.getAllQuestion();
     this.getAllStudentName();
+    this.getAllTeacherAnswer();
 
   }
 
@@ -48,7 +49,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.McqQuestionStudentAnswerService.getAllQuestion()
       .subscribe(response=>
       { 
-        this.questionName = response;
+        this.questionNames = response;
         console.log(response)           
 
       },error=>{
@@ -60,7 +61,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.McqQuestionStudentAnswerService.getAllStudentName()
       .subscribe(response=>
       { 
-        this.studentName = response;
+        this.studentNames = response;
         console.log(response)           
 
       },error=>{
@@ -72,7 +73,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.McqQuestionStudentAnswerService.getAllTeacherAnswer()
       .subscribe(response=>
       { 
-        this.mCQQuestionAnswerName = response;
+        this.mCQQuestionAnswerNames = response;
         console.log(response)           
 
       },error=>{
@@ -96,85 +97,36 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     })
    }
 
-  //add new mcq question student answerusing form
-  createNewMcqStudentAnswer(content)
-  {
-    this.McqStudenAnswerForm = this.fb.group({
-      questionid:['', [Validators.required]],
-      studentid:['', [Validators.required]],
-      mcqanswerid:['', [Validators.required]],
-      answertext:['', [Validators.required]],
-    });
 
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
-
-  
-  //delete class
-  /* deleteClass(row) {
-    Swal.fire({
-      title: 'Are you sure Delete Class ?',
-      showCancelButton: true,
-      confirmButtonColor: 'red',
-      cancelButtonColor: 'green',
-      confirmButtonText: 'Yes',
-    }).then((result) => {
-      if (result.value) {
-        this.McqQuestionStudentAnswerService.delete(row.id).subscribe(response=>{
-        
-          if(response.isSuccess){
-            this.toastr.success(response.message,"Success");
-            this.getAll();
-          }
-          else{
-            this.toastr.error(response.message,"Error");
-          }
-  
-      },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-        }); 
-      }
-    });
-  } */
-  
-
-  //save MCQ Student Answer button 
-  /* saveMcqStudentAnswer()
-  {
-    console.log(this.McqStudenAnswerForm.value);
-
-    this.McqQuestionStudentAnswerService.saveMcqStudentAnswer(this.McqStudenAnswerForm.value)
-      .subscribe(response=>{
-        
-        if(response.isSuccess)
-        {
-            this.modalService.dismissAll();
-            this.toastr.success(response.message,"Success");
-            //this.getAll();
-        }
-        else
-        {
-            this.toastr.error(response.message,"Error");
-        }
-      },error=>{
-
-            this.toastr.error("Network error has been occre.Please try again","Error");
-      });
-  }
- */
+   //add new question using form
+   createNewQuestion(content)
+   {
+     this.McqStudenAnswerForm = this.fb.group({
+       questionId:[null, [Validators.required]],
+       studentId:[null, [Validators.required]],
+       mCQQuestionAnswerId:[null, [Validators.required]],
+       answerText:['', [Validators.required]],
+       isChecked:['', [Validators.required]],
+       
+     });
+   
+     this.modalService.open(content, {
+       ariaLabelledBy: 'modal-basic-title',
+       size: 'lg',
+     });
+   }
+   
   //update button
-  editRow(row:McqQuestionStudentAnswerModel, rowIndex:number, content) 
+  editRow(row:McqQuestionStudentAnswerModel, rowIndex:number, content:any) 
   {
     console.log(row);
 
     this.McqStudenAnswerForm = this.fb.group({
-      questionName:['', [Validators.required]],
-      studentName:['', [Validators.required]],
-      mCQQuestionAnswerName:['', [Validators.required]],
-      answertext:['', [Validators.required]],
+      questionId:[row.questionId, [Validators.required]],
+      studentId:[row.studentId, [Validators.required]],
+      mCQQuestionAnswerId:[row.mCQQuestionAnswerId, [Validators.required]],
+      answerText:[row.answerText, [Validators.required]],
+      questionText:[row.answerText, [Validators.required]],
     });
 
     this.modalService.open(content, {
@@ -183,4 +135,27 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     });
   }
 
+
+  //save essay answer
+  saveMcqStudentAnswer(){   
+    console.log(this.McqStudenAnswerForm.value);
+    
+    this.McqQuestionStudentAnswerService.saveMcqStudentAnswer(this.McqStudenAnswerForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
 }

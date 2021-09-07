@@ -60,7 +60,7 @@
                 <!-- Teacher Answer -->
                 <ngx-datatable-column name="Teacher Answer Text">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.answerText}}
+                    {{row.mCQQuestionAnswerName}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -117,8 +117,8 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Question<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="questionName" required>
-                          <option *ngFor="let item of questionName" [value]="item.id">{{item.name}}</option>
+                        <select class="form-select form-control" formControlName="questionId" required>
+                          <option *ngFor="let item of questionNames" [value]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -127,8 +127,8 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Student Name<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="studentName" required>
-                          <option *ngFor="let item of studentName" [value]="item.id">{{item.name}}</option>
+                        <select class="form-select form-control" formControlName="studentId" required>
+                          <option *ngFor="let item of studentNames" [value]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div>                   
@@ -140,8 +140,8 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Teacher Answer Text<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="answertext" required>
-                          <option *ngFor="let item of answertext" [value]="item.id">{{item.name}}</option>
+                        <select class="form-select form-control" formControlName="mCQQuestionAnswerId" required>
+                          <option *ngFor="let item of mCQQuestionAnswerNames" [value]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
@@ -151,11 +151,11 @@
                       <input 
                           type="textarea" 
                           class="form-control" 
-                          placeholder="Question Text" 
-                          formControlName="questiontext"
+                          placeholder="Answer Text" 
+                          formControlName="answerText"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!McqStudenAnswerForm.get('questiontext').valid && McqStudenAnswerForm.get('questiontext').touched">
+                        *ngIf="!McqStudenAnswerForm.get('answerText').valid && McqStudenAnswerForm.get('answerText').touched">
                         Question Text is  required
                       </small>
                     </div>
@@ -167,15 +167,18 @@
                       <label> Is Checked <span class="text-danger">*</span></label><br><br>
                         <input type="radio" value="true" name="isChecked" required ngModel> TRUE <br>
                         <input type="radio" value="false" name="isChecked" ngModel> FALSE
-                      <small class="form-text text-danger"
-                        *ngIf="!McqStudenAnswerForm.get('questiontype').valid && McqStudenAnswerForm.get('questiontype').touched">
-                      </small>
+                      <!-- <small class="form-text text-danger"
+                        *ngIf="!McqStudenAnswerForm.get('isChecked').valid && McqStudenAnswerForm.get('isChecked').touched">
+                        ABC
+                      </small> -->
                     </div>
                   </div>
 
 
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="update()" [disabled]="!McqStudenAnswerForm.valid">UPDATE</button>
+                    <button type="button" class="btn btn-primary" (click)="saveMcqStudentAnswer()" [disabled]="!McqStudenAnswerForm.valid">
+                      UPDATE </button>
+                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                   
                 </form>

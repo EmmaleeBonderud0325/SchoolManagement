@@ -34,15 +34,16 @@ namespace SchoolManagement.Business
             var query = schoolDb.MCQQuestionAnswers.Where(u => u.IsCorrectAnswer == true);
             var MCQQuestionAnswerList = query.ToList();
 
-            foreach (var MCQQuestionAnswer in MCQQuestionAnswerList)
+            foreach (var item in MCQQuestionAnswerList)
             {
                 var vm = new MCQQuestionAnswerViewModel
                 {
-                    Id = MCQQuestionAnswer.Id,
-                    QuestionId = MCQQuestionAnswer.QuestionId,
-                    AnswerText = MCQQuestionAnswer.AnswerText,
-                    SequenceNo = MCQQuestionAnswer.SequenceNo,
-                    IsCorrectAnswer = MCQQuestionAnswer.IsCorrectAnswer,
+                    Id = item.Id,
+                    QuestionId = item.QuestionId,
+                    QuestionName = item.Question.QuestionText,
+                    AnswerText = item.AnswerText,
+                    SequenceNo = item.SequenceNo,
+                    IsCorrectAnswer = item.IsCorrectAnswer,
                     ModifiedDate = DateTime.UtcNow,
                     CreatedOn = DateTime.UtcNow
                 };
