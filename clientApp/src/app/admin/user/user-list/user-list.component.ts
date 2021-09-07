@@ -53,6 +53,7 @@ export class UserListComponent implements OnInit {
       roles:[null,[Validators.required]]
     });
 
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
@@ -146,6 +147,8 @@ export class UserListComponent implements OnInit {
 
     console.log(row);
     
+    let selectedRoles = [];
+
     this.saveUserForm = this.fb.group({
       id:[row.id],
       fullName:[row.fullName, [Validators.required]],
@@ -164,4 +167,9 @@ export class UserListComponent implements OnInit {
     });
   }
 
+
+  get id()
+  {
+    return this.saveUserForm.get("id").value;
+  }
 }

@@ -104,6 +104,13 @@ namespace SchoolManagement.Business
 
                 };
 
+                var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
+
+                foreach (var item in assignedRoles)
+                {
+                    uvm.Roles.Add(new DropDownViewModel() { Id = item.RoleId, Name = item.Role.Name });
+                }
+
                 response.Add(uvm);
             }
 
