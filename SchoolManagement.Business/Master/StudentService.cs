@@ -66,9 +66,26 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllGenders()
         {
-            return schoolDb.Students.Where(u => u.Gender != null)
-                .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Gender) })
-                .ToList();
+            //return schoolDb.Students.Where(u => u.Gender != null)
+            //    .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Gender) })
+            //    .ToList();
+            var genderList = new List<DropDownViewModel>();
+
+            var male = new DropDownViewModel()
+            {
+                Id = 1,
+                Name = Gender.Male.ToString()
+            };
+
+            var female = new DropDownViewModel()
+            {
+                Id = 2,
+                Name = Gender.Female.ToString()
+            };
+            genderList.Add(male);
+            genderList.Add(female);
+
+            return genderList;
         }
 
         public List<StudentViewModel> GetAllStudent()
