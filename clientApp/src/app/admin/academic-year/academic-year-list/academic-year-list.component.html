@@ -50,9 +50,17 @@
                 </div>
               </div>
             </div>
-            <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-              columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">       
+            <ngx-datatable 
+            #table class="material" 
+            [rows]="data" 
+            [loadingIndicator]="loadingIndicator"
+            columnMode="force" 
+            [headerHeight]="60" 
+            [footerHeight]="80" 
+            rowHeight="auto" 
+            [limit]="10"
+            [scrollbarH]="scrollBarHorizontal" 
+            [reorderable]="reorderable">       
 
                 <!--Academic Year Column-->
                 <ngx-datatable-column name="Academic Year" [width]="100">
@@ -92,13 +100,19 @@
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
+
+                      <!--Academic Year edit Button
+                      <button class="btn btn-tbl-edit h-auto" 
+                      (click)='editRow(row, rowIndex, addEditRecord)'>
+                      <i class="fas fa-pen"></i>
+                      </button> -->
+
+                      <!--Delete Academic year Button-->
+                      <button class="btn btn-tbl-delete h-auto" 
+                      (click)='deleteAcademicYear(row)'>
+                      <i class="far fa-trash-alt"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteAcademicYear(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
+                    </span>                    
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
@@ -114,19 +128,21 @@
                     </div>
                   </div>
                 </h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+
+                <!--Modal Close Button-->
+                <button type="button" 
+                class="close" 
+                aria-label="Close" 
+                (click)="modal.dismiss()">
+                <span aria-hidden="true">
+                  <i class="material-icons">close</i></span>
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="academicYearFrom">
-                  <!-- <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="id" 
-                      class="form-control" 
-                      type="hidden">
-                  </div> -->
-                  
+                <form class="register-form" 
+                [formGroup]="academicYearFrom">
+
+                    <!--First Form Row -->                  
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Year <span class="text-danger">*</span></label>
@@ -142,22 +158,25 @@
                     </div>
                   </div>
 
+                    <!--Second Form Row -->
                   <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      
-                      <!--<label>Is Active <span class="text-danger">*</span></label>
-                      <select class="form-control" formControlName="isActive" required>
-                        <option value="" selected disabled>Please select</option>
-                        <option *ngFor="let desig of designationType" [value]="desig.value">-->
-                          <!-- {{desig.value}} -->
-                        <!--</option>
-                      </select>-->
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">                      
                     </div>                 
                   </div>
-                  
+
+                  <!--Modal Footer -->
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="saveAcademicYear()" [disabled]="!academicYearFrom.valid">Save</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+
+                    <!--Academic Year Save Button -->
+                    <button type="button" 
+                    class="btn btn-primary" 
+                    (click)="saveAcademicYear()" 
+                    [disabled]="!academicYearFrom.valid">Save</button>
+                    
+                    <!--Modal Cancel Button -->
+                    <button type="button" 
+                    class="btn btn-light" 
+                    (click)="modal.close('Close click')">Cancel</button>
                   </div>
                 </form>
               </div>
