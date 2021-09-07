@@ -31,7 +31,7 @@ export class LessonService {
            return this.httpClient
               .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
   
-        
- 
-  }
+   }
+  
+   
 }
