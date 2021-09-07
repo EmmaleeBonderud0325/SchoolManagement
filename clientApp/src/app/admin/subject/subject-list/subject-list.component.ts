@@ -197,6 +197,34 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
+
+  updateSubject(row:SubjectModel, rowIndex:number, content:any) {
+
+    console.log(row);
+    
+    let selectedRoles = [];
+
+    this.subjectForm = this.fb.group({
+      id:[row.id], 
+      name: [row.name, [Validators.required]],
+      subjectstreamId: [row.subjectStreamId, [Validators.required]],
+      categorysId:[row.subjectCategory,[Validators.required]],
+      subjectCode:[row.subjectCode,[Validators.required]],
+      subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
+      parentBasketSubjectId:[row.parentBasketSubjectId],
+      isParentBasketSubject:[row.isParentBasketSubject],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
+  get id()
+  {
+    return this.subjectForm.get("id").value;
+  }
   
 }
 

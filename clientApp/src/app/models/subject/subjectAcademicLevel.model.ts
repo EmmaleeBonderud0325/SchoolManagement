@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class subjectAcademicLevelsModel
+export class subjectAcademicLevelModel
 {
     id:number;
     name:string;

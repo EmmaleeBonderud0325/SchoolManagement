@@ -78,7 +78,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetSubjectbyId/{id}")]
+        [Route("getSubjectbyId/{id}")]
         public ActionResult GetSubjectbyId(int id)
         {
             var response = subjectService.GetSubjectbyId(id);

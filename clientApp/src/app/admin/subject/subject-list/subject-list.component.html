@@ -50,9 +50,17 @@
                   </div>
                 </div>
 
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+              <ngx-datatable 
+                #table class="material" 
+                [rows]="data" 
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force" 
+                [headerHeight]="60"
+                [footerHeight]="80" 
+                rowHeight="auto" 
+                [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" 
+                [reorderable]="reorderable">
 
                 
                 <!--Subject Name Column-->
@@ -104,13 +112,15 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-              
+              <!-- Action Column -->
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" >
+                      <!--Subject Edit Button -->
+                      <button class="btn btn-tbl-edit h-auto" (click)='updateSubject(row, rowIndex, addEditRecord)' >
                         <i class="fas fa-pen"></i>
                       </button>
+                      <!--Subject Delete Button -->
                       <button class="btn btn-tbl-delete h-auto" (click)='deleteSubject(row)'>
                         <i class="far fa-trash-alt"></i>
                       </button>
