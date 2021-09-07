@@ -66,7 +66,9 @@ namespace SchoolManagement.Business.Master
 
                 var academicYear = schoolDb.AcademicYears.FirstOrDefault(ay => ay.Id == vm.Id);
 
-                   
+
+                if (academicYear != null)
+                {
                     academicYear = new AcademicYear()
                     {
                         Id = vm.Id,
@@ -78,29 +80,30 @@ namespace SchoolManagement.Business.Master
                     };
 
                     schoolDb.AcademicYears.Add(academicYear);
+                    await schoolDb.SaveChangesAsync();
 
                     response.IsSuccess = true;
                     response.Message = AcademicYearServiceConstants.NEW_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
+                }
+                else
+                {
+                    //academicYear.Id = vm.Id;
+                    //academicYear.IsActive = true;
+                    //academicYear.UpdatedOn = DateTime.UtcNow;
+                    //academicYear.UpdatedById = loggedInUser.Id;
 
-                    await schoolDb.SaveChangesAsync();
-                
-                //else
-                //{
-                //    academicYear.Id = vm.Id;
-                //    academicYear.IsActive = true;
-                //    academicYear.UpdatedOn = DateTime.UtcNow;
-                //    academicYear.UpdatedById = loggedInUser.Id;
+                    //schoolDb.AcademicYears.Update(academicYear);
 
-                //    //schoolDb.AcademicYears.Update(academicYear);
+                    //response.IsSuccess = true;
+                    //response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
+                    response.IsSuccess = false;
+                    response.Message = "Failed to create academic year since enterted academic year is alrady exists";
 
-                //response.IsSuccess = true;
-                //response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
+                }
 
-                //    
+                //await schoolDb.SaveChangesAsync();
 
-                //}
 
-                
             }
             catch (Exception ex)
             {

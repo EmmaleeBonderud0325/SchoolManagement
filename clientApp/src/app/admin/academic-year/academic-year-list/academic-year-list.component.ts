@@ -52,9 +52,10 @@ export class AcademicYearListComponent implements OnInit {
 
 
   addNewAcademicYear(content) {
+    
 
     this.academicYearFrom = this.fb.group({
-      academicYearName: ['', [Validators.required]],
+      academicYearName: [null, [Validators.required]],
       isActive:[true]
      
     });
