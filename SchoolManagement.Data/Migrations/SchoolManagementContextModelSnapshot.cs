@@ -1214,7 +1214,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 481, DateTimeKind.Utc).AddTicks(9001),
+                            CreatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(8768),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1223,13 +1223,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 481, DateTimeKind.Utc).AddTicks(9405),
+                            UpdatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9044),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 482, DateTimeKind.Utc).AddTicks(1251),
+                            CreatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9781),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1238,7 +1238,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 482, DateTimeKind.Utc).AddTicks(1261),
+                            UpdatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9784),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1284,20 +1284,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 493, DateTimeKind.Utc).AddTicks(7542),
+                            CreatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7246),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 493, DateTimeKind.Utc).AddTicks(7847)
+                            UpdatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7787)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 493, DateTimeKind.Utc).AddTicks(8994),
+                            CreatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9736),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 8, 28, 13, 12, 28, 493, DateTimeKind.Utc).AddTicks(8996)
+                            UpdatedOn = new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9739)
                         });
                 });
 
