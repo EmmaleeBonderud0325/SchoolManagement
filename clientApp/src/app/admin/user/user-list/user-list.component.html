@@ -66,19 +66,33 @@
                   </div>
                 </div>
               </div>
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+              <ngx-datatable 
+                #table class="material" 
+                [rows]="data" 
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force" 
+                [headerHeight]="60" 
+                [footerHeight]="80" 
+                rowHeight="auto" 
+                [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" 
+                [reorderable]="reorderable">
 
                 <!-- Action Column -->
                 <ngx-datatable-column [width]="80" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <div class="buttons">
                       <span>
-                        <button class="btn btn-icon btn-sm btn-primary" (click)='updateUser(row, rowIndex, addEditRecord)'>
+                         <!--User Edit Button -->
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='updateUser(row, rowIndex, addEditRecord)'>
                           <i class="far fa-edit"></i>
                         </button>
-                        <button class="btn btn-icon btn-sm btn-danger" (click)='deleteUser(row)'>
+                         <!--User Delete Button -->
+                        <button 
+                          class="btn btn-icon btn-sm btn-danger" 
+                          (click)='deleteUser(row)'>
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </span>
@@ -163,12 +177,21 @@
                   </div>
                 </h4>
                 <!-- Modal Close Button -->
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                <button 
+                  type="button" 
+                  class="close" 
+                  aria-label="Close" 
+                  (click)="modal.dismiss()">
+                  <span aria-hidden="true">
+                    <i class="material-icons">close</i>
+                  </span>
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="saveUserForm">
+                <form 
+                  class="register-form" 
+                  [formGroup]="saveUserForm">
+
                   <!-- First Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
