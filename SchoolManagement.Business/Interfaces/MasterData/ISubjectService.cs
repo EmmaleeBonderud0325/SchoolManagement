@@ -17,6 +17,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<DropDownViewModel> GetAllAcademicLevels();
         List<DropDownViewModel> GetAllSubjectCategorys();
         List<DropDownViewModel> GetAllParentBasketSubjects();
+        public SubjectViewModel GetSubjectbyId(int id);
 
     }
 }
