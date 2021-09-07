@@ -35,7 +35,7 @@ namespace SchoolManagement.Data.Data
             tenantSchool = await tenantProvider.GetTenant();
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
+        {  
             if (tenantSchool != null)
             {
                 optionsBuilder.UseLazyLoadingProxies();

@@ -28,5 +28,7 @@ namespace SchoolManagement.Model
         public virtual AcademicYear AcademicYear { get; set; }
         public virtual AcademicLevel AcademicLevel { get; set; }
 
+       // public virtual ICollection<AcademicLevel> AcademicLevels { get; set; }
+
     }
 }
