@@ -109,7 +109,7 @@ export class SubjectListComponent implements OnInit {
       subjectstreamId: [null, [Validators.required]],
       categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
-      academicLevels:[null,[Validators.required]],
+      subjectAcademicLevels:[null,[Validators.required]],
       parentBasketSubjectId:[null],
       isParentBasketSubject:[null],     
     });
