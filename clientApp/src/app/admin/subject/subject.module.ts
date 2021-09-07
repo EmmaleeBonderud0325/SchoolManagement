@@ -6,7 +6,7 @@ import { SubjectDetailComponent } from './subject-detail/subject-detail.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule } from 'ngx-toastr';
-
+import {MultiSelectModule} from 'primeng/multiselect';
 
 
 @NgModule({
@@ -20,6 +20,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    MultiSelectModule,
     ToastrModule.forRoot(),
   ]
 })
