@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../../models/common/drop-down.model';
 import { StudentMcqQuestionAnswerModel } from './../../../models/student-mcq-question-answer/student-mcq-question-answer';
 import Swal  from 'sweetalert2';
 import { StudentMcqQuestionAnswerService } from './../../../services/student-mcq-question-answer/student-mcq-question-answer.service';
@@ -22,6 +23,8 @@ export class StudentMcqQuestionListComponent implements OnInit {
   loadingIndicator = false;
   reorderable = true;
   StudentMCQQuestionForm: FormGroup;
+  questionNames :DropDownModel[] = [];
+  studentNames :DropDownModel[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -29,10 +32,38 @@ export class StudentMcqQuestionListComponent implements OnInit {
     private StudentMcqQuestionAnswerService : StudentMcqQuestionAnswerService,
     private toastr: ToastrService
   ) { }
-
+g
   ngOnInit(): void {
     this.getAll();
+    this.GetAllQuestion();
+    this.GetAllStudentName();
   }
+
+
+  GetAllQuestion() {
+    this.StudentMcqQuestionAnswerService.GetAllQuestion()
+        .subscribe(response=>
+        { 
+          this.questionNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+  }
+
+  GetAllStudentName() {
+    this.StudentMcqQuestionAnswerService.GetAllStudentName()
+        .subscribe(response=>
+        { 
+          this.studentNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+  }
+
 
   getAll(){
     this.loadingIndicator = true;

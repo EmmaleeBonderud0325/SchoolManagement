@@ -28,6 +28,7 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
+
         public List<StudentMCQQuestionViewModel> GetAllStudentMCQQuestions()
         {
             var response = new List<StudentMCQQuestionViewModel>();
@@ -94,6 +95,26 @@ namespace SchoolManagement.Business
             }
 
             return respone;
+        }
+
+        public List<DropDownViewModel> GetAllQuestion()
+        {
+            var question = schoolDb.Questions
+              .Where(x => x.IsActive == true)
+              .Select(q => new DropDownViewModel() { Id = q.Id, Name = string.Format("{0}", q.QuestionText) })
+              .Distinct().ToList();
+
+            return question;
+        }
+
+        public List<DropDownViewModel> GetAllStudentName()
+        {
+            var student = schoolDb.Students
+              .Where(x => x.IsActive == true)
+              .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.User.FullName) })
+              .Distinct().ToList();
+
+            return student;
         }
     }
 }
