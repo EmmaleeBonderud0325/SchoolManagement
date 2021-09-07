@@ -111,8 +111,7 @@ export class SubjectListComponent implements OnInit {
       subjectCode:['',[Validators.required]],
       academicLevels:[null,[Validators.required]],
       parentBasketSubjectId:[null],
-      isParentBasketSubject:[null],
-      isBuscketSubject:[null],
+      isParentBasketSubject:[null],     
     });
 
     this.modalService.open(content, {
