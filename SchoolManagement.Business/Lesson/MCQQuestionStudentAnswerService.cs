@@ -34,21 +34,25 @@ namespace SchoolManagement.Business
             var query = schoolDb.MCQQuestionStudentAnswers.Where(u => u.IsChecked == true);
             var MCQQuestionStudentAnswerList = query.ToList();
 
-            foreach (var MCQQuestionStudentAnswer in MCQQuestionStudentAnswerList)
+            foreach (var item in MCQQuestionStudentAnswerList)
             {
                 var vm = new MCQQuestionStudetAnswerViewModel
                 {
-                    QuestionId = MCQQuestionStudentAnswer.QuestionId,
-                    StudentId = MCQQuestionStudentAnswer.StudentId,
-                    MCQQuestionAnswerId = MCQQuestionStudentAnswer.MCQQuestionAnswerId,
-                    AnswerText = MCQQuestionStudentAnswer.AnswerText,
-                    SequnceNo = MCQQuestionStudentAnswer.SequnceNo,
-                    IsChecked = MCQQuestionStudentAnswer.IsChecked
+                    QuestionId = item.QuestionId,
+                    QuestionName = item.MCQQuestionAnswer.Question.QuestionText,
+                    StudentId = item.StudentId,
+                    StudentName = item.StudentMCQQuestion.Student.User.FullName,
+                    MCQQuestionAnswerId = item.MCQQuestionAnswerId,
+                    MCQQuestionAnswerName = item.MCQQuestionAnswer.AnswerText,
+                    AnswerText = item.AnswerText,
+                    SequnceNo = item.SequnceNo,
+                    IsChecked = item.IsChecked
                 };
                 response.Add(vm);
             }
             return response;
         }
+
 
         public async Task <ResponseViewModel> SaveMCQQuestionStudentAnswer (MCQQuestionStudetAnswerViewModel vm, string userName)
         {
@@ -96,6 +100,40 @@ namespace SchoolManagement.Business
             }
 
             return responce;
+        }
+
+
+
+
+
+        public List<DropDownViewModel> GetAllQuestion()
+        {
+            var question = schoolDb.Questions
+            .Where(x => x.IsActive == true)
+            .Select(q => new DropDownViewModel() { Id = q.Id, Name = string.Format("{0}", q.QuestionText) })
+            .Distinct().ToList();
+
+            return question;
+        }
+
+        public List<DropDownViewModel> GetAllStudentName()
+        {
+            var student = schoolDb.Students
+            .Where(x => x.IsActive == true)
+            .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.Id) })
+            .Distinct().ToList();
+
+            return student;
+        }
+
+        public List<DropDownViewModel> GetAllTeacherAnswer()
+        {
+            var teacher = schoolDb.MCQQuestionAnswers
+             .Where(x => x.QuestionId != null)
+             .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t) })
+             .Distinct().ToList();
+
+            return teacher;
         }
     }
 }

@@ -21,7 +21,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
     reorderable = true;
-    McqQuestionAnswerForm: FormGroup;
+    mcqQuestionAnswerForm: FormGroup;
 
 
   constructor(
@@ -52,7 +52,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
    //add new question using form
   createNewMcqQuestionAnswer(content)
   {
-    this.McqQuestionAnswerForm = this.fb.group({
+    this.mcqQuestionAnswerForm = this.fb.group({
       questionid:['', [Validators.required]],
       answertext:['', [Validators.required]],
       modifieddate:['', [Validators.required]],
@@ -96,9 +96,9 @@ export class McqQuestionAnswerListComponent implements OnInit {
   //save MCQ Student Answer button 
   saveMcqStudentAnswer()
   {
-    console.log(this.McqQuestionAnswerForm.value);
+    console.log(this.mcqQuestionAnswerForm.value);
 
-    this.McqQuestionAnswerService.saveMcqQuestionAnswer(this.McqQuestionAnswerForm.value)
+    this.McqQuestionAnswerService.saveMcqQuestionAnswer(this.mcqQuestionAnswerForm.value)
       .subscribe(response=>{
         
         if(response.isSuccess)

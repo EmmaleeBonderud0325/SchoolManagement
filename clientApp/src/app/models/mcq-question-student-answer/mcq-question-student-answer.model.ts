@@ -10,4 +10,5 @@ export class McqQuestionStudentAnswerModel{
     mCQQuestionAnswerName : string;
     answerText : string;
     sequnceNo : number;
+    isChecked : boolean;
 }

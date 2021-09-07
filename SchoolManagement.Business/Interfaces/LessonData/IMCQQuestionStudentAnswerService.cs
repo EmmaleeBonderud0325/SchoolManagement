@@ -12,5 +12,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveMCQQuestionStudentAnswer(MCQQuestionStudetAnswerViewModel vm, string userName);
         List<MCQQuestionStudetAnswerViewModel> GetAllMCQQuestionStudentAnswers();
+        List<DropDownViewModel> GetAllQuestion();
+        List<DropDownViewModel> GetAllStudentName();
+        List<DropDownViewModel> GetAllTeacherAnswer();
     }
 }

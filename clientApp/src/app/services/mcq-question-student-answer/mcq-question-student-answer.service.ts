@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
@@ -25,7 +26,22 @@ export class McqQuestionStudentAnswerService {
   
   delete(classNameId: number): Observable <ResponseModel> { 
     return this.httpClient. 
-    delete<ResponseModel>(environment.apiUrl + 'mcqquestionstudentanswer/' + classNameId); }
+    delete<ResponseModel>(environment.apiUrl + 'mcqquestionstudentanswer/' + classNameId); 
+  }
 
+  getAllQuestion():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllQuestion');
+  }
+  
+  getAllStudentName():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllStudentName');
+  }
+
+  getAllTeacherAnswer():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Question/getAllTeacherAnswer');
+  }
 
 }

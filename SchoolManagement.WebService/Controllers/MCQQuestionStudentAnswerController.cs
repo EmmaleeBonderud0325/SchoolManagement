@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
@@ -35,6 +36,32 @@ namespace SchoolManagement.WebService.Controllers
         {
             var userName = identityService.GetUserName();
             var response = await mcqquestionstudentanswerService.SaveMCQQuestionStudentAnswer(vm, userName);
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllQuestion")]
+        public IActionResult GetAllQuestion()
+        {
+            var response = mcqquestionstudentanswerService.GetAllQuestion();
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllStudentName")]
+        public IActionResult GetAllStudentName()
+        {
+            var response = mcqquestionstudentanswerService.GetAllStudentName();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllTeacherAnswer")]
+        public IActionResult GetAllTeacherAnswer()
+        {
+            var response = mcqquestionstudentanswerService.GetAllTeacherAnswer();
             return Ok(response);
         }
     }

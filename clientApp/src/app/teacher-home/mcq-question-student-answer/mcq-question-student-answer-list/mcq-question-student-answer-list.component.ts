@@ -1,3 +1,5 @@
+import { McqQuestionStudentAnswerModel } from './../../../models/mcq-question-student-answer/mcq-question-student-answer.model';
+import { DropDownModel } from './../../../models/common/drop-down.model';
 import Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { McqQuestionStudentAnswerService } from './../../../services/mcq-question-student-answer/mcq-question-student-answer.service';
@@ -22,6 +24,9 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     McqStudenAnswerForm: FormGroup;
+    questionName :DropDownModel[] = [];
+    studentName :DropDownModel[] = [];
+    mCQQuestionAnswerName :DropDownModel[] = [];
 
 
   constructor(
@@ -33,7 +38,50 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllQuestion();
+    this.getAllStudentName();
+
   }
+
+  //all dropdowns
+  getAllQuestion(){
+    this.McqQuestionStudentAnswerService.getAllQuestion()
+      .subscribe(response=>
+      { 
+        this.questionName = response;
+        console.log(response)           
+
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
+  }
+
+  getAllStudentName(){
+    this.McqQuestionStudentAnswerService.getAllStudentName()
+      .subscribe(response=>
+      { 
+        this.studentName = response;
+        console.log(response)           
+
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
+  }
+
+  getAllTeacherAnswer(){
+    this.McqQuestionStudentAnswerService.getAllTeacherAnswer()
+      .subscribe(response=>
+      { 
+        this.mCQQuestionAnswerName = response;
+        console.log(response)           
+
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
+  }
+
+
+
 
   //retreve method
   getAll(){
@@ -66,7 +114,7 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
 
   
   //delete class
-  deleteClass(row) {
+  /* deleteClass(row) {
     Swal.fire({
       title: 'Are you sure Delete Class ?',
       showCancelButton: true,
@@ -90,11 +138,11 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
         }); 
       }
     });
-  }
+  } */
   
 
   //save MCQ Student Answer button 
-  saveMcqStudentAnswer()
+  /* saveMcqStudentAnswer()
   {
     console.log(this.McqStudenAnswerForm.value);
 
@@ -115,7 +163,24 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
 
             this.toastr.error("Network error has been occre.Please try again","Error");
       });
-    
+  }
+ */
+  //update button
+  editRow(row:McqQuestionStudentAnswerModel, rowIndex:number, content) 
+  {
+    console.log(row);
+
+    this.McqStudenAnswerForm = this.fb.group({
+      questionName:['', [Validators.required]],
+      studentName:['', [Validators.required]],
+      mCQQuestionAnswerName:['', [Validators.required]],
+      answertext:['', [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
   }
 
 }

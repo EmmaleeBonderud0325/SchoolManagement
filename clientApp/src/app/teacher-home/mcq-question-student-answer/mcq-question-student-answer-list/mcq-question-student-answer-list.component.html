@@ -35,35 +35,6 @@
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4 p-0">
-                      <div class="ngxTableHeader">
-                        <div class="header-buttons-left" >
-                          <div class="icon-button-demo buttons" >
-                            <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewMcqStudentAnswer(addEditRecord)' >
-                              <i class="material-icons">add</i>
-                            </button>
-                            <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                              <i class="material-icons">delete</i>
-                            </button>
-                          </div>
-                        </div>
-  
-                        <div class="header-buttons-left">
-                          <div class="icon-button-dleftemo buttons">
-                          </div>
-                        </div>
-                        <!-- dropdown for the pages-->
-                        <div class="header-buttons">
-                          <div>
-                            <!--<label>PAGES</label>-->
-                            <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
-                          </div>
-                        </div>
-                       
-  
-  
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -72,38 +43,38 @@
                   columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                   [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
     
-                <!-- Question Id -->
-                <ngx-datatable-column name="QuestionId">
+                <!-- Question Name -->
+                <ngx-datatable-column name="Question">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.questionName}}
                   </ng-template>
                 </ngx-datatable-column>
   
-                <!-- Answer Text -->
-                <ngx-datatable-column name="StudentId">
+                <!-- Student Name -->
+                <ngx-datatable-column name="Student Name">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.studentName}}
                   </ng-template>
                 </ngx-datatable-column>
   
-                <!-- Is Correct Answer -->
-                <ngx-datatable-column name="MCQAnswerID">
+                <!-- Teacher Answer -->
+                <ngx-datatable-column name="Teacher Answer Text">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.mCQQuestionAnswerName}}
+                    {{row.answerText}}
                   </ng-template>
                 </ngx-datatable-column>
-  
-                <!-- Modified Date -->
-                <ngx-datatable-column name="AnswerText">
+
+                 <!-- Student Answer -->
+                <ngx-datatable-column name="Student Answer Text">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.answerText}}
                   </ng-template>
                 </ngx-datatable-column>
   
-                <!-- Created On -->
-                <ngx-datatable-column name="SequenceNo">
+                <!-- Is checked -->
+                <ngx-datatable-column name="Is Check">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.sequenceNo}}
+                    {{row.isChecked}}
                   </ng-template>
                 </ngx-datatable-column>
   
@@ -113,14 +84,14 @@
                       <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
                     </span>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
-  
+
+
+
+
               <!-- Add Record Modal Window -->
             <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
@@ -128,7 +99,7 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new MCQ Question Student Answer</div>
+                        Check MCQ Question Answer</div>
                     </div>
                   </div>
                 </h4>
@@ -136,90 +107,84 @@
                   <span aria-hidden="true"><i class="material-icons">close</i></span>
                 </button>
               </div>
-  
-  
-  
-  
+
+              <!-- New question add form-->
               <div class="modal-body">
-                <form class="register-form" [formGroup]="McqStudenAnswerForm" (ngSubmit)="onAddRowSave(McqStudenAnswerForm)">
-                  <!--row one-->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Question ID <span class="text-danger">*</span></label>
-                      <input 
-                          type="id" 
-                          class="form-control" 
-                          placeholder="Question Id" 
-                          formControlName="questionid"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!McqStudenAnswerForm.get('questionid').valid && McqStudenAnswerForm.get('questionid').touched">
-                         Question ID required
-                      </small>
-                    </div>
-  
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label> Student ID <span class="text-danger">*</span></label>
-                        <input 
-                            type="id" 
-                            class="form-control" 
-                            placeholder="Student ID" 
-                            formControlName="studentid"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!McqStudenAnswerForm.get('studentid').valid && McqStudenAnswerForm.get('studentid').touched"> 
-                          Student ID required
-                        </small>
-                      </div>
-                    </div> 
-                  </div>
-  
-                  <!--row two-->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> MCQ Answer ID <span class="text-danger">*</span></label>
-                      <input 
-                          type="id" 
-                          class="form-control" 
-                          placeholder="MCQ Answer ID" 
-                          formControlName="mcqanswerid"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!McqStudenAnswerForm.get('mcqanswerid').valid && McqStudenAnswerForm.get('mcqanswerid').touched">
-                         MCQ Answer ID required
-                      </small>
-                    </div>
-  
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label> Answer Text <span class="text-danger">*</span></label>
-                        <input 
-                            type="textarea" 
-                            class="form-control" 
-                            placeholder="Answer Text" 
-                            formControlName="answertext"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!McqStudenAnswerForm.get('answertext').valid && McqStudenAnswerForm.get('answertext').touched">
-                          Answer Text required
-                        </small>
-                      </div>
-                    </div> 
-                  </div>
-  
+                <form class="register-form" [formGroup]="McqStudenAnswerForm">
                   
-  
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="saveMcqStudentAnswer()" [disabled]="!McqStudenAnswerForm.valid">Save</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                  <!-- this is a row one -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Question<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="questionName" required>
+                          <option *ngFor="let item of questionName" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Student Name<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="studentName" required>
+                          <option *ngFor="let item of studentName" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div>                   
                   </div>
+
+
+                  <!-- this is a row one -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Teacher Answer Text<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="answertext" required>
+                          <option *ngFor="let item of answertext" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
+                      <label> Student Answer Text <span class="text-danger">*</span></label>
+                      <input 
+                          type="textarea" 
+                          class="form-control" 
+                          placeholder="Question Text" 
+                          formControlName="questiontext"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!McqStudenAnswerForm.get('questiontext').valid && McqStudenAnswerForm.get('questiontext').touched">
+                        Question Text is  required
+                      </small>
+                    </div>
+                  </div>
+                    
+                  
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label> Is Checked <span class="text-danger">*</span></label><br><br>
+                        <input type="radio" value="true" name="isChecked" required ngModel> TRUE <br>
+                        <input type="radio" value="false" name="isChecked" ngModel> FALSE
+                      <small class="form-text text-danger"
+                        *ngIf="!McqStudenAnswerForm.get('questiontype').valid && McqStudenAnswerForm.get('questiontype').touched">
+                      </small>
+                    </div>
+                  </div>
+
+
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="update()" [disabled]="!McqStudenAnswerForm.valid">UPDATE</button>
+                  </div>
+                  
                 </form>
-              </div>
-  
-  
+              </div> 
+
+
     
             </ng-template>
+
             </div>
           </div>
         </div>

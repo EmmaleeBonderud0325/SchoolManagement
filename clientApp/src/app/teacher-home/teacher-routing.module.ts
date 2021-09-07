@@ -1,6 +1,6 @@
 import { QuestionListComponent } from './question/question-list/question-list.component';
-import { LessonsComponent } from './lessons/lessons.component';
-import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+/* import { LessonsComponent } from './lessons/lessons.component';
+import { LessonDetailComponent } from './lesson-detail/lesson-detail.component'; */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

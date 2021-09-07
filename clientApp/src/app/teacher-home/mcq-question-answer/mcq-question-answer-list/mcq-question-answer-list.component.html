@@ -145,7 +145,7 @@
 
 
             <div class="modal-body">
-              <form class="register-form" [formGroup]="McqQuestionAnswerForm" (ngSubmit)="onAddRowSave(McqQuestionAnswerForm)">
+              <form class="register-form" [formGroup]="mcqQuestionAnswerForm" (ngSubmit)="onAddRowSave(mcqQuestionAnswerForm)">
                 <!--row one-->
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -157,7 +157,7 @@
                         formControlName="questionid"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!McqQuestionAnswerForm.get('questionid').valid && McqQuestionAnswerForm.get('questionid').touched">
+                      *ngIf="!mcqQuestionAnswerForm.get('questionid').valid && mcqQuestionAnswerForm.get('questionid').touched">
                        Answer ID required
                     </small>
                   </div>
@@ -172,7 +172,7 @@
                           formControlName="answertext"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!McqQuestionAnswerForm.get('answertext').valid && McqQuestionAnswerForm.get('answertext').touched"> Answer ID required
+                        *ngIf="!mcqQuestionAnswerForm.get('answertext').valid && mcqQuestionAnswerForm.get('answertext').touched"> Answer ID required
                       </small>
                     </div>
                   </div> 
@@ -189,7 +189,7 @@
                         formControlName="modifieddate"
                         required>
                     <small class="form-text text-danger"
-                      *ngIf="!McqQuestionAnswerForm.get('modifieddate').valid && McqQuestionAnswerForm.get('modifieddate').touched">
+                      *ngIf="!mcqQuestionAnswerForm.get('modifieddate').valid && mcqQuestionAnswerForm.get('modifieddate').touched">
                        Answer ID required
                     </small>
                   </div>
@@ -204,7 +204,7 @@
                           formControlName="createdon"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!McqQuestionAnswerForm.get('createdon').valid && McqQuestionAnswerForm.get('createdon').touched">
+                        *ngIf="!mcqQuestionAnswerForm.get('createdon').valid && mcqQuestionAnswerForm.get('createdon').touched">
                         Created On required
                       </small>
                     </div>
@@ -214,7 +214,7 @@
                 
 
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" (click)="saveMcqQuestionAnswer()" [disabled]="!McqQuestionAnswerForm.valid">Save</button>
+                  <button type="button" class="btn btn-primary" (click)="saveMcqQuestionAnswer()" [disabled]="!mcqQuestionAnswerForm.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
               </form>
