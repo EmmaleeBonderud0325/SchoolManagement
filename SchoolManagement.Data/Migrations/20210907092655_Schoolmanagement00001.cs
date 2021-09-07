@@ -490,71 +490,6 @@ namespace SchoolManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Lesson",
-                schema: "Lesson",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    OwnerId = table.Column<int>(type: "int", nullable: false),
-                    AcademicLevelId = table.Column<int>(type: "int", nullable: false),
-                    ClassNameId = table.Column<int>(type: "int", nullable: false),
-                    AcademicYearId = table.Column<int>(type: "int", nullable: false),
-                    SubjectId = table.Column<int>(type: "int", nullable: false),
-                    VersionNo = table.Column<int>(type: "int", nullable: false),
-                    LearningOutcome = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PlannedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreatedById = table.Column<int>(type: "int", nullable: false),
-                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedById = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Lesson", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Lesson_Class_ClassNameId_AcademicLevelId_AcademicYearId",
-                        columns: x => new { x.ClassNameId, x.AcademicLevelId, x.AcademicYearId },
-                        principalSchema: "Master",
-                        principalTable: "Class",
-                        principalColumns: new[] { "ClassNameId", "AcademicLevelId", "AcademicYearId" },
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Lesson_Subject_SubjectId",
-                        column: x => x.SubjectId,
-                        principalSchema: "Master",
-                        principalTable: "Subject",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Lesson_User_CreatedById",
-                        column: x => x.CreatedById,
-                        principalSchema: "Account",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Lesson_User_OwnerId",
-                        column: x => x.OwnerId,
-                        principalSchema: "Account",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Lesson_User_UpdatedById",
-                        column: x => x.UpdatedById,
-                        principalSchema: "Account",
-                        principalTable: "User",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "SubjectAcademicLevel",
                 schema: "Master",
                 columns: table => new
@@ -648,15 +583,24 @@ namespace SchoolManagement.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "LessonAssignment",
+                name: "Lesson",
                 schema: "Lesson",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    LessonId = table.Column<int>(type: "int", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Descripstion = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    OwnerId = table.Column<int>(type: "int", nullable: false),
+                    AcademicLevelId = table.Column<int>(type: "int", nullable: false),
+                    ClassNameId = table.Column<int>(type: "int", nullable: false),
+                    AcademicYearId = table.Column<int>(type: "int", nullable: false),
+                    SubjectId = table.Column<int>(type: "int", nullable: false),
+                    VersionNo = table.Column<int>(type: "int", nullable: false),
+                    LearningOutcome = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PlannedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CompletedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedById = table.Column<int>(type: "int", nullable: false),
@@ -665,83 +609,40 @@ namespace SchoolManagement.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_LessonAssignment", x => x.Id);
+                    table.PrimaryKey("PK_Lesson", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_LessonAssignment_Lesson_LessonId",
-                        column: x => x.LessonId,
-                        principalSchema: "Lesson",
-                        principalTable: "Lesson",
-                        principalColumn: "Id",
+                        name: "FK_Lesson_Class_ClassNameId_AcademicLevelId_AcademicYearId",
+                        columns: x => new { x.ClassNameId, x.AcademicLevelId, x.AcademicYearId },
+                        principalSchema: "Master",
+                        principalTable: "Class",
+                        principalColumns: new[] { "ClassNameId", "AcademicLevelId", "AcademicYearId" },
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LessonAssignment_User_CreatedById",
+                        name: "FK_Lesson_SubjectAcademicLevel_SubjectId_AcademicLevelId",
+                        columns: x => new { x.SubjectId, x.AcademicLevelId },
+                        principalSchema: "Master",
+                        principalTable: "SubjectAcademicLevel",
+                        principalColumns: new[] { "SubjectId", "AcademicLevelId" },
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Lesson_User_CreatedById",
                         column: x => x.CreatedById,
                         principalSchema: "Account",
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_LessonAssignment_User_UpdatedById",
-                        column: x => x.UpdatedById,
+                        name: "FK_Lesson_User_OwnerId",
+                        column: x => x.OwnerId,
                         principalSchema: "Account",
                         principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "StudentLesson",
-                schema: "Lesson",
-                columns: table => new
-                {
-                    LessonId = table.Column<int>(type: "int", nullable: false),
-                    StudentId = table.Column<int>(type: "int", nullable: false),
-                    StudentLessonStatus = table.Column<int>(type: "int", nullable: false),
-                    JoinedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    CompletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudentLesson", x => new { x.LessonId, x.StudentId });
                     table.ForeignKey(
-                        name: "FK_StudentLesson_Lesson_LessonId",
-                        column: x => x.LessonId,
-                        principalSchema: "Lesson",
-                        principalTable: "Lesson",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_StudentLesson_Student_StudentId",
-                        column: x => x.StudentId,
-                        principalSchema: "Master",
-                        principalTable: "Student",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Topic",
-                schema: "Lesson",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    LessonId = table.Column<int>(type: "int", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    SequenceNo = table.Column<int>(type: "int", nullable: false),
-                    LearningExperience = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Topic", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Topic_Lesson_LessonId",
-                        column: x => x.LessonId,
-                        principalSchema: "Lesson",
-                        principalTable: "Lesson",
+                        name: "FK_Lesson_User_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -896,6 +797,107 @@ namespace SchoolManagement.Data.Migrations
                         column: x => x.UpdatedById,
                         principalSchema: "Account",
                         principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LessonAssignment",
+                schema: "Lesson",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LessonId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DuetDate = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedById = table.Column<int>(type: "int", nullable: false),
+                    UpdatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedById = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LessonAssignment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LessonAssignment_Lesson_LessonId",
+                        column: x => x.LessonId,
+                        principalSchema: "Lesson",
+                        principalTable: "Lesson",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LessonAssignment_User_CreatedById",
+                        column: x => x.CreatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_LessonAssignment_User_UpdatedById",
+                        column: x => x.UpdatedById,
+                        principalSchema: "Account",
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "StudentLesson",
+                schema: "Lesson",
+                columns: table => new
+                {
+                    LessonId = table.Column<int>(type: "int", nullable: false),
+                    StudentId = table.Column<int>(type: "int", nullable: false),
+                    StudentLessonStatus = table.Column<int>(type: "int", nullable: false),
+                    JoinedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CompletedOn = table.Column<DateTime>(type: "datetime2", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudentLesson", x => new { x.LessonId, x.StudentId });
+                    table.ForeignKey(
+                        name: "FK_StudentLesson_Lesson_LessonId",
+                        column: x => x.LessonId,
+                        principalSchema: "Lesson",
+                        principalTable: "Lesson",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_StudentLesson_Student_StudentId",
+                        column: x => x.StudentId,
+                        principalSchema: "Master",
+                        principalTable: "Student",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Topic",
+                schema: "Lesson",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    LessonId = table.Column<int>(type: "int", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SequenceNo = table.Column<int>(type: "int", nullable: false),
+                    LearningExperience = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Topic", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Topic_Lesson_LessonId",
+                        column: x => x.LessonId,
+                        principalSchema: "Lesson",
+                        principalTable: "Lesson",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -1245,21 +1247,21 @@ namespace SchoolManagement.Data.Migrations
                 columns: new[] { "Id", "Address", "CreatedById", "CreatedOn", "Email", "FullName", "IsActive", "LastLoginDate", "LoginSessionId", "MobileNo", "Password", "ProfileImage", "UpdatedById", "UpdatedOn", "Username" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(923), "avdunusinghe@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(1394), "avdunusinghe@gmail.com" },
-                    { 2, null, null, new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(2998), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 8, 22, 15, 35, 12, 28, DateTimeKind.Utc).AddTicks(3001), "admin@gmail.com" }
+                    { 1, null, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(8768), "avdunusinghe@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9044), "avdunusinghe@gmail.com" },
+                    { 2, null, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9781), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9784), "admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Account",
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
-                values: new object[] { 1, 1, 1, new DateTime(2021, 8, 22, 15, 35, 12, 57, DateTimeKind.Utc).AddTicks(8686), true, 1, new DateTime(2021, 8, 22, 15, 35, 12, 57, DateTimeKind.Utc).AddTicks(9369) });
+                values: new object[] { 1, 1, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7246), true, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7787) });
 
             migrationBuilder.InsertData(
                 schema: "Account",
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
-                values: new object[] { 2, 2, 1, new DateTime(2021, 8, 22, 15, 35, 12, 58, DateTimeKind.Utc).AddTicks(1721), true, 1, new DateTime(2021, 8, 22, 15, 35, 12, 58, DateTimeKind.Utc).AddTicks(1724) });
+                values: new object[] { 2, 2, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9736), true, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9739) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AcademicLevel_CreatedById",
@@ -1448,10 +1450,10 @@ namespace SchoolManagement.Data.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Lesson_SubjectId",
+                name: "IX_Lesson_SubjectId_AcademicLevelId",
                 schema: "Lesson",
                 table: "Lesson",
-                column: "SubjectId");
+                columns: new[] { "SubjectId", "AcademicLevelId" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lesson_UpdatedById",
@@ -1866,6 +1868,11 @@ namespace SchoolManagement.Data.Migrations
                 table: "Class");
 
             migrationBuilder.DropForeignKey(
+                name: "FK_SubjectAcademicLevel_AcademicLevel_AcademicLevelId",
+                schema: "Master",
+                table: "SubjectAcademicLevel");
+
+            migrationBuilder.DropForeignKey(
                 name: "FK_Class_AcademicYear_AcademicYearId",
                 schema: "Master",
                 table: "Class");
@@ -1881,9 +1888,9 @@ namespace SchoolManagement.Data.Migrations
                 table: "Lesson");
 
             migrationBuilder.DropForeignKey(
-                name: "FK_Lesson_Subject_SubjectId",
-                schema: "Lesson",
-                table: "Lesson");
+                name: "FK_SubjectAcademicLevel_Subject_SubjectId",
+                schema: "Master",
+                table: "SubjectAcademicLevel");
 
             migrationBuilder.DropForeignKey(
                 name: "FK_StudentMCQQuestion_Question_QuestionId",
@@ -1955,10 +1962,6 @@ namespace SchoolManagement.Data.Migrations
                 schema: "Master");
 
             migrationBuilder.DropTable(
-                name: "SubjectAcademicLevel",
-                schema: "Master");
-
-            migrationBuilder.DropTable(
                 name: "TopicContent",
                 schema: "Lesson");
 
@@ -2013,6 +2016,10 @@ namespace SchoolManagement.Data.Migrations
             migrationBuilder.DropTable(
                 name: "Lesson",
                 schema: "Lesson");
+
+            migrationBuilder.DropTable(
+                name: "SubjectAcademicLevel",
+                schema: "Master");
         }
     }
 }
