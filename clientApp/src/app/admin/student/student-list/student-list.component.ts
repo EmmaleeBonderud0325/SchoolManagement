@@ -58,7 +58,7 @@ export class StudentListComponent implements OnInit {
       emegencyContactNo: ['', [Validators.required]],
       password: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      gender: ['', [Validators.required]],
+      genderName: ['', [Validators.required]],
       email: ['', [Validators.required]],
     });
 

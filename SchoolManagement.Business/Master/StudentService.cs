@@ -163,6 +163,7 @@ namespace SchoolManagement.Business.Master
 
                     //Add student role to UserRoles table
                     var roleItems = schoolDb.Roles.Where(s => s.Name == "student");
+
                     foreach (var item in roleItems)
                     {
                         var role = new Role()
@@ -183,7 +184,7 @@ namespace SchoolManagement.Business.Master
                         schoolDb.UserRoles.Add(userRole);
                         await schoolDb.SaveChangesAsync();
                     }
-
+                    int toInt = int.Parse(vm.GenderName);
                     //Add student to Student table
                     student = new Student()
                     {
@@ -191,7 +192,7 @@ namespace SchoolManagement.Business.Master
                         AdmissionNo = vm.AdmissionNo,
                         EmegencyContactNo1 = user.MobileNo,
                         EmegencyContactNo2 = vm.EmegencyContactNo,
-                        Gender = vm.Gender,
+                        Gender = (Gender)toInt,
                         DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
