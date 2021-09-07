@@ -55,7 +55,7 @@ export class AcademicYearListComponent implements OnInit {
     
 
     this.academicYearFrom = this.fb.group({
-      academicYearName: [null, [Validators.required]],
+      id: [null, [Validators.required]],
       isActive:[true]
      
     });
