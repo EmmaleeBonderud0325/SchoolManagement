@@ -13,5 +13,11 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName);
 
         List<EssayStudentAnswerViewModel> GetAllEssayStudentAnswers();
+
+        List<DropDownViewModel> GetAllQuestions();
+
+        List<DropDownViewModel> GetAllStudents();
+
+        List<DropDownViewModel> GetAllEssayQuestionAnswers();
     }
 }

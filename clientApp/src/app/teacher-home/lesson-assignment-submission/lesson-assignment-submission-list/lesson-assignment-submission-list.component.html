@@ -60,7 +60,7 @@
                 <!--Column 01-->
                 <ngx-datatable-column name="Id" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Id}}
+                    {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
                      <!--Column 02-->
@@ -84,7 +84,7 @@
                 <!--Column 05-->
                 <ngx-datatable-column name="Submisson Date" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.submissionDate}}
+                    {{row.submissionDate| date}}
                   </ng-template>
                 </ngx-datatable-column>
                 <!--Column 06-->
@@ -93,18 +93,24 @@
                     {{row.marks}}
                   </ng-template>
                 </ngx-datatable-column>
+                 <!--Column 06-->
+                 <ngx-datatable-column name="Comments" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.teacherComments}}
+                  </ng-template>
+                </ngx-datatable-column>
                
   
                 
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
-                      <button class="btn btn-tbl-edit h-auto" >
+                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto">
+                      <!-- <button class="btn btn-tbl-delete h-auto">
                         <i class="far fa-trash-alt"></i>
-                      </button>
+                      </button> -->
                     </span>
                   </ng-template>
                 </ngx-datatable-column>
@@ -146,34 +152,23 @@
                           required</small>
                       </div>
   
-                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <div class="form-group">
                           <label>Lesson Assignment<span class="text-danger">*</span></label>
-                        <input 
-                            type="text" 
-                            class="form-control" 
-                            placeholder="Lesson Assignment" 
-                            formControlName="lessonAssignment"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!lessonAssignmentSubmissionForm.get('lessonAssignment').valid && lessonAssignmentSubmissionForm.get('lessonAssignment').touched">Assignment is
-                          required</small>
+                          <select class="form-select form-control" formControlName="lessonAssignmentId" required>
+                            <option *ngFor="let item of lessonAssignmentNames" [value]="item.id">{{item.name}}</option>
+                          </select>
                         </div>
                       </div>  
                     </div>
                     <!--Row 02-->
+                   
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label>Student <span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Student" 
-                          formControlName="student"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentSubmissionForm.get('studentr').valid && lessonAssignmentSubmissionForm.get('student').touched">Student is
-                        required</small>
+                        <label>Student<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="studentId" required>
+                          <option *ngFor="let item of studentNames" [value]="item.id">{{item.name}}</option>
+                        </select>
                       </div>
                     </div> 
                      <!--Row 03-->
@@ -218,7 +213,7 @@
                             formControlName="teacherComments"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayStudentAnswerForm.get('teacherComments').valid && essayStudentAnswerFormm.get('teacherComments').touched"> Comments are
+                          *ngIf="!lessonAssignmentSubmissionForm.get('teacherComments').valid && lessonAssignmentSubmissionForm.get('teacherComments').touched"> Comments are
                           required</small>
                       </div>
   
@@ -232,13 +227,13 @@
                             formControlName="marks"
                             required>
                         <small class="form-text text-danger"
-                          *ngIf="!essayStudentAnswerForm.get('marks').valid && essayStudentAnswerFormm.get('marks').touched"> Mark is
+                          *ngIf="!lessonAssignmentSubmissionForm.get('marks').valid && lessonAssignmentSubmissionForm.get('marks').touched"> Mark is
                           required</small>
                         </div>
                       </div>  
                     </div>
                     <div class="modal-footer">
-                      <button type="button" class="btn btn-primary" (click)="saveLessonAssignmentSubmission()" [disabled]="!essayStudentAnswerForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
+                      <button type="button" class="btn btn-primary" (click)="saveLessonAssignmentSubmission()" [disabled]="!lessonAssignmentSubmissionForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                     </div>
                   </form>

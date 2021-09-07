@@ -7,8 +7,8 @@ export class EssayStudentAnswerModel{
   questionName :string ;
   studentId :number;
   studentName :string;
-  essayQuestionAnwserId :number;
-  essayQuestionAnwserName :string;
+  essayQuestionAnswerId:number;
+  essayQuestionAnswerName :string;
   answerText:string;
   teacherComments: string;
   marks: number;

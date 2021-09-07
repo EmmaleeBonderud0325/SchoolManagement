@@ -36,5 +36,33 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var response = essaystudentanswerService.GetAllQuestions();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllStudents")]
+        public IActionResult GetAllStudents()
+        {
+            var response = essaystudentanswerService.GetAllStudents();
+
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllEssayQuestionAnswers")]
+        public IActionResult GetAllEssayQuestionAnswers()
+        {
+            var response = essaystudentanswerService.GetAllEssayQuestionAnswers();
+
+            return Ok(response);
+        }
     }
 }

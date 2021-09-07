@@ -15,5 +15,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         List<LessonAssignmentViewModel> GetLessonAssignments();
 
         Task<ResponseViewModel> DeleteLessonAssignment(int Id);
+
+        List<DropDownViewModel> GetAllLessons();
     }
 }

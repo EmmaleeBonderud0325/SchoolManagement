@@ -29,6 +29,8 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
+
+
         public List<EssayStudentAnswerViewModel> GetAllEssayStudentAnswers()
         {
             var response = new List<EssayStudentAnswerViewModel>();
@@ -37,17 +39,20 @@ namespace SchoolManagement.Business
 
             var EssayStudentAnswerList = query.ToList();
 
-            foreach (var essaystudentanswer in EssayStudentAnswerList)
+            foreach (var item in EssayStudentAnswerList)
             {
                 var vm = new EssayStudentAnswerViewModel
                 {
- 
-                    QuestionId = essaystudentanswer.QuestionId,
-                    StudentId = essaystudentanswer.StudentId,
-                    EssayQuestionAnswerId = essaystudentanswer.EssayQuestionAnswerId,
-                    AnswerText = essaystudentanswer.AnswerText,
-                    TeacherComments = essaystudentanswer.TeacherComments,
-                    Marks = essaystudentanswer.Marks
+
+                    QuestionId = item.QuestionId,
+                    QuestionName = item.Question.QuestionText,
+                    StudentId = item.StudentId,
+                    StudentName = item.Student.FullName,
+                    EssayQuestionAnswerId = item.EssayQuestionAnswerId,
+                    EssayQuestionAnswerName = item.EssayQuestionAnswer.AnswerText,
+                    AnswerText = item.AnswerText,
+                    TeacherComments = item.TeacherComments,
+                    Marks = item.Marks
                 };
 
                 response.Add(vm);
@@ -56,7 +61,37 @@ namespace SchoolManagement.Business
             return response;
         }
 
-            public async Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName)
+        public List<DropDownViewModel> GetAllQuestions()
+        {
+            var questions = schoolDb.Questions
+            .Where(x => x.IsActive == true)
+            .Select(qe => new DropDownViewModel() { Id = qe.Id, Name = string.Format("{0}", qe.QuestionText) })
+            .Distinct().ToList();
+
+            return questions;
+        }
+
+        public List<DropDownViewModel> GetAllStudents()
+        {
+            var students = schoolDb.Students
+            .Where(x => x.IsActive == true)
+            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName ) })
+            .Distinct().ToList();
+
+            return students;
+        }
+
+        public List<DropDownViewModel> GetAllEssayQuestionAnswers()
+        {
+            var essayanswers = schoolDb.EssayQuestionAnswers
+            .Where(x => x.Question.Id != null)
+            .Select(eq => new DropDownViewModel() { Id = eq.Id, Name = string.Format("{0}", eq.AnswerText) })
+            .Distinct().ToList();
+
+            return essayanswers;
+        }
+
+        public async Task<ResponseViewModel> SaveEssayStudentAnswer(EssayStudentAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 

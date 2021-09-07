@@ -5,6 +5,9 @@ import {​​​​​​​​ DatatableComponent }​​​​​​​​ fr
 import {​​​​​​​​ Component, OnInit, ViewChild }​​​​​​​​ from'@angular/core';
 import {LessonAssignmentSubmissionService} from './../../../services/lesson-assignment-submission/lesson-assignment-submission.service';
 import Swal from 'sweetalert2';
+import { LessonAssignmentSubmissionModule } from '../lesson-assignment-submission.module';
+import { LessonAssignmentSubmissionModel } from 'src/app/models/lesson-assignment-submission/lesson.assignment.submission.model';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 
 @Component({
@@ -22,6 +25,8 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
   loadingIndicator = false;
   lessonAssignmentSubmissionForm:FormGroup;
   reorderable = true;
+  studentNames:DropDownModel[] = [];
+  lessonAssignmentNames:DropDownModel[] = [];
   
 
   constructor(
@@ -32,18 +37,16 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
 
     ngOnInit(): void {
       this.getAll();
-      this.lessonAssignmentSubmissionForm = this.fb.group({
-        questionText:['', Validators.required],
-        marks:['', Validators.required],
-         });
+      this. getAllStudents();
+      this.getAllLessonAssignments();
       }
 
       createNewLessonAssignmentSubmission(content)
       {
         this.lessonAssignmentSubmissionForm = this.fb.group({
-          id:['', [Validators.required]],
-          lessonAssignment:['', [Validators.required]],
-          student:['', [Validators.required]],
+          id:[0],
+          lessonAssignmentId:[null, [Validators.required]],
+          studentId:[null, [Validators.required]],
           submissionPath:['', [Validators.required]],
           submissionDate:['', [Validators.required]],
           teacherComments:['', [Validators.required]],
@@ -72,22 +75,86 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
         })
 
        }
+
+
+         //get all lesons
+     getAllStudents()
+    {
+      this.LessonAssignmentSubmissionService.getAllStudents()
+        .subscribe(response=>
+        { 
+          this.studentNames = response;
+          console.log(response);
+          
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+    }
+
+          //get all lesons
+      getAllLessonAssignments()
+          {
+            this.LessonAssignmentSubmissionService.getAllLessonAssignments()
+              .subscribe(response=>
+              { 
+                this.lessonAssignmentNames = response;
+                console.log(response);
+                
+              },error=>{
+                this.toastr.error("Network error has been occured. Please try again.","Error");
+               });
+          }
  
+
+
+       //save essay answer
+  saveLessonAssignmentSubmission(){   
+    
+  console.log(this.lessonAssignmentSubmissionForm.value);
+  
+  this.LessonAssignmentSubmissionService .saveLessonAssignmentSubmission(this.lessonAssignmentSubmissionForm.value)
+  .subscribe(response=>{
+
+      if(response.isSuccess)
+      {
+        this.modalService.dismissAll();
+        this.toastr.success(response.message,"Success");
+        this.getAll();
+      }
+      else
+      {
+        this.toastr.error(response.message,"Error");
+      }
+
+  },error=>{
+    this.toastr.error("Network error has been occured. Please try again.","Error");
+  });
+}
+     
+  //update
+  editRow(row:LessonAssignmentSubmissionModel, rowIndex:number, content:any) 
+  {
+
+    console.log(row);
+
+    this.lessonAssignmentSubmissionForm  = this.fb.group({
+      id:[row.id],
+      lessonAssignmentId:[row.lessonAssignmentId, [Validators.required]],
+      studentId:[row.studentId, [Validators.required]],
+      submissionPath:[row.submissionPath, [Validators.required]],
+      submissionDate:[row.submissionDate, [Validators.required]],
+      teacherComments:[row.teacherComments, [Validators.required]],
+      marks:[row.marks, [Validators.required]],
+      
+      
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
  
-      saveLessonAssignmentSubmission(content){
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        })
-      }
-     
-      editRow(row, rowIndex, content) {
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        });
-      }
-     
       onAddRowSave(form: FormGroup) {
         this.data.push(form.value);
         this.data = [...this.data];

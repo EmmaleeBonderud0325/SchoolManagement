@@ -36,5 +36,25 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        [Route("getAllStudents")]
+        public IActionResult GetAllStudents()
+        {
+            var response = lessonassignmentsubmissionService.GetAllStudents();
+
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllLessonAssignments")]
+        public IActionResult GetAllLessonAssignments()
+        {
+            var response = lessonassignmentsubmissionService.GetAllLessonAssignments();
+
+            return Ok(response);
+        }
+
     }
 }

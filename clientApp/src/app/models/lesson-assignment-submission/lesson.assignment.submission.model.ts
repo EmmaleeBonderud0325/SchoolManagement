@@ -4,7 +4,9 @@ import { Injectable } from '@angular/core';
 export class LessonAssignmentSubmissionModel{
     id:number;
     lessonAssignmentId:number;
+    lessonAssignmentNamw:number;
     studentId :number ;
+    studentName :number ;
     submissionPath :string;
     submissionDate :Date;
     marks: number;

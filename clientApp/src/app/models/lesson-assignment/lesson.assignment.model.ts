@@ -8,7 +8,7 @@ export class LessonAssignmentModel{
     name :string;
     description:string;
     startDate:Date;
-    dueDate:Date;
+    duetDate:Date;
     isActive :boolean;
     createdOn :Date;
     createdById: number;

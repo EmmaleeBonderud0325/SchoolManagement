@@ -48,5 +48,14 @@ namespace SchoolManagement.WebService.Controllers
             var response = await lessonassignmentService.DeleteLessonAssignment( Id);
             return Ok(response);
         }
+
+
+        [HttpGet]
+        [Route("getAllLessons")]
+        public IActionResult GetAllLessons()
+        {
+            var response = lessonassignmentService.GetAllLessons();
+            return Ok(response);
+        }
     }
 }

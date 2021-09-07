@@ -40,9 +40,6 @@ export class EssayAnswerListComponent implements OnInit {
   
   }
 
-
-
-
   createNewEssayanswer(content)
       {
         this.essayAnswerForm = this.fb.group({
@@ -75,23 +72,22 @@ export class EssayAnswerListComponent implements OnInit {
         })
 
        }
-     
-    //get all questions
-    getAllQuestions()
-       {
-         this.EssayQuestionAnswerService.getAllQuestions()
-           .subscribe(response=>
-           { 
-             this.questionNames = response;
-             console.log(response);
+      //get all questions
+getAllQuestions()
+  {
+    this.EssayQuestionAnswerService.getAllQuestions()
+      .subscribe(response=>
+        { 
+          this.questionNames = response;
+          console.log(response);
              
-           },error=>{
-             this.toastr.error("Network error has been occured. Please try again.","Error");
-            });
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
        }
 
   //update
-  editRow(row:EssayQuestionAnswerModel, rowIndex:number, content) 
+editRow(row:EssayQuestionAnswerModel, rowIndex:number, content:any) 
   {
 
     console.log(row);
@@ -109,7 +105,7 @@ export class EssayAnswerListComponent implements OnInit {
     });
   }
  
-  onAddRowSave(form: FormGroup) {
+onAddRowSave(form: FormGroup) {
     this.data.push(form.value);
     this.data = [...this.data];
     form.reset();
@@ -143,13 +139,15 @@ deleteEssayAnswer(row) {
     }
   });
 }
+
  //add a record
-  addRecordSuccess() {
+addRecordSuccess() {
     this.toastr.success('SUCCESS', '');
   }
 
+
    //save essay answer
-   saveEssayQuestionAnswer(){   
+saveEssayQuestionAnswer(){   
     
     console.log(this.essayAnswerForm.value);
     

@@ -37,6 +37,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true,
       },
       {
         path: '/teacher-home/essay-student-answer',
@@ -49,6 +50,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true,
       },
       {
         path: '/teacher-home/essay-answer',
@@ -92,6 +94,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true,
       },
 
 
@@ -106,6 +109,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true,
       },
 
       {
@@ -119,6 +123,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible:true,
       },
    
     ],

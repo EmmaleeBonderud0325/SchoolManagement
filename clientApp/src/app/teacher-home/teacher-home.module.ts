@@ -1,8 +1,8 @@
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TeacherHomeRoutingModule } from './teacher-routing.module'; 
-import { LessonsComponent } from './lessons/lessons.component';
-import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+//import { LessonsComponent } from './lessons/lessons.component';
+//import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
@@ -17,8 +17,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
 
-    LessonsComponent,
-    LessonDetailComponent,
+   // LessonsComponent,
+    //LessonDetailComponent,
  
     
   ],

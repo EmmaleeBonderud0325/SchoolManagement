@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import {​​​​​​​​ environment }​​​​​​​​ from'../../../environments/environment';
 import { LessonAssignmentSubmissionModel } from '../../models/lesson-assignment-submission/lesson.assignment.submission.model';
@@ -19,12 +20,22 @@ export class LessonAssignmentSubmissionService {
    
   saveLessonAssignmentSubmission(lessonassignmentsubmission: LessonAssignmentSubmissionModel): Observable<ResponseModel> {​​​​​​​​
   return this.httpClient.
-  post<ResponseModel>(environment.apiUrl + 'lessopn-assignment-submission/saveLessonAssignmentSubmission', lessonassignmentsubmission);
+  post<ResponseModel>(environment.apiUrl + 'LessonAssignmentSubmission/', lessonassignmentsubmission);
     }​​​​​​​​
   
     
-    delete(Id: number): Observable<ResponseModel> { 
-      return this.httpClient.
-       delete<ResponseModel>(environment.apiUrl + 'lesson-assignment-submission' + Id); 
+  delete(Id: number): Observable<ResponseModel> { 
+  return this.httpClient.
+   delete<ResponseModel>(environment.apiUrl + 'LessonAssignmentSubmission' + Id); 
+    }
+
+  getAllStudents():Observable<DropDownModel[]>{
+   return this.httpClient.
+   get<DropDownModel[]>(environment.apiUrl + 'LessonAssignmentSubmission/getAllStudents');
       }
+
+   getAllLessonAssignments():Observable<DropDownModel[]>{
+    return this.httpClient.
+    get<DropDownModel[]>(environment.apiUrl + 'LessonAssignmentSubmission/etAllLessonAssignments');
+        }
 }

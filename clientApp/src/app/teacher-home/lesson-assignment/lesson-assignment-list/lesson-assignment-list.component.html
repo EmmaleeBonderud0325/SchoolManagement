@@ -1,7 +1,7 @@
 <section class="main-content">
   <ul class="breadcrumb breadcrumb-style ">
       <li class="breadcrumb-item">
-        <h5 class="page-title m-b-0">Lesson Assignment</h5>
+        <h5 class="page-title m-b-0">Lesson Assignment </h5>
       </li>
       <li class="breadcrumb-item bcrumb-1">
         <a routerLink="/dashboard/main">
@@ -39,12 +39,12 @@
                           <div class="ngxTableHeader">
                             <div class="header-buttons-left">
                               <div class="icon-button-demo buttons">
-                                <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewLessonAssignment(addEditRecord)' >
+                             <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewLessonAssignment(addEditRecord)' >
                                   <i class="material-icons">add</i>
-                                </button>
-                                <button  class="btn btn-icon icon-left btn-danger rounded-button">
+                             </button>
+                                <!-- <button  class="btn btn-icon icon-left btn-danger rounded-button">
                                   <i class="material-icons">delete</i>
-                                </button>
+                                </button> -->  
                               </div>
                             </div>
                           </div>
@@ -60,7 +60,7 @@
               <!--Column 01-->
               <ngx-datatable-column name="Id" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.Id}}
+                  {{row.id}}
                 </ng-template>
               </ngx-datatable-column>
                    <!--Column 02-->
@@ -75,53 +75,60 @@
                   {{row.name}}
                 </ng-template>
               </ngx-datatable-column>
-              <!--Column 04-->
-              <ngx-datatable-column name="CreatedOn" [width]="100">
+                      <!--Column 04-->
+                      <ngx-datatable-column name="Description" [width]="100">
+                        <ng-template let-row="row" ngx-datatable-cell-template>
+                          {{row.description}}
+                        </ng-template>
+                      </ngx-datatable-column>
+              <!--Column 05-->
+              <ngx-datatable-column name="Start Date" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdOn}}
+                  {{row.startDate | date}}
                 </ng-template>
               </ngx-datatable-column>
-               <!--Column 05-->
-              <ngx-datatable-column name="StartDate" [width]="100">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-               {{row.startDate}}
-               </ng-template>
-               </ngx-datatable-column>
-               <!--Column 05-->
-              <ngx-datatable-column name="DueDate" [width]="100">
-              <ng-template let-row="row" ngx-datatable-cell-template>
-              {{row.dueDate}}
-              </ng-template>
-              </ngx-datatable-column>
               <!--Column 06-->
-              <ngx-datatable-column name="CreatedBy" [width]="100">
+              <ngx-datatable-column name="Due Date" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdByName}}
+                  {{row.duetDate | date}}
                 </ng-template>
               </ngx-datatable-column>
               <!--Column 07-->
-              <ngx-datatable-column name="UpdatedOn" [width]="100">
+              <ngx-datatable-column name="Created On" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.updatedOn}}
+                  {{row.createdOn | date }}
                 </ng-template>
               </ngx-datatable-column>
-              <!--Column 08-->
-            <ngx-datatable-column name="UpdatedBy" [width]="100">
-            <ng-template let-row="row" ngx-datatable-cell-template>
-             {{row.updatedByName}}
-            </ng-template>
-             </ngx-datatable-column>
+                <!--Column 08-->
+                <ngx-datatable-column name="Created By Id" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName }}
+                  </ng-template>
+                </ngx-datatable-column>
+                 <!--Column 09-->
+                 <ngx-datatable-column name="Updated On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date }}
+                  </ng-template>
+                </ngx-datatable-column>
+                 <!--Column -->
+                 <ngx-datatable-column name="Updated By Id" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName }}
+                  </ng-template>
+                </ngx-datatable-column>
+             
 
               
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   <span>
-                    <button class="btn btn-tbl-edit h-auto" >
+                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
                       <i class="fas fa-pen"></i>
                     </button>
-                    <button class="btn btn-tbl-delete h-auto">
+                     <button class="btn btn-tbl-delete h-auto" (click)='deleteLessonAssignment(row)'>
                       <i class="far fa-trash-alt"></i>
-                    </button>
+                    </button> 
                   </span>
                 </ng-template>
               </ngx-datatable-column>
@@ -146,173 +153,94 @@
 
               <!--Form-->
               <div class="modal-body">
-                <form class="register-form" [formGroup]="lessonAssignmentForm">
+                <form class="register-form" [formGroup]="lessonAssignmentForm ">
 
                     <!--Row 01-->
                     <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Id<span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Id" 
-                          formControlName="id"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('id').valid && lessonAssignmentForm.get('id').touched"> Id is
-                        required</small>
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
+                          <label>Lesson<span class="text-danger">*</span></label>
+                          <select class="form-select form-control" formControlName="lessonId" required>
+                            <option *ngFor="let item of lessonNames" [value]="item.id">{{item.name}}</option>
+                          </select>
+                        </div>
+                      </div>
                     </div>
 
-                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label>Lesson<span class="text-danger">*</span></label>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Name <span class="text-danger">*</span></label>
                       <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Lesson" 
-                          formControlName="lesson"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('lesson').valid && lessonAssignmentForm.get('lesson').touched">Lesson is
-                        required</small>
-                      </div>
-                    </div>  
-                  </div>
+                      type="textarea"  style="width:25vw" 
+                      class="form-control" 
+                      placeholder="Name" 
+                      formControlName="name"
+                      required>
+                  <small class="form-text text-danger"
+                    *ngIf="!lessonAssignmentForm .get('name').valid && lessonAssignmentForm .get('name').touched"> Name is
+                    required</small>
+                    </div>    
+                     
                   <!--Row 02-->
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
-                      <label>Name<span class="text-danger">*</span></label>
+                    <label>Description <span class="text-danger">*</span></label>
                     <input 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Name" 
-                        formControlName="name"
-                        required>
-                    <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('name').valid && lessonAssignmentForm.get('name').touched">Name is
-                      required</small>
-                    </div>
-                  </div> 
-                  <!--Row 03-->
+                    type="textarea"  style="width:25vw" 
+                    class="form-control" 
+                    placeholder="Description" 
+                    formControlName="description"
+                    required>
+                <small class="form-text text-danger"
+                  *ngIf="!lessonAssignmentForm .get('description').valid && lessonAssignmentForm .get('description').touched"> Description is
+                  required</small>
+                  </div>    
+
                  <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Description <span class="text-danger">*</span></label>
+                      <label>Start Date <span class="text-danger">*</span></label>
                       <input 
-                      type="textarea"  style="width:50vw" 
+                      type="date"  
                       class="form-control" 
-                      placeholder="Description" 
-                      formControlName="description"
+                      placeholder="Start Date" 
+                      formControlName="startDate"
                       required>
-                  <small class="form-text text-danger"
-                    *ngIf="!lessonAssignmentForm.get('description').valid && lessonAssignmentForm.get('description').touched"> Description is
-                    required</small>
+                - <small class="form-text text-danger"
+                    *ngIf="!lessonAssignmentForm .get('startDate').valid && lessonAssignmentForm .get('startDate').touched"> Start Date is
+                    required</small> 
                     </div>                 
                   </div> 
-                  <!--Row 04-->
+                  <!--Row 03-->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>IsActive<span class="text-danger">*</span></label>
-                      <input type="radio" value="yes" name="isActive" required ngModel> Yes<br>
-                       <input type="radio" value="no" name="isActive" ngModel> No
-                      <small class="form-text text-danger"
-                       *ngIf="!essayStudentAnswerForm.get('isActive').valid && essayStudentAnswerForm.get('isActive').touched"> IsActive is
-                        required</small>
+                      <label>Due Date<span class="text-danger">*</span></label>
+                      <input 
+                          type="date" 
+                          class="form-control" 
+                          placeholder="Due Date" 
+                          formControlName="duetDate"
+                          required>
+                      <!-- <small class="form-text text-danger"
+                        *ngIf="!lessonAssignmentForm .get('duetDate').valid && lessonAssignmentForm .get('duetDate').touched"> Due Date is
+                        required</small> -->
                     </div>
-
+                   <div class="row">
                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label>Created On<span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Created On" 
-                          formControlName="createdOn"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('createdOn').valid && lessonAssignmentForm.get('createdOn').touched"> CreatedOn is
-                        required</small>
-                      </div>
-                    </div>  
-                  </div>
-                     <!--Row 05-->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Start Date<span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="" 
-                          formControlName="startDate"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!essayStudentAnswerForm.get('startDate').valid && essayStudentAnswerForm.get('startDate').touched"> Start Date is
-                        required</small>
-                    </div>
-                     <!--Row 06-->
-                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label>Due Date<span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="" 
-                          formControlName="dueDate"
-                          required>
-                      <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm.get('dueDate').valid && lessonAssignmentForm.get('dueDate').touched"> Due Date is
-                        required</small>
-                      </div>
-                    </div>  
-                  </div>
-                  <!--Row 07-->
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
-                      <label>Created By<span class="text-danger">*</span></label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="CreatedBy" 
-                        formControlName="createdByName"
-                        required>
-                    <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('createdByName').valid && lessonAssignmentForm.get('createdByName').touched"> Created By Name is
-                      required</small>
-                    </div>
-                  </div>  
-                <!--Row 08-->
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
-                      <label>Updated On<span class="text-danger">*</span></label>
-                    <input 
-                        type="text" 
-                        class="form-control" 
-                        placeholder="Updated On" 
-                        formControlName="updatedOn"
-                        required>
-                    <small class="form-text text-danger"
-                      *ngIf="!lessonAssignmentForm.get('updatedOn').valid && lessonAssignmentForm.get('updatedOn').touched"> Updated Date is
-                      required</small>
-                    </div>
-                  </div>  
-              
-                <!--Row 09-->
-                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                  <div class="form-group">
-                    <label>Updated By Id<span class="text-danger">*</span></label>
-                  <input 
-                      type="text" 
-                      class="form-control" 
-                      placeholder="UpdatedById" 
-                      formControlName="updatedById"
-                      required>
-                  <small class="form-text text-danger"
-                    *ngIf="!lessonAssignmentForm.get('updatedById').valid && lessonAssignmentForm.get('updatedById').touched"> Updated by Name is
-                    required</small>
-                  </div>
-                </div>  
+                        <label>Is Active <span class="text-danger">*</span></label>
+                        <input type="radio" value="1" name="isActive" required ngModel> YES <br>
 
+                        <input type="radio" value="0" name="IsActive" ngModel> NO
+
+                      <small class="form-text text-danger"
+
+                        *ngIf="!lessonAssignmentForm.get('isActive').valid && lessonAssignmentForm.get('isActive').touched">
+
+                      </small> 
+                      </div>
+                    </div>  
+                  </div> -->
+                  </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" (click)="saveLessonAssignment()" [disabled]="!lessonAssignmentForm.valid">UPDATE STUDENT ESSAY ANSWER</button>
+                    <button type="button" class="btn btn-primary" (click)="saveLessonAssignment()" [disabled]="!lessonAssignmentForm.valid"> ADD NEW LESSON ASSIGNMENTS </button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                   </div>
                 </form>

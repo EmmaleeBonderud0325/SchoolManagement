@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
 import { ToastrService } from "ngx-toastr";
+import { DropDownModel } from "src/app/models/common/drop-down.model";
+import { LessonAssignmentModel } from "src/app/models/lesson-assignment/lesson.assignment.model";
 import Swal from "sweetalert2";
 import {LessonAssignmentService} from './../../../services/lesson-assignment/lesson-assignment.service';
 
@@ -22,6 +24,7 @@ export class LessonAssignmentListComponent implements OnInit{
   loadingIndicator = false;
   lessonAssignmentForm:FormGroup;
   reorderable = true;
+  lessonNames:DropDownModel[] = [];
 
   constructor(
     private fb: FormBuilder,
@@ -33,24 +36,20 @@ export class LessonAssignmentListComponent implements OnInit{
   ngOnInit(): void {
 
     this.getAll();
-      this.lessonAssignmentForm = this.fb.group({
-        questionText:['', Validators.required],
-        marks:['', Validators.required],
-      });
+    this.getAllLessons();
   }
 
   createNewLessonAssignment(content)
       {
         this.lessonAssignmentForm = this.fb.group({
-          id:['', [Validators.required]],
-          lesson:['', [Validators.required]],
+          id:[0],
+          lessonId:[null, [Validators.required]],
           name:['', [Validators.required]],
           description:['', [Validators.required]],
+          startDate:['', [Validators.required]],
+          duetDate:['', [Validators.required]],
           isActive:['', [Validators.required]],
-          createdOn:['', [Validators.required]],
-          createdById:['', [Validators.required]],
-          updatedOn:['', [Validators.required]],
-          updatedById:['', [Validators.required]],
+          
 
         });
     
@@ -77,7 +76,21 @@ export class LessonAssignmentListComponent implements OnInit{
        }
  
 
-       //delete lessonAssignment
+    //get all lesons
+    getAllLessons()
+    {
+      this.LessonAssignmentService.getAllLessons()
+        .subscribe(response=>
+        { 
+          this.lessonNames = response;
+          console.log(response);
+          
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+    }
+
+ //delete lessonAssignment
 deleteLessonAssignment(row) {
   Swal.fire({
     title: 'Are you sure Delete Lesson Assignment ?',
@@ -106,20 +119,56 @@ deleteLessonAssignment(row) {
     }
   });
 }
-       saveLessonAssignment(content){
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        })
-      }
-     
-      editRow(row, rowIndex, content) {
-        this.modalService.open(content, {
-          ariaLabelledBy: 'modal-basic-title',
-          size: 'lg',
-        });
-      }
-     
+
+
+ //save essay answer
+ saveLessonAssignment(){   
+    
+      console.log(this.lessonAssignmentForm.value);
+      
+      this.LessonAssignmentService.saveLessonAssignment(this.lessonAssignmentForm.value)
+      .subscribe(response=>{
+  
+          if(response.isSuccess)
+          {
+            this.modalService.dismissAll();
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+  
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+    }
+       
+    //update
+    editRow(row:LessonAssignmentModel, rowIndex:number, content:any) 
+    {
+  
+      console.log(row);
+  
+      this.lessonAssignmentForm  = this.fb.group({
+        id:[row.id],
+        lessonId:[row.lessonId, [Validators.required]],
+        name:[row.name, [Validators.required]],
+        description:[row.description, [Validators.required]],
+        startDate:[row.startDate, [Validators.required]],
+        duetDate:[row.duetDate, [Validators.required]],
+        isActive:[row.isActive, [Validators.required]],
+        
+        
+      });
+  
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        size: 'lg',
+      });
+    }
+   
       onAddRowSave(form: FormGroup) {
         this.data.push(form.value);
         this.data = [...this.data];
@@ -128,10 +177,7 @@ deleteLessonAssignment(row) {
         this.addRecordSuccess();
       }
      
-      deleteSingleRow(row) {
-     
-      }
-     
+    
       addRecordSuccess() {
         this.toastr.success('SUCCESS', '');
       } 

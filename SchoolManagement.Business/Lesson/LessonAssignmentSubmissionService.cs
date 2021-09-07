@@ -29,6 +29,25 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
+        public List<DropDownViewModel> GetAllLessonAssignments()
+        {
+            var assignments = schoolDb.LessonAssignments
+            .Where(x => x.IsActive == true)
+            .Select(la => new DropDownViewModel() { Id = la.Id, Name = string.Format("{0}", la.Name) })
+            .Distinct().ToList();
+
+            return assignments;
+        }
+
+        public List<DropDownViewModel> GetAllStudents()
+        {
+            var students = schoolDb.Students
+            .Where(x => x.IsActive == true)
+            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
+            .Distinct().ToList();
+
+            return students;
+        }
 
         public List<LessonAssignmentSubmissionViewModel> GetLessonAssignmentSubmissions()
         {
@@ -38,17 +57,19 @@ namespace SchoolManagement.Business
 
             var LessonAssignmentSubmissionList = query.ToList();
 
-            foreach (var lessonassignmentsubmission in LessonAssignmentSubmissionList)
+            foreach (var item in LessonAssignmentSubmissionList)
             {
                 var vm = new LessonAssignmentSubmissionViewModel
                 {
-                    Id = lessonassignmentsubmission.Id,
-                    LessonAssignmentId = lessonassignmentsubmission.LessonAssignmentId,
-                    StudentId = lessonassignmentsubmission.StudentId,
-                    SubmissionPath = lessonassignmentsubmission.SubmissionPath,
-                    SubmissionDate = lessonassignmentsubmission.SubmissionDate,
-                    Marks = lessonassignmentsubmission.Marks,
-                    TeacherComments = lessonassignmentsubmission.TeacherComments
+                    Id = item.Id,
+                    LessonAssignmentId = item.LessonAssignmentId,
+                    LessonAssignmentName = item.LessonAssignment.Name,
+                    StudentId = item.StudentId,
+                    StudentName = item.Student.User.FullName,
+                    SubmissionPath = item.SubmissionPath,
+                    SubmissionDate = item.SubmissionDate,
+                    Marks = item.Marks,
+                    TeacherComments = item.TeacherComments
                 };
 
                 response.Add(vm);

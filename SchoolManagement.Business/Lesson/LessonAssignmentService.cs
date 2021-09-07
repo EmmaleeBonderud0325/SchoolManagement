@@ -31,13 +31,13 @@ namespace SchoolManagement.Business
 
 
 
-        public async Task<ResponseViewModel> DeleteLessonAssignment(int Id)
+        public async Task<ResponseViewModel> DeleteLessonAssignment(int lessonassignmentid)
         {
             var response = new ResponseViewModel();
 
             try
             {
-                var lessonAssignment = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == Id);
+                var lessonAssignment = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == lessonassignmentid);
 
                 lessonAssignment.IsActive = false;
 
@@ -55,27 +55,44 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        public List<DropDownViewModel> GetAllLessons()
+        {
+            var lessons = schoolDb.Lessons
+            .Where(x => x.IsActive == true)
+            .Select(le => new DropDownViewModel() { Id = le.Id, Name = string.Format("{0}", le.Name) })
+            .Distinct().ToList();
+
+            return lessons;
+        }
+
+
         public List<LessonAssignmentViewModel> GetLessonAssignments()
         {
+          
             var response = new List<LessonAssignmentViewModel>();
 
             var query = schoolDb.LessonAssignments.Where(u => u.IsActive == true);
 
             var LessonAssignmentList = query.ToList();
 
-            foreach(var lessonassignment in LessonAssignmentList)
+            foreach(var item in LessonAssignmentList)
             {
                 var vm = new LessonAssignmentViewModel
                 {
-                    Id = lessonassignment.Id,
-                    LessonId = lessonassignment.LessonId,
-                    Name = lessonassignment.Name,
-                    Descripstion = lessonassignment.Description,
-                    IsActive = lessonassignment.IsActive,
-                    CreatedOn = lessonassignment.CreatedOn,
-                    CreatedById = lessonassignment.CreatedById,
-                    UpdatedOn = lessonassignment.UpdatedOn,
-                    UpdatedById = lessonassignment.UpdatedById
+                    Id = item.Id,
+                    LessonId = item.LessonId,
+                    LessonName = item.Lesson.Name,
+                    Name = item.Name,
+                    Description = item.Description,
+                    StartDate = (DateTime)item.StartDate,
+                    DuetDate = (DateTime)item.DuetDate,
+                    IsActive = true,
+                    CreatedOn =DateTime.UtcNow,
+                    CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
+                    UpdatedOn = DateTime.UtcNow,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName
                 };
 
                 response.Add(vm);
@@ -89,6 +106,7 @@ namespace SchoolManagement.Business
 
             try
             {
+
                 var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
 
                 var LessonAssignments = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == vm.Id);
@@ -104,12 +122,12 @@ namespace SchoolManagement.Business
                         Id = vm.Id,
                         LessonId = vm.LessonId,
                         Name = vm.Name,
-                        Description = vm.Descripstion,
-                        IsActive = vm.IsActive,
-                        CreatedOn = vm.CreatedOn,
-                        CreatedById = vm.CreatedById,
-                        UpdatedOn = vm.UpdatedOn,
-                        UpdatedById = vm.UpdatedById
+                        Description = vm.Description,
+                        IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
+                        CreatedById = loggedInUser.Id,
+                        UpdatedOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
 
                     };
 
@@ -122,11 +140,11 @@ namespace SchoolManagement.Business
                 else
                 {
                     LessonAssignments.Name = vm.Name;
-                    LessonAssignments.Description = vm.Descripstion;
-                    LessonAssignments.IsActive = vm.IsActive;
-                    LessonAssignments.CreatedOn = vm.CreatedOn;
+                    LessonAssignments.Description = vm.Description;
+                    LessonAssignments.IsActive = true;
+                    //LessonAssignments.CreatedOn = vm.CreatedOn;
                     //LessonAssignments.CreatedById = vm.CreatedById;
-                    LessonAssignments.UpdatedOn = vm.UpdatedOn;
+                    //LessonAssignments.UpdatedOn = vm.UpdatedOn;
                     //LessonAssignments.UpdatedById = vm.UpdatedById
 
 
