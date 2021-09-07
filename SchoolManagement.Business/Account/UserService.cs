@@ -165,7 +165,7 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
-                    //(var item in vm.Roles.Where(x => x.Id))
+   
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }

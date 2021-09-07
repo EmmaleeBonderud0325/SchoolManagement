@@ -1,3 +1,4 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -16,7 +17,7 @@ export class SubjectService {
       get<SubjectModel[]>(environment.apiUrl + 'Subject');
   }
 
-  save(vm: SubjectModel): Observable<ResponseModel> {
+  saveSubject(vm: SubjectModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Subject', vm);
   }
@@ -24,5 +25,25 @@ export class SubjectService {
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Subject/' + id);
+  }
+
+  getAllSubjectStreams():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectStreams');
+  }
+
+  getAllAcademicLevels(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllAcademicLevels');
+  }
+
+  getAllSubjectCategorys(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectCategorys');
+  }
+
+  getAllParentBasketSubjects(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllParentBasketSubjects');
   }
 }

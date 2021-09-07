@@ -2,10 +2,11 @@ import { SubjectModel } from './../../../models/subject/subject.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { SubjectService} from './../../../services/subject/subject.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -21,10 +22,13 @@ export class SubjectListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  saveSubject:FormGroup;
+  subjectForm:FormGroup;
   reorderable = true;
   subject:SubjectModel;
-  
+  subjectstreams:DropDownModel[] = [];
+  subjectAcademicLevels:DropDownModel[]=[];
+  subjectCategorys:DropDownModel[]=[];
+  parentBasketSubjects:DropDownModel[]=[];
 
   constructor(
     private fb: FormBuilder,
@@ -34,6 +38,10 @@ export class SubjectListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllSubjectStreams();
+    this.getAllAcademicLevels();
+    this.getAllSubjectCategorys();
+    this.getAllParentBasketSubjects();
   }
 
   getAll()
@@ -48,13 +56,98 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
-/*
-  addSubject(content) {
+
+  getAllSubjectStreams()
+  {
+    this.subjectService.getAllSubjectStreams()
+      .subscribe(response=>
+      { 
+        this.subjectstreams = response;
+        
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
+  }
+
+  getAllAcademicLevels()
+  {
+    this.subjectService.getAllAcademicLevels()
+     .subscribe(response=>{
+        this.subjectAcademicLevels = response;
+        
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+
+  getAllSubjectCategorys()
+  {
+    this.subjectService.getAllSubjectCategorys()
+     .subscribe(response=>{
+        this.subjectCategorys = response;
+        
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+
+  getAllParentBasketSubjects()
+  {
+    this.subjectService.getAllParentBasketSubjects()
+     .subscribe(response=>{
+        this.parentBasketSubjects = response;
+        console.log(response);
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+ 
+  addNewSubject(content) {
+
+    this.subjectForm = this.fb.group({
+      name: ['', [Validators.required]],
+      subjectstreamId: [null, [Validators.required]],
+      categorysId:[null,[Validators.required]],
+      subjectCode:['',[Validators.required]],
+      academicLevels:[null,[Validators.required]],
+      parentBasketSubjectId:[null],
+      isParentBasketSubject:[null],
+      isBuscketSubject:[null],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
   }
+
+  saveSubject(){   
+    
+    console.log(this.subjectForm.value);
+    
+    this.subjectService.saveSubject(this.subjectForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
+  }
+  
+/*
+ 
   
   onAddRowSave(form: FormGroup) {
     this.data.push(form.value);
@@ -71,11 +164,40 @@ export class SubjectListComponent implements OnInit {
     });
   }
   
-  deleteSingleRow(row) {
-  }
+ 
   
   addRecordSuccess() {
     this.toastr.success('Acedemic Level Add Successfully', '');
   }*/
+  deleteSubject(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Subject ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
 
+      if (result.value) {
+
+        this.subjectService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
+  
 }
+

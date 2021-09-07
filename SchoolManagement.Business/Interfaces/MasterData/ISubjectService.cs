@@ -13,6 +13,10 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<SubjectViewModel> GetAllSubjects();
         Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName);
         Task<ResponseViewModel> DeleteSubject(int id);
+        List<DropDownViewModel> GetAllSubjectStreams();
+        List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllSubjectCategorys();
+        List<DropDownViewModel> GetAllParentBasketSubjects();
 
     }
 }

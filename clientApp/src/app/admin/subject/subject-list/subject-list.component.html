@@ -39,11 +39,8 @@
                         <div class="ngxTableHeader">
                           <div class="header-buttons-left">
                             <div class="icon-button-demo buttons">
-                              <button class="btn btn-icon icon-left btn-primary rounded-button" >
+                              <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewSubject(addEditRecord)' >
                                 <i class="material-icons">add</i>
-                              </button>
-                              <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                <i class="material-icons">delete</i>
                               </button>
                             </div>
                           </div>
@@ -57,51 +54,202 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+                
+                <!--Subject Name Column-->
                 <ngx-datatable-column name="Name" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.name}}
                   </ng-template>
                 </ngx-datatable-column>
-
+                
+                <!--Subject Code Column-->
                 <ngx-datatable-column name="Code" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectCode}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Category Column-->
                 <ngx-datatable-column name="Category" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.subjectCategory}}
-                  </ng-template>
+                  <ng-template #p let-row="row" ngx-datatable-cell-template>
+                     {{row.subjectCategoryName}}
+                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Stream Column-->
                 <ngx-datatable-column name="Stream" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectStreamName}}
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Parent Column-->
+                <ngx-datatable-column name="Parent Subject" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.parentBasketSubjectName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Subject CreatedOn Column-->
+                <ngx-datatable-column name="Created On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Subject UpdateOn Column-->
+                <ngx-datatable-column name="Updated On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
               
-
-
-               
-
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <span>
                       <button class="btn btn-tbl-edit h-auto" >
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-tbl-delete h-auto">
+                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSubject(row)'>
                         <i class="far fa-trash-alt"></i>
                       </button>
                     </span>
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
+
+                <!-- Add Record Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        Add new subject</div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form class="register-form" [formGroup]="subjectForm">
+                  
+                  
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Subject <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="name"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched"> subject is
+                        required</small> 
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Code <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Code" 
+                          formControlName="subjectCode"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched"> subject Code is
+                        required</small> 
+                    </div>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject Category<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="categorysId">
+                          <option *ngFor="let item of subjectCategorys" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject Stream<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="subjectstreamId">
+                          <option *ngFor="let item of subjectstreams" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="row">
+                        <label>AcademicLevels<span class="text-danger ">*</span></label>
+                        <p-multiSelect [options]="subjectAcademicLevels" 
+                         formControlName="academicLevels" 
+                         optionLabel="name" 
+                         [style]="{'width':'206.5%'}"></p-multiSelect>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label class="col-sm-3 col-form-label"></label>
+                        <div class="col-md-9">
+                          <div class="input-group col-md-9">
+                            <div class="form-check">
+                              <input class="form-check-input" 
+                                     type="radio" 
+                                     [value]="true" 
+                                     formControlName="isBuscketSubject" 
+                                     name="rbbuttons1" 
+                                     id="rb3">
+                              <label class="form-check-label" for="rb3">Basket Subject</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" 
+                                     type="radio" 
+                                     [value]="true" 
+                                     formControlName="isParentBasketSubject" 
+                                     name="rbbuttons1" 
+                                     id="rb4">
+                              <label class="form-check-label" for="rb4">Parent Subject</label>
+                            </div>
+                          </div>
+                        </div>
+                    </div> 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Parent Basket Subject<span class="text-danger"></span></label>
+                        <select class="form-select form-control" formControlName="parentBasketSubjectId" >
+                          <option *ngFor="let item of parentBasketSubjects" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                  </div> 
+
+                  
+                 
+                  
+                  
+                  
+                  <!-- Modal Footer -->
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="saveSubject()" [disabled]="!subjectForm.valid">Save</button>
+                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                  </div>
+                </form>
+              </div>
  
-           
-            </div>
+            </ng-template>
+            
+          
+          </div>
         </div>
     </div>
 </div>
