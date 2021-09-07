@@ -135,7 +135,7 @@ export class ClassListComponent implements OnInit {
 
     saveClass(){   
     
-     // console.log(this.saveClassForm.value);
+      console.log(this.saveClassForm.value);
       
       //this.classService.saveClass(this.saveClassForm.value)
       this.classService.saveClass(this.saveClassForm.value)
