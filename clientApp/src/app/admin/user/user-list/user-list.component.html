@@ -28,18 +28,27 @@
                       <div class="ngxTableHeader">
                         <div class="table-search-area">
                           <div>
-                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                            <input placeholder="Search" type="text" class="browser-default search-field"
-                               aria-label="Search box">
+                            <label 
+                              for="search-input">
+                              <i class="material-icons search-icon">search</i>
+                              </label>
+                            <input 
+                              placeholder="Search" 
+                              type="text" 
+                              class="browser-default search-field"
+                              aria-label="Search box">
                           </div>
                         </div>
                       </div>
                     </div>
                     <div class="col-lg-2 p-0">
                       <div class="ngxTableHeader">
+                        <!-- Add New User Button -->
                         <div class="header-buttons-left">
                           <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewUser(addEditRecord)' >
+                            <button 
+                              class="btn btn-icon icon-left btn-primary rounded-button"
+                              (click)='createNewUser(addEditRecord)'>
                               <i class="material-icons">add</i>
                             </button>
                           </div>
@@ -61,6 +70,7 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+                <!-- Action Column -->
                 <ngx-datatable-column [width]="80" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <div class="buttons">
@@ -138,8 +148,6 @@
                     {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
-
-                 <!-- Action Column -->
                 
               </ngx-datatable>
 
@@ -154,25 +162,14 @@
                     </div>
                   </div>
                 </h4>
+                <!-- Modal Close Button -->
                 <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                   <span aria-hidden="true"><i class="material-icons">close</i></span>
                 </button>
               </div>
               <div class="modal-body">
                 <form class="register-form" [formGroup]="saveUserForm">
-                  <!-- <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="id" 
-                      class="form-control" 
-                      type="hidden">
-                  </div>
-                  <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="img" 
-                      class="form-control" 
-                      type="hidden">
-                  </div> -->
-
+                  <!-- First Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Full Name <span class="text-danger">*</span></label>
@@ -202,7 +199,7 @@
                       </small>
                     </div>  
                   </div>
-
+                   <!-- Second Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Mobile Number<span class="text-danger">*</span></label>
@@ -232,7 +229,7 @@
                       </small>
                     </div>
                   </div>
-
+                     <!-- Third Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Address<span class="text-danger">*</span></label>
@@ -259,9 +256,8 @@
                         *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> 
                         Password is required</small>
                     </div>
-                    
                   </div>
-
+                   <!-- Fourth Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="row">
@@ -277,6 +273,7 @@
                   </div>
                   <!-- Modal Footer -->
                   <div class="modal-footer">
+                    <!-- Save user Button -->
                     <button 
                         type="submit" 
                         class="btn btn-primary" 
@@ -284,7 +281,7 @@
                         [disabled]="!saveUserForm.valid">
                         Save User
                     </button>
-
+                    <!-- Modal Close Button -->
                     <button 
                         type="button" 
                         class="btn btn-light" 
