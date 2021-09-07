@@ -1,3 +1,5 @@
+import { DropDownModel } from './../../../models/common/drop-down.model';
+import { MCQQuestionAnswerModel } from './../../../models/mcq-question-answer/mcq-question-answer.model';
 import  Swal  from 'sweetalert2';
 import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -22,6 +24,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     mcqQuestionAnswerForm: FormGroup;
+    questionNames :DropDownModel[] = [];
 
 
   constructor(
@@ -33,6 +36,19 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.GetAllQuestion();
+  }
+
+  GetAllQuestion(){
+    this.McqQuestionAnswerService.GetAllQuestion()
+    .subscribe(response=>
+    { 
+        this.questionNames = response;
+        console.log(response)           
+
+      },error=>{
+        this.toastr.error("Question is not generated. Please try again.","Error");
+       });
   }
 
   //retrive method
@@ -40,11 +56,12 @@ export class McqQuestionAnswerListComponent implements OnInit {
     this.loadingIndicator = true;
       this.McqQuestionAnswerService.getAll().subscribe(response => {
       this.data=response;
+      console.log(response)
       this.loadingIndicator = false;
 
       }, error =>{
         this.loadingIndicator = false;
-        this.toastr.error("Network error has been occured!, Please try again", "Error")
+        this.toastr.error("Get All method is not working, Please try again", "Error")
        })
   }
 
@@ -54,10 +71,9 @@ export class McqQuestionAnswerListComponent implements OnInit {
   createNewMcqQuestionAnswer(content)
   {
     this.mcqQuestionAnswerForm = this.fb.group({
-      questionId:['', [Validators.required]],
-      answerText:['', [Validators.required]],
-      modifiedDate:['', [Validators.required]],
-      createdOn:['', [Validators.required]],
+      questionId : [null, [Validators.required]],
+      answerText : ['', [Validators.required]],
+      
     });
 
     this.modalService.open(content, {
@@ -66,36 +82,27 @@ export class McqQuestionAnswerListComponent implements OnInit {
     });
   }
 
-  //delete method
-  deleteClass(row) {
-    Swal.fire({
-      title: 'Are you sure Delete Class ?',
-      showCancelButton: true,
-      confirmButtonColor: 'red',
-      cancelButtonColor: 'green',
-      confirmButtonText: 'Yes',
-    }).then((result) => {
-      if (result.value) {
-        this.McqQuestionAnswerService.delete(row.id).subscribe(response=>{
-        
-          if(response.isSuccess){
-            this.toastr.success(response.message,"Success");
-            this.getAll();
-          }
-          else{
-            this.toastr.error(response.message,"Error");
-          }
-  
-      },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-        }); 
-      }
+  //update button
+  editRow(row:MCQQuestionAnswerModel, rowIndex:number, content : any) 
+  {
+    console.log(row);
+
+    this.mcqQuestionAnswerForm = this.fb.group({
+      id:[row.id],
+      questionId : [row.questionId, [Validators.required]],
+      answerText : [row.answerText, [Validators.required]],
+      isCorrectAnswer : [row.isCorrectAnswer, [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
     });
   }
 
 
   //save MCQ Student Answer button 
-  saveMcqStudentAnswer()
+  saveMcqQuestionAnswer()
   {
     console.log(this.mcqQuestionAnswerForm.value);
 

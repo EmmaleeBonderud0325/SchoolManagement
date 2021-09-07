@@ -31,6 +31,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
+        
         public async Task<ActionResult> Post([FromBody] QuestionViewModel vm)
         {
             var userName = identityService.GetUserName();

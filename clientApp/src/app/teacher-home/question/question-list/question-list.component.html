@@ -53,13 +53,7 @@
                           </div>
                         </div>
                         <!-- dropdown for the pages-->
-                        <div class="header-buttons">
-                          <div>
-                            <!--<label>PAGES</label>-->
-                            <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
-                          </div>
-                        </div>
-                        
+                       
                         
                       </div>
                     </div>
@@ -180,25 +174,29 @@
 
               <!-- New question add form-->
               <div class="modal-body">
-                <form class="register-form" [formGroup]="questionForm">
+                <form 
+                  class="register-form" 
+                  [formGroup]="questionForm">
                   
                   <!-- this is a row one -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>lessonName<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="lessonName" required>
-                          <option *ngFor="let item of lessonName" [value]="item.id">{{item.name}}</option>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="lessonId" 
+                          required>
+                          <option *ngFor="let item of lessonNames" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                       </div>
                     </div>
-
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Topic Name<span class="text-danger">*</span></label>
                         <select class="form-select form-control" formControlName="topicId" required>
-                          <option *ngFor="let item of topicNames" [value]="item.id">{{item.name}}</option>
+                          <option *ngFor="let item of topicNames" [ngValue]="item.id">{{item.name}}</option>
                         </select>
 
                         <!-- <select class="form-select form-control" [formGroup]="form" [(ngModel)]="cause.id" [name]="name">
@@ -206,8 +204,6 @@
                           </select> -->
                       </div>
                     </div>
-
-
                    
                   </div>
                   
@@ -216,13 +212,13 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label> Sequence No <span class="text-danger">*</span></label>
                       <input 
-                          type="text" 
+                          type="number" 
                           class="form-control" 
                           placeholder="Sequence No" 
-                          formControlName="sequenceno"
+                          formControlName="sequenceNo"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!questionForm.get('sequenceno').valid && questionForm.get('sequenceno').touched">
+                        *ngIf="!questionForm.get('sequenceNo').valid && questionForm.get('sequenceNo').touched">
                         Sequnce No is  required</small>
                     </div>
   
@@ -230,7 +226,7 @@
                       <div class="form-group">
                         <label> Marks <span class="text-danger">*</span></label>
                         <input 
-                          type="text" 
+                          type="number" 
                           class="form-control" 
                           placeholder="Marks" 
                           formControlName="marks"
@@ -251,11 +247,12 @@
                           type="textarea" 
                           class="form-control" 
                           placeholder="Question Text" 
-                          formControlName="questiontext"
+                          formControlName="questionText"
                           style="width: 39vw"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!questionForm.get('questiontext').valid && questionForm.get('questiontext').touched">Question Text is  required
+                        *ngIf="!questionForm.get('questionText').valid && questionForm.get('questionText').touched">
+                        Question Text is  required
                       </small>
                     </div>
                   </div>
@@ -264,11 +261,16 @@
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label> Question Type <span class="text-danger">*</span></label><br><br>
-                        <input type="radio" value="mcq" name="questiontype" required ngModel> MCQ <br>
-                        <input type="radio" value="essay" name="questiontype" ngModel> ESSAY
-                      <small class="form-text text-danger"
-                        *ngIf="!questionForm.get('questiontype').valid && questionForm.get('questiontype').touched">
-                      </small>
+                        <input 
+                          type="radio" 
+                          [value]=1 
+                          name="questionType" 
+                          required > MCQ <br>
+                        <input 
+                          type="radio" 
+                          [value]=2 
+                          name="questionType"> ESSAY
+
                     </div>
                   </div>
 

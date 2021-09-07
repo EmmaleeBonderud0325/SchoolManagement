@@ -39,18 +39,8 @@
                     <div class="col-lg-4 p-0">
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
-                          <div class="icon-button-dleftemo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createStudentMCQQuestion(addEditRecord)' >
-                              <i class="material-icons">add</i>
-                            </button>
-                            <button  class="btn btn-icon icon-left btn-danger rounded-button"
-                              >
-                              <i class="material-icons">delete</i>
-                            </button>
-                          </div>
+                          <div class="icon-button-dleftemo buttons"></div>
                         </div>
-
-
 
                         <div class="header-buttons-left">
                           <div class="icon-button-dleftemo buttons">
@@ -63,8 +53,6 @@
                             <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
                           </div>
                         </div>
-                        
-                        
                       </div>
                     </div>
                   </div>
@@ -79,21 +67,21 @@
                   [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
                 <!--Question ID-->
-                <ngx-datatable-column name="Id" [width]="50">
+                <ngx-datatable-column name="Question" [width]="50">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.questionName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Lesson ID-->
-                <ngx-datatable-column name="StudentID" [width]="75">
+                <ngx-datatable-column name="Student Name" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.studenName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Topic ID-->
-                <ngx-datatable-column name="TeacherComments" [width]="75">
+                <ngx-datatable-column name="Teacher Comment" [width]="75">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.teacherComments}}
                   </ng-template>
@@ -142,7 +130,7 @@
               
               <!-- New question add form-->
               <div class="modal-body">
-                <form class="register-form" [formGroup]="StudentMCQQuestionForm" (ngSubmit)="onAddRowSave(StudentMCQQuestionForm)">
+                <form class="register-form" [formGroup]="StudentMCQQuestionForm">
                   
                   <!-- this is a row one -->
                   <div class="row">

@@ -25,7 +25,7 @@ export class QuestionListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     questionForm: FormGroup;
-    lessonName :DropDownModel[] = [];
+    lessonNames :DropDownModel[] = [];
     topicNames :DropDownModel[] = [];
 
     constructor(
@@ -41,12 +41,12 @@ export class QuestionListComponent implements OnInit {
       this.getAllTopic();
     }
   
-    //display lesson name nad topic
+    //display lesson name and topic
     getAllLessonName(){
       this.QuestionService.getAllLessonName()
         .subscribe(response=>
         { 
-          this.lessonName = response;
+          this.lessonNames = response;
           console.log(response)           
 
         },error=>{
@@ -86,13 +86,13 @@ export class QuestionListComponent implements OnInit {
     {
       this.questionForm = this.fb.group({
         id:[0],
-        lessonName:[null, [Validators.required]],
+        lessonId:[null, [Validators.required]],
         topicId:[null, [Validators.required]],
-        sequenceno:['', [Validators.required]],
+        sequenceNo:['', [Validators.required]],
         marks:['', [Validators.required]],
-        questiontext:['', [Validators.required]],
-        questionlevel:['', [Validators.required]],
-        questiontype:['',[Validators.required]],
+        questionText:['', [Validators.required]],
+        //questionlevel:['', [Validators.required]],
+        questionType :[1],
       });
     
       this.modalService.open(content, {
@@ -141,7 +141,7 @@ export class QuestionListComponent implements OnInit {
             {
                 this.modalService.dismissAll();
                 this.toastr.success(response.message,"Success");
-                //this.getAll();
+                this.getAll();
             }
             else
             {
@@ -161,10 +161,13 @@ export class QuestionListComponent implements OnInit {
     
         this.questionForm = this.fb.group({
           id:[row.id],
-          sequenceno:[row.sequenceNo, [Validators.required]],
+          lessonId:[row.lessonId, [Validators.required]],
+          topicId:[row.topicId, [Validators.required]],
+          sequenceNo:[row.sequenceNo, [Validators.required]],
           marks:[row.marks, [Validators.required]],
-          questiontext:[row.questionText, [Validators.required]],
-          questiontype:[row.questionType, [Validators.required]],
+          questionText:[row.questionText, [Validators.required]],
+          questionType :[1],
+          
         });
     
         this.modalService.open(content, {

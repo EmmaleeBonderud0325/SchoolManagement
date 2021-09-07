@@ -93,9 +93,10 @@ namespace SchoolManagement.Business
             var respone = new ResponseViewModel();
             try 
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
-                var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                //var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
+                var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                
 
                 if (Questions == null) 
                 {
@@ -108,13 +109,13 @@ namespace SchoolManagement.Business
                         QuestionText = vm.QuestionText,
                         Marks = vm.Marks,
                         //DifficultyLevel = vm.DifficultyLevel,
-                        //QuestionType = vm.QuestionType,
-                        IsActive = vm.IsActive,
+                        QuestionType = vm.QuestionType,
+                        IsActive = true,
                         CreateOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = loggedInUser.Id,
                         UpdateOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
-                    };
+                        UpdatedById = loggedInUser.Id,
+                };
 
                     schoolDb.Questions.Add(Questions);
                     respone.IsSuccess = true;
@@ -127,11 +128,11 @@ namespace SchoolManagement.Business
                     Questions.Marks = vm.Marks;
                     //Questions.DifficultyLevel = vm.DifficultyLevel;
                     //Questions.QuestionType = vm.QuestionType;
-                    Questions.IsActive = vm.IsActive;
+                    Questions.IsActive = true;
                     Questions.CreateOn = vm.CreateOn;
-                    Questions.CreatedById = vm.CreatedById;
+                    Questions.CreatedById = loggedInUser.Id;
                     Questions.UpdateOn = vm.UpdateOn;
-                    Questions.UpdatedById = vm.UpdatedById;
+                    Questions.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Questions.Update(Questions);
                 }

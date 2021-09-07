@@ -1,6 +1,7 @@
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { environment } from './../../../environments/environment.prod';
-import { mcqquestionanswerModel } from './../../models/mcq-question-answer/mcq-question-answer.model';
+import { MCQQuestionAnswerModel } from './../../models/mcq-question-answer/mcq-question-answer.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -12,19 +13,19 @@ export class McqQuestionAnswerService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<mcqquestionanswerModel[]>{
+  getAll(): Observable<MCQQuestionAnswerModel[]>{
     return this.httpClient.
-      get<mcqquestionanswerModel[]>(environment.apiUrl + 'McqQuestionAnswer')
+      get<MCQQuestionAnswerModel[]>(environment.apiUrl + 'McqQuestionAnswer')
   }
  
-  saveMcqQuestionAnswer(mcqquestionanswer: mcqquestionanswerModel): Observable<ResponseModel> {
+  saveMcqQuestionAnswer(mcqquestionanswer: MCQQuestionAnswerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'McqQuestionAnswer/', mcqquestionanswer);
+      post<ResponseModel>(environment.apiUrl + 'McqQuestionAnswer/saveMcqQuestionAnswer', mcqquestionanswer);
   }
 
-  delete(classNameId: number): Observable <ResponseModel> { 
-    return this.httpClient. 
-      delete<ResponseModel>(environment.apiUrl + 'McqQuestionAnswer/' + classNameId); 
+  GetAllQuestion():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'McqQuestionAnswer/getAllQuestion');
   }
   
 }

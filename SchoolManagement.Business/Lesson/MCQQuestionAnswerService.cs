@@ -104,5 +104,15 @@ namespace SchoolManagement.Business
             }
             return response;
         }
+
+        public List<DropDownViewModel> GetAllQuestion()
+        {
+            var question = schoolDb.Questions
+            .Where(x => x.IsActive == true)
+            .Select(qu => new DropDownViewModel() { Id = qu.Id, Name = string.Format("{0}", qu.QuestionText) })
+            .Distinct().ToList();
+
+            return question;
+        }
     }
 }

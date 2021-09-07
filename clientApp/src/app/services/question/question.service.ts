@@ -19,9 +19,9 @@ export class QuestionService {
       get<questionModel[]>(environment.apiUrl + 'Question')
   }
  
-  saveQuestion(question: questionModel): Observable<ResponseModel> {
+  saveQuestion(vm: questionModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'Question/saveQuestion', question);
+      post<ResponseModel>(environment.apiUrl + 'Question', vm);
   }
   
   delete(id: number): Observable <ResponseModel> { 

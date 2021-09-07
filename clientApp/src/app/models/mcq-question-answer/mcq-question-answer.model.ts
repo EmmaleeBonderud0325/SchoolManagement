@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
  
 @Injectable()
-export class mcqquestionanswerModel{
+export class MCQQuestionAnswerModel{
     id : number;
     questionId : number;
     questionName : string;
