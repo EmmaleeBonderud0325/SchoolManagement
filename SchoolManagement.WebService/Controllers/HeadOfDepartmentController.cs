@@ -47,7 +47,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllAcademicYears")]
-        public ActionResult getAllAcademicYears()
+        public ActionResult GetAllAcademicYears()
         {
             var response = HeadOfDepartmentService.GetAllAcademicYears();
 
@@ -56,7 +56,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllAcademicLevels")]
-        public ActionResult getAllAcademicLevels()
+        public ActionResult GetAllAcademicLevels()
         {
             var response = HeadOfDepartmentService.GetAllAcademicLevels();
 
@@ -65,7 +65,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllTeachers")]
-        public ActionResult getAllTeachers()
+        public ActionResult GetAllTeachers()
         {
             var response = HeadOfDepartmentService.GetAllTeachers();
 
@@ -74,7 +74,7 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllSubjects")]
-        public ActionResult getAllSubjects()
+        public ActionResult GetAllSubjects()
         {
             var response = HeadOfDepartmentService.GetAllSubjects();
 

@@ -176,7 +176,7 @@ namespace SchoolManagement.Business.Master
         public List<DropDownViewModel> GetAllSubjects()
         {
             var subjects = schoolDb.Subjects
-                .Where(x => x.SubjectCode != null)
+                .Where(x => x.IsActive == true )
                 .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.Name) })
                 .Distinct().ToList();
 
