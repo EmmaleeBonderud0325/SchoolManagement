@@ -61,22 +61,37 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
+                <ngx-datatable-column [width]="80" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <button class="btn btn-icon btn-sm btn-primary" (click)='updateUser(row, rowIndex, addEditRecord)'>
+                          <i class="far fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" (click)='deleteUser(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>  
+                  </ng-template>
+                </ngx-datatable-column>
+
                 <!-- Id Column -->
-                <ngx-datatable-column name="Id" [width]="100">
+                <ngx-datatable-column name="Id" [width]="5">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Id}}
+                    {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
 
                  <!-- Full Name Column -->
-                <ngx-datatable-column name="Full Name" [width]="100">
+                <ngx-datatable-column name="Full Name" [width]="180">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.fullName}}
                   </ng-template>
                 </ngx-datatable-column>
 
                  <!-- Email Column -->
-                <ngx-datatable-column name="Email" [width]="100">
+                <ngx-datatable-column name="Email" [width]="200">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.email}}
                   </ng-template>
@@ -90,7 +105,7 @@
                 </ngx-datatable-column>
 
                 <!-- Address Column -->
-                <ngx-datatable-column name="Address" [width]="100">
+                <ngx-datatable-column name="Address" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.address}}
                   </ng-template>
@@ -99,7 +114,7 @@
                  <!-- Created byy Column -->
                 <ngx-datatable-column name="Created By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.createdBy}}
+                    {{row.createdByName}}
                   </ng-template>
                 </ngx-datatable-column>
 
@@ -113,30 +128,19 @@
                 <!-- updated By Column -->
                 <ngx-datatable-column name="Updated By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updatedBy}}
+                    {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
 
                 <!-- updated on Column -->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.updatedOn}}
+                    {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
                  <!-- Action Column -->
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
-                  </ng-template>
-                </ngx-datatable-column>
+                
               </ngx-datatable>
 
               <!-- Add new User Modal Window -->
@@ -179,8 +183,9 @@
                           formControlName="fullName"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('fullName').valid && saveUserForm.get('fullName').touched"> Full Name is
-                        required</small>
+                        *ngIf="!saveUserForm.get('fullName').valid && saveUserForm.get('fullName').touched"> 
+                        Full Name is required
+                      </small>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -192,8 +197,9 @@
                           formControlName="email"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('email').valid && saveUserForm.get('email').touched"> Email is
-                        required</small>
+                        *ngIf="!saveUserForm.get('email').valid && saveUserForm.get('email').touched"> 
+                        Email is required
+                      </small>
                     </div>  
                   </div>
 
@@ -207,8 +213,9 @@
                           formControlName="mobileNo"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('mobileNo').valid && saveUserForm.get('mobileNo').touched"> Mobile number is
-                        required</small>
+                        *ngIf="!saveUserForm.get('mobileNo').valid && saveUserForm.get('mobileNo').touched">
+                        Mobile number isrequired
+                      </small>
                     </div>
                     
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -220,8 +227,9 @@
                           formControlName="userName"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched"> Mobile number is
-                        required</small>
+                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched">
+                        Mobile number is required
+                      </small>
                     </div>
                   </div>
 
@@ -235,11 +243,11 @@
                           formControlName="address"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('address').valid && saveUserForm.get('address').touched"> Address is
-                        required</small>
+                        *ngIf="!saveUserForm.get('address').valid && saveUserForm.get('address').touched"> 
+                        Address is required</small>
                     </div>
 
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" *ngIf="id==0">
                       <label>Password<span class="text-danger">*</span></label>
                       <input 
                           type="text" 
@@ -248,8 +256,8 @@
                           formControlName="password"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> Password is
-                        required</small>
+                        *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> 
+                        Password is required</small>
                     </div>
                     
                   </div>
@@ -258,14 +266,31 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="row">
                         <label>Roles<span class="text-danger ">*</span></label>
-                        <p-multiSelect [options]="userRoles"  formControlName="roles" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
+                        <p-multiSelect 
+                          [options]="userRoles"  
+                          formControlName="roles" 
+                          optionLabel="name" 
+                          [style]="{'width':'100%'}">
+                        </p-multiSelect>
                       </div>
                     </div>
                   </div>
                   <!-- Modal Footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" (click)="saveUser()"[disabled]="!saveUserForm.valid">Save</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary" 
+                        (click)="saveUser()"
+                        [disabled]="!saveUserForm.valid">
+                        Save User
+                    </button>
+
+                    <button 
+                        type="button" 
+                        class="btn btn-light" 
+                        (click)="modal.close('Close click')">
+                        Close
+                    </button>
                   </div>
                 </form>
               </div>

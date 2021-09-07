@@ -17,7 +17,7 @@ export class StudentService {
       get<StudentModel[]>(environment.apiUrl + 'Student');
   }
 
-  save(vm: StudentModel): Observable<ResponseModel> {
+  saveStudent(vm: StudentModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Student', vm);
   }
