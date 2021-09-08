@@ -12,28 +12,38 @@ import { Injectable } from '@angular/core';
 export class UserService {
 
   constructor(private httpClient: HttpClient) { }
-
+  
+  //get All user service
   getAll(): Observable<UserModel[]>{
     return this.httpClient.
-      get<UserModel[]>(environment.apiUrl + 'User/getAllUsers')
+      get<UserModel[]>
+        (environment.apiUrl + 'User/getAllUsers')
   }
 
+  //Save user service
   saveUser(vm: UserModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'User', vm);
+      post<ResponseModel>
+        (environment.apiUrl + 'User', vm);
   }
 
+  ///get user by id Service
   getUserById(id:number): Observable<UserModel>{
-    return this.httpClient.get<UserModel>(environment.apiUrl + 'User/GetUserById/'+ id);
+    return this.httpClient.get<UserModel>
+        (environment.apiUrl + 'User/GetUserById/'+ id);
   }
 
+  //get user Roles Service 
   getAllRoles(): Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'User/getAllRoles')
+      get<DropDownModel[]>
+        (environment.apiUrl + 'User/getAllRoles')
   }
 
+  //User Delete Service
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'User/' + id);
+      delete<ResponseModel>
+        (environment.apiUrl + 'User/' + id);
   }
 }
