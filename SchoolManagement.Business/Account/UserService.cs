@@ -131,6 +131,26 @@ namespace SchoolManagement.Business
 
                 if (user == null)
                 {
+                    var exisistingUserName = schoolDb.Users.FirstOrDefault(u => u.Username.Trim().ToUpper() == vm.Username.Trim().ToUpper());
+
+                    if(exisistingUserName != null)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = UserServiceConstants.EXISTING_USERNAME_ALLREADY_TAKEN_EXCEPTION_MESSAGE;
+
+                        return response;
+                    }
+
+                    var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                    if (exsitingEmail != null)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = UserServiceConstants.EXISTING_EMAIL_ALLREADY_TAKEN_EXCEPTION_MESSAGE;
+
+                        return response;
+                    }
+
                     user = new User()
                     {
                         Id = vm.Id,
