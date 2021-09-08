@@ -28,7 +28,7 @@ namespace SchoolManagement.Business
             this.config = config;
             this.currentUserService = currentUserService;
         }
-
+        //Get All EssayQuestionAnswers
         public List<EssayQuestionAnswerViewModel> GetAllEssayQuestionAnswers()
         { 
             var response = new List<EssayQuestionAnswerViewModel>();
@@ -62,7 +62,7 @@ namespace SchoolManagement.Business
         }
 
 
-
+        //Save
         public async Task<ResponseViewModel> SaveEssayQuestionAnswer(EssayQuestionAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -95,10 +95,12 @@ namespace SchoolManagement.Business
                 else
                 {
                     EssayQuestionAnswers.AnswerText = vm.AnswerText;
-                    EssayQuestionAnswers.ModifiedOn = vm.ModifiedOn;
-                    EssayQuestionAnswers.CreatedOn = vm.CreatedOn;
+                    EssayQuestionAnswers.ModifiedOn = DateTime.UtcNow;
 
                     schoolDb.EssayQuestionAnswers.Update(EssayQuestionAnswers);
+
+                    response.IsSuccess = true;
+                    response.Message = "Essay Answer is Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -112,7 +114,7 @@ namespace SchoolManagement.Business
             return response;
         }
 
-
+        //Delete
         public async Task<ResponseViewModel> DeleteEssayAnswer(int essayAnswerid)
         {
             var response = new ResponseViewModel();

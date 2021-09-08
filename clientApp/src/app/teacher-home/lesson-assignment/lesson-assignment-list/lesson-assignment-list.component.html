@@ -218,26 +218,10 @@
                           placeholder="Due Date" 
                           formControlName="duetDate"
                           required>
-                      <!-- <small class="form-text text-danger"
-                        *ngIf="!lessonAssignmentForm .get('duetDate').valid && lessonAssignmentForm .get('duetDate').touched"> Due Date is
-                        required</small> -->
-                    </div>
-                   <div class="row">
-                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label>Is Active <span class="text-danger">*</span></label>
-                        <input type="radio" value="1" name="isActive" required ngModel> YES <br>
-
-                        <input type="radio" value="0" name="IsActive" ngModel> NO
-
-                      <small class="form-text text-danger"
-
-                        *ngIf="!lessonAssignmentForm.get('isActive').valid && lessonAssignmentForm.get('isActive').touched">
-
-                      </small> 
-                      </div>
-                    </div>  
-                  </div> -->
+                          <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentForm .get('duetDate').valid && lessonAssignmentForm .get('duetDate').touched"> Due Date is
+                          required</small> 
+                  </div> 
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="saveLessonAssignment()" [disabled]="!lessonAssignmentForm.valid"> ADD NEW LESSON ASSIGNMENTS </button>

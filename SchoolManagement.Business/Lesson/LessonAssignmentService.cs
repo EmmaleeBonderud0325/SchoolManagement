@@ -65,17 +65,15 @@ namespace SchoolManagement.Business
             return lessons;
         }
 
-
         public List<LessonAssignmentViewModel> GetLessonAssignments()
         {
-          
             var response = new List<LessonAssignmentViewModel>();
 
             var query = schoolDb.LessonAssignments.Where(u => u.IsActive == true);
 
             var LessonAssignmentList = query.ToList();
 
-            foreach(var item in LessonAssignmentList)
+            foreach (var item in LessonAssignmentList)
             {
                 var vm = new LessonAssignmentViewModel
                 {
@@ -87,20 +85,23 @@ namespace SchoolManagement.Business
                     StartDate = (DateTime)item.StartDate,
                     DuetDate = (DateTime)item.DuetDate,
                     IsActive = true,
-                    CreatedOn =DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow,
                     CreatedById = item.CreatedById,
                     CreatedByName = item.CreatedBy.FullName,
                     UpdatedOn = DateTime.UtcNow,
                     UpdatedById = item.UpdatedById,
-                    UpdatedByName = item.UpdatedBy.FullName
-                };
+                    UpdatedByName = item.UpdatedBy.FullName,
 
+
+                };
                 response.Add(vm);
             }
-            return response;
-    }
 
-    public async Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName)
+            return response;
+        }
+
+
+        public async Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -123,13 +124,14 @@ namespace SchoolManagement.Business
                         LessonId = vm.LessonId,
                         Name = vm.Name,
                         Description = vm.Description,
+                        StartDate = vm.StartDate,
+                        DuetDate = vm.DuetDate,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
-                        UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = loggedInUser.Id
+         
 
-                    };
+                };
 
                     schoolDb.LessonAssignments.Add(LessonAssignments);
 
@@ -141,14 +143,17 @@ namespace SchoolManagement.Business
                 {
                     LessonAssignments.Name = vm.Name;
                     LessonAssignments.Description = vm.Description;
+                    LessonAssignments.StartDate = vm.StartDate;
+                    LessonAssignments.DuetDate = vm.DuetDate;
                     LessonAssignments.IsActive = true;
-                    //LessonAssignments.CreatedOn = vm.CreatedOn;
-                    //LessonAssignments.CreatedById = vm.CreatedById;
-                    //LessonAssignments.UpdatedOn = vm.UpdatedOn;
-                    //LessonAssignments.UpdatedById = vm.UpdatedById
+                    LessonAssignments.UpdatedOn = DateTime.UtcNow;
+                    LessonAssignments.UpdatedById = loggedInUser.Id;
 
 
                     schoolDb.LessonAssignments.Update(LessonAssignments);
+
+                    response.IsSuccess = true;
+                    response.Message = " Lesson Assignment Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();

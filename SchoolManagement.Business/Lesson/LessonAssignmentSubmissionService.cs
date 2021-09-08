@@ -53,7 +53,7 @@ namespace SchoolManagement.Business
         {
             var response = new List<LessonAssignmentSubmissionViewModel>();
 
-            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.StudentId != null);
+            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.Id != null);
 
             var LessonAssignmentSubmissionList = query.ToList();
 
@@ -122,6 +122,9 @@ namespace SchoolManagement.Business
 
 
                     schoolDb.LessonAssignmentSubmissions.Update(LessonAssignmentSubmissions);
+
+                    response.IsSuccess = true;
+                    response.Message = " Lesson Assignment Submission Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();

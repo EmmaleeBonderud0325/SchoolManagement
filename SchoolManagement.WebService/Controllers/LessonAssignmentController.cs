@@ -37,7 +37,7 @@ namespace SchoolManagement.WebService.Controllers
 
         public ActionResult GetLessonAssignments()
         {
-            var response = lessonassignmentService.GetLessonAssignments();
+            var response = lessonassignmentService.GetLessonAssignments(); ;
             return Ok(response);
         }
 

@@ -36,6 +36,6 @@ export class LessonAssignmentSubmissionService {
 
    getAllLessonAssignments():Observable<DropDownModel[]>{
     return this.httpClient.
-    get<DropDownModel[]>(environment.apiUrl + 'LessonAssignmentSubmission/etAllLessonAssignments');
+    get<DropDownModel[]>(environment.apiUrl + 'LessonAssignmentSubmission/getAllLessonAssignments');
         }
 }

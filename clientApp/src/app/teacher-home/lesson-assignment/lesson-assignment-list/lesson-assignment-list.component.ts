@@ -48,7 +48,7 @@ export class LessonAssignmentListComponent implements OnInit{
           description:['', [Validators.required]],
           startDate:['', [Validators.required]],
           duetDate:['', [Validators.required]],
-          isActive:['', [Validators.required]],
+         
           
 
         });
@@ -158,7 +158,7 @@ deleteLessonAssignment(row) {
         description:[row.description, [Validators.required]],
         startDate:[row.startDate, [Validators.required]],
         duetDate:[row.duetDate, [Validators.required]],
-        isActive:[row.isActive, [Validators.required]],
+       
         
         
       });

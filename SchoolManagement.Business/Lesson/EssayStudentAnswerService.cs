@@ -97,11 +97,11 @@ namespace SchoolManagement.Business
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 var EssayStudentAnswers = schoolDb.EssayStudentAnswers.FirstOrDefault(x => x.QuestionId == vm.QuestionId);
 
-                var loggedInUser = currentUserService.GetUserByUsername(userName);
+               
 
 
                 if (EssayStudentAnswers == null)
@@ -130,6 +130,9 @@ namespace SchoolManagement.Business
                    
 
                     schoolDb.EssayStudentAnswers.Update(EssayStudentAnswers);
+
+                    response.IsSuccess = true;
+                    response.Message = "Essay Answer is Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();

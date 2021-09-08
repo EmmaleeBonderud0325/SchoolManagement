@@ -44,7 +44,6 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
       createNewLessonAssignmentSubmission(content)
       {
         this.lessonAssignmentSubmissionForm = this.fb.group({
-          id:[0],
           lessonAssignmentId:[null, [Validators.required]],
           studentId:[null, [Validators.required]],
           submissionPath:['', [Validators.required]],
@@ -121,10 +120,10 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
         this.toastr.success(response.message,"Success");
         this.getAll();
       }
-      else
+     /*  else
       {
         this.toastr.error(response.message,"Error");
-      }
+      } */
 
   },error=>{
     this.toastr.error("Network error has been occured. Please try again.","Error");
@@ -138,7 +137,6 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
     console.log(row);
 
     this.lessonAssignmentSubmissionForm  = this.fb.group({
-      id:[row.id],
       lessonAssignmentId:[row.lessonAssignmentId, [Validators.required]],
       studentId:[row.studentId, [Validators.required]],
       submissionPath:[row.submissionPath, [Validators.required]],

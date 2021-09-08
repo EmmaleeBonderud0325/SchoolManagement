@@ -131,10 +131,10 @@ export class EssayStudentAnswerListComponent implements OnInit {
           this.toastr.success(response.message,"Success");
           this.getAll();
         }
-        else
+       /*  else
         {
           this.toastr.error(response.message,"Error");
-        }
+        } */
 
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
