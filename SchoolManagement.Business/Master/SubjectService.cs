@@ -64,16 +64,16 @@ namespace SchoolManagement.Business.Master
             
             foreach (var subject in SubjectList)
             {
-                 var subjectAcademicLevel = new List<SubjectAcademicLevelViewModel>();
+                 var subjectAcademicLevel = new List<DropDownViewModel>();
                  
                  var subjectAcademicLevelList = schoolDb.SubjectAcademicLevels.Where(row => row.SubjectId == subject.Id).ToList();
 
                     foreach (var item in subjectAcademicLevelList)
                     {
-                        var subjectAcademicLevelVM = new SubjectAcademicLevelViewModel
+                        var subjectAcademicLevelVM = new DropDownViewModel
                         {                            
-                            AcademicLevelId = item.AcademicLevelId,
-                            AcademicLevelName = item.AcademicLevel.Name,
+                            Id = item.AcademicLevelId,
+                            Name = item.AcademicLevel.Name,
                         };
                         subjectAcademicLevel.Add(subjectAcademicLevelVM);
                     }
@@ -118,7 +118,7 @@ namespace SchoolManagement.Business.Master
                         Id = vm.Id,
                         Name = vm.Name,
                         SubjectCode = vm.SubjectCode,
-                        SubjectCategory = vm.SubjectCategory,
+                        SubjectCategory = (SubjectCategory)vm.CategorysId,
                         IsParentBasketSubject = vm.IsParentBasketSubject,
                         IsBuscketSubject = vm.IsBuscketSubject,
                         ParentBasketSubjectId =vm.ParentBasketSubjectId,
@@ -142,7 +142,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAcademicLevel = new SubjectAcademicLevel()
                         {
                             SubjectId = insetedId,
-                            AcademicLevelId=unit.AcademicLevelId,
+                            AcademicLevelId=unit.Id,
                         };
 
                         subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
@@ -179,6 +179,36 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        public SubjectViewModel GetSubjectbyId(int id)
+        {
+            var response = new SubjectViewModel();
+
+            var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
+
+
+            response.Id = subject.Id;
+            response.Name = subject.Name;
+            response.SubjectCode = subject.SubjectCode;
+            response.SubjectCategory = subject.SubjectCategory;
+            response.SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory);
+            response.IsParentBasketSubject = subject.IsParentBasketSubject;
+            response.IsBuscketSubject = subject.IsBuscketSubject;
+            response.ParentBasketSubjectId = subject.ParentBasketSubjectId;
+            response.ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId);
+            response.SubjectStreamId = subject.SubjectStreamId;
+            response.SubjectStreamName = subject.SubjectStream.Name;
+            
+
+            var subjectAcademicLevels = subject.SubjectAcademicLevels.Where(x => x.SubjectId == subject.Id);
+
+            foreach (var item in subjectAcademicLevels)
+            {
+                response.SubjectAcademicLevels.Add(new DropDownViewModel() { Id = item.AcademicLevelId, Name = item.AcademicLevel.Name, });
+            }
+
+            return response;
+        }
+
 
         public List<DropDownViewModel> GetAllSubjectStreams()
         {
@@ -197,7 +227,15 @@ namespace SchoolManagement.Business.Master
                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
                 .ToList();
         }
-       
+
+        public List<DropDownViewModel> GetAllParentBasketSubjects()
+        {
+            return schoolDb.Subjects
+                 .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
+                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                 .ToList();
+        }
+
         public List<DropDownViewModel> GetAllSubjectCategorys()
         {
             var response = new List<DropDownViewModel>();
@@ -209,14 +247,6 @@ namespace SchoolManagement.Business.Master
             response.Add(subjectcategory);
 
             return response;
-        }
-
-        public List<DropDownViewModel> GetAllParentBasketSubjects()
-        {
-            return schoolDb.Subjects
-                 .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
-                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                 .ToList();
         }
 
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
@@ -248,8 +278,10 @@ namespace SchoolManagement.Business.Master
                 {
                     return SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT;
             }
+        
         }
 
+        
     }
 }
                 

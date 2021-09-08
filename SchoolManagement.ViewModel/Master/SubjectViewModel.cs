@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,14 @@ namespace SchoolManagement.ViewModel.Master
     {
         public SubjectViewModel()
         {
-            SubjectAcademicLevels = new List<SubjectAcademicLevelViewModel>();
+            SubjectAcademicLevels = new List<DropDownViewModel>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public string SubjectCode { get; set; }
         public SubjectCategory SubjectCategory { get; set; }
+        public int CategorysId { get; set; }
         public string SubjectCategoryName { get; set; }
         public bool IsParentBasketSubject { get; set; }
         public bool IsBuscketSubject { get; set; }
@@ -28,8 +30,8 @@ namespace SchoolManagement.ViewModel.Master
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime UpdatedOn { get; set; }
-        public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
-
+        //public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
+        public List<DropDownViewModel> SubjectAcademicLevels { get; set; }
     }
 }
 
