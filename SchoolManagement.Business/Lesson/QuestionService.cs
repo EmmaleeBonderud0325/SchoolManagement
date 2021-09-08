@@ -133,6 +133,8 @@ namespace SchoolManagement.Business
                     Questions.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Questions.Update(Questions);
+                    respone.IsSuccess = true;
+                    respone.Message = " Question is Updated Successfull.";
                 }
 
                 await schoolDb.SaveChangesAsync();

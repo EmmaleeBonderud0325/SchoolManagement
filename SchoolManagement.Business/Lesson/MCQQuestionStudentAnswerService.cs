@@ -88,6 +88,8 @@ namespace SchoolManagement.Business
                     MCQQuestionStudentAnswers.IsChecked = vm.IsChecked;
 
                     schoolDb.MCQQuestionStudentAnswers.Update(MCQQuestionStudentAnswers);
+                    responce.IsSuccess = true;
+                    responce.Message = " MCQ Question Student Answers are Updated successfully";
                 }
 
                 await schoolDb.SaveChangesAsync();

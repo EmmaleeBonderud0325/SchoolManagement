@@ -32,7 +32,7 @@ namespace SchoolManagement.Business
         public List<StudentMCQQuestionViewModel> GetAllStudentMCQQuestions()
         {
             var response = new List<StudentMCQQuestionViewModel>();
-            var query = schoolDb.StudentMCQQuestions.Where(u => u.IsCorrectAnswer == true);
+            var query = schoolDb.StudentMCQQuestions.Where(u => u.Question.Id != null);
             var StudentMCQQuestionList = query.ToList();
 
             foreach (var item in StudentMCQQuestionList) 
@@ -84,6 +84,8 @@ namespace SchoolManagement.Business
                     StudentMCQQuestions.IsCorrectAnswer = vm.IsCorrectAnswer;
 
                     schoolDb.StudentMCQQuestions.Update(StudentMCQQuestions);
+                    respone.IsSuccess = true;
+                    respone.Message = " Student MCQ Question is updated susccesfully.";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -97,24 +99,24 @@ namespace SchoolManagement.Business
             return respone;
         }
 
-        public List<DropDownViewModel> GetAllQuestion()
+        public List<DropDownViewModel> GetAllQuestions()
         {
-            var question = schoolDb.Questions
+            var questions = schoolDb.Questions
               .Where(x => x.IsActive == true)
               .Select(q => new DropDownViewModel() { Id = q.Id, Name = string.Format("{0}", q.QuestionText) })
               .Distinct().ToList();
 
-            return question;
+            return questions;
         }
 
-        public List<DropDownViewModel> GetAllStudentName()
+        public List<DropDownViewModel> GetAllStudentNames()
         {
-            var student = schoolDb.Students
+            var students = schoolDb.Students
               .Where(x => x.IsActive == true)
               .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.User.FullName) })
               .Distinct().ToList();
 
-            return student;
+            return students;
         }
     }
 }

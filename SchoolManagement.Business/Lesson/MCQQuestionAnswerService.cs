@@ -75,7 +75,7 @@ namespace SchoolManagement.Business
                         AnswerText = vm.AnswerText,
                         SequenceNo = vm.SequenceNo,
                         IsCorrectAnswer = vm.IsCorrectAnswer,
-                        ModifiedDate = DateTime.UtcNow,
+                        //ModifiedDate = DateTime.UtcNow,
                         CreatedOn = DateTime.UtcNow
                     };
 
@@ -90,9 +90,11 @@ namespace SchoolManagement.Business
                     MCQQuestionAnswers.SequenceNo = vm.SequenceNo;
                     MCQQuestionAnswers.IsCorrectAnswer = vm.IsCorrectAnswer;
                     MCQQuestionAnswers.ModifiedDate = vm.ModifiedDate;
-                    MCQQuestionAnswers.CreatedOn = vm.CreatedOn;
+                    //MCQQuestionAnswers.CreatedOn = vm.CreatedOn;
 
                     schoolDb.MCQQuestionAnswers.Update(MCQQuestionAnswers);
+                    response.IsSuccess = true;
+                    response.Message = " MCQ Question Answer is Updated successfull.";
                 }
                 await schoolDb.SaveChangesAsync();
             }
@@ -105,14 +107,14 @@ namespace SchoolManagement.Business
             return response;
         }
 
-        public List<DropDownViewModel> GetAllQuestion()
+        public List<DropDownViewModel> GetAllQuestions()
         {
-            var question = schoolDb.Questions
+            var questions = schoolDb.Questions
             .Where(x => x.IsActive == true)
             .Select(qu => new DropDownViewModel() { Id = qu.Id, Name = string.Format("{0}", qu.QuestionText) })
             .Distinct().ToList();
 
-            return question;
+            return questions;
         }
     }
 }

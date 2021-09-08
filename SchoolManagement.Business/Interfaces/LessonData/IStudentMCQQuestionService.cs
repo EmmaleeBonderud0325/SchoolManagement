@@ -12,7 +12,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveStudentMCQQuestion(StudentMCQQuestionViewModel vm, string userName);
         List<StudentMCQQuestionViewModel> GetAllStudentMCQQuestions();
-        List<DropDownViewModel> GetAllQuestion();
-        List<DropDownViewModel> GetAllStudentName();
+        List<DropDownViewModel> GetAllQuestions();
+        List<DropDownViewModel> GetAllStudentNames();
     }
 }

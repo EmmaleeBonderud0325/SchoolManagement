@@ -10,27 +10,47 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class StudentMcqQuestionAnswerService {
-
   constructor( private httpClient: HttpClient ) { }
+
+
+  getAll(): Observable<StudentMcqQuestionAnswerModel[]>{
+    return this.httpClient.
+      get<StudentMcqQuestionAnswerModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer')
+  }
+ 
+  saveStudentMcqQuestionAnswer(vm: StudentMcqQuestionAnswerModel): Observable<ResponseModel> {
+    return this.httpClient.
+      post<ResponseModel>(environment.apiUrl + 'StudentMcqQuestionAnswer', vm);
+  }
   
-  getAll(): Observable <StudentMcqQuestionAnswerModel[]>{
+  getAllQuestions():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllQuestions');
+  }
+
+  getAllStudentNames():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllStudentNames');
+  }
+  
+  /* getAll(): Observable <StudentMcqQuestionAnswerModel[]>{
     return this.httpClient.
       get<StudentMcqQuestionAnswerModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer')
   }
 
   saveStudentMcqQuestionAnswer(studentmcqquestionanswer: StudentMcqQuestionAnswerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'StudentMcqQuestionAnswer/saveStudentMcqQuestionAnswer', studentmcqquestionanswer);
+      post<ResponseModel>(environment.apiUrl + 'StudentMcqQuestionAnswer/', studentmcqquestionanswer);
   }
 
-  GetAllQuestion():Observable<DropDownModel[]>{
+  getAllQuestions():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/GetAllQuestion');
+      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllQuestions');
   }
 
-  GetAllStudentName():Observable<DropDownModel[]>{
+  getAllStudentNames():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/GetAllStudentName');
-  }
+      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllStudentNames');
+  } */
 
 }

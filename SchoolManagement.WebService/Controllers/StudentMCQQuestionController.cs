@@ -25,6 +25,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("getAll")]
         public ActionResult GetAllStudentMCQQuestion()
         {
             var response = studentmcqquestionService.GetAllStudentMCQQuestions();
@@ -40,19 +41,19 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getAllQuestion")]
-        public IActionResult GetAllQuestion()
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
         {
-            var response = studentmcqquestionService.GetAllQuestion();
+            var response = studentmcqquestionService.GetAllQuestions();
             return Ok(response);
         }
 
 
         [HttpGet]
-        [Route("getAllStudentName")]
-        public IActionResult GetAllStudentName()
+        [Route("getAllStudentNames")]
+        public IActionResult GetAllStudentNames()
         {
-            var response = studentmcqquestionService.GetAllStudentName();
+            var response = studentmcqquestionService.GetAllStudentNames();
             return Ok(response);
         }
     }

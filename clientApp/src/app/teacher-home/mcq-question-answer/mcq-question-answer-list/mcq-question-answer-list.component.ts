@@ -36,7 +36,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    //this.GetAllQuestion();
+    this.getAllQuestions();
   }
 
   getAll(){
@@ -52,8 +52,8 @@ export class McqQuestionAnswerListComponent implements OnInit {
   }
   
 
-  /* GetAllQuestion(){
-    this.McqQuestionAnswerService.GetAllQuestion()
+ getAllQuestions(){
+    this.McqQuestionAnswerService.getAllQuestions()
     .subscribe(response=>
     { 
         this.questionNames = response;
@@ -62,25 +62,9 @@ export class McqQuestionAnswerListComponent implements OnInit {
       },error=>{
         this.toastr.error("Question is not generated. Please try again.","Error");
        });
-  } */
+  } 
 
-  //retrive method
-  /* getAll() {
-    this.loadingIndicator = true;
-      this.McqQuestionAnswerService.getAll().subscribe(response => {
-      this.data=response;
-      console.log(response)
-      this.loadingIndicator = false;
-
-      }, error =>{
-        this.loadingIndicator = false;
-        this.toastr.error("Get All method is not working, Please try again", "Error")
-       })
-  } */
-
-
-
-   //add new question using form
+    //add new question using form
   createNewMcqQuestionAnswer(content)
   {
     this.mcqQuestionAnswerForm = this.fb.group({
@@ -128,10 +112,10 @@ export class McqQuestionAnswerListComponent implements OnInit {
             this.toastr.success(response.message,"Success");
             this.getAll();
         }
-        else
+        /* else
         {
             this.toastr.error(response.message,"Error");
-        }
+        } */
       },error=>{
 
             this.toastr.error("Network error has been occre.Please try again","Error");

@@ -35,35 +35,9 @@ export class StudentMcqQuestionListComponent implements OnInit {
 g
   ngOnInit(): void {
     this.getAll();
-    this.GetAllQuestion();
-    this.GetAllStudentName();
+    this.getAllQuestions();
+    this.getAllStudentNames();
   }
-
-
-  GetAllQuestion() {
-    this.StudentMcqQuestionAnswerService.GetAllQuestion()
-        .subscribe(response=>
-        { 
-          this.questionNames = response;
-          console.log(response)           
-
-        },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-         });
-  }
-
-  GetAllStudentName() {
-    this.StudentMcqQuestionAnswerService.GetAllStudentName()
-        .subscribe(response=>
-        { 
-          this.studentNames = response;
-          console.log(response)           
-
-        },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-         });
-  }
-
 
   getAll(){
     this.loadingIndicator = true;
@@ -76,14 +50,41 @@ g
       this.toastr.error("Get all method is not working!, Please try again", "Error")
     })
    }
+
+  getAllQuestions() {
+    this.StudentMcqQuestionAnswerService.getAllQuestions()
+        .subscribe(response=>
+        { 
+          this.questionNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Get Question error has been occured. Please try again.","Error");
+         });
+  }
+
+  getAllStudentNames() {
+    this.StudentMcqQuestionAnswerService.getAllStudentNames()
+        .subscribe(response=>
+        { 
+          this.studentNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Get Student Names error has been occured. Please try again.","Error");
+         });
+  } 
+
+
+  
   
 
   //add new question using form
   createStudentMCQQuestion(content)
   {
     this.StudentMCQQuestionForm = this.fb.group({
-      questionId:['', [Validators.required]],
-      studentId:['', [Validators.required]],
+      questionId:[null, [Validators.required]],
+      studentId:[null, [Validators.required]],
       teacherComments:['', [Validators.required]],
       marks:['', [Validators.required]],
     });
@@ -118,7 +119,7 @@ g
   }
 
   //update button
-  editRow(row:StudentMcqQuestionAnswerModel, rowIndex:number, content) 
+  editRow(row:StudentMcqQuestionAnswerModel, rowIndex:number, content : any) 
   {
     console.log(row);
 

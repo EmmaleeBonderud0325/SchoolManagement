@@ -42,10 +42,10 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getAllQuestion")]
-        public IActionResult GetAllQuestion()
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
         {
-            var response = mcqquestionanswerService.GetAllQuestion();
+            var response = mcqquestionanswerService.GetAllQuestions();
             return Ok(response);
         }
     }
