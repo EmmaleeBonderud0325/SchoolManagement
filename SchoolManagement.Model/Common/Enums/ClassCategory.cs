@@ -22,6 +22,8 @@ namespace SchoolManagement.Model
         [Description("A/Level-Technology")]
         ALevelTechnology = 6,
         [Description("A/Level-Commerce")]
-        ALevelCommerce = 7
+        ALevelCommerce = 7,
+        [Description("A/Level-Art")]
+        ALevelArt = 8
     };
 }
