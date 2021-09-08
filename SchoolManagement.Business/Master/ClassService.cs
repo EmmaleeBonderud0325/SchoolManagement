@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -71,7 +72,7 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var currentuser = currentUserService.GetUserByUsername(userName);
 
                 var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
 
@@ -94,7 +95,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Classes.Add(classes);
 
                     response.IsSuccess = true;
-                    response.Message = "Class is Successfully Created.";
+                    response.Message = ClassServiceConstants.NEW_CLASS_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
@@ -107,7 +108,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Classes.Update(classes);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Successfully Updated.";
+                    response.Message = ClassServiceConstants.EXISTING_CLASS_SAVE_SUCCESS_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -115,7 +116,7 @@ namespace SchoolManagement.Business.Master
             catch(Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error has been occured while saving the acdemic level.";
+                response.Message = ClassServiceConstants.CLASS_SAVE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -133,12 +134,12 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Class successfully deleted.";
+                response.Message = ClassServiceConstants.CLASS_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassServiceConstants.CLASS_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -176,16 +177,40 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllClassCategories()
         {
-            return schoolDb.Classes.Where(x => x.ClassCategory != null)
-                                   .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Name) })
-                                   .ToList();
+            var response = new List<DropDownViewModel>();
+            var classCategory = new DropDownViewModel() { Id = 1, Name = ClassServiceConstants.CLASS_CATEGORY_PRIMARY };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 2, Name = ClassServiceConstants.CLASS_CATEGORY_SECONDARY };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 3, Name = ClassServiceConstants.CLASS_CATEGORY_OLEVEL };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 4, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_MATHS };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 5, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_BIO };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 6, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_TECH };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 7, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_COMMERCE };
+            response.Add(classCategory);
+            classCategory = new DropDownViewModel() { Id = 8, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_ART };
+            response.Add(classCategory);
+
+            return response;
         }
 
         public List<DropDownViewModel> GetAllLanguageStreams()
         {
-            return schoolDb.Classes.Where(x => x.LanguageStream != null)
-                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = string.Format("{0}", ls.Name ) })
-                                   .ToList();
+            var response = new List<DropDownViewModel>();
+            var languageStream = new DropDownViewModel() { Id = 1, Name = ClassServiceConstants.LANGUAGE_STREAM_SINHALA };
+            response.Add(languageStream);
+            languageStream = new DropDownViewModel() { Id = 2, Name = ClassServiceConstants.LANGUAGE_STREAM_ENGLISH };
+            response.Add(languageStream);
+            languageStream = new DropDownViewModel() { Id = 3, Name = ClassServiceConstants.LANGUAGE_STREAM_TAMIL };
+            response.Add(languageStream);
+            languageStream = new DropDownViewModel() { Id = 4, Name = ClassServiceConstants.LANGUAGE_STREAM_OTHER };
+            response.Add(languageStream);
+
+            return response;
         }
     }
 }
