@@ -222,5 +222,35 @@ namespace SchoolManagement.Business
             return response;
 
         }
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            return schoolDb.AcademicLevels
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                .ToList();
+        }
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            return schoolDb.AcademicYears
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id})
+                .ToList();
+        }
+        public List<DropDownViewModel> GetAllSubjects()
+        {
+            return schoolDb.Subjects
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                .ToList();
+        }
+        public List<DropDownViewModel> GetAllClassNames()
+        {
+            return schoolDb.Subjects
+                .Where(x => x.IsActive == true)
+                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                .ToList();
+        }
     }
+   
+
 }

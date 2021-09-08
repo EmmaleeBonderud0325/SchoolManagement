@@ -14,5 +14,10 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters, string userName);
         Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName);
         Task<ResponseViewModel> DeleteLesson(int id);
+        List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllAcademicYears();
+        List<DropDownViewModel> GetAllSubjects();
+        List<DropDownViewModel> GetAllClassNames();
     }
+
 }

@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { LessonModel } from './../../models/lesson/lesson.model';
 import { HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../../models/common/response.model';
@@ -32,6 +33,22 @@ export class LessonService {
               .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
   
    }
-  
+   getAllAcademicLevels(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'LessonDesign/getAllAcademicLevels');
+  }
+  getAllAcademicYears(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'LessonDesign/getAllAcademicYears');
+  }
+  getAllSubjects(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'LessonDesign/getAllSubjects');
+  }
+  getAllClassNames(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'LessonDesign/getAllClassNames');
+  }
+
    
 }

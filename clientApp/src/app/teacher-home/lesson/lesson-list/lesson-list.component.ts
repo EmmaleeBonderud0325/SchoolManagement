@@ -1,5 +1,6 @@
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableComponent, id } from '@swimlane/ngx-datatable';
@@ -25,6 +26,10 @@ export class LessonListComponent implements OnInit {
   lessonFilterForm:FormGroup;
   lesson:LessonModel;
   lessonFilter:LessonFilterModel;
+  lessondesignAcademicLevels:DropDownModel[]=[];
+  lessondesignAcademicYears:DropDownModel[]=[];
+  lessondesignSubjects:DropDownModel[]=[];
+  lessondesignClassNames:DropDownModel[]=[];
   reorderable = true;
 
   
@@ -53,6 +58,11 @@ export class LessonListComponent implements OnInit {
        planneddate:['', [Validators.required]],
        completeddate:['', [Validators.required]],
        status:['', [Validators.required]],
+       SelectedAcademicLevelId:['', [Validators.required]],
+       SelectedAcademicYearId:['', [Validators.required]],
+       SelectedClassNameId:['', [Validators.required]],
+       SelectedSubjectId:['', [Validators.required]],
+
    });
  
      this.modalService.open(content, {
