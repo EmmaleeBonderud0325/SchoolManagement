@@ -53,6 +53,21 @@
               <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <button class="btn btn-icon btn-sm btn-primary" (click)='editRow(row, rowIndex, addEditRecord)'>
+                          <i class="far fa-edit"></i>
+                        </button>
+                        <button class="btn btn-icon btn-sm btn-danger" (click)='deleteClassTeacher(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
                 
                 <!--teacherClassName column-->
 				        <ngx-datatable-column name="Class Name" [width]="100">
@@ -123,19 +138,6 @@
                     {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
-
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteClassTeacher(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
-                  </ng-template>
-                </ngx-datatable-column>
               </ngx-datatable>
 
               <ng-template #addEditRecord let-modal>
@@ -160,7 +162,7 @@
                         <div class="form-group">
                           <label>Class Name<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="classNameId" required>
-                            <option *ngFor="let item of classnames" [value]="item.id">{{item.name}}</option>
+                            <option *ngFor="let item of classnames" [ngvalue]="item.id">{{item.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -169,7 +171,7 @@
                         <div class="form-group">
                           <label>Academic Level<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="academicLevelId" required>
-                            <option *ngFor="let item of academicLavels" [value]="item.id">{{item.name}}</option>
+                            <option *ngFor="let item of academicLavels" [ngvalue]="item.id">{{item.name}}</option>
                           </select>
                         </div>
                       </div>
@@ -178,7 +180,7 @@
                         <div class="form-group">
                           <label>Academic Year<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="academicYearId" required>
-                            <option *ngFor="let item of academicYears" [value]="item.id">{{item.id}}</option>
+                            <option *ngFor="let item of academicYears" [ngvalue]="item.id">{{item.id}}</option>
                           </select>
                         </div>
                       </div>
@@ -187,12 +189,12 @@
                         <div class="form-group">
                           <label>Teacher<span class="text-danger">*</span></label>
                           <select class="form-select form-control" formControlName="teacherId" required>
-                            <option *ngFor="let item of classTeachers" [value]="item.id">{{item.name}}</option>
+                            <option *ngFor="let item of classTeachers" [ngvalue]="item.id">{{item.name}}</option>
                           </select>
                         </div>
                       </div>
 
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                         <label>Is Primary <span class="text-danger">*</span></label>
                         <select class="form-control" formControlName="isPrimary" required>
                           <option value="" selected disabled>Please select</option>
@@ -201,13 +203,22 @@
                           <option *ngFor="let desig of designationType" [value]="desig.value">
                           </option>
                         </select>
-                      </div> 
+                      </div> --> 
                     </div>
 
                      <!-- Modal Footer -->
                      <div class="modal-footer">
-                       <button type="submit" class="btn btn-primary" (click)="saveClassTeacher()" [disabled]="!saveClassTeacherForm.valid">Save</button>
-                       <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                       <button 
+                        type="submit" 
+                        class="btn btn-primary" 
+                        (click)="saveClassTeacher()" 
+                        [disabled]="!saveClassTeacherForm.valid">Save Class Teacher
+                      </button>
+                       <button 
+                        type="button" 
+                        class="btn btn-light" 
+                        (click)="modal.close('Close click')">Close
+                      </button>
                      </div>
                   </form>
                 </div>

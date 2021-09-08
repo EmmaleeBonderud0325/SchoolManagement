@@ -58,63 +58,63 @@ export class ClassListComponent implements OnInit {
            });
       }
 
-   getAllAcademicYears()
+    getAllAcademicYears()
+      {
+        this.classService.getAllAcademicYears()
+          .subscribe(response=>
+          { 
+            this.academicYears = response;
+          },error=>{
+            this.toastr.error("Network error has been occured. Please try again.","Error");
+          });
+      }
+
+    getAllAcademicLevels()
     {
-      this.classService.getAllAcademicYears()
+      this.classService.getAllAcademicLevels()
         .subscribe(response=>
         { 
-          this.academicYears = response;
+          this.academicLavels = response;
         },error=>{
           this.toastr.error("Network error has been occured. Please try again.","Error");
-         });
+        });
     }
 
-  getAllAcademicLevels()
-  {
-    this.classService.getAllAcademicLevels()
-      .subscribe(response=>
-      { 
-        this.academicLavels = response;
-      },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
-  }
-
-  getAllClassCategories()
-  {
-    this.classService.getAllClassCategories()
-      .subscribe(response=>
-      { 
-        this.classCategories = response;
-      },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
-  }
-
-  getAllLanguageStreams()
-  {
-    this.classService.getAllLanguageStreams()
-      .subscribe(response=>
-      { 
-        this.languageStreams = response;
-      },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
-  } 
-  
-  getAll()
-  {
-    this.loadingIndicator=true;
-    this.classService.getAll()
-    .subscribe(response=>
+    getAllClassCategories()
     {
-        this.data= response;
+      this.classService.getAllClassCategories()
+        .subscribe(response=>
+        { 
+          this.classCategories = response;
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+    }
+
+    getAllLanguageStreams()
+    {
+      this.classService.getAllLanguageStreams()
+        .subscribe(response=>
+        { 
+          this.languageStreams = response;
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+    } 
+  
+    getAll()
+    {
+      this.loadingIndicator=true;
+      this.classService.getAll()
+      .subscribe(response=>
+      {
+          this.data= response;
+          this.loadingIndicator=false;
+      },error=>{
         this.loadingIndicator=false;
-    },error=>{
-      this.loadingIndicator=false;
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-    });
-  }
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+      });
+    }
 
     addNewClass(content) {
 
@@ -157,36 +157,65 @@ export class ClassListComponent implements OnInit {
       });
   
     }
-  
-//delete class
-deleteClass(row) {
-    Swal.fire({
-      title: 'Are you sure Delete Class ?',
-      showCancelButton: true,
-      confirmButtonColor: 'red',
-      cancelButtonColor: 'green',
-      confirmButtonText: 'Yes',
-    }).then((result) => {
-      if (result.value) {
 
-        this.classService.delete(row.classNameId).subscribe(response=>{
-
-          if(response.isSuccess)
-          {
-            this.toastr.success(response.message,"Success");
-            this.getAll();
-          }
-          else
-          {
-            this.toastr.error(response.message,"Error");
-          }
+    onAddRowSave(form: FormGroup) {
+      this.data.push(form.value);
+      this.data = [...this.data];
+      form.reset();
+      this.modalService.dismissAll();
+      this.addRecordSuccess();
+    }
     
-        },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+    editRow(row:ClassModel, rowIndex:number, content:any) {
+  
+      console.log(row);
+  
+      this.saveClassForm = this.fb.group({
+        selectclassNameId: [row.classNameId, [Validators.required]],
+        selectacademicLevelId: [row.academicLevelId, [Validators.required]],
+        selectacademicYearId: [row.academicYearId, [Validators.required]],
+        selectclassCategory: [row.classCategory, [Validators.required]],
+        selectlanguageStream: [row.languageStream, [Validators.required]],
+      });
+
+      this.modalService.open(content, {
+        ariaLabelledBy: 'modal-basic-title',
+        size: 'lg',
+      });
+    }
+
+    //delete class
+    deleteClass(row) {
+        Swal.fire({
+          title: 'Are you sure Delete Class ?',
+          showCancelButton: true,
+          confirmButtonColor: 'red',
+          cancelButtonColor: 'green',
+          confirmButtonText: 'Yes',
+        }).then((result) => {
+          if (result.value) {
+
+            this.classService.delete(row.classNameId).subscribe(response=>{
+
+              if(response.isSuccess)
+              {
+                this.toastr.success(response.message,"Success");
+                this.getAll();
+              }
+              else
+              {
+                this.toastr.error(response.message,"Error");
+              }
+        
+            },error=>{
+              this.toastr.error("Network error has been occured. Please try again.","Error");
+            });
+          }
         });
       }
-    });
-  }
-  
+
+    addRecordSuccess() {
+      this.toastr.success('ClassTeacher Add Successfully', '');
+    }
   
 }

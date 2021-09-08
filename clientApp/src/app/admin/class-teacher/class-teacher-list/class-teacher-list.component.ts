@@ -113,7 +113,7 @@ export class ClassTeacherListComponent implements OnInit {
       academicYearId: [null, [Validators.required]],
       teacherId: [null, [Validators.required]],
       isActive:[true],
-      isPrimary:['',[Validators.required]],
+      isPrimary:[true],
     });
 
     this.modalService.open(content, {
@@ -181,7 +181,7 @@ deleteClassTeacher(row) {
   }).then((result) => {
     if (result.value) {
 
-      this.classTeacherService.delete(row.classNameId).subscribe(response=>{
+      this.classTeacherService.delete(row.teacherId).subscribe(response=>{
 
         if(response.isSuccess)
         {

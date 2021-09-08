@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -43,7 +44,7 @@ namespace SchoolManagement.Business.Master
                 var vm = new ClassTeacherViewModel
                 {
                     ClassNameId = item.ClassNameId,
-                    TeacherClassName = item.Class.ClassName.Name, 
+                    TeacherClassName = item.Class.Name, 
                     AcademicLevelId = item.AcademicLevelId,
                     AcademicLevelName = item.Class.AcademicLevel.Name,
                     AcademicYearId = item.AcademicYearId,
@@ -94,12 +95,12 @@ namespace SchoolManagement.Business.Master
                     schoolDb.ClassTeachers.Add(classTeacher);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Teacher Added Successfull.";
+                    response.Message = ClassTeacherServiceConstants.NEW_CLASS_TEACHER_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
-                    classTeacher.AcademicLevelId = vm.AcademicLevelId;
-                    classTeacher.AcademicYearId = vm.AcademicYearId;
+                    //classTeacher.AcademicLevelId = vm.AcademicLevelId;
+                    //classTeacher.AcademicYearId = vm.AcademicYearId;
                     classTeacher.TeacherId = vm.TeacherId;
                     classTeacher.IsPrimary = true;
                     classTeacher.IsActive = true;
@@ -109,7 +110,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.ClassTeachers.Update(classTeacher);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Successfully Updated.";
+                    response.Message = ClassTeacherServiceConstants.EXISTING_CLASS_TEACHER_SAVE_SUCCESS_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -117,7 +118,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_SAVE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -137,12 +138,12 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Class Teacher Deleted Successfull.";
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;

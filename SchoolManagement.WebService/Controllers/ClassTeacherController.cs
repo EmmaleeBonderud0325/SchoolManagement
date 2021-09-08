@@ -24,6 +24,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("getClassTeachers")]
         public ActionResult GetClassTeachers()
         {
             var response = classTeacherService.GetClassTeachers();
@@ -31,6 +32,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
+        [Route("saveClassTeacher")]
         public async Task<ActionResult> Post([FromBody] ClassTeacherViewModel classTeacherVM)
         {
             var userName = identityService.GetUserName();
@@ -46,7 +48,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllClassNames")]
+        [Route("getAllClassNames")]
         public ActionResult GetAllClassNames()
         {
             var response = classTeacherService.GetAllClassNames();
@@ -55,7 +57,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllAcademicLevels")]
+        [Route("getAllAcademicLevels")]
         public ActionResult GetAllAcademicLevels()
         {
             var response = classTeacherService.GetAllAcademicLevels();
@@ -64,7 +66,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllAcademicYears")]
+        [Route("getAllAcademicYears")]
         public ActionResult GetAllAcademicYears()
         {
             var response = classTeacherService.GetAllAcademicYears();
@@ -73,7 +75,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllTeachers")]
+        [Route("getAllTeachers")]
         public ActionResult GetAllTeachers()
         {
             var response = classTeacherService.GetAllTeachers();
