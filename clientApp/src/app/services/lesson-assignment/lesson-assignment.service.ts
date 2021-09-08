@@ -29,7 +29,7 @@ export class LessonAssignmentService {
   
   delete(Id: number): Observable<ResponseModel> { 
     return this.httpClient.
-     delete<ResponseModel>(environment.apiUrl + 'LessonAssignment' + Id);
+     delete<ResponseModel>(environment.apiUrl + 'LessonAssignment/' + Id);
      }
 
      getAllLessons():Observable<DropDownModel[]>{

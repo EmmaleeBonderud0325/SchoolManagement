@@ -57,6 +57,26 @@
               <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
               columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
               [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="buttons">
+                    <span>
+                      <button 
+                        class="btn btn-icon btn-sm btn-primary" 
+                        (click)='editRow(row, rowIndex, addEditRecord)'>
+                        <i class="fas fa-edit"></i>
+                      </button>
+
+                   <!--    <button 
+                        class="btn btn-icon btn-sm btn-danger" 
+                        (click)='deleteQuestion(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button> -->
+                    </span>
+                  </div>                    
+                </ng-template>
+              </ngx-datatable-column>
               <!--Column 01-->
               <ngx-datatable-column name="Question" [width]="100">
                 <ng-template let-row="row" ngx-datatable-cell-template>
@@ -93,22 +113,10 @@
                   {{row.marks}}
                 </ng-template>
               </ngx-datatable-column>
-             
+            </ngx-datatable>
 
               
-              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                  <span>
-                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                      <i class="fas fa-pen"></i>
-                    </button>
-<!--                     <button class="btn btn-tbl-delete h-auto" (click)='deleteEssayAnswer(row)'>
-                      <i class="far fa-trash-alt"></i>
-                    </button> -->
-                  </span>
-                </ng-template>
-              </ngx-datatable-column>
-            </ngx-datatable>
+          
             
 
           <!-- Add Record Modal Window -->

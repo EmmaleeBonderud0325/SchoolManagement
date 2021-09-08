@@ -38,8 +38,8 @@ namespace SchoolManagement.Business
             try
             {
                 var lessonAssignment = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == lessonassignmentid);
-
                 lessonAssignment.IsActive = false;
+
 
                 schoolDb.LessonAssignments.Update(lessonAssignment);
                 await schoolDb.SaveChangesAsync();

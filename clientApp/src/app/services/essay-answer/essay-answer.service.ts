@@ -27,7 +27,7 @@ post<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer', essayanswer);
 
 delete(id: number): Observable<ResponseModel> {
    return this.httpClient. 
-   delete<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer/deleteEssayAnswer' + id);
+   delete<ResponseModel>(environment.apiUrl + 'EssayQuestionAnswer/' + id);
    }
 
 getAllQuestions():Observable<DropDownModel[]>{

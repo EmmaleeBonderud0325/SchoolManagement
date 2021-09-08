@@ -42,12 +42,24 @@ namespace SchoolManagement.Business
         public List<DropDownViewModel> GetAllStudents()
         {
             var students = schoolDb.Students
+           .Where(x => x.IsActive == true)
+           .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
+           .Distinct().ToList();
+
+            return students;
+        }
+
+        /*public List<DropDownViewModel> GetAllStudents()
+        {
+            var students = schoolDb.Students
             .Where(x => x.IsActive == true)
             .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
             .Distinct().ToList();
 
             return students;
         }
+        */
+
 
         public List<LessonAssignmentSubmissionViewModel> GetLessonAssignmentSubmissions()
         {
@@ -114,8 +126,8 @@ namespace SchoolManagement.Business
                 }
                 else
                 {
-                    LessonAssignmentSubmissions.SubmissionPath = vm.SubmissionPath;
-                    LessonAssignmentSubmissions.SubmissionDate = vm.SubmissionDate;
+                   // LessonAssignmentSubmissions.SubmissionPath = vm.SubmissionPath;
+                   // LessonAssignmentSubmissions.SubmissionDate = vm.SubmissionDate;
                     LessonAssignmentSubmissions.Marks = vm.Marks;
                     LessonAssignmentSubmissions.TeacherComments= vm.TeacherComments;
                     
@@ -125,6 +137,7 @@ namespace SchoolManagement.Business
 
                     response.IsSuccess = true;
                     response.Message = " Lesson Assignment Submission Successfully Updated.";
+
                 }
 
                 await schoolDb.SaveChangesAsync();
