@@ -104,7 +104,6 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
      this.McqStudenAnswerForm = this.fb.group({
        questionId:[null, [Validators.required]],
        studentId:[null, [Validators.required]],
-       mCQQuestionAnswerId:[null, [Validators.required]],
        answerText:['', [Validators.required]],
        isChecked:['', [Validators.required]],
        
@@ -124,9 +123,8 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.McqStudenAnswerForm = this.fb.group({
       questionId:[row.questionId, [Validators.required]],
       studentId:[row.studentId, [Validators.required]],
-      mCQQuestionAnswerId:[row.mCQQuestionAnswerId, [Validators.required]],
       answerText:[row.answerText, [Validators.required]],
-      questionText:[row.answerText, [Validators.required]],
+      isChecked:[row.isChecked, [Validators.required]],
     });
 
     this.modalService.open(content, {

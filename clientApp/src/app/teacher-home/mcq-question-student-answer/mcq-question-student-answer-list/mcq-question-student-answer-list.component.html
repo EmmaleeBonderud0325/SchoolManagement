@@ -57,13 +57,6 @@
                   </ng-template>
                 </ngx-datatable-column>
   
-                <!-- Teacher Answer -->
-                <!-- <ngx-datatable-column name="Teacher Answer Text">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.mCQQuestionAnswerName}}
-                  </ng-template>
-                </ngx-datatable-column> -->
-
                  <!-- Student Answer -->
                 <ngx-datatable-column name="Student Answer Text">
                   <ng-template let-row="row" ngx-datatable-cell-template>
@@ -137,15 +130,6 @@
 
                   <!-- this is a row one -->
                   <div class="row">
-                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <div class="form-group">
-                        <label>Teacher Answer Text<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="mCQQuestionAnswerId" required>
-                          <option *ngFor="let item of mCQQuestionAnswerNames" [value]="item.id">{{item.name}}</option>
-                        </select>
-                      </div>
-                    </div> -->
-
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
                       <label> Student Answer Text <span class="text-danger">*</span></label>
                       <input 
@@ -165,12 +149,20 @@
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label> Is Checked <span class="text-danger">*</span></label><br><br>
-                        <input type="radio" value="true" name="isChecked" required ngModel> TRUE <br>
-                        <input type="radio" value="false" name="isChecked" ngModel> FALSE
-                      <!-- <small class="form-text text-danger"
+                        <input 
+                          type="radio" 
+                          [value]="true" 
+                          formControlName="isChecked" 
+                          checked> TRUE <br>
+
+                        <input 
+                          type="radio" 
+                          [value]="false" 
+                          formControlName="isChecked" > FALSE
+                       <small class="form-text text-danger"
                         *ngIf="!McqStudenAnswerForm.get('isChecked').valid && McqStudenAnswerForm.get('isChecked').touched">
                         ABC
-                      </small> -->
+                      </small> 
                     </div>
                   </div>
 

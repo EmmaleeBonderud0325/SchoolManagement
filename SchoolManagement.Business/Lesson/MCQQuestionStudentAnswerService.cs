@@ -46,7 +46,7 @@ namespace SchoolManagement.Business
                     MCQQuestionAnswerName = item.MCQQuestionAnswer.AnswerText,
                     AnswerText = item.AnswerText,
                     SequnceNo = item.SequnceNo,
-                    IsChecked = item.IsChecked
+                    IsChecked = true,
                 };
                 response.Add(vm);
             }
@@ -72,7 +72,7 @@ namespace SchoolManagement.Business
                         //MCQQuestionAnswerId = vm.MCQQuestionAnswerId,
                         AnswerText = vm.AnswerText,
                         SequnceNo = vm.SequnceNo,
-                        IsChecked = vm.IsChecked
+                        IsChecked = true,
                     };
 
                     schoolDb.MCQQuestionStudentAnswers.Add(MCQQuestionStudentAnswers);
