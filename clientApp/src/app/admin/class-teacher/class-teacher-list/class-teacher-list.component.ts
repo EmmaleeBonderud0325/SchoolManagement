@@ -36,13 +36,46 @@ export class ClassTeacherListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    /*this.saveClassTeacherForm = this.fb.group({
-      selectteacherId: [null, [Validators.required]],
-      isActive: ['', [Validators.required]],
-      isPrimary: ['', [Validators.required]],
-    });*/
     this.getAll();
+    this.getAllClassNames();
+    this.getAllAcademicLevels();
+    this.getAllAcademicYears();
     this.getAllTeachers();
+  }
+
+  getAllClassNames()
+      {
+        this.classTeacherService.getAllClassNames()
+          .subscribe(response=>
+          { 
+            this.classnames = response;
+            console.log(response);
+            
+          },error=>{
+            this.toastr.error("Network error has been occured. Please try again.","Error");
+           });
+      }
+
+    getAllAcademicYears()
+    {
+      this.classTeacherService.getAllAcademicYears()
+        .subscribe(response=>
+        { 
+          this.academicYears = response;
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+         });
+    }
+
+  getAllAcademicLevels()
+  {
+    this.classTeacherService.getAllAcademicLevels()
+      .subscribe(response=>
+      { 
+        this.academicLavels = response;
+      },error=>{
+        this.toastr.error("Network error has been occured. Please try again.","Error");
+       });
   }
 
   getAllTeachers(){
@@ -61,12 +94,14 @@ export class ClassTeacherListComponent implements OnInit {
   getAll()
   {
     this.loadingIndicator=true;
-      this.classTeacherService.getAll().subscribe(response=>
+    this.classTeacherService.getAll()
+    .subscribe(response=>
     {
         this.data= response;
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
+      this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
 
@@ -88,9 +123,12 @@ export class ClassTeacherListComponent implements OnInit {
   }
 
   saveClassTeacher(){
+
     console.log(this.saveClassTeacherForm.value);
 
-    this.classTeacherService.saveClassTeacher(this.saveClassTeacherForm.value).subscribe(response=>{
+    this.classTeacherService.saveClassTeacher(this.saveClassTeacherForm.value)
+    .subscribe(response=>{
+
       if(response.isSuccess)
         {
           this.modalService.dismissAll();
@@ -115,18 +153,20 @@ export class ClassTeacherListComponent implements OnInit {
   }
   
   editRow(row:classteacherModel, rowIndex:number, content:any) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+
+    console.log(row);
 
     this.saveClassTeacherForm = this.fb.group({
       selectclassNameId: [row.classNameId, [Validators.required]],
       selectacademicLevelId: [row.academicLevelId, [Validators.required]],
       selectacademicYearId: [row.academicYearId, [Validators.required]],
       selectteacherId: [row.teacherId, [Validators.required]],
-      isActive: [row.isActive, [Validators.required]],
       isPrimary: [row.isPrimary, [Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
     });
   }
 
@@ -141,7 +181,7 @@ deleteClassTeacher(row) {
   }).then((result) => {
     if (result.value) {
 
-      this.classTeacherService.delete(row.id).subscribe(response=>{
+      this.classTeacherService.delete(row.teacherId).subscribe(response=>{
 
         if(response.isSuccess)
         {

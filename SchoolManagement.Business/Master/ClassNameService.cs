@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -86,7 +87,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.ClassNames.Add(className);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Name Successfully Created.";
+                    response.Message = ClassNameServiceConstants.NEW_CLASS_NAME_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
@@ -99,7 +100,7 @@ namespace SchoolManagement.Business.Master
                     schoolDb.ClassNames.Update(className);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Name Successfully Updated.";
+                    response.Message = ClassNameServiceConstants.EXISTING_CLASS_NAME_SAVE_SUCCESS_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -108,7 +109,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error has been occured while saving the acdemic level.";
+                response.Message = ClassNameServiceConstants.CLASS_NAME_SAVE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -128,12 +129,12 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "ClassName successfully deleted.";
+                response.Message = ClassNameServiceConstants.CLASS_NAME_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassNameServiceConstants.CLASS_NAME_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;
