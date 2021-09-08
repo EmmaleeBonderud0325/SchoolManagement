@@ -201,7 +201,7 @@ export const ROUTES: RouteInfo[] = [
         isVisible:true
       },
       //Head Of Department
-      /*{
+      {
         path: '/admin/head-of-department',
         title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
         moduleName: 'head-of-department',
@@ -213,7 +213,7 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [],
         isVisible:true
-      } */     
+      }      
     ],
   }
   //section end admin 
