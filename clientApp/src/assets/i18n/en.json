@@ -18,7 +18,7 @@
         "TEACHER_QUESTION": "Question",
         "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Teacher Answer",
         "TEACHER_MCQ_QUESTION_STUDENT_ANSWER": "MCQ Question Student Answer",
-        "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Teacher Comments"
+        "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Student Comments"
       }
     },
     "ADMIN": {

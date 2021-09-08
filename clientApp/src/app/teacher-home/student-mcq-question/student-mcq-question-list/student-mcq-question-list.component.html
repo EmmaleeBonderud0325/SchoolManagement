@@ -40,15 +40,24 @@
                     <div class="ngxTableHeader">
                       <div class="header-buttons-left">
                         <div class="icon-button-dleftemo buttons">
+                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createStudentMCQQuestion(addEditRecord)' >
+                            <i class="material-icons">add</i>
+                          </button>
                         </div>
                       </div>
+
+
+
                       <div class="header-buttons-left">
                         <div class="icon-button-dleftemo buttons">
                         </div>
                       </div>
                       <!-- dropdown for the pages-->
+                     
+                      
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -184,8 +193,8 @@
                 
                   <div class="modal-footer">
                   <button type="button" class="btn btn-primary" (click)="saveStudentMCQQuestion()" [disabled]="!StudentMCQQuestionForm.valid">
-                    UPDATE</button>
-                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    SAVE</button>
+                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">CLOSE</button>
                 </div>
 
               </form>
