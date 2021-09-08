@@ -150,7 +150,7 @@ export class UserListComponent implements OnInit {
       id:[row.id],
       fullName:[row.fullName, [Validators.required]],
       email:[row.email, [Validators.required]],
-      mobileNo:[row.email, [Validators.required]],
+      mobileNo:[row.mobileNo, [Validators.required]],
       userName:[row.username, [Validators.required]],
       address:[row.address, [Validators.required]],
       password:[row.password],
