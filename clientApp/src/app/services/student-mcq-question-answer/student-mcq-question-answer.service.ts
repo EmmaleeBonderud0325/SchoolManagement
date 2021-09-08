@@ -15,42 +15,26 @@ export class StudentMcqQuestionAnswerService {
 
   getAll(): Observable<StudentMcqQuestionAnswerModel[]>{
     return this.httpClient.
-      get<StudentMcqQuestionAnswerModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer')
+      get<StudentMcqQuestionAnswerModel[]>
+      (environment.apiUrl + 'StudentMCQQuestion/getAll');
   }
  
   saveStudentMcqQuestionAnswer(vm: StudentMcqQuestionAnswerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'StudentMcqQuestionAnswer', vm);
+      post<ResponseModel>
+      (environment.apiUrl + 'StudentMCQQuestion', vm);
   }
   
   getAllQuestions():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllQuestions');
+      get<DropDownModel[]>
+      (environment.apiUrl + 'StudentMCQQuestion/getAllQuestions');
   }
 
   getAllStudentNames():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllStudentNames');
+      get<DropDownModel[]>
+      (environment.apiUrl + 'StudentMCQQuestion/getAllStudentNames');
   }
   
-  /* getAll(): Observable <StudentMcqQuestionAnswerModel[]>{
-    return this.httpClient.
-      get<StudentMcqQuestionAnswerModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer')
-  }
-
-  saveStudentMcqQuestionAnswer(studentmcqquestionanswer: StudentMcqQuestionAnswerModel): Observable<ResponseModel> {
-    return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'StudentMcqQuestionAnswer/', studentmcqquestionanswer);
-  }
-
-  getAllQuestions():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllQuestions');
-  }
-
-  getAllStudentNames():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'StudentMcqQuestionAnswer/getAllStudentNames');
-  } */
-
 }

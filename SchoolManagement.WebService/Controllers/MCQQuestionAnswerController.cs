@@ -16,20 +16,20 @@ namespace SchoolManagement.WebService.Controllers
     [ApiController]
     public class MCQQuestionAnswerController : ControllerBase
     {
-        private readonly IMCQQuestionAnswerService mcqquestionanswerService;
+        private readonly IMCQQuestionAnswerService mcqQuestionAnswerService;
         private readonly IIdentityService identityService;
 
         public MCQQuestionAnswerController(IMCQQuestionAnswerService mcqquestionanswerService, IIdentityService identityService)
         {
-            this.mcqquestionanswerService = mcqquestionanswerService;
+            this.mcqQuestionAnswerService = mcqquestionanswerService;
             this.identityService = identityService;
         }
 
         [HttpGet]
-        [Route("getAll")]
+        //[Route("getAll")]
         public ActionResult GetMCQQuestionAnswers()
         {
-            var response = mcqquestionanswerService.GetMCQQuestionAnswers();
+            var response = mcqQuestionAnswerService.GetMCQQuestionAnswers();
             return Ok(response);
         }
 
@@ -37,7 +37,7 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Post([FromBody] MCQQuestionAnswerViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = await mcqquestionanswerService.SaveMCQQuestionAnswer(vm, userName);
+            var response = await mcqQuestionAnswerService.SaveMCQQuestionAnswer(vm, userName);
             return Ok(response);
         }
 
@@ -45,7 +45,7 @@ namespace SchoolManagement.WebService.Controllers
         [Route("getAllQuestions")]
         public IActionResult GetAllQuestions()
         {
-            var response = mcqquestionanswerService.GetAllQuestions();
+            var response = mcqQuestionAnswerService.GetAllQuestions();
             return Ok(response);
         }
     }

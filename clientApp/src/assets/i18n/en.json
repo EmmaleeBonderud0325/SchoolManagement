@@ -16,9 +16,9 @@
       "LIST": {
         "TEACHER_LESSONS": "My Lessons",
         "TEACHER_QUESTION": "Question",
-        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer",
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Teacher Answer",
         "TEACHER_MCQ_QUESTION_STUDENT_ANSWER": "MCQ Question Student Answer",
-        "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Student MCQ Question Answer"
+        "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Teacher Comments"
       }
     },
     "ADMIN": {

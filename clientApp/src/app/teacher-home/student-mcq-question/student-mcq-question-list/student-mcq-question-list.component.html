@@ -40,21 +40,13 @@
                     <div class="ngxTableHeader">
                       <div class="header-buttons-left">
                         <div class="icon-button-dleftemo buttons">
-                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createStudentMCQQuestion(addEditRecord)' >
-                            <i class="material-icons">add</i>
-                          </button>
                         </div>
                       </div>
-
-
-
                       <div class="header-buttons-left">
                         <div class="icon-button-dleftemo buttons">
                         </div>
                       </div>
                       <!-- dropdown for the pages-->
-                     
-                      
                     </div>
                   </div>
                 </div>
@@ -64,6 +56,18 @@
             <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+                      <button 
+                              class="btn btn-icon btn-sm btn-primary" 
+                              (click)='editRow(row, rowIndex, addEditRecord)'>
+                              <i class="fas fa-edit"></i>
+                      </button>
+                    </span>
+                  </ng-template>
+                </ngx-datatable-column>
 
               <!--Question ID-->
               <ngx-datatable-column name="Question" [width]="50">
@@ -90,16 +94,6 @@
               <ngx-datatable-column name="Marks" [width]="95">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.marks}}
-                </ng-template>
-              </ngx-datatable-column>
-
-              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                  <span>
-                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                      <i class="fas fa-pen"></i>
-                    </button>
-                  </span>
                 </ng-template>
               </ngx-datatable-column>
             </ngx-datatable>
@@ -129,36 +123,28 @@
                   <!-- this is a row one -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label> Question ID <span class="text-danger">*</span></label>
-                      <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Question ID" 
-                          formControlName="questionId"
+                      <div class="form-group">
+                        <label>Question<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="questionId" 
                           required>
-
-                      <small class="form-text text-danger"
-                        *ngIf="!StudentMCQQuestionForm.get('questionId').valid && StudentMCQQuestionForm.get('questionId').touched"> 
-                        Question ID is  required
-                      </small>
+                          <option *ngFor="let item of questionNames" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label> Student ID <span class="text-danger">*</span></label>
-                        <input 
-                          type="text" 
-                          class="form-control" 
-                          placeholder="Student ID" 
-                          formControlName="studentId"
+                        <label>Student Name<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="studentId" 
                           required>
-
-                        <small class="form-text text-danger"
-                          *ngIf="!StudentMCQQuestionForm.get('studentId').valid && StudentMCQQuestionForm.get('studentId').touched"> 
-                          Student ID is  required
-                        </small>
+                          <option *ngFor="let item of studentNames" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
                       </div>
-                    </div> 
+                    </div>
                   </div>                 
                               
                   <!-- this is a row two -->
@@ -197,7 +183,8 @@
                   </div>
                 
                   <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" (click)="saveStudentMcqQuestionAnswer()" [disabled]="!StudentMCQQuestionForm.valid">Save</button>
+                  <button type="button" class="btn btn-primary" (click)="saveStudentMCQQuestion()" [disabled]="!StudentMCQQuestionForm.valid">
+                    UPDATE</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
 

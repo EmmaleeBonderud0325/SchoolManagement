@@ -50,12 +50,12 @@
                         </div>
                       </div>
                       <!-- dropdown for the pages-->
-                      <div class="header-buttons">
+                      <!-- <div class="header-buttons">
                         <div>
-                          <!--<label>PAGES</label>-->
+                         
                           <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
                         </div>
-                      </div>
+                      </div> -->
                      
 
 
@@ -94,14 +94,14 @@
               <!-- Created On -->
               <ngx-datatable-column name="Created On">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.createdOn | date }}
+                  {{row.createdOn| date }}
                 </ng-template>
               </ngx-datatable-column>
 
               <!-- Modified Date -->
               <ngx-datatable-column name="Modified Date">
                 <ng-template let-row="row" ngx-datatable-cell-template>
-                  {{row.modifiedDate | date}}
+                  {{row.modifiedDate| date}}
                 </ng-template>
               </ngx-datatable-column>
 
@@ -139,9 +139,9 @@
 
 
             <div class="modal-body">
-              <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
+              <!-- <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
                 
-                <!--row one-->
+              
                 <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <div class="form-group">
@@ -172,7 +172,7 @@
                   <button type="button" class="btn btn-primary" (click)="saveMcqQuestionAnswer()" [disabled]="!mcqQuestionAnswerForm.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
-              </form>
+              </form> -->
             </div>
 
 

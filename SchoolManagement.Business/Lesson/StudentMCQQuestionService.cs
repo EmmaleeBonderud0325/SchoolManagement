@@ -40,7 +40,7 @@ namespace SchoolManagement.Business
                 var vm = new StudentMCQQuestionViewModel
                 {
                     QuestionId = item.QuestionId,
-                    QuestioinName = item.Question.QuestionText,
+                    QuestionName = item.Question.QuestionText,
                     StudentId = item.StudentId,
                     StudentName = item.Student.User.FullName,
                     TeacherComments = item.TeacherComments,

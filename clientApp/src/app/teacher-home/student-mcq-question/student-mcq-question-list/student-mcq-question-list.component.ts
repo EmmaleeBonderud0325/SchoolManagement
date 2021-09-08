@@ -76,9 +76,6 @@ g
   } 
 
 
-  
-  
-
   //add new question using form
   createStudentMCQQuestion(content)
   {
@@ -106,10 +103,7 @@ g
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-        }
-        else
-        {
-            this.toastr.error(response.message,"Error");
+            this.getAll();
         }
       },error=>{
 
