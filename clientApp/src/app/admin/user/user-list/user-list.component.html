@@ -248,7 +248,7 @@
                           required>
                       <small class="form-text text-danger"
                         *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched">
-                        Mobile number is required
+                        User Name is required
                       </small>
                     </div>
                   </div>
@@ -270,7 +270,7 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" *ngIf="id==0">
                       <label>Password<span class="text-danger">*</span></label>
                       <input 
-                          type="text" 
+                          type="password" 
                           class="form-control" 
                           placeholder="password" 
                           formControlName="password"
