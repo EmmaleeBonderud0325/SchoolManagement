@@ -35,7 +35,6 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getUserRoles();
-  
   }
 
   //create new user (Reactive Form)
@@ -60,6 +59,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  //delete user
   deleteUser(row) {
     Swal.fire({
       title: 'Are you sure Delete User ?',
@@ -90,12 +90,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-  getUser()
-  {
-    
-  }
-
-  //getUserByRole
+  //get User By Role
   getAll()
   {
      this.loadingIndicator = true;
@@ -109,6 +104,7 @@ export class UserListComponent implements OnInit {
      });
   } 
 
+  //get user roles Dropdown Model
   getUserRoles()
   {
     this.userService.getAllRoles().subscribe(response=>{
@@ -143,6 +139,7 @@ export class UserListComponent implements OnInit {
     
   }
 
+  //update user (Reactive Form)
   updateUser(row:UserModel, rowIndex:number, content:any) {
 
     console.log(row);
@@ -167,7 +164,7 @@ export class UserListComponent implements OnInit {
     });
   }
 
-
+  //id getter
   get id()
   {
     return this.saveUserForm.get("id").value;
