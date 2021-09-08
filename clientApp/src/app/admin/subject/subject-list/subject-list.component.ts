@@ -145,29 +145,6 @@ export class SubjectListComponent implements OnInit {
 
   }
   
-/*
- 
-  
-  onAddRowSave(form: FormGroup) {
-    this.data.push(form.value);
-    this.data = [...this.data];
-    form.reset();
-    this.modalService.dismissAll();
-    this.addRecordSuccess();
-  }
-  
-  editRow(row, rowIndex, content) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
-  
- 
-  
-  addRecordSuccess() {
-    this.toastr.success('Acedemic Level Add Successfully', '');
-  }*/
   deleteSubject(row) {
     Swal.fire({
       title: 'Are you sure Delete Subject ?',

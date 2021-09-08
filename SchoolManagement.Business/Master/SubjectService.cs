@@ -156,6 +156,7 @@ namespace SchoolManagement.Business.Master
                     subject.Name = vm.Name;
                     subject.SubjectCode = vm.SubjectCode;
                     subject.SubjectCategory = vm.SubjectCategory;
+                    subject.SubjectCategory = (SubjectCategory)vm.CategorysId;
                     subject.IsParentBasketSubject = vm.IsParentBasketSubject;
                     subject.IsBuscketSubject = vm.IsBuscketSubject;
                     subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
@@ -163,6 +164,26 @@ namespace SchoolManagement.Business.Master
                     subject.IsActive = true;
                     subject.UpdatedOn = DateTime.UtcNow;
                     subject.UpdatedById = loggedInUser.Id;
+
+                    
+                    var existingAcademicLevels = subject.SubjectAcademicLevels.ToList();
+                    var selectedAcademicLevels = vm.SubjectAcademicLevels.ToList();
+
+                    foreach (var deletedAcademicLevel in existingAcademicLevels)
+                    {
+                        subject.SubjectAcademicLevels.Remove(deletedAcademicLevel);
+                    }
+
+                    foreach (var item in selectedAcademicLevels)
+                    {
+                        var subjectAcademicLevel = new SubjectAcademicLevel()
+                        {
+                            AcademicLevelId = item.Id,
+                            SubjectId = subject.Id,
+                        };
+
+                        subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
+                    }
 
                     schoolDb.Subjects.Update(subject);
 
@@ -261,8 +282,7 @@ namespace SchoolManagement.Business.Master
             {
                 return quary.Name;
             }
-        
-        }
+         }
        
         private string GetSubjectCategoryName(SubjectCategory SubjectCategory)
         {
