@@ -36,10 +36,23 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    this.GetAllQuestion();
+    //this.GetAllQuestion();
   }
 
-  GetAllQuestion(){
+  getAll(){
+    this.loadingIndicator = true;
+    this.McqQuestionAnswerService .getAll().subscribe(response => {
+      this.data=response;
+      this.loadingIndicator = false;
+
+    }, error =>{
+      this.loadingIndicator = false;
+      this.toastr.error("Get all error has been occured!, Please try again", "Error")
+    })
+  }
+  
+
+  /* GetAllQuestion(){
     this.McqQuestionAnswerService.GetAllQuestion()
     .subscribe(response=>
     { 
@@ -49,10 +62,10 @@ export class McqQuestionAnswerListComponent implements OnInit {
       },error=>{
         this.toastr.error("Question is not generated. Please try again.","Error");
        });
-  }
+  } */
 
   //retrive method
-  getAll() {
+  /* getAll() {
     this.loadingIndicator = true;
       this.McqQuestionAnswerService.getAll().subscribe(response => {
       this.data=response;
@@ -63,7 +76,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
         this.loadingIndicator = false;
         this.toastr.error("Get All method is not working, Please try again", "Error")
        })
-  }
+  } */
 
 
 
@@ -73,6 +86,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
     this.mcqQuestionAnswerForm = this.fb.group({
       questionId : [null, [Validators.required]],
       answerText : ['', [Validators.required]],
+      isCorrectAnswer : ['', [Validators.required]],
       
     });
 
@@ -88,7 +102,6 @@ export class McqQuestionAnswerListComponent implements OnInit {
     console.log(row);
 
     this.mcqQuestionAnswerForm = this.fb.group({
-      id:[row.id],
       questionId : [row.questionId, [Validators.required]],
       answerText : [row.answerText, [Validators.required]],
       isCorrectAnswer : [row.isCorrectAnswer, [Validators.required]],
@@ -113,7 +126,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-            //this.getAll();
+            this.getAll();
         }
         else
         {

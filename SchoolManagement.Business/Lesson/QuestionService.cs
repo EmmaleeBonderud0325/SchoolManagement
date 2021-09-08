@@ -113,8 +113,8 @@ namespace SchoolManagement.Business
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
-                        UpdateOn = DateTime.UtcNow,
-                        UpdatedById = loggedInUser.Id,
+                        //UpdateOn = DateTime.UtcNow,
+                        //UpdatedById = loggedInUser.Id,
                 };
 
                     schoolDb.Questions.Add(Questions);
@@ -129,9 +129,7 @@ namespace SchoolManagement.Business
                     //Questions.DifficultyLevel = vm.DifficultyLevel;
                     //Questions.QuestionType = vm.QuestionType;
                     Questions.IsActive = true;
-                    Questions.CreateOn = vm.CreateOn;
-                    Questions.CreatedById = loggedInUser.Id;
-                    Questions.UpdateOn = vm.UpdateOn;
+                    Questions.UpdateOn = DateTime.UtcNow;
                     Questions.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Questions.Update(Questions);

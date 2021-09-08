@@ -26,6 +26,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("getAll")]
         public ActionResult GetMCQQuestionAnswers()
         {
             var response = mcqquestionanswerService.GetMCQQuestionAnswers();
@@ -37,6 +38,14 @@ namespace SchoolManagement.WebService.Controllers
         {
             var userName = identityService.GetUserName();
             var response = await mcqquestionanswerService.SaveMCQQuestionAnswer(vm, userName);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllQuestion")]
+        public IActionResult GetAllQuestion()
+        {
+            var response = mcqquestionanswerService.GetAllQuestion();
             return Ok(response);
         }
     }

@@ -82,8 +82,8 @@ g
   createStudentMCQQuestion(content)
   {
     this.StudentMCQQuestionForm = this.fb.group({
-      questionName:['', [Validators.required]],
-      studenName:['', [Validators.required]],
+      questionId:['', [Validators.required]],
+      studentId:['', [Validators.required]],
       teacherComments:['', [Validators.required]],
       marks:['', [Validators.required]],
     });
@@ -99,10 +99,8 @@ g
   saveStudentMCQQuestion()
   {
     console.log(this.StudentMCQQuestionForm.value);
-
     this.StudentMcqQuestionAnswerService.saveStudentMcqQuestionAnswer(this.StudentMCQQuestionForm.value)
       .subscribe(response=>{
-        
         if(response.isSuccess)
         {
             this.modalService.dismissAll();
@@ -125,8 +123,8 @@ g
     console.log(row);
 
     this.StudentMCQQuestionForm = this.fb.group({
-      questionName:[row.questionId, [Validators.required]],
-      studenName:[row.studentId, [Validators.required]],
+      questionId:[row.questionId, [Validators.required]],
+      studentId:[row.studentId, [Validators.required]],
       teacherComments:[row.teacherComments, [Validators.required]],
       marks:[row.marks, [Validators.required]],
     });

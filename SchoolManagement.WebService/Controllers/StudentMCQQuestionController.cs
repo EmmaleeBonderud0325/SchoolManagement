@@ -39,5 +39,21 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("getAllQuestion")]
+        public IActionResult GetAllQuestion()
+        {
+            var response = studentmcqquestionService.GetAllQuestion();
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllStudentName")]
+        public IActionResult GetAllStudentName()
+        {
+            var response = studentmcqquestionService.GetAllStudentName();
+            return Ok(response);
+        }
     }
 }

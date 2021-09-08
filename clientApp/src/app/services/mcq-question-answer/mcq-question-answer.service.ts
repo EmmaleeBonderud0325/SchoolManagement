@@ -15,17 +15,17 @@ export class McqQuestionAnswerService {
 
   getAll(): Observable<MCQQuestionAnswerModel[]>{
     return this.httpClient.
-      get<MCQQuestionAnswerModel[]>(environment.apiUrl + 'McqQuestionAnswer')
+      get<MCQQuestionAnswerModel[]>(environment.apiUrl + 'MCQQuestionAnswer')
   }
  
   saveMcqQuestionAnswer(mcqquestionanswer: MCQQuestionAnswerModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'McqQuestionAnswer/saveMcqQuestionAnswer', mcqquestionanswer);
+      post<ResponseModel>(environment.apiUrl + 'MCQQuestionAnswer/', mcqquestionanswer);
   }
 
   GetAllQuestion():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'McqQuestionAnswer/getAllQuestion');
+      get<DropDownModel[]>(environment.apiUrl + 'MCQQuestionAnswer/getAllQuestion');
   }
   
 }
