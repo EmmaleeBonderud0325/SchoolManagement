@@ -134,10 +134,24 @@
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Createdby Column-->
+                <ngx-datatable-column name="Created By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
                 <!--Subject UpdateOn Column-->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Subject Updateby Column-->
+                <ngx-datatable-column name="Updated By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
 

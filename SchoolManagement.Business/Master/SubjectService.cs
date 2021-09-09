@@ -84,7 +84,7 @@ namespace SchoolManagement.Business.Master
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
                     SubjectCategory = subject.SubjectCategory,
-                    SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory),
+                    SubjectCategoryName = subject.SubjectCategory.ToString(),
                     IsParentBasketSubject = subject.IsParentBasketSubject,
                     IsBuscketSubject = subject.IsBuscketSubject,
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
@@ -93,7 +93,9 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
                     CreatedOn = subject.CreatedOn,
+                    CreatedByName = subject.CreatedBy.FullName,
                     UpdatedOn = subject.UpdatedOn,
+                    UpdatedByName = subject.UpdatedBy.FullName,
                     SubjectAcademicLevels = subjectAcademicLevel,
                 };
                 response.Add(vm);
@@ -211,7 +213,7 @@ namespace SchoolManagement.Business.Master
             response.Name = subject.Name;
             response.SubjectCode = subject.SubjectCode;
             response.SubjectCategory = subject.SubjectCategory;
-            response.SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory);
+            response.SubjectCategoryName = subject.SubjectCategory.ToString();
             response.IsParentBasketSubject = subject.IsParentBasketSubject;
             response.IsBuscketSubject = subject.IsBuscketSubject;
             response.ParentBasketSubjectId = subject.ParentBasketSubjectId;
@@ -284,22 +286,6 @@ namespace SchoolManagement.Business.Master
             }
          }
        
-        private string GetSubjectCategoryName(SubjectCategory SubjectCategory)
-        {
-            if (((int)SubjectCategory) == 1)
-                 {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_PRIMARY_SCHOOL_SUBJECT;
-                 }
-            else if (((int)SubjectCategory) == 2)
-                {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_JUNIOR_SCHOOL_SUBJECT;
-                }
-            else 
-                {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT;
-            }
-        
-        }
 
         
     }
