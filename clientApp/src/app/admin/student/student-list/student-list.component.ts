@@ -132,4 +132,29 @@ export class StudentListComponent implements OnInit {
     });
   }
 
+  editRow(row:StudentModel, rowIndex:number, content:any) {
+
+    console.log(row);
+
+    this.saveStudentForm = this.fb.group({
+      id:[row.id],
+      fullName:[row.fullName],
+      admissionNo:[row.admissionNo],
+      address:[row.address],
+      dateOfBirth:[row.dateOfBirth],
+      mobileNo:[row.mobileNo],
+      emegencyContactNo:[row.emegencyContactNo],
+      genderName:[row.genderName],
+      gender:[row.gender],
+      email:[row.email],
+      password:[row.password],
+      isActive:[true]
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
 }

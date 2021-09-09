@@ -40,10 +40,6 @@ namespace SchoolManagement.Business.Master
                 var student = schoolDb.Students.FirstOrDefault(a => a.Id == id);
                 var userRole = schoolDb.UserRoles.FirstOrDefault(d => d.UserId == id);
 
-                user.IsActive = false;
-                schoolDb.Users.Update(user);
-                await schoolDb.SaveChangesAsync();
-
                 userRole.IsActive = false;
                 schoolDb.UserRoles.Update(userRole);
                 await schoolDb.SaveChangesAsync();
@@ -146,7 +142,7 @@ namespace SchoolManagement.Business.Master
                         FullName = vm.FullName,
                         MobileNo = vm.MobileNo,
                         Password = CustomPasswordHasher.GenerateHash(vm.Password),
-                        IsActive = true,
+                        IsActive = false,
                         CreatedById = loggedInUser.Id,
                         CreatedOn = DateTime.UtcNow,
                         UpdatedOn = DateTime.UtcNow,
@@ -208,10 +204,11 @@ namespace SchoolManagement.Business.Master
                 }  
                 else
                 {
+                    int toInt = int.Parse(vm.GenderName);
                     student.AdmissionNo = vm.AdmissionNo;
                     student.EmegencyContactNo1 = vm.MobileNo;
                     student.EmegencyContactNo2 = vm.EmegencyContactNo;
-                    student.Gender = vm.Gender;
+                    student.Gender = (Gender)toInt;
                     student.IsActive = true;
                     student.UpdatedById = loggedInUser.Id;
                     student.UpdateOn = DateTime.UtcNow;
