@@ -108,11 +108,11 @@ namespace SchoolManagement.Business
             try
             {
 
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 var LessonAssignments = schoolDb.LessonAssignments.FirstOrDefault(x => x.Id == vm.Id);
 
-                var loggedInUser = currentUserService.GetUserByUsername(userName);
+                
 
 
                 if (LessonAssignments == null)
