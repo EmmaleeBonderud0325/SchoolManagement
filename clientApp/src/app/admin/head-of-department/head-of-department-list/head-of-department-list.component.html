@@ -7,7 +7,7 @@
         <a routerLink="/dashboard/main">
           <i class="fas fa-home font-17"></i></a>
       </li>
-      <li class="breadcrumb-item">Academic Years List</li>
+      <li class="breadcrumb-item">Head Of Department List</li>
     </ul>
     <div class="section-body">
       <div class="row clearfix">
@@ -73,28 +73,49 @@
                   <!--Academic Year Column-->
                   <ngx-datatable-column name="Academic Year" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.id}}
+                      {{row.academicYearId}}
                     </ng-template>
                   </ngx-datatable-column>
-  
-                  <!--IsActive Column-->
-                  <ngx-datatable-column name="Is Active">
+
+                  <!--Academic Level Column-->
+                  <ngx-datatable-column name="Academic Level" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.isActive}}
+                      {{row.academicLevelName}}
                     </ng-template>
                   </ngx-datatable-column>
-  
+
+                  <!--Subject Column-->
+                  <ngx-datatable-column name="Subject" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.subjectName}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!--Teacher's name Column-->
+                  <ngx-datatable-column name="Teachers' Name" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.teacherName}}
+                    </ng-template>
+                  </ngx-datatable-column>
+               
                   <!--Created on Column-->
                   <ngx-datatable-column name="Created On">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.createdOn | date}}
+                      {{row. createOn| date}}
                     </ng-template>
+                  </ngx-datatable-column>
+
+                <!--Created on Column-->
+                 <ngx-datatable-column name="Created by">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row. createdByName}}
+                     </ng-template>
                   </ngx-datatable-column>
   
                   <!--Updated on Column-->
                   <ngx-datatable-column name="updated On">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.updatedOn | date}}
+                      {{row.updateOn | date}}
                     </ng-template>
                   </ngx-datatable-column>
   
@@ -109,13 +130,13 @@
                     <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                       <span>
 
-                       <!--  Hod edit Button -->
+                       <!--  Head Of Department edit Button -->
                         <button class="btn btn-tbl-edit h-auto" 
                         (click)='updateHeadOfDepartment(row, rowIndex, addEditRecord)'>
                         <i class="fas fa-pen"></i>
                         </button>
   
-                        <!--Delete Academic year Button-->
+                        <!--Delete Head Of Department Button-->
                         <button class="btn btn-tbl-delete h-auto" 
                         (click)='deleteHeadOfDepartment(row)'>
                         <i class="far fa-trash-alt"></i>
@@ -152,27 +173,67 @@
                     class="register-form" 
                     [formGroup]="headOfDepartmentFrom">
   
-                      <!--First Form Row -->                  
-                    <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                        <label>Year <span class="text-danger">*</span></label>
-                        <input 
-                            type="number" 
-                            class="form-control" 
-                            placeholder="Name" 
-                            formControlName="id"
-                            required>
-                        <small class="form-text text-danger"
-                          *ngIf="!headOfDepartmentFrom.get('id').valid && headOfDepartmentFrom.get('id').touched"> Academic Year is
-                          required</small>
+                      <!-- First Form Row -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Academic Year <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="name"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched">
+                        Academic Year
+                      </small> 
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Academic Level <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Code" 
+                          formControlName="subjectCode"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched"> 
+                        Academic Level is required
+                      </small> 
+                    </div>
+                  </div>
+                  
+                  <!-- Second Form Row -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Teacher's Name<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="categorysId">
+                          <option 
+                            *ngFor="let item of subjectCategorys" 
+                            [value]="item.id">{{item.name}}                           
+                          </option>
+                        </select>
                       </div>
-                    </div>
-  
-                      <!--Second Form Row -->
-                    <div class="row">
-                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">                      
-                      </div>                 
-                    </div>
+                    </div> 
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="subjectstreamId">
+                          <option 
+                            *ngFor="let item of subjectstreams" 
+                            [value]="item.id">{{item.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div> 
+                  </div>
   
                     <!--Modal Footer -->
                     <div class="modal-footer">

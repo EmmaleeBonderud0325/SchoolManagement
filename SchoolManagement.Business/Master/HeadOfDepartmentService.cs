@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -45,14 +46,19 @@ namespace SchoolManagement.Business.Master
                 {
                     Id = HeadOfDepartment.Id,
                     SubjectId = HeadOfDepartment.SubjectId,
+                    SubjectName = HeadOfDepartment.Subject.Name,
                     AcademicLevelId = HeadOfDepartment.AcademicLevelId,
+                    AcademicLevelName = HeadOfDepartment.AcademicLevel.Name,
                     AcademicYearId = HeadOfDepartment.AcademicYearId,
                     TeacherId = HeadOfDepartment.TeacherId,
+                    TeacherName = GetTeacher(HeadOfDepartment.TeacherId),
                     IsActive = HeadOfDepartment.IsActive,
                     CreateOn = HeadOfDepartment.CreateOn,
                     CreatedById = HeadOfDepartment.CreatedById,
+                    CreatedByName = HeadOfDepartment.CreatedBy.FullName,
                     UpdateOn = HeadOfDepartment.UpdateOn,
                     UpdatedById = HeadOfDepartment.UpdatedById,
+                    UpdatedByName = HeadOfDepartment.UpdatedBy.FullName,
                 };
 
                 response.Add(viewModel);
@@ -181,6 +187,20 @@ namespace SchoolManagement.Business.Master
                 .Distinct().ToList();
 
             return subjects;
+        }
+
+        private string GetTeacher(int TeacherId)
+        {
+            var quary = schoolDb.Users.FirstOrDefault(T => T.Id == TeacherId);
+
+            if (quary == null)
+            {
+                return HeadOfDepartmentServiceConstants.HEAD_OF_DEPARTMENT_TEACHER_NOT_fOUND_MESSAGE;
+            }
+            else
+            {
+                return quary.FullName;
+            }
         }
     }
 }
