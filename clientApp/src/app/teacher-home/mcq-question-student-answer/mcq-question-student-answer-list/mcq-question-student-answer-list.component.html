@@ -77,7 +77,7 @@
                 </ngx-datatable-column>
   
                 <!-- Is checked -->
-                <ngx-datatable-column name="Is Check">
+                <ngx-datatable-column name="Is Checked">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.isChecked}}
                   </ng-template>
@@ -142,17 +142,33 @@
                         Question Text is  required
                       </small>
                     </div>
-                  </div>
+
+
+
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
+                      <label> Is Checked <span class="text-danger">*</span></label>
+                      <input 
+                          type="textarea" 
+                          class="form-control" 
+                          placeholder="Is Checked" 
+                          formControlName="isChecked"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!McqStudenAnswerForm.get('isChecked').valid && McqStudenAnswerForm.get('isChecked').touched">
+                        Is checked is required
+                      </small>
+                    </div> -->
+                 <!--  </div>
                     
                   
-                  <div class="row">
+                  <div class="row"> -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label> Is Checked <span class="text-danger">*</span></label><br><br>
                         <input 
                           type="radio" 
                           [value]="true" 
                           formControlName="isChecked" 
-                          checked> TRUE <br>
+                          checked> TRUE 
 
                         <input 
                           type="radio" 

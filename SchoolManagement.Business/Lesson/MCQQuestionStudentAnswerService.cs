@@ -31,7 +31,7 @@ namespace SchoolManagement.Business
         public List<MCQQuestionStudetAnswerViewModel> GetAllMCQQuestionStudentAnswers()
         {
             var response = new List<MCQQuestionStudetAnswerViewModel>();
-            var query = schoolDb.MCQQuestionStudentAnswers.Where(u => u.IsChecked == true);
+            var query = schoolDb.MCQQuestionStudentAnswers.Where(u => u.QuestionId != null);
             var MCQQuestionStudentAnswerList = query.ToList();
 
             foreach (var item in MCQQuestionStudentAnswerList)
@@ -46,7 +46,7 @@ namespace SchoolManagement.Business
                     MCQQuestionAnswerName = item.MCQQuestionAnswer.AnswerText,
                     AnswerText = item.AnswerText,
                     SequnceNo = item.SequnceNo,
-                    IsChecked = true,
+                    IsChecked = item.IsChecked,
                 };
                 response.Add(vm);
             }
@@ -67,12 +67,12 @@ namespace SchoolManagement.Business
                 {
                     MCQQuestionStudentAnswers = new MCQQuestionStudentAnswer()
                     {
-                        //QuestionId = vm.QuestionId,
-                        //StudentId = vm.StudentId,
-                        //MCQQuestionAnswerId = vm.MCQQuestionAnswerId,
+                        QuestionId = vm.QuestionId,
+                        StudentId = vm.StudentId,
+                        MCQQuestionAnswerId = vm.MCQQuestionAnswerId,
                         AnswerText = vm.AnswerText,
                         SequnceNo = vm.SequnceNo,
-                        IsChecked = true,
+                        IsChecked = vm.IsChecked,
                     };
 
                     schoolDb.MCQQuestionStudentAnswers.Add(MCQQuestionStudentAnswers);
@@ -84,7 +84,7 @@ namespace SchoolManagement.Business
                 else
                 {
                     MCQQuestionStudentAnswers.AnswerText = vm.AnswerText;
-                    MCQQuestionStudentAnswers.SequnceNo = vm.SequnceNo;
+                    //MCQQuestionStudentAnswers.SequnceNo = vm.SequnceNo;
                     MCQQuestionStudentAnswers.IsChecked = vm.IsChecked;
 
                     schoolDb.MCQQuestionStudentAnswers.Update(MCQQuestionStudentAnswers);
@@ -122,7 +122,7 @@ namespace SchoolManagement.Business
         {
             var student = schoolDb.Students
             .Where(x => x.IsActive == true)
-            .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.Id) })
+            .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.User.FullName) })
             .Distinct().ToList();
 
             return student;
