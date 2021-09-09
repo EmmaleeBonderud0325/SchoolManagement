@@ -16,12 +16,15 @@ export class ClassService {
 
   getAll(): Observable<ClassModel[]>{
     return this.httpClient.
-      get<ClassModel[]>(environment.apiUrl + 'Class')
+      get<ClassModel[]>(environment.apiUrl + 'Class/getClasses')
   }
 
   saveClass(vm: ClassModel): Observable<ResponseModel> {
+    console.log("service call")
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'Class', vm);
+      post<ResponseModel>
+      (environment.apiUrl + 'Class/savaClass', vm);
+      
   }
 
   delete(classNameId: number): Observable<ResponseModel> {
