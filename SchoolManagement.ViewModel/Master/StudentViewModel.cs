@@ -15,7 +15,6 @@ namespace SchoolManagement.ViewModel.Master
         public int Id { get; set; }
         public int AdmissionNo { get; set; }
         public string EmegencyContactNo { get; set; }
-        //public string EmegencyContactNo2 { get; set; }
         public Gender Gender { get; set; }
         public List<DropDownViewModel> AllGenders { get; set; }
         public string GenderName { get; set; }

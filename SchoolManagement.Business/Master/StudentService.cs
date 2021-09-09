@@ -62,24 +62,31 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllGenders()
         {
-            //return schoolDb.Students.Where(u => u.Gender != null)
-            //    .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Gender) })
-            //    .ToList();
             var genderList = new List<DropDownViewModel>();
 
-            var male = new DropDownViewModel()
-            {
-                Id = 1,
-                Name = Gender.Male.ToString()
-            };
+            //var male = new DropDownViewModel()
+            //{
+            //    Id = ((int)Gender.Male),
+            //    Name = Gender.Male.ToString()
+            //};
 
-            var female = new DropDownViewModel()
+            //var female = new DropDownViewModel()
+            //{
+            //    Id = ((int)Gender.Female),
+            //    Name = Gender.Female.ToString()
+            //};
+            //genderList.Add(male);
+            //genderList.Add(female);
+
+            foreach (var item in Enum.GetValues(typeof(Gender)))
             {
-                Id = 2,
-                Name = Gender.Female.ToString()
-            };
-            genderList.Add(male);
-            genderList.Add(female);
+                var listItem = new DropDownViewModel()
+                {
+                    Id = (int)item,
+                    Name = item.ToString()
+                };
+                genderList.Add(listItem);
+            }
 
             return genderList;
         }
@@ -103,7 +110,6 @@ namespace SchoolManagement.Business.Master
                         Id = item.Id,
                         AdmissionNo = item.AdmissionNo,
                         EmegencyContactNo = item.EmegencyContactNo2,
-                        //EmegencyContactNo2 = user.MobileNo,
                         Gender = item.Gender,
                         GenderName = item.Gender.ToString(),
                         DateOfBirth = item.DateOfBirth,
@@ -180,7 +186,7 @@ namespace SchoolManagement.Business.Master
                         schoolDb.UserRoles.Add(userRole);
                         await schoolDb.SaveChangesAsync();
                     }
-                    int toInt = int.Parse(vm.GenderName);
+
                     //Add student to Student table
                     student = new Student()
                     {
@@ -188,7 +194,7 @@ namespace SchoolManagement.Business.Master
                         AdmissionNo = vm.AdmissionNo,
                         EmegencyContactNo1 = user.MobileNo,
                         EmegencyContactNo2 = vm.EmegencyContactNo,
-                        Gender = (Gender)toInt,
+                        Gender = vm.Gender,
                         DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
@@ -204,11 +210,10 @@ namespace SchoolManagement.Business.Master
                 }  
                 else
                 {
-                    int toInt = int.Parse(vm.GenderName);
                     student.AdmissionNo = vm.AdmissionNo;
                     student.EmegencyContactNo1 = vm.MobileNo;
                     student.EmegencyContactNo2 = vm.EmegencyContactNo;
-                    student.Gender = (Gender)toInt;
+                    student.Gender = vm.Gender;
                     student.IsActive = true;
                     student.UpdatedById = loggedInUser.Id;
                     student.UpdateOn = DateTime.UtcNow;

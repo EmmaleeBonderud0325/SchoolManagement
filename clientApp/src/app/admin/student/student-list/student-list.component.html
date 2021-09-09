@@ -232,13 +232,13 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <div class="form-group">
                               <label>Gender<span class="text-danger">*</span></label>
-                                <select class="form-select form-control" formControlName="genderName">
-                                  <option *ngFor="let item of allGenders" [value]="item.id">{{item.name}}</option>
+                                <select class="form-select form-control" formControlName="gender">
+                                  <option *ngFor="let item of allGenders" [ngValue]="item.id">{{item.name}}</option>
                                 </select>
                             </div>
 
                             <small class="form-text text-danger"
-                              *ngIf="!saveStudentForm.get('genderName').valid && saveStudentForm.get('genderName').touched"> This field is
+                              *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
                               required</small>
                         </div>
 
@@ -286,7 +286,7 @@
                       <div class="table-modal-header">
                         <div class="modal-about">
                           <div class="fw-bold p-t-10 font-17">
-                           Update Student details</div>
+                           Update Student</div>
                         </div>
                       </div>
                     </h4>
@@ -297,7 +297,7 @@
                   <div class="modal-body">
                     <form class="register-form" [formGroup]="saveStudentForm">
                       
-                      <!-- Update Form rows starts here -->
+                      <!-- Add new student Form rows starts here -->
                       <!-- Student name and admissionNo -->
                       <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -388,13 +388,13 @@
                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <div class="form-group">
                             <label>Gender<span class="text-danger">*</span></label>
-                              <select class="form-select form-control" formControlName="genderName">
-                                <option *ngFor="let item of allGenders" [value]="item.id" selected="genderName">{{item.name}}</option>
+                              <select class="form-select form-control" formControlName="gender">
+                                <option *ngFor="let item of allGenders" [ngValue]="item.id">{{item.name}}</option>
                               </select>
                           </div>
 
                           <small class="form-text text-danger"
-                            *ngIf="!saveStudentForm.get('genderName').valid && saveStudentForm.get('genderName').touched"> This field is
+                            *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
                             required</small>
                       </div>
 
@@ -414,12 +414,21 @@
                       </div>
 
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary" (click)="saveStudent()" [disabled]="!saveStudentForm.valid">Submit</button>
-                        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
+                        <button 
+                          type="submit" 
+                          class="btn btn-primary" 
+                          (click)="saveStudent()" 
+                          [disabled]="!saveStudentForm.valid">Update</button>
+
+                        <button 
+                          type="button" 
+                          class="btn btn-light" 
+                          (click)="modal.close('Close click')">Cancel</button>
                       </div>
                     </form>
                   </div>
               </ng-template>
+                
                     </div>
                   </div>
                 </div>

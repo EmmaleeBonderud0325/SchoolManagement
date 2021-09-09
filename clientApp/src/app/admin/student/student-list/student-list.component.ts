@@ -58,7 +58,7 @@ export class StudentListComponent implements OnInit {
       emegencyContactNo: ['', [Validators.required]],
       password: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
-      genderName: ['', [Validators.required]],
+      gender: ['', [Validators.required]],
       email: ['', [Validators.required]],
     });
 
@@ -138,15 +138,14 @@ export class StudentListComponent implements OnInit {
 
     this.saveStudentForm = this.fb.group({
       id:[row.id],
-      fullName:[row.fullName],
-      admissionNo:[row.admissionNo],
-      address:[row.address],
-      dateOfBirth:[row.dateOfBirth],
-      mobileNo:[row.mobileNo],
-      emegencyContactNo:[row.emegencyContactNo],
-      genderName:[row.genderName],
-      gender:[row.gender],
-      email:[row.email],
+      fullName:[row.fullName, [Validators.required]],
+      admissionNo:[row.admissionNo, [Validators.required]],
+      address:[row.address, [Validators.required]],
+      dateOfBirth:[row.dateOfBirth, [Validators.required]],
+      mobileNo:[row.mobileNo, [Validators.required]],
+      emegencyContactNo:[row.emegencyContactNo, [Validators.required]],
+      gender:[row.gender, [Validators.required]],
+      email:[row.email, [Validators.required]],
       password:[row.password],
       isActive:[true]
     });
