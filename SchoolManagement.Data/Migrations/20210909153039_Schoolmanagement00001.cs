@@ -539,8 +539,8 @@ namespace SchoolManagement.Data.Migrations
                 {
                     table.PrimaryKey("PK_SubjectTeacher", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SubjectTeacher_AcademicLevel_AcademicYearId",
-                        column: x => x.AcademicYearId,
+                        name: "FK_SubjectTeacher_AcademicLevel_AcademicLevelId",
+                        column: x => x.AcademicLevelId,
                         principalSchema: "Master",
                         principalTable: "AcademicLevel",
                         principalColumn: "Id",
@@ -1247,21 +1247,21 @@ namespace SchoolManagement.Data.Migrations
                 columns: new[] { "Id", "Address", "CreatedById", "CreatedOn", "Email", "FullName", "IsActive", "LastLoginDate", "LoginSessionId", "MobileNo", "Password", "ProfileImage", "UpdatedById", "UpdatedOn", "Username" },
                 values: new object[,]
                 {
-                    { 1, null, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(8768), "avdunusinghe@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9044), "avdunusinghe@gmail.com" },
-                    { 2, null, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9781), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 7, 9, 26, 55, 127, DateTimeKind.Utc).AddTicks(9784), "admin@gmail.com" }
+                    { 1, null, null, new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(2715), "avdunusinghe@gmail.com", "SuperAdmin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0703375581", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(2953), "avdunusinghe@gmail.com" },
+                    { 2, null, null, new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(3645), "admin@gmail.com", "Admin", true, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, "0112487086", "HGnySkxIrdSxVCdICLWgVQxx", (byte)0, null, new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(3647), "admin@gmail.com" }
                 });
 
             migrationBuilder.InsertData(
                 schema: "Account",
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
-                values: new object[] { 1, 1, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7246), true, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(7787) });
+                values: new object[] { 1, 1, 1, new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(6309), true, 1, new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(6757) });
 
             migrationBuilder.InsertData(
                 schema: "Account",
                 table: "UserRole",
                 columns: new[] { "RoleId", "UserId", "CreatedById", "CreatedOn", "IsActive", "UpdatedById", "UpdatedOn" },
-                values: new object[] { 2, 2, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9736), true, 1, new DateTime(2021, 9, 7, 9, 26, 55, 138, DateTimeKind.Utc).AddTicks(9739) });
+                values: new object[] { 2, 2, 1, new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(8312), true, 1, new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(8315) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AcademicLevel_CreatedById",
@@ -1635,6 +1635,12 @@ namespace SchoolManagement.Data.Migrations
                 schema: "Master",
                 table: "SubjectStream",
                 column: "UpdatedById");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SubjectTeacher_AcademicLevelId",
+                schema: "Master",
+                table: "SubjectTeacher",
+                column: "AcademicLevelId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_SubjectTeacher_AcademicYearId",
