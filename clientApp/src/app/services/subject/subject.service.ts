@@ -46,4 +46,9 @@ export class SubjectService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllParentBasketSubjects');
   }
+
+  getSubjectbyId(id:number): Observable<SubjectModel>{
+    return this.httpClient.get<SubjectModel>
+        (environment.apiUrl + 'User/getSubjectbyId/'+ id);
+  }
 }
