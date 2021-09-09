@@ -31,6 +31,12 @@ export class StudentMcqQuestionAnswerService {
       (environment.apiUrl + 'StudentMCQQuestion/getAllQuestions');
   }
 
+  getAllStudentAnswerTexts():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>
+      (environment.apiUrl + 'StudentMCQQuestion/getAllStudentAnswerTexts');
+  }
+
   getAllStudentNames():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>

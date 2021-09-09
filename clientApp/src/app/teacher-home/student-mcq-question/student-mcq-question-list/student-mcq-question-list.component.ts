@@ -25,6 +25,7 @@ export class StudentMcqQuestionListComponent implements OnInit {
   StudentMCQQuestionForm: FormGroup;
   questionNames :DropDownModel[] = [];
   studentNames :DropDownModel[] = [];
+  studentAnswerTexts :DropDownModel[] = []
 
   constructor(
     private fb: FormBuilder,
@@ -37,6 +38,7 @@ g
     this.getAll();
     this.getAllQuestions();
     this.getAllStudentNames();
+    this.getAllStudentAnswerTexts();
   }
 
   getAll(){
@@ -56,6 +58,18 @@ g
         .subscribe(response=>
         { 
           this.questionNames = response;
+          console.log(response)           
+
+        },error=>{
+          this.toastr.error("Get Question error has been occured. Please try again.","Error");
+         });
+  }
+
+  getAllStudentAnswerTexts() {
+    this.StudentMcqQuestionAnswerService.getAllStudentAnswerTexts()
+        .subscribe(response=>
+        { 
+          this.studentAnswerTexts = response;
           console.log(response)           
 
         },error=>{

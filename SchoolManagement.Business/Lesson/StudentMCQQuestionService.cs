@@ -41,6 +41,7 @@ namespace SchoolManagement.Business
                 {
                     QuestionId = item.QuestionId,
                     QuestionName = item.Question.QuestionText,
+                    StudentAnswerText = ,
                     StudentId = item.StudentId,
                     StudentName = item.Student.User.FullName,
                     TeacherComments = item.TeacherComments,
@@ -117,6 +118,16 @@ namespace SchoolManagement.Business
               .Distinct().ToList();
 
             return students;
+        }
+
+        public List<DropDownViewModel> GetAllStudentAnswerTexts()
+        {
+            var studentanswertext = schoolDb.MCQQuestionStudentAnswers
+               .Where(x => x.QuestionId != null)
+               .Select(sqt => new DropDownViewModel() { Id = sqt.QuestionId, Name = string.Format("{0}", sqt.AnswerText) })
+               .Distinct().ToList();
+
+            return studentanswertext;
         }
     }
 }

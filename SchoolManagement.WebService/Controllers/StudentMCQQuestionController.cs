@@ -56,5 +56,13 @@ namespace SchoolManagement.WebService.Controllers
             var response = studentmcqquestionService.GetAllStudentNames();
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllStudentAnswerTexts")]
+        public IActionResult GetAllStudentAnswerTexts()
+        {
+            var response = studentmcqquestionService.GetAllStudentAnswerTexts();
+            return Ok(response);
+        }
     }
 }
