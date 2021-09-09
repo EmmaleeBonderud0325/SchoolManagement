@@ -138,16 +138,11 @@ export class HeadOfDepartmentListComponent implements OnInit {
   }
 
 
-    onAddRowSave(form: FormGroup) {
-      this.data.push(form.value);
-      this.data = [...this.data];
-      form.reset();
-      this.modalService.dismissAll();
-      this.addRecordSuccess();
-    }
+    
+  
 
 
-  editRow(row:HeadOfDepartmentModel, rowIndex:number, content:any) {
+  updateHeadOfDepartment(row:HeadOfDepartmentModel, rowIndex:number, content:any) {
 
     console.log(row);
     
@@ -196,8 +191,6 @@ export class HeadOfDepartmentListComponent implements OnInit {
     });
   }
   
-    addRecordSuccess() {
-      this.toastr.success('Acedemic Level Add Successfully', '');
-    }
+    
 
 }

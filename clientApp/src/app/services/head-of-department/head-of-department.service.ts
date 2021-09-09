@@ -15,36 +15,43 @@ export class HeadOfDepartmentService {
 
   getAll(): Observable<HeadOfDepartmentModel[]> {
     return this.httpClient.
-      get<HeadOfDepartmentModel[]>(environment.apiUrl + 'HeadOfDepartment');
+      get<HeadOfDepartmentModel[]>
+        (environment.apiUrl + 'HeadOfDepartment');
   }
 
   saveHeadOfDepartment(vm: HeadOfDepartmentModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'HeadOfDepartment', vm);
+      post<ResponseModel>
+        (environment.apiUrl + 'HeadOfDepartment/saveHeadOfDepartment', vm);
   }
 
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
-      delete<ResponseModel>(environment.apiUrl + 'HeadOfDepartment/' + id);
+      delete<ResponseModel>
+        (environment.apiUrl + 'HeadOfDepartment/' + id);
   }
   
   getAllAcademicYears():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'AcademicYear/getAllAcademicYears');
+      get<DropDownModel[]>
+        (environment.apiUrl + 'AcademicYear/getAllAcademicYears');
   }
 
   getAllAcademicLevels():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'AcademicLevel/getAllAcademicLevels');
+      get<DropDownModel[]>
+        (environment.apiUrl + 'AcademicLevel/getAllAcademicLevels');
   }
 
   getAllTeachers():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'UserRole/getAllTeachers');
+      get<DropDownModel[]>
+        (environment.apiUrl + 'UserRole/getAllTeachers');
   }
 
   getAllSubjects():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjects');
+      get<DropDownModel[]>
+        (environment.apiUrl + 'Subject/getAllSubjects');
   }
 }

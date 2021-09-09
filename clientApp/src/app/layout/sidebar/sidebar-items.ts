@@ -187,6 +187,20 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible:true
       },
+       //Head Of Department
+       {
+        path: '/admin/head-of-department',
+        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
+        moduleName: 'head-of-department',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible:true
+      },     
       {
         path: '/admin/example',
         title: 'MENUITEMS.ADMIN.LIST.EXAMPLE',
@@ -200,20 +214,7 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible:true
       },
-      //Head Of Department
-      {
-        path: '/admin/head-of-department',
-        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
-        moduleName: 'head-of-department',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        submenu: [],
-        isVisible:true
-      }      
+      
     ],
   }
   //section end admin 

@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HeadOfDepartmentListComponent } from './head-of-department-list/head-of-department-list.component';
 import { HeadOfDepartmentDetailComponent } from './head-of-department-detail/head-of-department-detail.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'head-of-department',
+    redirectTo: 'head-of-departments',
     pathMatch: 'full',
   },
   {
-    path: 'head-of-department',
+    path: 'head-of-departments',
     component: HeadOfDepartmentListComponent,
   },
   {
@@ -22,8 +22,7 @@ const routes: Routes = [
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule
-  ]
+  imports:[RouterModule.forChild(routes)],
+  exports:[RouterModule]
 })
 export class HeadOfDepartmentRoutingModule { }

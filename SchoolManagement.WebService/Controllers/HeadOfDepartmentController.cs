@@ -31,6 +31,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
+        [Route("saveHeadOfDepartment")]
         public async Task<ActionResult> Post([FromBody] HeadOfDepartmentViewModel vm)
         {
             var userName = identityService.GetUserName();
