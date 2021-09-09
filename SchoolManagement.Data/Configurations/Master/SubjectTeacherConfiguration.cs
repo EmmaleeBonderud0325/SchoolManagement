@@ -32,7 +32,7 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.HasOne<AcademicLevel>(al => al.AcademicLevel)
                .WithMany(st => st.SubjectTeachers)
-               .HasForeignKey(f => f.AcademicYearId)
+               .HasForeignKey(f => f.AcademicLevelId)
                .OnDelete(DeleteBehavior.Restrict)
                .IsRequired(true);
 
