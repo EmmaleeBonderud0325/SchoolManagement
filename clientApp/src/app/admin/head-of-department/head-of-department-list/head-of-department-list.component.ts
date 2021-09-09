@@ -65,7 +65,8 @@ export class HeadOfDepartmentListComponent implements OnInit {
   {
     this.headOfDepartmentService.getAllTeachers()
       .subscribe(response=>
-      { this.teachers = response;
+      { console.log( response);
+        this.teachers = response;
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });
@@ -101,10 +102,10 @@ export class HeadOfDepartmentListComponent implements OnInit {
 
     this.headOfDepartmentFrom = this.fb.group({
       id:[0],
-      academicYearId: ['', [Validators.required]],
+      academicYearId: [null, [Validators.required]],
       academicLevelId: [null, [Validators.required]],
-      teacherId: [null, [Validators.required]]
-     // subjectId: [null, [Validators.required]]
+      teacherId: [null, [Validators.required]],
+      subjectId: [null, [Validators.required]]
     });
 
     this.modalService.open(content, {
@@ -138,11 +139,6 @@ export class HeadOfDepartmentListComponent implements OnInit {
 
   }
 
-
-    
-  
-
-
   updateHeadOfDepartment(row:HeadOfDepartmentModel, rowIndex:number, content:any) {
 
     console.log(row);
@@ -161,7 +157,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
     });
   }
 
-  //delete Head Of Department
+    //delete Head Of Department
   deleteHeadOfDepartment(row) {
     Swal.fire({
       title: 'Are you sure Delete Head Of Department ?',
