@@ -64,20 +64,6 @@ namespace SchoolManagement.Business.Master
         {
             var genderList = new List<DropDownViewModel>();
 
-            //var male = new DropDownViewModel()
-            //{
-            //    Id = ((int)Gender.Male),
-            //    Name = Gender.Male.ToString()
-            //};
-
-            //var female = new DropDownViewModel()
-            //{
-            //    Id = ((int)Gender.Female),
-            //    Name = Gender.Female.ToString()
-            //};
-            //genderList.Add(male);
-            //genderList.Add(female);
-
             foreach (var item in Enum.GetValues(typeof(Gender)))
             {
                 var listItem = new DropDownViewModel()
