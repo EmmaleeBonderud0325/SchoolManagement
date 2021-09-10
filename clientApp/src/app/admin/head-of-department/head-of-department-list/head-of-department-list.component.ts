@@ -65,8 +65,9 @@ export class HeadOfDepartmentListComponent implements OnInit {
   {
     this.headOfDepartmentService.getAllTeachers()
       .subscribe(response=>
-      { console.log( response);
+      { 
         this.teachers = response;
+        console.log( response);
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });

@@ -34,24 +34,24 @@ export class HeadOfDepartmentService {
   getAllAcademicYears():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>
-        (environment.apiUrl + 'AcademicYear/getAllAcademicYears');
+        (environment.apiUrl + 'HeadOfDepartment/getAllAcademicYears');
   }
 
   getAllAcademicLevels():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>
-        (environment.apiUrl + 'AcademicLevel/getAllAcademicLevels');
+        (environment.apiUrl + 'HeadOfDepartment/getAllAcademicLevels');
   }
 
   getAllTeachers():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>
-        (environment.apiUrl + 'UserRole/getAllTeachers');
+        (environment.apiUrl + 'HeadOfDepartment/getAllTeachers');
   }
 
   getAllSubjects():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>
-        (environment.apiUrl + 'Subject/getAllSubjects');
+        (environment.apiUrl + 'HeadOfDepartment/getAllSubjects');
   }
 }

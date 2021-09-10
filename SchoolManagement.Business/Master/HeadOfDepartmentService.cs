@@ -76,11 +76,11 @@ namespace SchoolManagement.Business.Master
             {
                 var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var HeadOfDepartments = schoolDb.HeadOfDepartments.FirstOrDefault(hod => hod.Id == vm.Id);
+                var HeadOfDepartment = schoolDb.HeadOfDepartments.FirstOrDefault(hod => hod.Id == vm.Id);
 
-                if (HeadOfDepartments == null)
+                if (HeadOfDepartment == null)
                 {
-                    HeadOfDepartments = new HeadOfDepartment()
+                    HeadOfDepartment = new HeadOfDepartment()
                     {
                         Id = vm.Id,
                         SubjectId = vm.SubjectId,
@@ -94,21 +94,21 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = currentuser.Id,
                     };
 
-                    schoolDb.HeadOfDepartments.Add(HeadOfDepartments);
+                    schoolDb.HeadOfDepartments.Add(HeadOfDepartment);
 
                     response.IsSuccess = true;
                     response.Message = "Head Of Department successfully created";
                 }
                 else
                 {
-                    HeadOfDepartments.SubjectId = vm.SubjectId;
-                    HeadOfDepartments.AcademicYearId = vm.AcademicYearId;
-                    HeadOfDepartments.AcademicLevelId = vm.AcademicLevelId;
-                    HeadOfDepartments.IsActive = true;
-                    HeadOfDepartments.UpdatedById = currentuser.Id;
-                    HeadOfDepartments.UpdateOn = DateTime.UtcNow;
+                    HeadOfDepartment.SubjectId = vm.SubjectId;
+                    HeadOfDepartment.AcademicYearId = vm.AcademicYearId;
+                    HeadOfDepartment.AcademicLevelId = vm.AcademicLevelId;
+                    HeadOfDepartment.IsActive = true;
+                    HeadOfDepartment.UpdatedById = currentuser.Id;
+                    HeadOfDepartment.UpdateOn = DateTime.UtcNow;
 
-                    schoolDb.HeadOfDepartments.Update(HeadOfDepartments);
+                    schoolDb.HeadOfDepartments.Update(HeadOfDepartment);
 
                     response.IsSuccess = true;
                     response.Message = "Head Of Department successfully updated";
