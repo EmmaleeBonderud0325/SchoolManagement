@@ -52,9 +52,6 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
-
-       
-
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
@@ -91,18 +88,31 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
-                    CreatedOn = subject.CreatedOn,
-                    UpdatedOn = subject.UpdatedOn,
                     SubjectAcademicLevels = subjectAcademicLevel,
+                    CreatedByName = subject.CreatedBy.FullName,
+                    CreatedOn = subject.CreatedOn,
+                    UpdatedByName = subject.UpdatedBy.FullName,
+                    UpdatedOn = subject.UpdatedOn,
                 };
 
-                
+                if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
+                {
+                    vm.SubjectType = SubjectType.NormalSubject;
+                }
+                else if (subject.IsParentBasketSubject == true)
+                {
+                    vm.SubjectType = SubjectType.ParentBasketSubject;
+                }
+                else
+                {
+                    vm.SubjectType = SubjectType.BasketSubject;
+                }
+
+
                 response.Add(vm);
             }
             return response;
         }
-
-
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -172,7 +182,7 @@ namespace SchoolManagement.Business.Master
                 {
                     subject.Name = vm.Name;
                     subject.SubjectCode = vm.SubjectCode;
-                    subject.SubjectCategory = vm.SubjectCategory;
+                    subject.SubjectCategory = (SubjectCategory)vm.CategorysId;
                     subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
                     subject.SubjectStreamId = vm.SubjectStreamId;
                     subject.IsActive = true;
@@ -208,7 +218,6 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
-
         public SubjectViewModel GetSubjectbyId(int id)
         {
             var response = new SubjectViewModel();
@@ -249,11 +258,6 @@ namespace SchoolManagement.Business.Master
 
             return response;
         }
-
-
-        
-   
-
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
             var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
@@ -268,7 +272,6 @@ namespace SchoolManagement.Business.Master
             }
         
         }
-       
         private string GetSubjectCategoryName(SubjectCategory SubjectCategory)
         {
             if (((int)SubjectCategory) == 1)

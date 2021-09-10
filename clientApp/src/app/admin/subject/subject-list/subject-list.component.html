@@ -63,6 +63,28 @@
                 [scrollbarH]="scrollBarHorizontal" 
                 [reorderable]="reorderable">
 
+                <!-- Action Column -->
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <!--Subject Edit Button -->
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='updateSubject(row, rowIndex, addEditRecord)'>
+                          <i class="far fa-edit"></i>
+                        </button>
+                        <!--Subject Delete Button -->
+                        <button 
+                          class="btn btn-icon btn-sm btn-danger" 
+                          (click)='deleteSubject(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+
                 
                 <!--Subject Name Column-->
                 <ngx-datatable-column name="Name" [width]="100">
@@ -106,6 +128,13 @@
                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject CreatedBy Column-->
+                <ngx-datatable-column name="Created By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
                 <!--Subject UpdateOn Column-->
                 <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
@@ -113,26 +142,15 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-              <!-- Action Column -->
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <!--Subject Edit Button -->
-                      <button 
-                        class="btn btn-tbl-edit h-auto" 
-                        (click)='updateSubject(row, rowIndex, addEditRecord)' >
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <!--Subject Delete Button -->
-                      <button 
-                        class="btn btn-tbl-delete h-auto" 
-                        (click)='deleteSubject(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
+                <!--Subject Updateby Column-->
+                <ngx-datatable-column name="Updated By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
               </ngx-datatable>
+
+              
 
             <!-- Add new Subject Modal Window -->
             <ng-template #addEditRecord let-modal>

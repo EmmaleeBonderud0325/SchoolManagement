@@ -109,8 +109,6 @@ export class SubjectListComponent implements OnInit {
   {
     this.dropDownService.getAllParentBasketSubjects()
      .subscribe(response=>{
-       console.log(response);
-       
         this.parentBasketSubjects = response;
     },error=>{
       
@@ -141,9 +139,6 @@ export class SubjectListComponent implements OnInit {
   //Save Subject 
   saveSubject()
   {   
-    
-    console.log(this.subjectForm.value);
-    
     this.subjectService.saveSubject(this.subjectForm.value)
     .subscribe(response=>{
 

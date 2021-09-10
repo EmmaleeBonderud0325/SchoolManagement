@@ -29,7 +29,9 @@ namespace SchoolManagement.ViewModel.Master
         public string SubjectStreamName { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
+        public string CreatedByName { get; set; }
         public DateTime UpdatedOn { get; set; }
+        public string UpdatedByName { get; set; }
         //public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
         public List<DropDownViewModel> SubjectAcademicLevels { get; set; }
     }
