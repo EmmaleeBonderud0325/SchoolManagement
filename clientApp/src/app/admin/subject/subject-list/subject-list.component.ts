@@ -47,11 +47,12 @@ export class SubjectListComponent implements OnInit {
     this.getAllSubjectCategorys();
     this.getAllParentBasketSubjects();
   }
-
+  //getAll Subject
   getAll()
   {
     this.loadingIndicator=true;
-    this.subjectService.getAll().subscribe(response=>
+    this.subjectService.getAll()
+    .subscribe(response=>
     {
         this.data= response;
         this.loadingIndicator=false;
@@ -59,35 +60,39 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
+  //get Subject Master Meta Data
   getSubjectTypes()
   {
-    this.dropDownService.getAllSubjectTypes().subscribe(response=>{
+    this.dropDownService.getAllSubjectTypes()
+    .subscribe(response=>
+    {
       this.subjectTypes = response;
-      console.log(response);
     },error=>{
-        console.log("error");
         
     })
   }
+
+    //get Subject Master Meta Data
   getAllSubjectStreams()
   {
     this.subjectService.getAllSubjectStreams()
       .subscribe(response=>
       { 
-        this.subjectstreams = response;
+        this.subjectstreams = response;  
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
+        
        });
   }
 
   getAllAcademicLevels()
   {
     this.subjectService.getAllAcademicLevels()
-     .subscribe(response=>{
-        this.subjectAcademicLevels = response;
-    },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-    });
+     .subscribe(response=>
+      {
+        this.subjectAcademicLevels = response;  
+      },error=>{
+      
+      });
   }
 
   getAllSubjectCategorys()
@@ -102,7 +107,7 @@ export class SubjectListComponent implements OnInit {
 
   getAllParentBasketSubjects()
   {
-    this.subjectService.getAllParentBasketSubjects()
+    this.dropDownService.getAllParentBasketSubjects()
      .subscribe(response=>{
         this.parentBasketSubjects = response;
     },error=>{

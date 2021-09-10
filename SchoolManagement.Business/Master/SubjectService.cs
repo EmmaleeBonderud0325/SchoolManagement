@@ -269,14 +269,6 @@ namespace SchoolManagement.Business.Master
                 .ToList();
         }
 
-        public List<DropDownViewModel> GetAllParentBasketSubjects()
-        {
-            return schoolDb.Subjects
-                 .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
-                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                 .ToList();
-        }
-
         public List<DropDownViewModel> GetAllSubjectCategorys()
         {
             var response = new List<DropDownViewModel>();

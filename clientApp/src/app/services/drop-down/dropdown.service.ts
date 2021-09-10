@@ -12,14 +12,17 @@ export class DropdownService {
   constructor(private httpClient: HttpClient) { }
 
   getAllSubjectTypes():Observable<DropDownModel[]>{
-
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getSubjectTypes');
   }
 
   getAllSubjectCategorys():Observable<DropDownModel[]>{
-
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getSubjectCategorys');
+  }
+
+  getAllParentBasketSubjects(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllParentBasketSubjects');
   }
 }

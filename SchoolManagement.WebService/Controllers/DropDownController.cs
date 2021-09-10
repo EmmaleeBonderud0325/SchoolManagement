@@ -39,10 +39,21 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("getAllParentBasketSubjects")]
+        public ActionResult getAllParentBasketSubjects()
+        {
+            var response = dropDownService.GetAllParentBasketSubjects();
+
+            return Ok(response);
+        }
+
+
+
 
 
 
     }
-    
+
 
 }

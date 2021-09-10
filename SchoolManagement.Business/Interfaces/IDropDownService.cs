@@ -12,5 +12,6 @@ namespace SchoolManagement.Business.Interfaces
         //Sucject Service Dropdouwn Service
         List<DropDownViewModel> GetSubjectTypes();
         List<DropDownViewModel> GetAllSubjectCategorys();
+        List<DropDownViewModel> GetAllParentBasketSubjects();
     }
 }

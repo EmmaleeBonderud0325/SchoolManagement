@@ -44,5 +44,13 @@ namespace SchoolManagement.Business
             return response;
 
         }
+
+        public List<DropDownViewModel> GetAllParentBasketSubjects()
+        {
+            return schoolDb.Subjects
+                 .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
+                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                 .ToList();
+        }
     }
 }
