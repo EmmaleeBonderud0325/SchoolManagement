@@ -13,10 +13,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<ClassViewModel> GetClasses();
         Task<ResponseViewModel> SavaClass(ClassViewModel classVM, string userName);
         Task<ResponseViewModel> DeleteClass(int id);
-        List<DropDownViewModel> GetAllClassNames();
-        List<DropDownViewModel> GetAllAcademicLevels();
-        List<DropDownViewModel> GetAllAcademicYears();
-        List<DropDownViewModel> GetAllClassCategories();
-        List<DropDownViewModel> GetAllLanguageStreams();
+       
     }
 }

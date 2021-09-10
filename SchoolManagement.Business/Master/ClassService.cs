@@ -34,7 +34,7 @@ namespace SchoolManagement.Business.Master
         {
             var response = new List<ClassViewModel>();
 
-            var query = schoolDb.Classes.Where(predicate: cn => cn.ClassNameId != null);
+            var query = schoolDb.Classes.Where(predicate: cn => cn.ClassNameId != 0);
 
             var ClassList = query.ToList();
 
@@ -145,72 +145,10 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        public List<DropDownViewModel> GetAllClassNames()
-        {
-            var classNames = schoolDb.ClassNames
-                .Where(x => x.IsActive == true)
-                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
-                .Distinct().ToList();
+       
 
-            return classNames;
-        }
+       
 
-        public List<DropDownViewModel> GetAllAcademicLevels()
-        {
-            var academicLevels = schoolDb.AcademicLevels
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = string.Format("{0}", al.Name) })
-                .Distinct().ToList();
-
-            return academicLevels;
-        }
-
-        public List<DropDownViewModel> GetAllAcademicYears()
-        {
-            var academicYears = schoolDb.AcademicYears
-                .Where(x => x.IsActive == true)
-                .Select(ay => new DropDownViewModel() { Id = ay.Id })
-                .Distinct().ToList();
-
-            return academicYears;
-        }
-
-        public List<DropDownViewModel> GetAllClassCategories()
-        {
-            var response = new List<DropDownViewModel>();
-            var classCategory = new DropDownViewModel() { Id = 1, Name = ClassServiceConstants.CLASS_CATEGORY_PRIMARY };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 2, Name = ClassServiceConstants.CLASS_CATEGORY_SECONDARY };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 3, Name = ClassServiceConstants.CLASS_CATEGORY_OLEVEL };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 4, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_MATHS };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 5, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_BIO };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 6, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_TECH };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 7, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_COMMERCE };
-            response.Add(classCategory);
-            classCategory = new DropDownViewModel() { Id = 8, Name = ClassServiceConstants.CLASS_CATEGORY_ALEVEL_ART };
-            response.Add(classCategory);
-
-            return response;
-        }
-
-        public List<DropDownViewModel> GetAllLanguageStreams()
-        {
-            var response = new List<DropDownViewModel>();
-            var languageStream = new DropDownViewModel() { Id = 1, Name = ClassServiceConstants.LANGUAGE_STREAM_SINHALA };
-            response.Add(languageStream);
-            languageStream = new DropDownViewModel() { Id = 2, Name = ClassServiceConstants.LANGUAGE_STREAM_ENGLISH };
-            response.Add(languageStream);
-            languageStream = new DropDownViewModel() { Id = 3, Name = ClassServiceConstants.LANGUAGE_STREAM_TAMIL };
-            response.Add(languageStream);
-            languageStream = new DropDownViewModel() { Id = 4, Name = ClassServiceConstants.LANGUAGE_STREAM_OTHER };
-            response.Add(languageStream);
-
-            return response;
-        }
+       
     }
 }

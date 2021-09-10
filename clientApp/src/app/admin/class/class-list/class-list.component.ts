@@ -1,3 +1,5 @@
+import { ClassSubjectModel } from './../../../models/class/class.subject.model';
+import { DropdownService } from './../../../services/drop-down/dropdown.service';
 import { ClassModel } from './../../../models/class/class.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { ToastrService } from 'ngx-toastr';
@@ -28,12 +30,14 @@ export class ClassListComponent implements OnInit {
   academicYears:DropDownModel[] = [];
   classCategories:DropDownModel[] = [];
   languageStreams:DropDownModel[] = [];
+  classSubjects:ClassSubjectModel[]=[];
 
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private classService:ClassService,
+    private dropDownService:DropdownService,
     private toastr: ToastrService) { }
 
     ngOnInit(): void {
@@ -44,56 +48,56 @@ export class ClassListComponent implements OnInit {
       this.getAllClassCategories();
       this.getAllLanguageStreams(); 
     }
-
+     //get class Names DropDown Meta Data
     getAllClassNames()
       {
-        this.classService.getAllClassNames()
+        this.dropDownService.getAllClassNames()
           .subscribe(response=>
           { 
             this.classNames = response;
             console.log(response);
             
           },error=>{
-            this.toastr.error("Network error has been occured. Please try again.","Error");
+           
            });
       }
-
+    //get Academic Year DropDown Meta Data
     getAllAcademicYears()
       {
-        this.classService.getAllAcademicYears()
+        this.dropDownService.getAllAcademicYears()
           .subscribe(response=>
           { 
             this.academicYears = response;
           },error=>{
-            this.toastr.error("Network error has been occured. Please try again.","Error");
+            
           });
       }
-
+    //get Academic Levels DropDown Meta Data
     getAllAcademicLevels()
     {
-      this.classService.getAllAcademicLevels()
+      this.dropDownService.getAllAcademicLevels()
         .subscribe(response=>
         { 
           this.academicLavels = response;
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+         
         });
     }
-
+    //get Class Categories DropDown Meta Data
     getAllClassCategories()
     {
-      this.classService.getAllClassCategories()
+      this.dropDownService.getAllClassCategories()
         .subscribe(response=>
         { 
           this.classCategories = response;
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+          
         });
     }
-
+    //get Language Streams DropDown Meta Data
     getAllLanguageStreams()
     {
-      this.classService.getAllLanguageStreams()
+      this.dropDownService.getAllLanguageStreams()
         .subscribe(response=>
         { 
           this.languageStreams = response;
@@ -101,7 +105,7 @@ export class ClassListComponent implements OnInit {
           this.toastr.error("Network error has been occured. Please try again.","Error");
         });
     } 
-  
+   //get Class
     getAll()
     {
       this.loadingIndicator=true;
@@ -115,8 +119,9 @@ export class ClassListComponent implements OnInit {
         this.toastr.error("Network error has been occured. Please try again.","Error");
       });
     }
-
-    addNewClass(content) {
+    //Add new Class Form
+    addNewClass(content)
+    {
 
       this.saveClassForm = this.fb.group({
         classNameId: [null, [Validators.required]],
@@ -132,8 +137,9 @@ export class ClassListComponent implements OnInit {
         size: 'lg',
       });
     }
-
-    saveClass(){   
+    //save Class
+    saveClass()
+    {   
     
       console.log(this.saveClassForm.value);
       
@@ -157,16 +163,9 @@ export class ClassListComponent implements OnInit {
       });
   
     }
-
-    onAddRowSave(form: FormGroup) {
-      this.data.push(form.value);
-      this.data = [...this.data];
-      form.reset();
-      this.modalService.dismissAll();
-      this.addRecordSuccess();
-    }
-    
-    editRow(row:ClassModel, rowIndex:number, content:any) {
+    //Update Class    
+    updateClass(row:ClassModel, rowIndex:number, content:any) 
+    {
   
       console.log(row);
   
@@ -183,9 +182,9 @@ export class ClassListComponent implements OnInit {
         size: 'lg',
       });
     }
-
     //delete class
-    deleteClass(row) {
+    deleteClass(row) 
+    {
         Swal.fire({
           title: 'Are you sure Delete Class ?',
           showCancelButton: true,
@@ -214,8 +213,4 @@ export class ClassListComponent implements OnInit {
         });
       }
 
-    addRecordSuccess() {
-      this.toastr.success('ClassTeacher Add Successfully', '');
-    }
-  
 }

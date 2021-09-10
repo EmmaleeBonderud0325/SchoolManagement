@@ -1,3 +1,4 @@
+import { MultiSelectModule } from 'primeng/multiselect';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { CustomFormsModule } from 'ngx-custom-validators';
     CKEditorModule,
     ArchwizardModule,
     CustomFormsModule,
+    MultiSelectModule,
     formModule,
     ReactiveFormsModule,
   ]

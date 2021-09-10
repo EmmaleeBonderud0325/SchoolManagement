@@ -59,7 +59,7 @@
                     <span>
                       <button 
                             class="btn btn-icon btn-sm btn-primary" 
-                            (click)='editRow(row, rowIndex, addEditRecord)'>
+                            (click)='updateClass(row, rowIndex, addEditRecord)'>
                             <i class="far fa-edit"></i>
                         </button>
                         <button 
@@ -161,11 +161,19 @@
               <div class="modal-body">
                 <form class="register-form" [formGroup]="saveClassForm">
                   <div class="row">
+
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label>Class Name<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="classNameId" required>
-                          <option *ngFor="let item of classNames" [ngValue]="item.id">{{item.name}}</option>
+                        <label>Academic Year<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="academicYearId" 
+                          required>
+                          <option 
+                            *ngFor="let item of academicYears" 
+                            [ngValue]="item.id">
+                            {{item.id}}
+                          </option>
                         </select>
                       </div>
                     </div>
@@ -173,20 +181,35 @@
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Academic Level<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="academicLevelId" required>
-                          <option *ngFor="let item of academicLavels" [ngValue]="item.id">{{item.name}}</option>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="academicLevelId"  
+                          required>
+                          <option 
+                            *ngFor="let item of academicLavels" 
+                            [ngValue]="item.id">
+                            {{item.name}}
+                          </option>
                         </select>
                       </div>
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
-                        <label>Academic Year<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="academicYearId" required>
-                          <option *ngFor="let item of academicYears" [ngValue]="item.id">{{item.id}}</option>
+                        <label>Class Name<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="classNameId" 
+                          required>
+                          <option 
+                            *ngFor="let item of classNames" 
+                            [ngValue]="item.id">
+                            {{item.name}}
+                          </option>
                         </select>
                       </div>
                     </div>
+ 
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Name <span class="text-danger">*</span></label>
@@ -197,28 +220,117 @@
                           formControlName="name"
                           required>
                         <small class="form-text text-danger"
-                            *ngIf="!saveClassForm.get('name').valid && saveClassForm.get('name').touched"> Name is
-                            required</small>  
+                            *ngIf="!saveClassForm.get('name').valid && saveClassForm.get('name').touched"> 
+                            Name is required
+                        </small>  
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Class Category<span class="text-danger">*</span></label>
-                        <select class="form-select form-control" formControlName="classCategory" required>
-                          <option *ngFor="let item of classCategories" [ngValue]="item.id">{{item.name}}</option>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="classCategory" 
+                          required>
+                          <option 
+                            *ngFor="let item of classCategories" 
+                            [ngValue]="item.id">
+                            {{item.name}}
+                          </option>
                         </select>
                       </div>
                     </div>
 
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <div class="form-group">
-                      <label>Language Stream<span class="text-danger">*</span></label>
-                      <select class="form-select form-control" formControlName="languageStream" required>
-                        <option *ngFor="let item of languageStreams" [ngValue]="item.id">{{item.name}}</option>
-                      </select>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Language Stream<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="languageStream" 
+                          required>
+                          <option 
+                            *ngFor="let item of languageStreams" 
+                            [ngValue]="item.id">
+                            {{item.name}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Class Teacher<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="languageStream" 
+                          required>
+                          <option 
+                            *ngFor="let item of languageStreams" 
+                            [ngValue]="item.id">
+                            {{item.name}}
+                          </option>
+                        </select>
+                      </div>
                     </div>
                   </div>
-                </div>
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                      <p-table
+                        [value]="classSubjects"
+                        [responsive]="true"
+                        styleClass="p-datatable-striped"
+                      >
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th style="width: 100px">#</th>
+                            <th style="width: 150px">Subject Name</th>
+                            <th>Subject Teacher</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template
+                          pTemplate="body"
+                          let-rowData
+                          let-rowIndex="rowIndex"
+                        >
+                          <tr style="max-height: 20px">
+                            <td>
+                              {{ rowIndex + 1 }}
+                            </td>
+                            <td>
+                              {{ rowData.subjectName }}
+                            </td>
+                            <td>
+                              <select
+                                class="form-select form-control"
+                                [(ngModel)]="rowData.subjectTeacherId"
+                                [ngModelOptions]="{ standalone: true }"
+                                (change)="
+                                  onSubjectTeacherSelectionChange(
+                                    $event.target.value
+                                  )
+                                "
+                              >
+                                <option
+                                  [ngValue]="item.id"
+                                  *ngFor="let item of rowData.subjectTeachers"
+                                >
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                              <small
+                                class="form-text text-danger"
+                                *ngIf="!rowData.subjectTeacherId"
+                              >
+                                Class teacher is required</small
+                              >
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                
 
                   <!-- Modal Footer -->
                   <div class="modal-footer">

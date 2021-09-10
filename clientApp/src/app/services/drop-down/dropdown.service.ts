@@ -35,4 +35,24 @@ export class DropdownService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllSubjectStreams');
   }
+
+  getAllClassNames():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllClassNames');
+  }
+
+  getAllAcademicYears():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllAcademicYears');
+  }
+
+  getAllClassCategories():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllClassCategories');
+  }
+
+  getAllLanguageStreams():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllLanguageStreams');
+  }
 }

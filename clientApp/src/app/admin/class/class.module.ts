@@ -1,3 +1,4 @@
+import { MultiSelectModule } from 'primeng/multiselect';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClassRoutingModule } from './class-routing.module';
@@ -19,6 +20,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ClassRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    MultiSelectModule,
     NgxDatatableModule,
     ToastrModule.forRoot(),
   ]

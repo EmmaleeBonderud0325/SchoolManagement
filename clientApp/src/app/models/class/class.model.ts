@@ -1,3 +1,4 @@
+import { ClassSubjectModel } from './class.subject.model';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -22,4 +23,6 @@ export class ClassModel{
     selectedAcademicLevelId:number;
     selectedClassCategory:number;
     selectedLanguageStream:number;
+
+    classSubjects:ClassSubjectModel[];
 }
