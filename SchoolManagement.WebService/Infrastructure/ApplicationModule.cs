@@ -49,6 +49,11 @@ namespace SchoolManagement.WebService.Infrastructure
                .As<IUserService>()
                .InstancePerLifetimeScope();
 
+            //Drop Down Service
+            builder.RegisterType<DropDownService>()
+              .As<IDropDownService>()
+              .InstancePerLifetimeScope();
+
             // Master Services
 
             builder.RegisterType<AcademicLevelService>()
