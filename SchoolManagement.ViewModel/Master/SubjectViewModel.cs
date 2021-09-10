@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model;
+using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
@@ -21,8 +22,7 @@ namespace SchoolManagement.ViewModel.Master
         public SubjectCategory SubjectCategory { get; set; }
         public int CategorysId { get; set; }
         public string SubjectCategoryName { get; set; }
-        public bool IsParentBasketSubject { get; set; }
-        public bool IsBuscketSubject { get; set; }
+        public SubjectType SubjectType { get; set; }
         public int? ParentBasketSubjectId { get; set; }
         public string ParentBasketSubjectName { get; set; }
         public int SubjectStreamId { get; set; }

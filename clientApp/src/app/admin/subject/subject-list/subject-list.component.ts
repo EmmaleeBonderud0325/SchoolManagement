@@ -1,3 +1,4 @@
+import { DropdownService } from './../../../services/drop-down/dropdown.service';
 import { SubjectModel } from './../../../models/subject/subject.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { SubjectService} from './../../../services/subject/subject.service';
@@ -29,15 +30,18 @@ export class SubjectListComponent implements OnInit {
   subjectAcademicLevels:DropDownModel[]=[];
   subjectCategorys:DropDownModel[]=[];
   parentBasketSubjects:DropDownModel[]=[];
+  subjectTypes:DropDownModel[]=[];
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private subjectService:SubjectService,
+    private dropDownService:DropdownService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAll();
+    this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
     this.getAllSubjectCategorys();
@@ -50,20 +54,27 @@ export class SubjectListComponent implements OnInit {
     this.subjectService.getAll().subscribe(response=>
     {
         this.data= response;
-        console.log(response);
         this.loadingIndicator=false;
     },error=>{
         this.loadingIndicator=false;
     });
   }
-
+  getSubjectTypes()
+  {
+    this.dropDownService.getAllSubjectTypes().subscribe(response=>{
+      this.subjectTypes = response;
+      console.log(response);
+    },error=>{
+        console.log("error");
+        
+    })
+  }
   getAllSubjectStreams()
   {
     this.subjectService.getAllSubjectStreams()
       .subscribe(response=>
       { 
         this.subjectstreams = response;
-        
       },error=>{
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });
@@ -74,7 +85,6 @@ export class SubjectListComponent implements OnInit {
     this.subjectService.getAllAcademicLevels()
      .subscribe(response=>{
         this.subjectAcademicLevels = response;
-        
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
@@ -82,10 +92,9 @@ export class SubjectListComponent implements OnInit {
 
   getAllSubjectCategorys()
   {
-    this.subjectService.getAllSubjectCategorys()
+    this.dropDownService.getAllSubjectCategorys()
      .subscribe(response=>{
         this.subjectCategorys = response;
-        
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
@@ -96,7 +105,6 @@ export class SubjectListComponent implements OnInit {
     this.subjectService.getAllParentBasketSubjects()
      .subscribe(response=>{
         this.parentBasketSubjects = response;
-        console.log(response);
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
@@ -109,9 +117,10 @@ export class SubjectListComponent implements OnInit {
       subjectstreamId: [null, [Validators.required]],
       categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
+      subjectType:[null,[Validators.required]], 
       subjectAcademicLevels:[null,[Validators.required]],
       parentBasketSubjectId:[null],
-      isParentBasketSubject:[null],     
+          
     });
 
     this.modalService.open(content, {
@@ -212,7 +221,7 @@ export class SubjectListComponent implements OnInit {
       subjectCode:[row.subjectCode,[Validators.required]],
       subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
       parentBasketSubjectId:[row.parentBasketSubjectId],
-      isParentBasketSubject:[row.isParentBasketSubject],
+     // isParentBasketSubject:[row.isParentBasketSubject],
     });
 
     this.modalService.open(content, {
@@ -224,6 +233,11 @@ export class SubjectListComponent implements OnInit {
   get id()
   {
     return this.subjectForm.get("id").value;
+  }
+
+  get subjectType()
+  {
+    return this.subjectForm.get("subjectType").value;
   }
   
 }

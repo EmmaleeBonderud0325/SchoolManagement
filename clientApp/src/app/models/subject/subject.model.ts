@@ -9,8 +9,7 @@ export class SubjectModel{
     subjectCategory:number;
     categorysId:number;
     subjectCategoryName:string;
-    isParentBasketSubject:boolean;
-    isBuscketSubject:boolean;
+    subjectType:number;
     parentBasketSubjectId:number;
     parentBasketSubjectName:string;
     subjectStreamId:number;

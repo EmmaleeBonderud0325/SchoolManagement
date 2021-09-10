@@ -16,4 +16,5 @@ namespace SchoolManagement.Model
         [Description("High School Subject")]
         HighSchoolSubject = 3
     }
+
 }
