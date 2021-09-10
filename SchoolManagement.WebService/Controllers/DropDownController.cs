@@ -48,9 +48,23 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("getAllAcademicLevels")]
+        public IActionResult GetAllAcademicLevels()
+        {
+            var response = dropDownService.GetAllAcademicLevels();
+            return Ok(response);
+        }
 
+        [HttpGet]
+        [Route("getAllSubjectStreams")]
+        public ActionResult GetAllSubjectStreams()
+        {
+            var response = dropDownService.GetAllSubjectStreams();
+            return Ok(response);
+        }
 
-
+       
 
 
     }

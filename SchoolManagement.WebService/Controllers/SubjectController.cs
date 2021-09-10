@@ -46,30 +46,6 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getAllSubjectStreams")]
-        public ActionResult GetAllSubjectStreams()
-        {
-            var response = subjectService.GetAllSubjectStreams();
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [Route("getAllAcademicLevels")]
-        public IActionResult GetAllAcademicLevels()
-        {
-            var response = subjectService.GetAllAcademicLevels();
-            return Ok(response);
-        }
-
-        [HttpGet]
-        [Route("getAllSubjectCategorys")]
-        public ActionResult GetAllSubjectCategorys()
-        {
-            var response = subjectService.GetAllSubjectCategorys();
-            return Ok(response);
-        }
-
-        [HttpGet]
         [Route("getSubjectbyId/{id}")]
         public ActionResult GetSubjectbyId(int id)
         {

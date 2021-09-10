@@ -13,5 +13,7 @@ namespace SchoolManagement.Business.Interfaces
         List<DropDownViewModel> GetSubjectTypes();
         List<DropDownViewModel> GetAllSubjectCategorys();
         List<DropDownViewModel> GetAllParentBasketSubjects();
+        List<DropDownViewModel> GetAllAcademicLevels();
+        List<DropDownViewModel> GetAllSubjectStreams();
     }
 }

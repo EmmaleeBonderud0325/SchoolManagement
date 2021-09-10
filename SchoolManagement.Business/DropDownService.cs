@@ -52,5 +52,24 @@ namespace SchoolManagement.Business
                  .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
                  .ToList();
         }
+
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            return schoolDb.AcademicLevels
+                 .Where(x => x.IsActive == true)
+                 .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
+                 .ToList();
+        }
+
+        public List<DropDownViewModel> GetAllSubjectStreams()
+        {
+            var subjectStream = schoolDb.SubjectStreams
+                .Where(x => x.IsActive == true)
+                .Select(ss => new DropDownViewModel() { Id = ss.Id, Name = string.Format("{0}", ss.Name) })
+                .Distinct().ToList();
+
+            return subjectStream;
+        }
+
     }
 }

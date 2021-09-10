@@ -228,7 +228,7 @@ namespace SchoolManagement.Business.Master
             }
             else if (subject.IsParentBasketSubject == true)
             {
-                response.SubjectType = SubjectType.ParentBasketSubject;
+                response.SubjectType = SubjectType.ParentBasketSubject;   
             }
             else
             {
@@ -251,36 +251,8 @@ namespace SchoolManagement.Business.Master
         }
 
 
-        public List<DropDownViewModel> GetAllSubjectStreams()
-        {
-            var subjectStream = schoolDb.SubjectStreams
-                .Where(x => x.IsActive == true)
-                .Select(ss => new DropDownViewModel() { Id = ss.Id, Name = string.Format("{0}", ss.Name) })
-                .Distinct().ToList();
-
-            return subjectStream;
-        }
-
-        public List<DropDownViewModel> GetAllAcademicLevels()
-        {
-            return schoolDb.AcademicLevels
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                .ToList();
-        }
-
-        public List<DropDownViewModel> GetAllSubjectCategorys()
-        {
-            var response = new List<DropDownViewModel>();
-            var subjectcategory = new DropDownViewModel() { Id = 1, Name = SubjectServiceConstants.SUBJECT_CATEGORY_PRIMARY_SCHOOL_SUBJECT };
-            response.Add(subjectcategory);
-            subjectcategory = new DropDownViewModel() { Id = 2, Name = SubjectServiceConstants.SUBJECT_CATEGORY_JUNIOR_SCHOOL_SUBJECT };
-            response.Add(subjectcategory);
-            subjectcategory = new DropDownViewModel() { Id = 3, Name = SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT };
-            response.Add(subjectcategory);
-
-            return response;
-        }
+        
+   
 
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
@@ -314,7 +286,7 @@ namespace SchoolManagement.Business.Master
         
         }
 
-
+       
     }
 }
                 

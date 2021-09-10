@@ -25,4 +25,14 @@ export class DropdownService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllParentBasketSubjects');
   }
+
+  getAllAcademicLevels(): Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllAcademicLevels');
+  }
+
+  getAllSubjectStreams():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllSubjectStreams');
+  }
 }

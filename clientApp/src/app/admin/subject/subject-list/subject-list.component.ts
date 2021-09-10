@@ -60,7 +60,7 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
-  //get Subject Master Meta Data
+  //get Subject Types DropDown Meta Data
   getSubjectTypes()
   {
     this.dropDownService.getAllSubjectTypes()
@@ -71,11 +71,10 @@ export class SubjectListComponent implements OnInit {
         
     })
   }
-
-    //get Subject Master Meta Data
+  //get Subject Stream Master Meta Data
   getAllSubjectStreams()
   {
-    this.subjectService.getAllSubjectStreams()
+    this.dropDownService.getAllSubjectStreams()
       .subscribe(response=>
       { 
         this.subjectstreams = response;  
@@ -83,10 +82,10 @@ export class SubjectListComponent implements OnInit {
         
        });
   }
-
+  //get Academic Levels DropDown Meta Data
   getAllAcademicLevels()
   {
-    this.subjectService.getAllAcademicLevels()
+    this.dropDownService.getAllAcademicLevels()
      .subscribe(response=>
       {
         this.subjectAcademicLevels = response;  
@@ -94,30 +93,35 @@ export class SubjectListComponent implements OnInit {
       
       });
   }
-
+   //get Subject Categorys DropDown Meta Data
   getAllSubjectCategorys()
   {
     this.dropDownService.getAllSubjectCategorys()
-     .subscribe(response=>{
+     .subscribe(response=>
+    {
         this.subjectCategorys = response;
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
-
+  //get All Parent Basket Subjects DropDown Meta Data
   getAllParentBasketSubjects()
   {
     this.dropDownService.getAllParentBasketSubjects()
      .subscribe(response=>{
+       console.log(response);
+       
         this.parentBasketSubjects = response;
     },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      
     });
   }
- 
-  addNewSubject(content) {
+  //save Subject Form 
+  addNewSubject(content)
+   {
 
     this.subjectForm = this.fb.group({
+      id:[0],
       name: ['', [Validators.required]],
       subjectstreamId: [null, [Validators.required]],
       categorysId:[null,[Validators.required]],
@@ -134,8 +138,9 @@ export class SubjectListComponent implements OnInit {
     });
 
   }
-
-  saveSubject(){   
+  //Save Subject 
+  saveSubject()
+  {   
     
     console.log(this.subjectForm.value);
     
@@ -158,30 +163,7 @@ export class SubjectListComponent implements OnInit {
     });
 
   }
-  
-/*
- 
-  
-  onAddRowSave(form: FormGroup) {
-    this.data.push(form.value);
-    this.data = [...this.data];
-    form.reset();
-    this.modalService.dismissAll();
-    this.addRecordSuccess();
-  }
-  
-  editRow(row, rowIndex, content) {
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
-  
- 
-  
-  addRecordSuccess() {
-    this.toastr.success('Acedemic Level Add Successfully', '');
-  }*/
+  //Delete subject 
   deleteSubject(row) {
     Swal.fire({
       title: 'Are you sure Delete Subject ?',
@@ -211,8 +193,9 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
-
-  updateSubject(row:SubjectModel, rowIndex:number, content:any) {
+  //update Subject
+  updateSubject(row:SubjectModel, rowIndex:number, content:any) 
+  {
 
     console.log(row);
     
@@ -224,9 +207,9 @@ export class SubjectListComponent implements OnInit {
       subjectstreamId: [row.subjectStreamId, [Validators.required]],
       categorysId:[row.subjectCategory,[Validators.required]],
       subjectCode:[row.subjectCode,[Validators.required]],
+      subjectType:[row.subjectType,[Validators.required]], 
       subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
       parentBasketSubjectId:[row.parentBasketSubjectId],
-     // isParentBasketSubject:[row.isParentBasketSubject],
     });
 
     this.modalService.open(content, {
@@ -234,12 +217,7 @@ export class SubjectListComponent implements OnInit {
       size: 'lg',
     });
   }
-
-  get id()
-  {
-    return this.subjectForm.get("id").value;
-  }
-
+  //Suject Type Getter
   get subjectType()
   {
     return this.subjectForm.get("subjectType").value;

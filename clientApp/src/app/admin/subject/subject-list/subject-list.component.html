@@ -199,7 +199,7 @@
                           formControlName="subjectType">
                           <option 
                           *ngFor="let item of subjectTypes" 
-                            [value]="item.id">{{item.name}}
+                          [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
                       </div>
@@ -213,7 +213,7 @@
                           formControlName="parentBasketSubjectId" >
                           <option 
                             *ngFor="let item of parentBasketSubjects" 
-                            [value]="item.id">{{item.name}}
+                            [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
                       </div>
@@ -227,7 +227,7 @@
                           formControlName="categorysId">
                           <option 
                             *ngFor="let item of subjectCategorys" 
-                            [value]="item.id">{{item.name}}                           
+                            [ngValue]="item.id">{{item.name}}                           
                           </option>
                         </select>
                       </div>
@@ -241,7 +241,7 @@
                           formControlName="subjectstreamId">
                           <option 
                             *ngFor="let item of subjectstreams" 
-                            [value]="item.id">{{item.name}}
+                            [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
                       </div>
@@ -257,39 +257,8 @@
                           [style]="{'width':'100%'}">
                         </p-multiSelect>
                       
-                    </div>
-                 
-                  </div>
-                  <!-- Fourth Form Row -->
-                  <div class="row">
-                   <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label class="col-sm-3 col-form-label"></label>
-                        <div class="col-md-9">
-                          <div class="input-group col-md-9">
-                            <div class="form-check">
-                              <input class="form-check-input" 
-                                     type="radio" 
-                                     [value]="false" 
-                                     formControlName="isParentBasketSubject" 
-                                     name="isParentBasketSubject" 
-                                     id="rb3">
-                              <label class="form-check-label" for="rb3">Basket Subject</label>
-                            </div>
-                            <div class="form-check">
-                              <input class="form-check-input" 
-                                     type="radio" 
-                                     [value]="true" 
-                                     formControlName="isParentBasketSubject" 
-                                     name="isParentBasketSubject" 
-                                     id="rb4">
-                              <label class="form-check-label" for="rb4">Parent Subject</label>
-                            </div>
-                          </div>
-                        </div> 
-                    </div>  -->
-                   
-                  </div>
-                  
+                    </div>                 
+                  </div>                
 
                     <!-- Modal Footer -->
                   <div class="modal-footer">
