@@ -108,5 +108,16 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        public List<DropDownViewModel> GetAllTeachers()
+        {
+            var teachers = schoolDb.UserRoles
+                 .Where(x => x.RoleId == (int)RoleType.Teacher)
+                 .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0}", u.User.FullName) })
+                 .Distinct().ToList();
+
+            return teachers;
+        }
+
+       
     }
 }

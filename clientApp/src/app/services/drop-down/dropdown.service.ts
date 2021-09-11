@@ -55,4 +55,11 @@ export class DropdownService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllLanguageStreams');
   }
+
+  getAllTeachers():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllTeachers');
+  }
+
+  
 }

@@ -100,6 +100,15 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        [HttpGet]
+        [Route("getAllTeachers")]
+        public IActionResult GetAllTeachers()
+        {
+            var response = dropDownService.GetAllTeachers();
+
+            return Ok(response);
+        }
+
 
     }
 

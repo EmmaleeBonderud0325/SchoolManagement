@@ -23,5 +23,6 @@ namespace SchoolManagement.Business.Interfaces
         List<DropDownViewModel> GetAllAcademicYears();
         List<DropDownViewModel> GetAllClassCategories();
         List<DropDownViewModel> GetAllLanguageStreams();
+        List<DropDownViewModel> GetAllTeachers();
     }
 }

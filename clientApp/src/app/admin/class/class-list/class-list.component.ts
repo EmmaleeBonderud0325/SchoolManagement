@@ -25,12 +25,15 @@ export class ClassListComponent implements OnInit {
   saveClassForm:FormGroup;
   reorderable = true;
   class:ClassModel;
+  classSubjects:ClassSubjectModel[]=[];
+
   classNames:DropDownModel[] = [];
   academicLavels:DropDownModel[] = [];
   academicYears:DropDownModel[] = [];
   classCategories:DropDownModel[] = [];
   languageStreams:DropDownModel[] = [];
-  classSubjects:ClassSubjectModel[]=[];
+  classTeachers:DropDownModel[]=[];
+
 
 
   constructor(
@@ -105,6 +108,18 @@ export class ClassListComponent implements OnInit {
           this.toastr.error("Network error has been occured. Please try again.","Error");
         });
     } 
+    //get teachers DropDown Meta Data
+    getAllTeachers()
+    {
+      this.dropDownService.getAllTeachers()
+        .subscribe(response=>
+        {
+            this.classTeachers = response;
+        },error=>{
+
+        });
+    }
+
    //get Class
     getAll()
     {
@@ -129,7 +144,8 @@ export class ClassListComponent implements OnInit {
         academicYearId: [null, [Validators.required]],
         name: ['', [Validators.required]],
         classCategory: [null, [Validators.required]],
-        languageStream: [null, [Validators.required]] 
+        languageStream: [null, [Validators.required]],
+        classTeacher:[null,[Validators.required]] 
       });
   
       this.modalService.open(content, {
