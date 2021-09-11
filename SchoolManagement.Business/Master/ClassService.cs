@@ -17,14 +17,12 @@ namespace SchoolManagement.Business.Master
 {
     public class ClassService: IClassService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public ClassService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public ClassService( SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
@@ -42,23 +40,24 @@ namespace SchoolManagement.Business.Master
             {
                 var vm = new ClassViewModel
                 {
-                    ClassNameId = item.ClassNameId,
-                    ClassClassName = item.ClassName.Name,
-                    AcademicLevelId = item.AcademicLevelId,
-                    AcademicLevelName = item.AcademicLevel.Name,
-                    AcademicYearId = item.AcademicYearId,
+                    //ClassNameId = item.ClassNameId,
+                    //ClassClassName = item.ClassName.Name,
+                    //AcademicLevelId = item.AcademicLevelId,
+                    //AcademicLevelName = item.AcademicLevel.Name,
+                    //AcademicYearId = item.AcademicYearId,
                     Name = item.Name,
-                    ClassCategory = item.ClassCategory,
-                    ClassCategoryName = item.ClassCategory.ToString(),
-                    LanguageStream = item.LanguageStream,
-                    LanguageStreamName = item.LanguageStream.ToString(),
-                    CreatedOn = item.CreatedOn,
-                    CreatedById = item.CreatedById,
-                    CreatedByName = item.CreatedBy.FullName,
-                    UpdatedOn = item.UpdatedOn,
-                    UpdatedById = item.UpdatedById,
-                    UpdatedByName = item.UpdatedBy.FullName,
+                    ClassCategoryId = item.ClassCategory,
+                    //ClassCategoryName = item.ClassCategory.ToString(),
+                    //LanguageStream = item.LanguageStream,
+                    //LanguageStreamName = item.LanguageStream.ToString(),
+                    //CreatedOn = item.CreatedOn,
+                    //CreatedById = item.CreatedById,
+                    //CreatedByName = item.CreatedBy.FullName,
+                    //UpdatedOn = item.UpdatedOn,
+                    //UpdatedById = item.UpdatedById,
+                    //UpdatedByName = item.UpdatedBy.FullName,
                 };
+
 
                 response.Add(vm);
             }
@@ -72,7 +71,7 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = currentUserService.GetUserByUsername(userName);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
 
@@ -84,13 +83,50 @@ namespace SchoolManagement.Business.Master
                         AcademicLevelId = vm.AcademicLevelId,
                         AcademicYearId = vm.AcademicYearId,
                         Name = vm.Name,
-                        ClassCategory = vm.ClassCategory,
-                        LanguageStream = vm.LanguageStream,
+                        ClassCategory = vm.ClassCategoryId,
+                       // LanguageStream = vm.LanguageStream,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = currentuser.Id,
+                        CreatedById = loggedInUser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = currentuser.Id,
-                    };
+                        UpdatedById = loggedInUser.Id,
+                    };                   
+
+                    //classes.ClassTeachers = new HashSet<ClassTeacher>();
+
+                    //foreach(var item in vm.ClassTeachers)
+                    //{
+                    //    var classTeacher = new ClassTeacher()
+                    //    {
+                    //        ClassNameId = vm.ClassNameId,
+                    //        AcademicLevelId = vm.AcademicLevelId,
+                    //        AcademicYearId = vm.AcademicYearId,
+                    //        TeacherId = item.Id,
+                    //        IsPrimary = false,
+                    //        IsActive = true,
+                    //        CreatedById = loggedInUser.Id,
+                    //        CreatedOn = DateTime.UtcNow,
+                    //        UpdatedById = loggedInUser.Id,
+                    //        UpdatedOn = DateTime.UtcNow,
+                    //    };
+
+                    //    classes.ClassTeachers.Add(classTeacher);
+                    //}
+
+                    //classes.ClassSubjectTeachers = new HashSet<ClassSubjectTeacher>();
+
+                    //foreach(var item in vm.CLassSubjectTeachers)
+                    //{
+                    //    var classSubjectTeacher = new ClassSubjectTeacher()
+                    //    {
+                    //        Id = item.Id,
+                    //        ClassNameId = vm.ClassNameId,
+                    //        AcademicLevelId = vm.AcademicLevelId,
+                    //        AcademicYearId = vm.AcademicYearId,
+                    //        SubjectId = 
+                            
+                    //    }  
+                    //}
+                    
 
                     schoolDb.Classes.Add(classes);
 
@@ -100,10 +136,10 @@ namespace SchoolManagement.Business.Master
                 else
                 {
                     classes.Name = vm.Name;
-                    classes.ClassCategory = vm.ClassCategory;
-                    classes.LanguageStream = vm.LanguageStream;
+                    classes.ClassCategory = vm.ClassCategoryId;
+                    //classes.LanguageStream = vm.LanguageStream;
                     classes.UpdatedOn = DateTime.UtcNow;
-                    classes.UpdatedById = currentuser.Id;
+                    classes.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Classes.Update(classes);
 

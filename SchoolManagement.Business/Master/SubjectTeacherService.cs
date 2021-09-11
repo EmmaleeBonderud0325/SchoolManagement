@@ -58,9 +58,9 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.SubjectTeachers.Where(st => st.IsActive == true);
 
-            var SubjectTeacherList = query.ToList();
+            var subjectTeacherList = query.ToList();
 
-            foreach (var subjectTeacher in SubjectTeacherList)
+            foreach (var subjectTeacher in subjectTeacherList)
             {
                 var vm = new SubjectTeacherViewModel()
                 {
