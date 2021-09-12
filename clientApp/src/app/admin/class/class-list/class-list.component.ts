@@ -56,7 +56,9 @@ export class ClassListComponent implements OnInit {
     private classService: ClassService,
     private dropDownService: DropdownService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService
+   
+   ) { }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -279,11 +281,11 @@ export class ClassListComponent implements OnInit {
             this.getAll();
           }
           else {
-            this.toastr.error(response.message, "Error");
+           this.toastr.error(response.message, "Error");
           }
 
         }, error => {
-          this.toastr.error("Network error has been occured. Please try again.", "Error");
+         this.toastr.error("Network error has been occured. Please try again.", "Error");
         });
       }
     });

@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ClassRoutingModule } from './class-routing.module';
 import { ClassListComponent } from './class-list/class-list.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-//import { ToastrModule } from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TableModule } from 'primeng/table';
 
@@ -22,7 +22,7 @@ import { TableModule } from 'primeng/table';
     MultiSelectModule,
     NgxDatatableModule,
     TableModule,
-    //ToastrModule.forRoot(),
+    ToastrModule.forRoot(),
   ]
 })
 export class ClassModule { }
