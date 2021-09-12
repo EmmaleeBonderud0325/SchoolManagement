@@ -2,10 +2,12 @@
 
 Add-Migration Schoolmanagement00001 -Project  SchoolManagement.Data -StartUp SchoolManagement.WebService -Verbose
 Add-Migration Schoolmanagement00002 -Project  SchoolManagement.Data -StartUp SchoolManagement.WebService -Verbose
+Add-Migration Schoolmanagement00003 -Project  SchoolManagement.Data -StartUp SchoolManagement.WebService -Verbose
 
 
   
 
 Script-Migration -From Schoolmanagement00001 -Project SchoolManagement.Data -StartUp SchoolManagement.WebService -Verbose
+Script-Migration -From Schoolmanagement00002 -Project SchoolManagement.Data -StartUp SchoolManagement.WebService -Verbose
 
 
