@@ -41,7 +41,7 @@ namespace SchoolManagement.Business
                 {
                     QuestionId = item.QuestionId,
                     QuestionName = item.Question.QuestionText,
-                    StudentAnswerText = ,
+                    //StudentAnswerText = 
                     StudentId = item.StudentId,
                     StudentName = item.Student.User.FullName,
                     TeacherComments = item.TeacherComments,
