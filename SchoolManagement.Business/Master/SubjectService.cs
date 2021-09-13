@@ -91,8 +91,8 @@ namespace SchoolManagement.Business.Master
                     SubjectAcademicLevels = subjectAcademicLevel,
                     CreatedByName = subject.CreatedBy.FullName,
                     CreatedOn = subject.CreatedOn,
+                    UpdatedByName = subject.UpdatedBy.FullName,
                     UpdatedOn = subject.UpdatedOn,
-                    SubjectAcademicLevels = subjectAcademicLevel,
                 };
 
                 if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
@@ -183,8 +183,6 @@ namespace SchoolManagement.Business.Master
                     subject.Name = vm.Name;
                     subject.SubjectCode = vm.SubjectCode;
                     subject.SubjectCategory = vm.SubjectCategory;
-                    subject.IsParentBasketSubject = vm.IsParentBasketSubject;
-                    subject.IsBuscketSubject = vm.IsBuscketSubject;
                     subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
                     subject.SubjectStreamId = vm.SubjectStreamId;
                     subject.IsActive = true;
@@ -217,13 +215,23 @@ namespace SchoolManagement.Business.Master
             response.SubjectCode = subject.SubjectCode;
             response.SubjectCategory = subject.SubjectCategory;
             response.SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory);
-            response.IsParentBasketSubject = subject.IsParentBasketSubject;
-            response.IsBuscketSubject = subject.IsBuscketSubject;
+
+            if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
+            {
+                response.SubjectType = SubjectType.NormalSubject;
+            }
+            else if (subject.IsParentBasketSubject == true)
+            {
+                response.SubjectType = SubjectType.ParentBasketSubject;
+            }
+            else
+            {
+                response.SubjectType = SubjectType.BasketSubject;
+            }
             response.ParentBasketSubjectId = subject.ParentBasketSubjectId;
             response.ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId);
             response.SubjectStreamId = subject.SubjectStreamId;
             response.SubjectStreamName = subject.SubjectStream.Name;
-            
 
             var subjectAcademicLevels = subject.SubjectAcademicLevels.Where(x => x.SubjectId == subject.Id);
 
