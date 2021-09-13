@@ -4,8 +4,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ClassTeacherService } from 'src/app/services/class-teacher/class-teacher.service';
-import { classteacherModel } from 'src/app/models/class-teacher/class-teacher.model';
+
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import Swal from 'sweetalert2';
 
@@ -23,7 +22,7 @@ export class ClassTeacherListComponent implements OnInit {
   loadingIndicator = false;
   saveClassTeacherForm:FormGroup;
   reorderable = true;
-  classTeacher:classteacherModel;
+  //classTeacher:classteacherModel;
   classnames:DropDownModel[] = [];
   academicLavels:DropDownModel[] = [];
   academicYears:DropDownModel[] = [];
@@ -32,18 +31,18 @@ export class ClassTeacherListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private classTeacherService:ClassTeacherService,
+    //private classTeacherService:ClassTeacherService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
+    /* this.getAll();
     this.getAllClassNames();
     this.getAllAcademicLevels();
     this.getAllAcademicYears();
-    this.getAllTeachers();
+    this.getAllTeachers(); */
   }
 
-  getAllClassNames()
+ /*  getAllClassNames()
       {
         this.classTeacherService.getAllClassNames()
           .subscribe(response=>
@@ -150,9 +149,9 @@ export class ClassTeacherListComponent implements OnInit {
     form.reset();
     this.modalService.dismissAll();
     this.addRecordSuccess();
-  }
+  } */
   
-  editRow(row:classteacherModel, rowIndex:number, content:any) {
+  /* editRow(row:classteacherModel, rowIndex:number, content:any) {
 
     console.log(row);
 
@@ -168,10 +167,10 @@ export class ClassTeacherListComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
-  }
+  } */
 
 //delete class teacher
-deleteClassTeacher(row) {
+/*  deleteClassTeacher(row) {
   Swal.fire({
     title: 'Are you sure Delete Class Teacher ?',
     showCancelButton: true,
@@ -198,9 +197,6 @@ deleteClassTeacher(row) {
       });
     }
   });
-}
+} */
 
-  addRecordSuccess() {
-    this.toastr.success('ClassTeacher Add Successfully', '');
-  }
 }

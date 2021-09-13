@@ -1,3 +1,4 @@
+import { DropdownService } from './../../../services/drop-down/dropdown.service';
 import { SubjectModel } from './../../../models/subject/subject.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { SubjectService} from './../../../services/subject/subject.service';
@@ -29,89 +30,104 @@ export class SubjectListComponent implements OnInit {
   subjectAcademicLevels:DropDownModel[]=[];
   subjectCategorys:DropDownModel[]=[];
   parentBasketSubjects:DropDownModel[]=[];
+  subjectTypes:DropDownModel[]=[];
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private subjectService:SubjectService,
+    private dropDownService:DropdownService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
     this.getAll();
+    this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
     this.getAllSubjectCategorys();
     this.getAllParentBasketSubjects();
   }
-
+  //getAll Subject
   getAll()
   {
     this.loadingIndicator=true;
-    this.subjectService.getAll().subscribe(response=>
+    this.subjectService.getAll()
+    .subscribe(response=>
     {
         this.data= response;
-        console.log(response);
         this.loadingIndicator=false;
     },error=>{
         this.loadingIndicator=false;
     });
   }
-
+  //get Subject Types DropDown Meta Data
+  getSubjectTypes()
+  {
+    this.dropDownService.getAllSubjectTypes()
+    .subscribe(response=>
+    {
+      this.subjectTypes = response;
+    },error=>{
+        
+    })
+  }
+  //get Subject Stream Master Meta Data
   getAllSubjectStreams()
   {
-    this.subjectService.getAllSubjectStreams()
+    this.dropDownService.getAllSubjectStreams()
       .subscribe(response=>
       { 
-        this.subjectstreams = response;
-        
+        this.subjectstreams = response;  
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
+        
        });
   }
-
+  //get Academic Levels DropDown Meta Data
   getAllAcademicLevels()
   {
-    this.subjectService.getAllAcademicLevels()
-     .subscribe(response=>{
-        this.subjectAcademicLevels = response;
-        
-    },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-    });
+    this.dropDownService.getAllAcademicLevels()
+     .subscribe(response=>
+      {
+        this.subjectAcademicLevels = response;  
+      },error=>{
+      
+      });
   }
-
+   //get Subject Categorys DropDown Meta Data
   getAllSubjectCategorys()
   {
-    this.subjectService.getAllSubjectCategorys()
-     .subscribe(response=>{
+    this.dropDownService.getAllSubjectCategorys()
+     .subscribe(response=>
+    {
         this.subjectCategorys = response;
-        
     },error=>{
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
-
+  //get All Parent Basket Subjects DropDown Meta Data
   getAllParentBasketSubjects()
   {
-    this.subjectService.getAllParentBasketSubjects()
+    this.dropDownService.getAllParentBasketSubjects()
      .subscribe(response=>{
         this.parentBasketSubjects = response;
-        console.log(response);
     },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      
     });
   }
- 
-  addNewSubject(content) {
+  //save Subject Form 
+  addNewSubject(content)
+   {
 
     this.subjectForm = this.fb.group({
+      id:[0],
       name: ['', [Validators.required]],
       subjectstreamId: [null, [Validators.required]],
       categorysId:[null,[Validators.required]],
       subjectCode:['',[Validators.required]],
+      subjectType:[null,[Validators.required]], 
       subjectAcademicLevels:[null,[Validators.required]],
       parentBasketSubjectId:[null],
-      isParentBasketSubject:[null],     
+          
     });
 
     this.modalService.open(content, {
@@ -120,11 +136,9 @@ export class SubjectListComponent implements OnInit {
     });
 
   }
-
-  saveSubject(){   
-    
-    console.log(this.subjectForm.value);
-    
+  //Save Subject 
+  saveSubject()
+  {   
     this.subjectService.saveSubject(this.subjectForm.value)
     .subscribe(response=>{
 
@@ -144,7 +158,7 @@ export class SubjectListComponent implements OnInit {
     });
 
   }
-  
+  //Delete subject 
   deleteSubject(row) {
     Swal.fire({
       title: 'Are you sure Delete Subject ?',
@@ -174,8 +188,9 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
-
-  updateSubject(row:SubjectModel, rowIndex:number, content:any) {
+  //update Subject
+  updateSubject(row:SubjectModel, rowIndex:number, content:any) 
+  {
 
     console.log(row);
     
@@ -187,9 +202,9 @@ export class SubjectListComponent implements OnInit {
       subjectstreamId: [row.subjectStreamId, [Validators.required]],
       categorysId:[row.subjectCategory,[Validators.required]],
       subjectCode:[row.subjectCode,[Validators.required]],
+      subjectType:[row.subjectType,[Validators.required]], 
       subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
       parentBasketSubjectId:[row.parentBasketSubjectId],
-      isParentBasketSubject:[row.isParentBasketSubject],
     });
 
     this.modalService.open(content, {
@@ -197,10 +212,10 @@ export class SubjectListComponent implements OnInit {
       size: 'lg',
     });
   }
-
-  get id()
+  //Suject Type Getter
+  get subjectType()
   {
-    return this.subjectForm.get("id").value;
+    return this.subjectForm.get("subjectType").value;
   }
   
 }

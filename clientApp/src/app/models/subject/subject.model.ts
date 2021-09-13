@@ -9,8 +9,7 @@ export class SubjectModel{
     subjectCategory:number;
     categorysId:number;
     subjectCategoryName:string;
-    isParentBasketSubject:boolean;
-    isBuscketSubject:boolean;
+    subjectType:number;
     parentBasketSubjectId:number;
     parentBasketSubjectName:string;
     subjectStreamId:number;
@@ -18,7 +17,8 @@ export class SubjectModel{
     isActive:boolean;
     createdByName:string;
     createdOn:Date;
-    updatedByName:string;
+    createdByName:string
     updatedOn:Date;
+    updatedByName:string;
     subjectAcademicLevels:CheckBoxModel[];
 }
