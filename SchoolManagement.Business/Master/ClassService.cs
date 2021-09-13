@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -11,181 +11,340 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
+using SchoolManagement.ViewModel;
 
 namespace SchoolManagement.Business.Master
 {
-    public class ClassService: IClassService
+  public class ClassService : IClassService
+  {
+    private readonly SchoolManagementContext schoolDb;
+    private readonly IConfiguration config;
+    private readonly ICurrentUserService currentUserService;
+
+    public ClassService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
     {
-        private readonly MasterDbContext masterDb;
-        private readonly SchoolManagementContext schoolDb;
-        private readonly IConfiguration config;
-        private readonly ICurrentUserService currentUserService;
-
-        public ClassService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
-        {
-            this.masterDb = masterDb;
-            this.schoolDb = schoolDb;
-            this.config = config;
-            this.currentUserService = currentUserService;
-        }
-
-        public List<ClassViewModel> GetClasses()
-        {
-            var response = new List<ClassViewModel>();
-
-            var query = schoolDb.Classes.Where(predicate: cn => cn.ClassNameId != null);
-
-            var ClassList = query.ToList();
-
-            foreach (var item in ClassList)
-            {
-                var vm = new ClassViewModel
-                {
-                    ClassNameId = item.ClassNameId,
-                    ClassClassName = item.ClassName.Name,
-                    AcademicLevelId = item.AcademicLevelId,
-                    AcademicLevelName = item.AcademicLevel.Name,
-                    AcademicYearId = item.AcademicYearId,
-                    Name = item.Name,
-                    ClassCategory = item.ClassCategory,
-                    ClassCategoryName = item.ClassCategory.ToString(),
-                    LanguageStream = item.LanguageStream,
-                    LanguageStreamName = item.LanguageStream.ToString(),
-                    CreatedOn = item.CreatedOn,
-                    CreatedById = item.CreatedById,
-                    CreatedByName = item.CreatedBy.FullName,
-                    UpdatedOn = item.UpdatedOn,
-                    UpdatedById = item.UpdatedById,
-                    UpdatedByName = item.UpdatedBy.FullName,
-                };
-
-                response.Add(vm);
-            }
-
-            return response;
-        }
-
-        public async Task <ResponseViewModel> SavaClass(ClassViewModel vm, string userName)
-        {
-            var response = new ResponseViewModel();
-
-            try
-            {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
-
-                var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
-
-                if (classes == null)
-                {
-                    classes = new Class()
-                    {
-                        ClassNameId = vm.ClassNameId,
-                        AcademicLevelId = vm.AcademicLevelId,
-                        AcademicYearId = vm.AcademicYearId,
-                        Name = vm.Name,
-                        ClassCategory = vm.ClassCategory,
-                        LanguageStream = vm.LanguageStream,
-                        CreatedOn = DateTime.UtcNow,
-                        CreatedById = currentuser.Id,
-                        UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = currentuser.Id,
-                    };
-
-                    schoolDb.Classes.Add(classes);
-
-                    response.IsSuccess = true;
-                    response.Message = "Class is Successfully Created.";
-                }
-                else
-                {
-                    classes.Name = vm.Name;
-                    classes.ClassCategory = vm.ClassCategory;
-                    classes.LanguageStream = vm.LanguageStream;
-                    classes.UpdatedOn = DateTime.UtcNow;
-                    classes.UpdatedById = currentuser.Id;
-
-                    schoolDb.Classes.Update(classes);
-
-                    response.IsSuccess = true;
-                    response.Message = "Class Successfully Updated.";
-                }
-
-                await schoolDb.SaveChangesAsync();
-            }
-            catch(Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = "Error has been occured while saving the acdemic level.";
-            }
-
-            return response;
-        }
-
-        public async Task<ResponseViewModel> DeleteClass(int classNameid)
-        {
-            var response = new ResponseViewModel();
-
-            try
-            {
-                var classes = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == classNameid);
-
-                schoolDb.Classes.Update(classes);
-                await schoolDb.SaveChangesAsync();
-
-                response.IsSuccess = true;
-                response.Message = "Class successfully deleted.";
-            }
-            catch (Exception ex)
-            {
-                response.IsSuccess = false;
-                response.Message = ex.ToString();
-            }
-
-            return response;
-        }
-
-        public List<DropDownViewModel> GetAllClassNames()
-        {
-            var classNames = schoolDb.ClassNames
-                .Where(x => x.IsActive == true)
-                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
-                .Distinct().ToList();
-
-            return classNames;
-        }
-
-        public List<DropDownViewModel> GetAllAcademicLevels()
-        {
-            var academicLevels = schoolDb.AcademicLevels
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = string.Format("{0}", al.Name) })
-                .Distinct().ToList();
-
-            return academicLevels;
-        }
-
-        public List<DropDownViewModel> GetAllAcademicYears()
-        {
-            var academicYears = schoolDb.AcademicYears
-                .Where(x => x.IsActive == true)
-                .Select(ay => new DropDownViewModel() { Id = ay.Id })
-                .Distinct().ToList();
-
-            return academicYears;
-        }
-
-        public List<DropDownViewModel> GetAllClassCategories()
-        {
-            return schoolDb.Classes.Where(x => x.ClassCategory != null)
-                                   .Select(cc => new DropDownViewModel() { Name = string.Format("{0}", cc.Name) })
-                                   .ToList();
-        }
-
-        public List<DropDownViewModel> GetAllLanguageStreams()
-        {
-            return schoolDb.Classes.Where(x => x.LanguageStream != null)
-                                   .Select(ls => new DropDownViewModel() { Id = ls.ClassNameId, Name = string.Format("{0}", ls.Name ) })
-                                   .ToList();
-        }
+      this.schoolDb = schoolDb;
+      this.config = config;
+      this.currentUserService = currentUserService;
     }
+
+    public async Task<ResponseViewModel> DeleteClass(int academicYearId, int academicLevelId, int classNameId, string username)
+    {
+      var response = new ResponseViewModel();
+
+      var currentUser = currentUserService.GetUserByUsername(username);
+
+      var classObj = schoolDb.Classes.FirstOrDefault(x => x.ClassNameId == classNameId && x.AcademicLevelId == academicLevelId && x.AcademicYearId == academicYearId);
+
+      if (classObj.StudentClasses.Count() == 0)
+      {
+        schoolDb.ClassSubjectTeachers.ToList().ForEach(x =>
+        {
+          schoolDb.ClassSubjectTeachers.Remove(x);
+        });
+
+        schoolDb.Classes.Remove(classObj);
+      }
+      else
+      {
+        classObj.IsActive = false;
+        classObj.UpdatedById = currentUser.Id;
+        classObj.UpdatedOn = DateTime.UtcNow;
+
+        schoolDb.Classes.Update(classObj);
+      }
+
+      await schoolDb.SaveChangesAsync();
+
+      response.IsSuccess = true;
+      response.Message = "Class has been deleted successfully.";
+
+      return response;
+    }
+
+    public ClassViewModel GetClassDetails(int academicYearId, int academicLevelId, int classNameId)
+    {
+      var classObj = schoolDb.Classes.FirstOrDefault(x => x.AcademicYearId == academicYearId && x.AcademicLevelId == academicLevelId && x.ClassNameId == classNameId);
+
+      var classTeacher = classObj.ClassTeachers.FirstOrDefault(c => c.IsPrimary == true);
+
+      var vm = new ClassViewModel()
+      {
+        AcademicLevelId = classObj.AcademicLevelId,
+        AcademicYearId = classObj.AcademicYearId,
+        ClassCategoryId = classObj.ClassCategory,
+        ClassNameId = classObj.ClassNameId,
+        ClassTeacherId = classTeacher!=null? classTeacher.TeacherId:0,
+        LanguageStreamId = classObj.LanguageStream,
+        Name = classObj.Name
+      };
+
+      var academicLevelSubjects = schoolDb.SubjectAcademicLevels.Where(x => x.AcademicLevelId == classObj.AcademicLevelId)
+        .OrderBy(s => s.Subject.Name).ToList();
+
+      foreach (var item in academicLevelSubjects)
+      {
+        var allSubjectTeachers = item.Subject.SubjectTeachers
+          .Where(x => x.AcademicYearId == academicYearId && x.IsActive == true)
+          .Select(t => new DropDownViewModel() { Id = t.Id, Name = t.Teacher.FullName }).ToList();
+
+        var subjectTeacher = classObj.ClassSubjectTeachers.FirstOrDefault(x => x.SubjectId == item.SubjectId);
+
+        var classSubjectTeacherVm = new ClassSubjectTeacherViewModel()
+        {
+          Id = subjectTeacher != null ? subjectTeacher.Id : 0,
+          AcademicLevelId = academicLevelId,
+          AcademicYearId = academicYearId,
+          AllSubjectTeachers = allSubjectTeachers,
+          SubjectId = item.SubjectId,
+          SubjectName = item.Subject.Name,
+          SubjectTeacherId = subjectTeacher != null ? subjectTeacher.SubjectTeacherId : 0
+        };
+
+        vm.ClassSubjectTeachers.Add(classSubjectTeacherVm);
+      }
+
+      return vm;
+    }
+
+    public PaginatedItemsViewModel<BasicClassViewModel> GetClassList(string searchText, int currentPage, int pageSize, int academicYearId, int academicLevelId)
+    {
+      int totalRecordCount = 0;
+      double totalPages = 0;
+      int totalPageCount = 0;
+      var vms = new List<BasicClassViewModel>();
+
+      var classes = schoolDb.Classes.OrderBy(cl => cl.Name);
+
+      if (!string.IsNullOrEmpty(searchText))
+      {
+        classes = classes.Where(x => x.Name.Contains(searchText)).OrderBy(cl => cl.Name);
+      }
+
+      if (academicYearId > 0)
+      {
+        classes = classes.Where(x => x.AcademicYearId == academicYearId).OrderBy(cl => cl.Name);
+      }
+
+      if (academicLevelId > 0)
+      {
+        classes = classes.Where(x => x.AcademicLevelId == academicLevelId).OrderBy(cl => cl.Name);
+      }
+
+      totalRecordCount = classes.Count();
+      totalPages = (double)totalRecordCount / pageSize;
+      totalPageCount = (int)Math.Ceiling(totalPages);
+
+      var classList = classes.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+      classList.ForEach(cl =>
+      {
+        var classTeacher = cl.ClassTeachers.FirstOrDefault(x => x.IsPrimary == true);
+
+        var vm = new BasicClassViewModel()
+        {
+          AcademicLevelId = cl.AcademicLevelId,
+          AcademicYearId = cl.AcademicYearId,
+          ClassNameId= cl.ClassNameId,
+          ClassTeacherName = classTeacher != null ? classTeacher.Teacher.FullName : string.Empty,
+          Name = cl.Name,
+          TotalStudentCount = cl.StudentClasses.Count()
+        };
+
+        vms.Add(vm);
+      });
+
+      var container = new PaginatedItemsViewModel<BasicClassViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vms);
+
+      return container;
+    }
+
+    public ClassMasterDataViewModel GetClassMasterData()
+    {
+      var response = new ClassMasterDataViewModel();
+
+      response.CurrentAcademicYear = schoolDb.AcademicYears.FirstOrDefault(x => x.IsActive).Id;
+      response.AcademicYears = schoolDb.AcademicYears.OrderBy(x => x.Id).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Id.ToString() }).ToList();
+      response.ClassNames = schoolDb.ClassNames.OrderBy(cl=>cl.Name).Select(a => new DropDownViewModel() { Id = a.Id, Name =a.Name }).ToList();
+      response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Name).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
+      response.AllTeachers = schoolDb.Roles.Where(x => x.Id == 6).SelectMany(s => s.UserRoles).Select(s => new DropDownViewModel() { Id = s.UserId, Name = s.User.FullName }).ToList();
+
+      foreach (ClassCategory category in (ClassCategory[])Enum.GetValues(typeof(ClassCategory)))
+      {
+        response.ClassCategories.Add(new DropDownViewModel() { Id = (int)category, Name = EnumHelper.GetEnumDescription(category) });
+      }
+
+      foreach (LanguageStream stream in (LanguageStream[])Enum.GetValues(typeof(LanguageStream)))
+      {
+        response.LanguageStreams.Add(new DropDownViewModel() { Id = (int)stream, Name = EnumHelper.GetEnumDescription(stream) });
+      }
+
+      return response;
+    }
+
+    public List<ClassSubjectTeacherViewModel> GetClassSubjectsForSelectedAcademiclevel(int academicYearId, int academicLevelId)
+    {
+      var response = new List<ClassSubjectTeacherViewModel>();
+
+      var academicLevelSubjects = schoolDb.SubjectAcademicLevels.Where(x => x.AcademicLevelId == academicLevelId).OrderBy(s => s.Subject.Name).ToList();
+
+      foreach (var item in academicLevelSubjects)
+      {
+        var allSubjectTeachers = item.Subject.SubjectTeachers
+          .Where(x => x.AcademicYearId == academicYearId && x.IsActive == true)
+          .Select(t => new DropDownViewModel() { Id = t.Id, Name = t.Teacher.FullName }).ToList();
+
+        var vm = new ClassSubjectTeacherViewModel()
+        {
+          AcademicLevelId = academicLevelId,
+          AcademicYearId = academicYearId,
+          AllSubjectTeachers = allSubjectTeachers,
+          SubjectId = item.SubjectId,
+          SubjectName = item.Subject.Name
+        };
+
+        response.Add(vm);
+      }
+
+      return response;
+    }
+
+    public async Task<ResponseViewModel> SaveClassDetail(ClassViewModel vm, string userName)
+    {
+      var response = new ResponseViewModel();
+
+      try
+      {
+        var currentUser = currentUserService.GetUserByUsername(userName);
+
+        var classObj = schoolDb.Classes.FirstOrDefault(x => x.AcademicYearId == vm.AcademicYearId && x.AcademicLevelId == vm.AcademicLevelId && x.ClassNameId == vm.ClassNameId);
+
+        if (classObj == null)
+        {
+          classObj = new Class()
+          {
+            AcademicLevelId = vm.AcademicLevelId,
+            AcademicYearId = vm.AcademicYearId,
+            ClassCategory = vm.ClassCategoryId,
+            ClassNameId = vm.ClassNameId,
+            CreatedById = currentUser.Id,
+            CreatedOn = DateTime.UtcNow,
+            IsActive = true,
+            LanguageStream = vm.LanguageStreamId,
+            Name = vm.Name,
+            UpdatedById = currentUser.Id,
+            UpdatedOn = DateTime.UtcNow,
+          };
+
+          classObj.ClassTeachers = new HashSet<ClassTeacher>();
+          classObj.ClassTeachers.Add(new ClassTeacher()
+          {
+            TeacherId = vm.ClassTeacherId,
+            IsPrimary = true,
+            IsActive = true,
+            CreatedOn = DateTime.UtcNow,
+            CreatedById = currentUser.Id,
+            UpdatedOn = DateTime.UtcNow,
+            UpdatedById = currentUser.Id
+          });
+
+          classObj.ClassSubjectTeachers = new HashSet<ClassSubjectTeacher>();
+
+          foreach (var item in vm.ClassSubjectTeachers)
+          {
+            classObj.ClassSubjectTeachers.Add(new ClassSubjectTeacher()
+            {
+              CreatedById = currentUser.Id,
+              SubjectId = item.SubjectId,
+              SubjectTeacherId = item.SubjectTeacherId,
+              StartDate = DateTime.UtcNow,
+              IsActive = true,
+              UpdatedById = currentUser.Id,
+              UpdatedOn = DateTime.UtcNow,
+              CreatedOn = DateTime.UtcNow
+            });
+          }
+
+          schoolDb.Classes.Add(classObj);
+
+          response.Message = "New class has been successfully added.";
+        }
+        else
+        {
+
+          classObj.LanguageStream = vm.LanguageStreamId;
+          classObj.UpdatedById = currentUser.Id;
+          classObj.UpdatedOn = DateTime.UtcNow;
+          if(classObj.ClassTeachers.Count()>0)
+          {
+            var classTeacher = classObj.ClassTeachers.FirstOrDefault();
+            classTeacher.TeacherId = vm.ClassTeacherId;
+            classTeacher.UpdatedById = currentUser.Id;
+            classTeacher.UpdatedOn = DateTime.UtcNow;
+
+            schoolDb.ClassTeachers.Update(classTeacher);
+          }
+          else
+          {
+            classObj.ClassTeachers.Add(new ClassTeacher()
+            {
+              TeacherId = vm.ClassTeacherId,
+              IsPrimary = true,
+              IsActive = true,
+              CreatedOn = DateTime.UtcNow,
+              CreatedById = currentUser.Id,
+              UpdatedOn = DateTime.UtcNow,
+              UpdatedById = currentUser.Id
+            });
+          }
+
+
+          var savedClassSubjectTeachers = classObj.ClassSubjectTeachers.Where(x => x.IsActive == true).ToList();
+
+          var newlyAddedClassSubjectTeachers = (from n in vm.ClassSubjectTeachers where !savedClassSubjectTeachers.Any(x => x.Id == n.Id) select n).ToList();
+
+          foreach (var item in newlyAddedClassSubjectTeachers)
+          {
+            classObj.ClassSubjectTeachers.Add(new ClassSubjectTeacher()
+            {
+              CreatedById = currentUser.Id,
+              SubjectId = item.SubjectId,
+              SubjectTeacherId = item.SubjectTeacherId,
+              StartDate = DateTime.UtcNow,
+              IsActive = true,
+              UpdatedById = currentUser.Id,
+              UpdatedOn = DateTime.UtcNow,
+              CreatedOn = DateTime.UtcNow
+            });
+          }
+
+          var deletedClassSubjectTeachers = (from d in savedClassSubjectTeachers where !vm.ClassSubjectTeachers.Any(x => x.Id == d.Id) select d).ToList();
+
+          foreach (var item in deletedClassSubjectTeachers)
+          {
+            item.IsActive = false;
+            item.UpdatedById = currentUser.Id;
+            item.UpdatedOn = DateTime.UtcNow;
+            item.EndDate = DateTime.UtcNow;
+
+            schoolDb.ClassSubjectTeachers.Update(item);
+          }
+
+          response.Message = "Class detail has been successfully updated.";
+        }
+
+        await schoolDb.SaveChangesAsync();
+
+        response.IsSuccess = true;
+      }
+      catch (Exception ex)
+      {
+        response.IsSuccess = false;
+        response.Message = "Error has been occured while saving the class details.";
+      }
+
+      return response;
+    }
+  }
 }

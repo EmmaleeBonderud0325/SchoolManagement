@@ -14,7 +14,8 @@ namespace SchoolManagement.Model
 		public string Name { get; set; }
 		public ClassCategory ClassCategory { get; set; }
 		public LanguageStream LanguageStream { get; set; }
-		public DateTime CreatedOn { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime CreatedOn { get; set; }
 		public int CreatedById { get; set; }
 		public DateTime UpdatedOn { get; set; }
 		public int UpdatedById { get; set; }

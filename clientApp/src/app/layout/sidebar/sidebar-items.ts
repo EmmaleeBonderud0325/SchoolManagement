@@ -11,7 +11,7 @@ export const ROUTES: RouteInfo[] = [
     badge: '',
     badgeClass: '',
     submenu: [],
-    isVisible:true
+    isVisible: true
   },
   {
     path: '',
@@ -23,7 +23,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    isVisible:true,
+    isVisible: true,
     submenu: [
       //lesson
       {
@@ -37,7 +37,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
 
       //question
@@ -52,7 +52,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
 
       // mcq-question-answer
@@ -102,6 +102,8 @@ export const ROUTES: RouteInfo[] = [
       },
 
 
+        isVisible: true
+      }
     ],
   },
   {
@@ -114,7 +116,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
-    isVisible:true,
+    isVisible: true,
     submenu: [
       {
         path: '/admin/user',
@@ -127,7 +129,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/academic-level',
@@ -140,7 +142,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true,
+        isVisible: true,
       },
       {
         path: '/admin/academic-year',
@@ -153,7 +155,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/class-name',
@@ -166,7 +168,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/class',
@@ -179,7 +181,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/class-teacher',
@@ -192,7 +194,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/student',
@@ -205,7 +207,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       },
       {
         path: '/admin/subject',
@@ -218,7 +220,20 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
+      },
+      {
+        path: '/admin/subject-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.SUBJECT_TEACHERS',
+        moduleName: 'subject-teacher',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/example',
@@ -231,7 +246,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true
+        isVisible: true
       }
       /*{
         path: '/admin/head-of-department',

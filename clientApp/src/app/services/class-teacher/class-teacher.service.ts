@@ -1,4 +1,4 @@
-import { DropDownModel } from './../../models/common/drop-down.model';
+/* import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from '../../models/common/response.model';
 import { environment } from '../../../environments/environment';
 import { classteacherModel } from '../../models/class-teacher/class-teacher.model';
@@ -16,12 +16,12 @@ export class ClassTeacherService {
 
   getAll(): Observable<classteacherModel[]>{
     return this.httpClient.
-      get<classteacherModel[]>(environment.apiUrl + 'ClassTeacher')
+      get<classteacherModel[]>(environment.apiUrl + 'ClassTeacher/getClassTeachers')
   }
 
   saveClassTeacher(vm: classteacherModel): Observable<ResponseModel> {
     return this.httpClient.
-      post<ResponseModel>(environment.apiUrl + 'ClassTeacher', vm);
+      post<ResponseModel>(environment.apiUrl + 'ClassTeacher/saveClassTeacher', vm);
   }
 
   delete(classNameId: number): Observable<ResponseModel> {
@@ -48,4 +48,4 @@ export class ClassTeacherService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'ClassTeacher/getAllTeachers');
   }
-}
+} */
