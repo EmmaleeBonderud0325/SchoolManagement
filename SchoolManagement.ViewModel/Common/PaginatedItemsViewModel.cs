@@ -20,13 +20,13 @@ namespace SchoolManagement.ViewModel
         }
 
         public PaginatedItemsViewModel(int currentPage,int pageSize,int totalPageCount,int totalRecordCount, IEnumerable<TEntity> data)
-    {
-      this.CurrentPage = currentPage;
-      this.PageSize = pageSize;
-      this.TotalPageCount = totalPageCount;
-      this.TotalRecordCount = totalRecordCount;
-      this.Data = data;
-    }
+        {
+          this.CurrentPage = currentPage;
+          this.PageSize = pageSize;
+          this.TotalPageCount = totalPageCount;
+          this.TotalRecordCount = totalRecordCount;
+          this.Data = data;
+        }
 
     public int CurrentPage { get; set; }
     public int PageSize { get; set; }
