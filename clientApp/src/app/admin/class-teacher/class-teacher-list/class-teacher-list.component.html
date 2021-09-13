@@ -1,5 +1,5 @@
 <section class="main-content">
-    <ul class="breadcrumb breadcrumb-style ">
+   <!--  <ul class="breadcrumb breadcrumb-style ">
         <li class="breadcrumb-item">
           <h5 class="page-title m-b-0">Admin</h5>
         </li>
@@ -48,9 +48,9 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </div>-->
 
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+              <!-- <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
@@ -69,80 +69,80 @@
                   </ng-template>
                 </ngx-datatable-column>
                 
-                <!--teacherClassName column-->
+               
 				        <ngx-datatable-column name="Class Name" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.teacherClassName}}
                   </ng-template>
                 </ngx-datatable-column>
                 
-                <!--academicLevelName column-->
+                
                 <ngx-datatable-column name="Academic Level" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.academicLevelName}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--academicYearId column-->
+                
                 <ngx-datatable-column name="Academic Year " [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.academicYearId}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--teacherName column-->
+               
                 <ngx-datatable-column name="Teacher" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.teacherName}}
                     </ng-template>
                   </ngx-datatable-column>
 
-                <!--isPrimary column-->
+                
                 <ngx-datatable-column name="Is Primary" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
                       {{row.isPrimary}}
                     </ng-template>
                 </ngx-datatable-column>
 
-                <!--isActive column-->
+                
                 <ngx-datatable-column name="Is Active" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.isActive}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--createdOn column-->
+                
                 <ngx-datatable-column name="Created On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--createdByName column-->
+                
                 <ngx-datatable-column name="Created By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdByName}}
                   </ng-template>
                 </ngx-datatable-column>
                 
-                <!--updatedOn column-->
+                
 				        <ngx-datatable-column name="Updated On" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--updatedByName column-->
+                
                 <ngx-datatable-column name="Updated By" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
-              </ngx-datatable>
+              </ngx-datatable> -->
 
-              <ng-template #addEditRecord let-modal>
-                <div class="modal-header editRowModal">
-                  <h4 class="modal-title" id="modal-basic-title">
+            <!--   <ng-template #addEditRecord let-modal>
+                <div class="modal-header editRowModal"> -->
+                  <!-- <h4 class="modal-title" id="modal-basic-title">
                     <div class="table-modal-header">
                       <div class="modal-about">
                         <div class="fw-bold p-t-10 font-17">
@@ -150,8 +150,8 @@
                         </div>
                       </div>
                     </div>
-                  </h4>
-                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                  </h4> -->
+              <!--     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
                     <span aria-hidden="true"><i class="material-icons">close</i></span>
                   </button>
                 </div>
@@ -194,7 +194,7 @@
                         </div>
                       </div>
 
-                      <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                     
                         <label>Is Primary <span class="text-danger">*</span></label>
                         <select class="form-control" formControlName="isPrimary" required>
                           <option value="" selected disabled>Please select</option>
@@ -204,9 +204,9 @@
                           </option>
                         </select>
                       </div> --> 
-                    </div>
+     <!--                </div>
 
-                     <!-- Modal Footer -->
+                    
                      <div class="modal-footer">
                        <button 
                         type="submit" 
@@ -227,5 +227,5 @@
           </div>
         </div>
       </div>
-  </div>
-</section>
+  </div> 
+</section> -->

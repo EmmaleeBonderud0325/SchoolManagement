@@ -1,4 +1,4 @@
-﻿using SchoolManagement.Model;
+using SchoolManagement.Model;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
@@ -8,25 +8,58 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ViewModel.Master
 {
-	public class ClassViewModel
-	{
-		public int ClassNameId { get; set; }
-        public string ClassClassName { get; set; }
-        public int AcademicLevelId { get; set; }
-        public string AcademicLevelName { get; set; }
-        public int AcademicYearId { get; set; }
-		public string Name { get; set; }
-		public ClassCategory ClassCategory { get; set; }
-        public string ClassCategoryName { get; set; }
-        public List<DropDownViewModel> ClassCategories { get; set; }
-        public LanguageStream LanguageStream { get; set; }
-        public string LanguageStreamName { get; set; }
-        public List<DropDownViewModel> LanguageStreams { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public int CreatedById { get; set; }
-        public string CreatedByName { get; set; }
-        public DateTime UpdatedOn { get; set; }
-        public int UpdatedById { get; set; }
-        public string UpdatedByName { get; set; }
+
+  public class BasicClassViewModel
+  {
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int AcademicYearId { get; set; }
+    public int AcademicLevelId { get; set; }
+    public int ClassNameId { get; set; }
+    public string ClassTeacherName { get; set; }
+    public int TotalStudentCount { get; set; }
+  }
+
+  public class ClassViewModel
+  {
+    public ClassViewModel()
+    {
+      ClassSubjectTeachers = new List<ClassSubjectTeacherViewModel>();
     }
+
+    public int AcademicYearId { get; set; }
+    public int AcademicLevelId { get; set; }
+    public int ClassNameId { get; set; }
+    public string Name { get; set; }
+
+    public ClassCategory ClassCategoryId { get; set; }
+    public LanguageStream LanguageStreamId { get; set; }
+    public int ClassTeacherId { get; set; }
+
+    public List<ClassSubjectTeacherViewModel> ClassSubjectTeachers { get; set; }
+  }
+
+
+
+  public class ClassMasterDataViewModel
+  {
+    public ClassMasterDataViewModel()
+    {
+
+      AcademicYears = new List<DropDownViewModel>();
+      AcademicLevels = new List<DropDownViewModel>();
+      ClassNames = new List<DropDownViewModel>();
+      ClassCategories = new List<DropDownViewModel>();
+      LanguageStreams = new List<DropDownViewModel>();
+    }
+
+
+    public int CurrentAcademicYear { get; set; }
+    public List<DropDownViewModel> AcademicYears { get; set; }
+    public List<DropDownViewModel> AcademicLevels { get; set; }
+    public List<DropDownViewModel> ClassNames { get; set; }
+    public List<DropDownViewModel> ClassCategories { get; set; }
+    public List<DropDownViewModel> LanguageStreams { get; set; }
+    public List<DropDownViewModel> AllTeachers { get; set; }
+  }
 }

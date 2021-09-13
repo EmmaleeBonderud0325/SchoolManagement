@@ -9,11 +9,20 @@ namespace SchoolManagement.Business.Interfaces
 {
     public interface IDropDownService
     {
-        //Sucject Service Dropdouwn Service
+        //common Services
+        List<DropDownViewModel> GetAllAcademicLevels();
+
+        //Sucject Dropdouwn Service
         List<DropDownViewModel> GetSubjectTypes();
         List<DropDownViewModel> GetAllSubjectCategorys();
         List<DropDownViewModel> GetAllParentBasketSubjects();
-        List<DropDownViewModel> GetAllAcademicLevels();
         List<DropDownViewModel> GetAllSubjectStreams();
+
+        //Class Drop Down Service
+        List<DropDownViewModel> GetAllClassNames();
+        List<DropDownViewModel> GetAllAcademicYears();
+        List<DropDownViewModel> GetAllClassCategories();
+        List<DropDownViewModel> GetAllLanguageStreams();
+        List<DropDownViewModel> GetAllTeachers();
     }
 }

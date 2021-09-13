@@ -107,6 +107,9 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<int>("LanguageStream")
                         .HasColumnType("int");
 
@@ -785,6 +788,9 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<int>("AcademicYearId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.HasKey("StudentId", "ClassNameId", "AcademicLevelId", "AcademicYearId");
 
                     b.HasIndex("ClassNameId", "AcademicLevelId", "AcademicYearId");
@@ -1216,7 +1222,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(2715),
+                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(7484),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1225,13 +1231,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(2953),
+                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(8149),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(3645),
+                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(9372),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1240,7 +1246,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 214, DateTimeKind.Utc).AddTicks(3647),
+                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(9377),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1286,20 +1292,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(6309),
+                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(7260),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(6757)
+                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(7582)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(8312),
+                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(8791),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 9, 9, 15, 30, 39, 225, DateTimeKind.Utc).AddTicks(8315)
+                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(8793)
                         });
                 });
 

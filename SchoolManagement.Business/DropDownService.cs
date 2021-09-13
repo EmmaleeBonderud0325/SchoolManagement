@@ -71,5 +71,53 @@ namespace SchoolManagement.Business
             return subjectStream;
         }
 
+        //Clasee DropDownServices
+        public List<DropDownViewModel> GetAllClassNames()
+        {
+            var classNames = schoolDb.ClassNames
+                .Where(x => x.IsActive == true)
+                .Select(cn => new DropDownViewModel() { Id = cn.Id, Name = string.Format("{0}", cn.Name) })
+                .Distinct().ToList();
+
+            return classNames;
+        }
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            var academicYears = schoolDb.AcademicYears
+                .Where(x => x.IsActive == true)
+                .Select(ay => new DropDownViewModel() { Id = ay.Id })
+                .Distinct().ToList();
+
+            return academicYears;
+        }
+        public List<DropDownViewModel> GetAllClassCategories()
+        {
+            var response = Enum.GetValues(typeof(ClassCategory)).Cast<ClassCategory>()
+                .Select(t => new DropDownViewModel { Id = (int)t, Name = t.ToString() })
+                .ToList();
+
+            return response;
+        }
+
+        public List<DropDownViewModel> GetAllLanguageStreams()
+        {
+            var response = Enum.GetValues(typeof(LanguageStream)).Cast<LanguageStream>()
+               .Select(t => new DropDownViewModel { Id = (int)t, Name = t.ToString() })
+               .ToList();
+
+            return response;
+        }
+
+        public List<DropDownViewModel> GetAllTeachers()
+        {
+            var teachers = schoolDb.UserRoles
+                 .Where(x => x.RoleId == (int)RoleType.Teacher)
+                 .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0}", u.User.FullName) })
+                 .Distinct().ToList();
+
+            return teachers;
+        }
+
+       
     }
 }
