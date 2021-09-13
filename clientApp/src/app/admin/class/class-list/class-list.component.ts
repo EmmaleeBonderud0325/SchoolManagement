@@ -61,7 +61,7 @@ export class ClassListComponent implements OnInit {
    ) { }
 
   ngOnInit(): void {
-    this.spinner.show();
+    //this.spinner.show();
     this.getMasterData();
     this.filterForm = this.createFilterForm();
     this.classForm = this.createNewClassForm();
@@ -74,7 +74,7 @@ export class ClassListComponent implements OnInit {
       searchText: new FormControl("")
     });
   }
-
+  //create new Class Form
   createNewClassForm(): FormGroup {
     return this.formBuilder.group({
       academicYearId: [0, Validators.required],
@@ -87,9 +87,7 @@ export class ClassListComponent implements OnInit {
       classSubjectTeachers: [null]
     });
   }
-
-
-  //get class Names DropDown Meta Data
+  //get DropDown Master Meta Data
   getMasterData() {
     this.classService.getClassMasterData()
       .subscribe(response => {
@@ -111,7 +109,6 @@ export class ClassListComponent implements OnInit {
         this.spinner.hide();
       });
   }
-
   //get Class
   getAll() {
     this.loadingIndicator = true;
@@ -127,14 +124,13 @@ export class ClassListComponent implements OnInit {
         this.toastr.error("Network error has been occured. Please try again.", "Error");
       });
   }
-
   setPage(pageInfo) {
     this.spinner.show();
     this.loadingIndicator = true;
     this.currentPage = pageInfo.offset;
     this.getAll();
   }
-
+  //FIlter Master 
   filterDatatable(event) {
     this.currentPage = 0;
     this.pageSize = 25;
@@ -143,7 +139,7 @@ export class ClassListComponent implements OnInit {
     this.spinner.show();
     this.getAll();
   }
-
+  //filter academic data 
   onAcademicLevelFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
@@ -151,8 +147,7 @@ export class ClassListComponent implements OnInit {
     this.spinner.show();
     this.getAll();
   }
-
-
+ //getters
   get academicYearFilterId() {
     return this.filterForm.get("academicYearId").value;
   }
@@ -165,9 +160,7 @@ export class ClassListComponent implements OnInit {
     return this.filterForm.get("searchText").value;
   }
 
-
   //Add/Edit Class Modal popup
-
   addRow(content) {
 
     this.selectedRowData = null;
@@ -238,7 +231,7 @@ export class ClassListComponent implements OnInit {
         this.spinner.hide();
       });
   }
-
+  //Save Class
   save() {
 
     this.spinner.show();
@@ -305,6 +298,7 @@ export class ClassListComponent implements OnInit {
     this.checkAllClassSubjectTeacherSelected();
   }
 
+  //Set class Name Auto
   setClassName() {
     let selectedAcademicLevel: string = "";
     let selectedClassName: string = "";
@@ -325,6 +319,7 @@ export class ClassListComponent implements OnInit {
 
   }
 
+  //chckAll Selected Class Teachers
   checkAllClassSubjectTeacherSelected() {
 
     if (this.classSubjectTeachers.length <= 0) {
@@ -343,14 +338,18 @@ export class ClassListComponent implements OnInit {
     this.allClassSubjectTeacherSelected = true;;
   }
 
+  //Getters
+
+  // get AcademicYear Id
   get academicYearId() {
     return this.classForm.get("academicYearId").value;
   }
 
+  // get AcademicLevel Id
   get academicLevelId() {
     return this.classForm.get("academicLevelId").value;
   }
-
+   // get ClassNameId Id
   get classNameId() {
     return this.classForm.get("classNameId").value;
   }

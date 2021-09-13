@@ -31,23 +31,33 @@ export class ClassService {
   }
 
   getClassDetails(academicYearId: number, academicLevelId: number, classNameId: number): Observable<ClassModel> {
-    return this.httpClient.get<ClassModel>(environment.apiUrl + "Class/getClassDetails/" + academicYearId + "/" + academicLevelId + "/" + classNameId);
+    return this.httpClient
+      .get<ClassModel>
+        (environment.apiUrl + "Class/getClassDetails/" + academicYearId + "/" + academicLevelId + "/" + classNameId);
   }
 
   getClassSubjectsForSelectedAcademiclevel(academicYearId: number, academicLevelId: number): Observable<ClassSubjectTeacherModel[]> {
-    return this.httpClient.get<ClassSubjectTeacherModel[]>(environment.apiUrl + "Class/getClassSubjectsForSelectedAcademiclevel/" + academicYearId + "/" + academicLevelId);
+    return this.httpClient
+      .get<ClassSubjectTeacherModel[]>
+        (environment.apiUrl + "Class/getClassSubjectsForSelectedAcademiclevel/" + academicYearId + "/" + academicLevelId);
   }
 
   saveClassDetail(vm: ClassModel): Observable<ResponseModel> {
-    return this.httpClient.post<ResponseModel>(environment.apiUrl + "Class/saveClassDetail", vm);
+    return this.httpClient
+      .post<ResponseModel>
+        (environment.apiUrl + "Class/saveClassDetail", vm);
   }
 
   deleteClass(academicYearId: number, academicLevelId: number, classNameId: number): Observable<ResponseModel> {
-    return this.httpClient.delete<ResponseModel>(environment.apiUrl + "Class/deleteClass/" + academicYearId + "/" + academicLevelId + "/" + classNameId);
+    return this.httpClient
+      .delete<ResponseModel>
+        (environment.apiUrl + "Class/deleteClass/" + academicYearId + "/" + academicLevelId + "/" + classNameId);
   }
 
   getClassMasterData(): Observable<ClassMasterDataModel> {
-    return this.httpClient.get<ClassMasterDataModel>(environment.apiUrl + "Class/getClassMasterData");
+    return this.httpClient
+      .get<ClassMasterDataModel>
+        (environment.apiUrl + "Class/getClassMasterData");
   }
 
 }
