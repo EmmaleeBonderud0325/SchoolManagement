@@ -17,7 +17,6 @@ export class SubjectModel{
     isActive:boolean;
     createdByName:string;
     createdOn:Date;
-    createdByName:string
     updatedOn:Date;
     updatedByName:string;
     subjectAcademicLevels:CheckBoxModel[];
