@@ -31,10 +31,7 @@ namespace SchoolManagement.WebService.Controllers
             var userName = identityService.GetUserName();
             var response = lessonDesignService.GetAllLessons(filters, userName);
             return Ok(response);
-        }
-
-       
-
+        }       
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
@@ -64,6 +61,15 @@ namespace SchoolManagement.WebService.Controllers
         {
             var response = await lessonDesignService.DeleteLesson(Id);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getLessonMasterData")]
+        public LessonMasterDataViewModel GetLessonMasterData()
+        {
+            var response = lessonDesignService.GetLessonMasterData();
+
+            return response;
         }
     }
 }
