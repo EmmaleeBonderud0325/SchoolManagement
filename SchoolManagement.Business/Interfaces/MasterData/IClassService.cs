@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Common;
+using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
 using System.Collections.Generic;
@@ -8,15 +9,14 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business.Interfaces.MasterData
 {
-    public interface IClassService
-    {
-        List<ClassViewModel> GetClasses();
-        Task<ResponseViewModel> SavaClass(ClassViewModel vm, string userName);
-        Task<ResponseViewModel> DeleteClass(int id);
-        List<DropDownViewModel> GetAllClassNames();
-        List<DropDownViewModel> GetAllAcademicLevels();
-        List<DropDownViewModel> GetAllAcademicYears();
-        List<DropDownViewModel> GetAllClassCategories();
-        List<DropDownViewModel> GetAllLanguageStreams();
-    }
+  public interface IClassService
+  {
+    PaginatedItemsViewModel<BasicClassViewModel> GetClassList(string searchText, int currentPage, int pageSize, int academicYearId, int academicLevelId);
+    ClassViewModel GetClassDetails(int academicYearId, int academicLevelId, int classNameId);
+    List<ClassSubjectTeacherViewModel> GetClassSubjectsForSelectedAcademiclevel(int academicYearId,int academicLevelId);
+    Task<ResponseViewModel> SaveClassDetail(ClassViewModel vm, string userName);
+    ClassMasterDataViewModel GetClassMasterData();
+    Task<ResponseViewModel> DeleteClass(int academicYearId, int academicLevelId, int classNameId, string username);
+
+  }
 }
