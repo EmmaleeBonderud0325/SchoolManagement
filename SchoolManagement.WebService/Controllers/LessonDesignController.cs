@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -70,6 +71,17 @@ namespace SchoolManagement.WebService.Controllers
             var response = lessonDesignService.GetLessonMasterData();
 
             return response;
+        }
+
+        [HttpGet]
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(LessonFilterViewModel filters, int cuttrentPage, int pageSize)
+        {
+            var userName = identityService.GetUserName();
+            var response = lessonDesignService.GetLessonList(filters, cuttrentPage, pageSize, userName);
+
+            return response;
+
         }
     }
 }
