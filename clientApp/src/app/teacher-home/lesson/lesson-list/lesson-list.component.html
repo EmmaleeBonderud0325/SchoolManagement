@@ -18,7 +18,8 @@
                 <div class="row">
                   <div class="col-12">
                     <div class="row m-0">
-                      <form [formGroup]="lessonFilterForm">
+                      <form 
+                        [formGroup]="lessonFilterForm">
                         <div class="col-12 p-0">
                           <div class="ngxTableHeader">
                             <div class="table-title">
@@ -144,7 +145,7 @@
                     <span>
                       <button
                         class="btn btn-icon icon-left btn-primary rounded-button"
-                        (click)="createNewLesson(addEditRecord)"
+                        (click)="addNewLessonRoute()"
                       >
                         <i class="material-icons">add</i>
                       </button>
@@ -282,8 +283,8 @@
                           <small
                             class="form-text text-danger"
                             *ngIf="
-                              !lessonForm.get('name').valid &&
-                              lessonForm.get('name').touched
+                              !lessonForm.get('description').valid &&
+                              lessonForm.get('description').touched
                             "
                           >
                            Description is required</small

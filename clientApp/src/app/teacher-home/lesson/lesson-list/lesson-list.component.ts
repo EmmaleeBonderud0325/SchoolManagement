@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DropDownModel } from './../../../models/common/drop-down.model';
@@ -49,16 +50,17 @@ export class LessonListComponent implements OnInit {
     private modalService:NgbModal,
     private lessonService:LessonService,
     private toastr:ToastrService, 
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router:Router,
     ) {
       this.date= new Date();
       this.lessonFilterForm = this.createLessonFilterForm();
      }
 
   ngOnInit(): void {
-
     //this.getAllLesson();
     this.getMasterData();
+    this.getAllLessonList();
     this.lessonFilterForm = this.createLessonFilterForm();
     
   
@@ -94,6 +96,25 @@ export class LessonListComponent implements OnInit {
         this.spinner.hide();
       });
   }
+  getAllLessonList()
+  {
+    this.loadingIndicator = true;
+    this.lessonService.getAllLessonList(this.lessonFilterForm.value,this.currentPage + 1,this.pageSize)
+      .subscribe(response=>{
+        console.log("Table Data");
+        console.log(this.data = response.data);
+        this.data = response.data;
+        this.totalRecord = response.totalRecordCount;
+        this.spinner.hide();
+        this.loadingIndicator = false;
+      },error=>{
+
+        this.spinner.hide();
+        this.loadingIndicator = false;
+        this.toastr.error("Network error has been occured. Please try again.", "Error");
+      });
+  }
+  
    //add new lesson using form
    createNewLesson(content)
    {
@@ -125,7 +146,7 @@ export class LessonListComponent implements OnInit {
       
       console.log(this.lessonForm.value);
       
-      /* this.lessonService.saveLesson(lessonModel).subscribe(response=>{
+      this.lessonService.saveLesson(lessonModel).subscribe(response=>{
         this.spinner.hide();
         if(response.isSuccess)
         {
@@ -140,7 +161,7 @@ export class LessonListComponent implements OnInit {
       },error=>{
         this.spinner.hide();
         this.toastr.error("Network error has been occured. Please try again.", "Error");
-      }); */
+      });
   
 
   }
@@ -221,20 +242,44 @@ export class LessonListComponent implements OnInit {
     });
   }
 
-  get academivYearFilterId()
-  {
-      return this.lessonFilterForm.get("academicYearId").value;
-  }
-  onAcademicYearFilterChanged(item:any)
+ 
+
+  /* onAcademicYearFilterChanged(item:any)
   {
      this.lessonFilterForm.get("selectedAcademicLevelId").setValue(0);
-  }
+  } */
 
   //list genarate
+  get searchTextFilterId() {
+    return this.lessonFilterForm.get("searchText").value;
+  }
   get slectedAcademicYearFilterId()
   {
     return this.lessonFilterForm.get("selectedAcademicLevelId").value;
   }
+
+  get selectedAcademicLevelFilterId()
+  {
+    return this.lessonFilterForm.get("selectedAcademicLevelId").value;
+  }
+
+  get selectedClassNameFilterId()
+  {
+    return this.lessonFilterForm.get("selectedClassNameId").value;
+  }
+
+  get selectedSubjectFilterId()
+  {
+    return this.lessonFilterForm.get("selectedSubjectId").value;
+  }
+
+  //Routes
+  addNewLessonRoute()
+  {
+    this.router.navigate(['/teacher-home/lesson/lesson-detail',0]);
+  }
+ 
+  
 }
 
 

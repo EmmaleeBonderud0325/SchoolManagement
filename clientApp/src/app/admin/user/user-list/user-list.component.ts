@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
   }
 
   //delete user
-  deleteUser(row) {
+/*   deleteUser(row) {
     Swal.fire({
       title: 'Are you sure Delete User ?',
       showCancelButton: true,
@@ -88,6 +88,59 @@ export class UserListComponent implements OnInit {
         });
       }
     });
+  } */
+
+  deleteUser(row) {
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: 'btn btn-success',
+        cancelButton: 'btn btn-danger',
+      },
+      buttonsStyling: false,
+    });
+    swalWithBootstrapButtons
+      .fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.value) {
+          this.userService.delete(row.id).subscribe(response=>{
+
+            if(response.isSuccess)
+            {
+              this.toastr.success(response.message,"Success");
+              this.getAll();
+            }
+            else
+            {
+              this.toastr.error(response.message,"Error");
+            }
+      
+          },error=>{
+            this.toastr.error("Network error has been occured. Please try again.","Error");
+          });
+          swalWithBootstrapButtons.fire(
+            'Deleted!',
+            'Your file has been deleted.',
+            'success'
+          );
+        } else if (
+          /* Read more about handling dismissals below */
+          result.dismiss === Swal.DismissReason.cancel
+        ) {
+          swalWithBootstrapButtons.fire(
+            'Cancelled',
+            'Your imaginary file is safe :)',
+            'error'
+          );
+        }
+      });
   }
 
   //get User By Role

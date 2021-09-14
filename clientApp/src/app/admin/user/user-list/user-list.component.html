@@ -45,13 +45,7 @@
                       <div class="ngxTableHeader">
                         <!-- Add New User Button -->
                         <div class="header-buttons-left">
-                          <div class="icon-button-demo buttons">
-                            <button 
-                              class="btn btn-icon icon-left btn-primary rounded-button"
-                              (click)='createNewUser(addEditRecord)'>
-                              <i class="material-icons">add</i>
-                            </button>
-                          </div>
+                          
                         </div>
                       </div>
                     </div>
@@ -79,25 +73,48 @@
                 [reorderable]="reorderable">
 
                 <!-- Action Column -->
-                <ngx-datatable-column [width]="80" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <div class="buttons">
-                      <span>
-                         <!--User Edit Button -->
-                        <button 
-                          class="btn btn-icon btn-sm btn-primary" 
-                          (click)='updateUser(row, rowIndex, addEditRecord)'>
-                          <i class="far fa-edit"></i>
-                        </button>
-                         <!--User Delete Button -->
-                        <button 
-                          class="btn btn-icon btn-sm btn-danger" 
-                          (click)='deleteUser(row)'>
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                      </span>
-                    </div>  
+                <ngx-datatable-column [width]="80" name="" sortable="false">
+                  <ng-template 
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center"
+                    >
+                    <div class="icon-button-demo buttons">
+                      <button 
+                        class="btn btn-icon icon-left btn-primary rounded-button"
+                        (click)='createNewUser(addEditRecord)'>
+                        <i class="material-icons">add</i>
+                      </button>
+                    </div>
                   </ng-template>
+                  <ng-template  let-value="value"
+                  let-row="row"
+                  let-rowIndex="rowIndex"
+                  ngx-datatable-cell-template
+                  class="text-center">
+
+                  <div class="buttons">
+                    <span>
+                       <!--User Edit Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-primary" 
+                        (click)='updateUser(row, rowIndex, addEditRecord)'>
+                        <i class="far fa-edit"></i>
+                      </button>
+                       <!--User Delete Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-danger" 
+                        (click)='deleteUser(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </div>  
+                  </ng-template>
+                    
+                  
                 </ngx-datatable-column>
 
                 <!-- Id Column -->
