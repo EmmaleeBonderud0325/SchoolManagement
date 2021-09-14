@@ -28,6 +28,7 @@ export class UserListComponent implements OnInit {
   user:UserModel;
   isDisabled: boolean;
   userRoles:DropDownModel[]=[];
+  academicLevels:DropDownModel[]=[];
 
   currentPage: number = 0;
   pageSize: number = 25;
@@ -66,6 +67,22 @@ export class UserListComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+  }
+
+  //get user Drop-Down Master Meta Data
+  getUserMasterData()
+  {
+    this.userService.getClassMasterData().subscribe(response=>{
+
+      this.userRoles = response.userRoles;
+      this.academicLevels = response.academicLevels;
+
+      this.getAll();
+    },error=>{
+      this.spinner.hide();
+    })
+
+
   }
 
   setPage(pageInfo) {

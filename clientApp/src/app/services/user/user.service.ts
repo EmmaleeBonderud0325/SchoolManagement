@@ -1,3 +1,4 @@
+import { UserMasterDataModel } from './../../models/user/user.master.data';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from './../../models/common/response.model';
 import { environment } from './../../../environments/environment';
@@ -25,6 +26,11 @@ export class UserService {
     return this.httpClient.
       post<ResponseModel>
         (environment.apiUrl + 'User', vm);
+  }
+
+  getClassMasterData(): Observable<UserMasterDataModel> {
+    return this.httpClient
+    .get<UserMasterDataModel>(environment.apiUrl + "User/getUserMasterData");
   }
 
   ///get user by id Service

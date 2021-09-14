@@ -5,6 +5,7 @@ using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -246,6 +247,62 @@ namespace SchoolManagement.Business
             return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
         }
 
-        
+        public UserMasterDataViewModel GetUserMasterData()
+        {
+            var response = new UserMasterDataViewModel();
+
+            response.UserRoles = schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
+            response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Name).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
+
+            return null;
+        }
+
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId, int academicLevelId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicUserViewModel>();
+
+            var users = schoolDb.Users.Where(x => x.IsActive == true).OrderBy(u => u.FullName);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                users = users.Where(x => x.FullName.Contains(searchText)).OrderBy(u => u.FullName);
+            }
+
+            if (roleId > 0)
+            {
+                users = users.Where(x=> x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+            }
+
+            if (academicLevelId > 0)
+            {
+                
+            }
+
+            totalRecordCount = users.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var userList = users.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            userList.ForEach(x =>
+            {
+                var vm = new BasicUserViewModel()
+                {
+                    Id = x.Id,
+                    FullName = x.FullName,
+                    Email = x.Email,
+                    MobileNo = x.MobileNo,
+                    Username = x.Username,
+                    Address = x.Address,
+                   // CreatedOn = x.CreatedOn.CreatedById.HasValue ? x.CreatedBy.FullName : string.Empty,
+
+
+                };
+            });
+        }
     }
 }
