@@ -1,3 +1,4 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
@@ -20,19 +21,27 @@ export class UserListComponent implements OnInit {
   data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
+
   saveUserForm:FormGroup;
+  userFilterForm:FormGroup;
   reorderable = true;
   user:UserModel;
   isDisabled: boolean;
   userRoles:DropDownModel[]=[];
 
+  currentPage: number = 0;
+  pageSize: number = 25;
+  totalRecord: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private userService:UserService,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.getAll();
     this.getUserRoles();
   }
@@ -57,6 +66,22 @@ export class UserListComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+  }
+
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    this.getAll();
+  }
+  //FIlter Master 
+  filterDatatable(event) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    const val = event.target.value.toLowerCase();
+    this.spinner.show();
+    this.getAll();
   }
 
   //delete user
@@ -146,10 +171,12 @@ export class UserListComponent implements OnInit {
   //get User By Role
   getAll()
   {
+    
      this.loadingIndicator = true;
      this.userService.getAll().subscribe(response=>
     {
       this.data=response;
+      this.spinner.hide();
       this.loadingIndicator = false;
      },error=>{
        this.loadingIndicator = false;
