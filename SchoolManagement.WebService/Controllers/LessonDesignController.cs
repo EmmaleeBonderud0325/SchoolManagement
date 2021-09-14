@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -31,10 +32,7 @@ namespace SchoolManagement.WebService.Controllers
             var userName = identityService.GetUserName();
             var response = lessonDesignService.GetAllLessons(filters, userName);
             return Ok(response);
-        }
-
-       
-
+        }       
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
@@ -65,36 +63,25 @@ namespace SchoolManagement.WebService.Controllers
             var response = await lessonDesignService.DeleteLesson(Id);
             return Ok(response);
         }
+
         [HttpGet]
-        [Route("getAllAcademicLevels")]
-        public IActionResult GetAllAcademicLevels()
+        [Route("getLessonMasterData")]
+        public LessonMasterDataViewModel GetLessonMasterData()
         {
-            var response = lessonDesignService.GetAllAcademicLevels();
-            return Ok(response);
+            var response = lessonDesignService.GetLessonMasterData();
+
+            return response;
         }
+
         [HttpGet]
-        [Route("getAllAcademicYears")]
-        public IActionResult GetAllAcademicYears()
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(LessonFilterViewModel filters, int cuttrentPage, int pageSize)
         {
-            var response = lessonDesignService.GetAllAcademicYears();
-            return Ok(response);
-        }
-        [HttpGet]
-        [Route("getAllSubjects")]
-        public IActionResult GetAllSubjects()
-        {
-            var response = lessonDesignService.GetAllSubjects();
-            return Ok(response);
-        }
-        [HttpGet]
-        [Route("getAllClassNames")]
-        public IActionResult GetAllClassNames()
-        {
-            var response = lessonDesignService.GetAllClassNames();
-            return Ok(response);
+            var userName = identityService.GetUserName();
+            var response = lessonDesignService.GetLessonList(filters, cuttrentPage, pageSize, userName);
+
+            return response;
+
         }
     }
-
- 
-
 }

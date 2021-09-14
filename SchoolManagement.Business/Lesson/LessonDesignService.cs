@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -60,22 +61,7 @@ namespace SchoolManagement.Business
 
                 var vm = new LessonViewModel
                 {
-                    Id = lesson.Id,
-                    Name = lesson.Name,
-                    Description = lesson.Description,
-                    OwnerId = lesson.OwnerId,
-                    SelectedAcademicLevelId = lesson.AcademicLevelId,
-                    SelectedClassNameId = lesson.ClassNameId,
-                    SelectedAcademicYearId = lesson.AcademicYearId,
-                    SelectedSubjectId = lesson.SubjectId,
-                    VersionNo = lesson.VersionNo,
-                    LearningOutcome = lesson.LearningOutcome,
-                    PlannedDate = lesson.PlannedDate,
-                    CompletedDate = lesson.CompletedDate,
-                    CreatedOn = lesson.CreatedOn,
-                    CreatedById = lesson.CreatedById,
-                    UpdatedOn = lesson.UpdatedOn,
-                    UpdatedById = lesson.UpdatedById
+                    
 
                 };
 
@@ -100,14 +86,16 @@ namespace SchoolManagement.Business
                     lesson = new Lesson()
                     {
                         Id = vm.Id,
+                        Name = vm.Name,
                         Description = vm.Description,
                         OwnerId = loggedInUser.Id,
-                        AcademicLevelId = vm.SelectedAcademicLevelId,
-                        ClassNameId = vm.SelectedClassNameId,
-                        AcademicYearId = vm.SelectedAcademicYearId,
-                        SubjectId = vm.SelectedSubjectId,
+                        AcademicLevelId = vm.AcademicLevelId,
+                        ClassNameId = vm.ClassNameId,
+                        AcademicYearId = vm.AcademicYearId,
+                        SubjectId = vm.SubjectId,
                         LearningOutcome = vm.LearningOutcome,
                         PlannedDate = vm.PlannedDate,
+                        CompletedDate = DateTime.UtcNow,
                         VersionNo = 1,
                         Status = LessonStatus.Design,
                         IsActive = true,
@@ -127,11 +115,11 @@ namespace SchoolManagement.Business
                 {
                     lesson.Name = vm.Name;
                     lesson.Description = vm.Description;
-                    lesson.OwnerId = vm.selectedOwner.Id;
-                    lesson.AcademicLevelId = vm.SelectedAcademicLevelId;
-                    lesson.ClassNameId = vm.SelectedClassNameId;
-                    lesson.AcademicYearId = vm.SelectedAcademicYearId;
-                    lesson.SubjectId = vm.SelectedSubjectId;
+                    lesson.AcademicLevelId = vm.AcademicLevelId;
+                    lesson.ClassNameId = vm.ClassNameId;
+                    lesson.AcademicYearId = vm.AcademicYearId;
+                    lesson.SubjectId = vm.SubjectId;
+                    lesson.PlannedDate = vm.PlannedDate;
                     lesson.LearningOutcome = vm.LearningOutcome;
                     lesson.PlannedDate = vm.PlannedDate;
                     lesson.UpdatedOn = DateTime.UtcNow;
@@ -149,13 +137,12 @@ namespace SchoolManagement.Business
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = "Error has been Occured.Please Try Again";
             }
 
             return response;
 
         }
-
         public async Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -222,35 +209,78 @@ namespace SchoolManagement.Business
             return response;
 
         }
-        public List<DropDownViewModel> GetAllAcademicLevels()
+        public LessonMasterDataViewModel GetLessonMasterData()
         {
-            return schoolDb.AcademicLevels
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                .ToList();
+            var response = new LessonMasterDataViewModel();
+
+            response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Id).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
+            response.ClassNames = schoolDb.ClassNames.OrderBy(x => x.Name).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
+            response.AcademicYears = schoolDb.AcademicYears.OrderBy(x => x.Id).Select(ay => new DropDownViewModel() { Id = ay.Id, Name = ay.Id.ToString() }).ToList();
+            response.Subjects = schoolDb.Subjects.OrderBy(x => x.Id).Select(s => new DropDownViewModel() { Id = s.Id, Name = s.Name }).ToList();
+
+            return response;
         }
-        public List<DropDownViewModel> GetAllAcademicYears()
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(LessonFilterViewModel filters,int cuttrentPage, int pageSize, string userName)
         {
-            return schoolDb.AcademicYears
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id})
-                .ToList();
-        }
-        public List<DropDownViewModel> GetAllSubjects()
-        {
-            return schoolDb.Subjects
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                .ToList();
-        }
-        public List<DropDownViewModel> GetAllClassNames()
-        {
-            return schoolDb.Subjects
-                .Where(x => x.IsActive == true)
-                .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
-                .ToList();
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vml = new List<BasicLessonViewModel>();
+
+            var loggedInUser = currentUserService.GetUserByUsername(userName);
+            //var lessons = schoolDb.Lessons.OrderBy(l => l.Name && loggedInUser.Id);
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(o => o.Name);
+
+            if (!string.IsNullOrEmpty(filters.searchText))
+            {
+                query = query.Where(x => x.Name.Contains(filters.searchText)).OrderBy(o => o.Name);
+            }
+
+            if (filters.SelectedAcademicYearId > 0)
+            {
+                query = query.Where(x => x.AcademicYearId == filters.SelectedAcademicYearId).OrderBy(o => o.Name);
+            }
+
+            if (filters.SelectedAcademicLevelId > 0)
+            {
+                query = query.Where(x => x.AcademicLevelId == filters.SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
+            }
+
+            if (filters.SelectedClassNameId > 0)
+            {
+                query = query.Where(x => x.ClassNameId == filters.SelectedClassNameId).OrderBy(o => o.CreatedOn);
+            }
+
+            if (filters.SelectedSubjectId > 0)
+            {
+                query = query.Where(x => x.SubjectId == filters.SelectedSubjectId).OrderBy(o => o.CreatedOn);
+            }
+
+            totalRecordCount = query.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonList = query.Skip((cuttrentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            foreach (var item in lessonList)
+            {
+                var vm = new BasicLessonViewModel()
+                {
+                    LessonName = item.Name,
+                    AcademicLevelId = item.AcademicLevelId,
+                    ClassNameId = item.ClassNameId,
+                    AcademicYearId = item.AcademicYearId,
+                    SubjectId = item.SubjectId
+                    
+                };
+                vml.Add(vm);
+            }
+
+            var container = new PaginatedItemsViewModel<BasicLessonViewModel>(pageSize, totalPageCount, totalRecordCount,vml);
+
+            return container;
+
         }
     }
-   
-
 }
