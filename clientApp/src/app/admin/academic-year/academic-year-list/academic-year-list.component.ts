@@ -33,10 +33,6 @@ export class AcademicYearListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.academicYearFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      isActive: ['', [Validators.required]],
-    });
     this.getAll();
     
   }
@@ -47,7 +43,6 @@ export class AcademicYearListComponent implements OnInit {
     this.academicYearService.getAll().subscribe(response=>
     {
         this.data= response;
-        console.log(response);
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
@@ -57,10 +52,12 @@ export class AcademicYearListComponent implements OnInit {
 
 
   addNewAcademicYear(content) {
+    
 
     this.academicYearFrom = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('[0-9]+')]],
-      isActive: ['', [Validators.required]],
+      id: [null, [Validators.required]],
+      isActive:[true]
+     
     });
 
     this.modalService.open(content, {
@@ -75,8 +72,7 @@ export class AcademicYearListComponent implements OnInit {
     
     console.log(this.academicYearFrom.value);
     
-    this.academicYearService.saveAcademicYear(this.academicYearFrom.value)
-    .subscribe(response=>{
+    this.academicYearService.saveAcademicYear(this.academicYearFrom.value).subscribe(response=>{
 
         if(response.isSuccess)
         {
@@ -106,15 +102,19 @@ export class AcademicYearListComponent implements OnInit {
 
 
   editRow(row:AcademicYearModel, rowIndex:number, content:any) {
+
+    console.log(row);
+
+    this.academicYearFrom = this.fb.group({
+      
+      isActive: [row.isActive, [Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
-
-    this.academicYearFrom = this.fb.group({
-      name: [row.name, [Validators.required, Validators.pattern('[0-9]+')]],
-      isActive: [row.isActive, [Validators.required]],
-    });
+    
   }
 
 
@@ -149,8 +149,6 @@ export class AcademicYearListComponent implements OnInit {
       }
     });
   }
-
-
 
     addRecordSuccess() {
       this.toastr.success('Academic Year Added Successfully', '');
