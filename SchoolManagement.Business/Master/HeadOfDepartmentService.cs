@@ -4,7 +4,6 @@ using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Util;
-using SchoolManagement.Model.Master;
 using SchoolManagement.ViewModel.Master;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -13,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -45,14 +45,19 @@ namespace SchoolManagement.Business.Master
                 {
                     Id = HeadOfDepartment.Id,
                     SubjectId = HeadOfDepartment.SubjectId,
+                    SubjectName = HeadOfDepartment.Subject.Name,
                     AcademicLevelId = HeadOfDepartment.AcademicLevelId,
+                    AcademicLevelName = HeadOfDepartment.AcademicLevel.Name,
                     AcademicYearId = HeadOfDepartment.AcademicYearId,
                     TeacherId = HeadOfDepartment.TeacherId,
+                    TeacherName = GetTeacher(HeadOfDepartment.TeacherId),
                     IsActive = HeadOfDepartment.IsActive,
                     CreateOn = HeadOfDepartment.CreateOn,
                     CreatedById = HeadOfDepartment.CreatedById,
+                    CreatedByName = HeadOfDepartment.CreatedBy.FullName,
                     UpdateOn = HeadOfDepartment.UpdateOn,
                     UpdatedById = HeadOfDepartment.UpdatedById,
+                    UpdatedByName = HeadOfDepartment.UpdatedBy.FullName,
                 };
 
                 response.Add(viewModel);
@@ -70,11 +75,11 @@ namespace SchoolManagement.Business.Master
             {
                 var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var HeadOfDepartments = schoolDb.HeadOfDepartments.FirstOrDefault(hod => hod.Id == vm.Id);
+                var HeadOfDepartment = schoolDb.HeadOfDepartments.FirstOrDefault(hod => hod.Id == vm.Id);
 
-                if (HeadOfDepartments == null)
+                if (HeadOfDepartment == null)
                 {
-                    HeadOfDepartments = new HeadOfDepartment()
+                    HeadOfDepartment = new HeadOfDepartment()
                     {
                         Id = vm.Id,
                         SubjectId = vm.SubjectId,
@@ -88,21 +93,21 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = currentuser.Id,
                     };
 
-                    schoolDb.HeadOfDepartments.Add(HeadOfDepartments);
+                    schoolDb.HeadOfDepartments.Add(HeadOfDepartment);
 
                     response.IsSuccess = true;
                     response.Message = "Head Of Department successfully created";
                 }
                 else
                 {
-                    HeadOfDepartments.SubjectId = vm.SubjectId;
-                    HeadOfDepartments.AcademicYearId = vm.AcademicYearId;
-                    HeadOfDepartments.AcademicLevelId = vm.AcademicLevelId;
-                    HeadOfDepartments.IsActive = true;
-                    HeadOfDepartments.UpdatedById = currentuser.Id;
-                    HeadOfDepartments.UpdateOn = DateTime.UtcNow;
+                    HeadOfDepartment.SubjectId = vm.SubjectId;
+                    HeadOfDepartment.AcademicYearId = vm.AcademicYearId;
+                    HeadOfDepartment.AcademicLevelId = vm.AcademicLevelId;
+                    HeadOfDepartment.IsActive = true;
+                    HeadOfDepartment.UpdatedById = currentuser.Id;
+                    HeadOfDepartment.UpdateOn = DateTime.UtcNow;
 
-                    schoolDb.HeadOfDepartments.Update(HeadOfDepartments);
+                    schoolDb.HeadOfDepartments.Update(HeadOfDepartment);
 
                     response.IsSuccess = true;
                     response.Message = "Head Of Department successfully updated";
@@ -176,11 +181,25 @@ namespace SchoolManagement.Business.Master
         public List<DropDownViewModel> GetAllSubjects()
         {
             var subjects = schoolDb.Subjects
-                .Where(x => x.SubjectCode != null)
+                .Where(x => x.IsActive == true )
                 .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.Name) })
                 .Distinct().ToList();
 
             return subjects;
+        }
+
+        private string GetTeacher(int TeacherId)
+        {
+            var quary = schoolDb.Users.FirstOrDefault(T => T.Id == TeacherId);
+
+            if (quary == null)
+            {
+                return HeadOfDepartmentServiceConstants.HEAD_OF_DEPARTMENT_TEACHER_NOT_fOUND_MESSAGE;
+            }
+            else
+            {
+                return quary.FullName;
+            }
         }
     }
 }

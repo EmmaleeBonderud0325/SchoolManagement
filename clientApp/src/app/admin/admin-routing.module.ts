@@ -104,6 +104,17 @@ const routes: Routes = [
 
   {
     path: '',
+    redirectTo: 'head-of-department',
+    pathMatch: 'full',
+  },
+  {
+    path: 'head-of-department',
+    loadChildren: () =>
+          import('./head-of-department/head-of-department.module').then((m) => m.HeadOfDepartmentModule)
+  },
+
+  {
+    path: '',
     redirectTo: 'example',
     pathMatch: 'full',
   },
