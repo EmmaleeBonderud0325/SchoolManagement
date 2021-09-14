@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -11,8 +11,8 @@ namespace SchoolManagement.Model
     {
         [Description("Primary")]
         Primary = 1,
-        [Description("Secondary")]
-        Secondary = 2,
+        [Description("Junior")]
+        Junior = 2,
         [Description("O/Level")]
         OLevel = 3,
         [Description("A/Level-Maths")]

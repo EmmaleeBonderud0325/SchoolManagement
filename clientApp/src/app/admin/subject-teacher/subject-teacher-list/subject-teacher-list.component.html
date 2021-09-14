@@ -1,0 +1,310 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Admin</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Subject Teachers</li>
+    </ul>
+    <div class="section-body">
+  
+        <div class="row clearfix">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="card">
+                <div class="p-10">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="row m-0">
+                        <form [formGroup]="filterForm">
+                          <div class="col-12 p-0">
+                            <div class="ngxTableHeader">
+                              <div class="table-title">
+                                <h2><strong>Classes</strong></h2>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-12 p-0">
+                            <div class="row">
+                              <div class="col-4">
+                                <div class="form-group position-relative">
+                                  <label>Search Text</label>
+                                  <i class="fas fa-search input-icons"></i>
+                                  <input
+                                    type="text"
+                                    (keyup)="filterDatatable($event)"
+                                    formControlName="searchText"
+                                    class="form-control psl-5"
+                                    placeholder="Search by name"
+                                    name="searchText"
+                                    required=""
+                                  />
+                                </div>
+                              </div>
+      
+                              <div class="col-3">
+                                <div class="form-group">
+                                  <label>Academic Year</label>
+                                  <select
+                                    class="form-select form-control"
+                                    formControlName="selectedAcademicYearId"
+                                  >
+                                    <option
+                                      *ngFor="let item of academicYears"
+                                      [value]="item.id"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-3">
+                                <div class="form-group">
+                                  <label>Academic Level</label>
+                                  <select
+                                    class="form-select form-control"
+                                    formControlName="selectedAcademicLevelId"
+                                    (change)="onAcademicLevelFilterChanged($event.target.value)"
+                                  >
+                                    <option
+                                      *ngFor="let item of academicLevels"
+                                      [value]="item.id"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+
+
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <ngx-datatable
+                    #table
+                    class="material"
+                    [rows]="data"
+                    [loadingIndicator]="loadingIndicator"
+                    columnMode="force"
+                    [headerHeight]="60"
+                    [footerHeight]="80"
+                    rowHeight="auto"
+                    [scrollbarH]="scrollBarHorizontal"
+                    [reorderable]="reorderable"
+  
+                  >
+                    <ngx-datatable-column [width]="150" name="" [sortable]="false">
+                      <ng-template
+                        let-value="value"
+                        let-row="row"
+                        let-rowIndex="rowIndex"
+                        sortable="false"
+                        ngx-datatable-header-template
+                        class="text-center"
+                      >
+                        <span>
+ 
+                        </span>
+                      </ng-template>
+                      <ng-template
+                        let-value="value"
+                        let-row="row"
+                        let-rowIndex="rowIndex"
+                        ngx-datatable-cell-template
+                        class="text-center"
+                      >
+                        <span>
+                          <button
+                            class="btn btn-icon btn-sm btn-primary ms-1"
+                            (click)="editRow(row, rowIndex, addEditRecord)"
+                          >
+                            <i class="fas fa-pen"></i>
+                          </button>
+                        </span>
+                      </ng-template>
+                    </ngx-datatable-column>
+      
+                    <ngx-datatable-column [width]="150" name="Subject">
+                      <ng-template
+                        let-row="row"
+                        let-value="value"
+                        let-i="index"
+                        ngx-datatable-cell-template
+                      >
+                        <!--                   <img src="{{ row.img }}" class="data-table-img" /> -->
+                        <div class="name-col-style">
+                          <div>{{ row.subject }}</div>
+                          <!--                     <div class="font-12 text-muted">{{ row.designation }}</div> -->
+                        </div>
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [width]="200" name="Teachers Count">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row.assignedTeachersCount }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column [width]="150" name="Assigned Teachers">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{ row.assignedSubjectTeachersName }}
+                      </ng-template>
+                    </ngx-datatable-column>
+                  </ngx-datatable>
+      
+                  <!-- Edit Record Modal Window -->
+                  <!-- Edit Record Modal Window -->
+                  <ng-template #addEditRecord let-modal>
+                    <div class="modal-header editRowModal">
+                      <h4 class="modal-title" id="modal-basic-title">
+                        <div class="table-modal-header">
+                          <div class="modal-about">
+                            <div class="fw-bold p-t-10 font-17">
+                              {{ selectedRowData?.subject }}
+                            </div>
+                          </div>
+                        </div>
+                      </h4>
+                      <button
+                        type="button"
+                        class="close"
+                        aria-label="Close"
+                        (click)="modal.dismiss('Cross click')"
+                      >
+                        <span aria-hidden="true"
+                          ><i class="material-icons">close</i></span
+                        >
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <form [formGroup]="subjectTeacherForm" (ngSubmit)="save()">
+      
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label
+                              >Academic Year <span class="text-danger">*</span></label
+                            >
+                            <select
+                              class="form-select form-control"
+                              formControlName="academicYearId"
+                            >
+                              <option
+                                [ngValue]="item.id"
+                                *ngFor="let item of academicYears"
+                              >
+                                {{ item.name }}
+                              </option>
+                            </select>
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="
+                                !subjectTeacherForm.get('academicYearId').valid &&
+                                subjectTeacherForm.get('academicYearId').touched
+                              "
+                            >
+                              Academic year is required</small
+                            >
+                          </div>
+      
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Academic Level <span class="text-danger">*</span></label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="academicLevelId"
+                            >
+                              <option [ngValue]="item.id" *ngFor="let item of academicLevels">
+                                {{ item.name }}
+                              </option>
+                            </select>
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="
+                                !subjectTeacherForm.get('academicLevelId').valid &&
+                                subjectTeacherForm.get('academicLevelId').touched
+                              "
+                            >
+                              Academic Level is required</small
+                            >
+                          </div>
+      
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label>Subjects <span class="text-danger">*</span></label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="subjectId"
+                            >
+                              <option [ngValue]="item.id" *ngFor="let item of subjects">
+                                {{ item.name }}
+                              </option>
+                            </select>
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="
+                                !subjectTeacherForm.get('subjectId').valid &&
+                                subjectTeacherForm.get('subjectId').touched
+                              "
+                            >
+                            Subjects name is required</small
+                            >
+                          </div>
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <label for="assignedTeachers">Assigned Teachers <span class="text-danger">*</span></label>
+                            <p-multiSelect
+                            [options]="allTeachers"
+                            id="assignedTeachers"
+                            [style]="{ width: '100%' }"
+                            formControlName="assignedTeacherIds"
+                            optionLabel="name"
+                            optionValue="id"
+                            display="chip"
+                          ></p-multiSelect>
+                            <small
+                              class="form-text text-danger"
+                              *ngIf="
+                                !subjectTeacherForm.get('assignedTeacherIds').valid &&
+                                subjectTeacherForm.get('assignedTeacherIds').touched
+                              "
+                            >
+                              Assigned Subject teacher is required</small
+                            >
+                          </div>
+
+      
+                        </div>
+      
+
+      
+                        <div class="modal-footer">
+                          <div class="row">
+                            <div></div>
+                          </div>
+                          <button
+                            type="submit"
+                            class="btn btn-primary"
+                            [disabled]="
+                              !subjectTeacherForm.valid
+                            "
+                          >
+                            Save
+                          </button>
+                          <button
+                            type="button"
+                            class="btn btn-light"
+                            (click)="modal.close()"
+                          >
+                            Close
+                          </button>
+                        </div>
+                      </form>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+    </div>
+  </section>
