@@ -43,9 +43,9 @@
                             </div>
                           </div>
   
-                          <div class="col-3">
+                          <div class="col-4">
                             <div class="form-group">
-                              <label>Academic Year</label>
+                              <label>Role</label>
                               <select
                                 class="form-select form-control"
                                 formControlName="academicYearId"
@@ -59,7 +59,7 @@
                               </select>
                             </div>
                           </div>
-                          <div class="col-3">
+                          <div class="col-4">
                             <div class="form-group">
                               <label>Academic Level</label>
                               <select
@@ -83,16 +83,23 @@
                 </div>
               </div>
               <ngx-datatable 
-                #table class="material" 
-                [rows]="data" 
+                #table 
+                class="material"
+                [rows]="data"
                 [loadingIndicator]="loadingIndicator"
-                columnMode="force" 
-                [headerHeight]="60" 
-                [footerHeight]="80" 
-                rowHeight="auto" 
-                [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" 
-                [reorderable]="reorderable">
+                columnMode="force"
+                [headerHeight]="60"
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
+
+                >
 
                 <!-- Action Column -->
                 <ngx-datatable-column [width]="80" name="" sortable="false">
@@ -212,7 +219,8 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                       Add New User</div>
+                       Add New User
+                      </div>
                     </div>
                   </div>
                 </h4>
