@@ -1,3 +1,6 @@
+import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DropDownModel } from './../../../models/common/drop-down.model';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -18,7 +21,7 @@ import { LessonService } from './../../../services/lesson/lesson.service';
 })
 export class LessonListComponent implements OnInit {
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data:LessonModel[] = [];
+
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   lessonForm:FormGroup;
@@ -28,20 +31,69 @@ export class LessonListComponent implements OnInit {
   reorderable = true;
 
   
+  currentPage: number = 0;
+  pageSize: number = 25;
+  totalRecord: number = 0;
+
+  academicLevels:DropDownModel[] = [];
+  classNames :DropDownModel[] = [];
+  academicYears :DropDownModel[]=[];
+  subjects :DropDownModel[]=[];
+
+  data = new Array<BasicLessonModel>();
 
   constructor(
     private fb:FormBuilder,
     private modalService:NgbModal,
     private lessonService:LessonService,
-    private toastr:ToastrService ) {
+    private toastr:ToastrService, 
+    private spinner: NgxSpinnerService
+    ) {
       this.lessonFilterForm = this.createLessonFilterForm();
      }
 
   ngOnInit(): void {
 
-    this.getAllLesson();
+    //this.getAllLesson();
+    this.getMasterData();
   
    
+  }
+
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    //this.getAll();
+  }
+  //FIlter Master 
+  filterDatatable(event) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    const val = event.target.value.toLowerCase();
+    this.spinner.show();
+    //this.getAll();
+  }
+
+  getMasterData() {
+    console.log("===============");
+    this.lessonService.getLessonMasterData()
+      .subscribe(response => {
+        console.log("===============");
+        console.log(response);
+        
+        
+        this.classNames = response.classNames;
+        this.academicYears = response.academicYears;
+        this.academicLevels = response.academicLevels;
+
+
+        //this.getAll();
+
+      }, error => {
+        this.spinner.hide();
+      });
   }
    //add new lesson using form
    createNewLesson(content)
@@ -101,7 +153,7 @@ export class LessonListComponent implements OnInit {
             if(response.isSuccess)
            {
               this.toastr.success(response.message,"Success");
-              this.getAllLesson();
+              //this.getAllLesson();
             }
            else
             {
@@ -123,7 +175,7 @@ export class LessonListComponent implements OnInit {
     });
 
   }
-  getAllLesson(){
+  /* getAllLesson(){
       this.loadingIndicator = true;
       this.lessonService.getAllLesson(this.lessonFilterForm.getRawValue()).subscribe(response => {
       this.data = response;
@@ -135,7 +187,7 @@ export class LessonListComponent implements OnInit {
      this.toastr.error("Network error has been occured!, Please try again", "Error")
       })  
      }
-
+ */
   addNewLesson(content){
 
     this.lessonForm = this.fb.group({

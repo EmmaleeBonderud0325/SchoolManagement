@@ -19,19 +19,9 @@ namespace SchoolManagement.ViewModel.Lesson
         public int AcademicYearId { get; set; }
         public int SubjectId { get; set; }
 
-        public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
-        public LessonStatus Status { get; set; }
         public DateTime PlannedDate { get; set; }
         public DateTime CompletedDate { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public bool IsActive { get; set; }
-        public int CreatedById { get; set; }
-        public DateTime UpdatedOn { get; set; }
-        public int UpdatedById { get; set; }
        
-        //public List<QuestionViewModel> TeacherEssyQuestions { get; set; }
-        //public List<QuestionViewModel> TeacherMCQQuestions { get; set; }
-        //public List<StudentMCQQuestionViewModel> StudentEssyQuestion { get; set; }
     }
 }
