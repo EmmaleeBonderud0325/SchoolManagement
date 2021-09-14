@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.MasterData;
-using SchoolManagement.Model.Master;
+using SchoolManagement.ViewModel.Master;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;

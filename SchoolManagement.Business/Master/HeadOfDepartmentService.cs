@@ -4,7 +4,6 @@ using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Util;
-using SchoolManagement.Model.Master;
 using SchoolManagement.ViewModel.Master;
 using SchoolManagement.ViewModel.Common;
 using System;
