@@ -56,6 +56,8 @@ export class LessonListComponent implements OnInit {
 
     //this.getAllLesson();
     this.getMasterData();
+    this.lessonFilterForm = this.createLessonFilterForm();
+    
   
    
   }
@@ -77,18 +79,12 @@ export class LessonListComponent implements OnInit {
   }
 
   getMasterData() {
-    console.log("===============");
     this.lessonService.getLessonMasterData()
       .subscribe(response => {
-        console.log("===============");
-        console.log(response);
-        
-        
         this.classNames = response.classNames;
         this.academicYears = response.academicYears;
         this.academicLevels = response.academicLevels;
-
-
+        this.subjects = response.subjects;
         //this.getAll();
 
       }, error => {
@@ -99,12 +95,16 @@ export class LessonListComponent implements OnInit {
    createNewLesson(content)
    {
      this.lessonForm = this.fb.group({
-       Id:['', [Validators.required]],
+      id:[0],
        name:['', [Validators.required]],
-       learningoutcome:['', [Validators.required]],
-       planneddate:['', [Validators.required]],
-       completeddate:['', [Validators.required]],
-       status:['', [Validators.required]],
+       description:['', [Validators.required]],
+       academicLevelId:[null, [Validators.required]],
+       classNameId:[null, [Validators.required]],
+       academicYearId:[null, [Validators.required]],
+       subjectId:[null, [Validators.required]],
+       learningOutcome:['', [Validators.required]],
+       plannedDate:['', [Validators.required]],
+       
    });
  
      this.modalService.open(content, {
@@ -129,6 +129,7 @@ export class LessonListComponent implements OnInit {
   createLessonFilterForm() : FormGroup{
 
     return new FormGroup({
+      searchText:new FormControl(""),
       selectedAcademicYearId:new FormControl(0),
       selectedAcademicLevelId:new FormControl(0),
       selectedClassNameId:new FormControl(0),
@@ -201,6 +202,10 @@ export class LessonListComponent implements OnInit {
     });
   }
 
+  get academivYearFilterId()
+  {
+      return this.lessonFilterForm.get("academicYearId").value;
+  }
   onAcademicYearFilterChanged(item:any)
   {
      this.lessonFilterForm.get("selectedAcademicLevelId").setValue(0);

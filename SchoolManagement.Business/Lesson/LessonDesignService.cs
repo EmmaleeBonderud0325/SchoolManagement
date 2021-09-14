@@ -93,7 +93,8 @@ namespace SchoolManagement.Business
                         AcademicYearId = vm.AcademicYearId,
                         SubjectId = vm.SubjectId,
                         LearningOutcome = vm.LearningOutcome,
-                        PlannedDate = DateTime.UtcNow,
+                        PlannedDate = vm.PlannedDate,
+                        CompletedDate = DateTime.UtcNow,
                         VersionNo = 1,
                         Status = LessonStatus.Design,
                         IsActive = true,
@@ -117,6 +118,7 @@ namespace SchoolManagement.Business
                     lesson.ClassNameId = vm.ClassNameId;
                     lesson.AcademicYearId = vm.AcademicYearId;
                     lesson.SubjectId = vm.SubjectId;
+                    lesson.PlannedDate = vm.PlannedDate;
                     lesson.LearningOutcome = vm.LearningOutcome;
                     lesson.PlannedDate = vm.PlannedDate;
                     lesson.UpdatedOn = DateTime.UtcNow;

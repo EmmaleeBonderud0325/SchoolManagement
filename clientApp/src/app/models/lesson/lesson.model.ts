@@ -7,11 +7,11 @@ export class LessonModel
     description:string;
 
     academicLevelId:number;
-    ClassNameId:number;
-    AcademicYearId:number;
-    SubjectId:number;
-    LearningOutcome:string;
-    PlannedDate:Date;
-    CompletedDate:Date 
+    classNameId:number;
+    academicYearId:number;
+    subjectId:number;
+    learningOutcome:string;
+    plannedDate:Date;
+    completedDate:Date 
         
 }

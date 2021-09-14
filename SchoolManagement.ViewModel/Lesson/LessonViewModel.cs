@@ -21,7 +21,7 @@ namespace SchoolManagement.ViewModel.Lesson
 
         public string LearningOutcome { get; set; }
         public DateTime PlannedDate { get; set; }
-        public DateTime CompletedDate { get; set; }
+        //public DateTime CompletedDate { get; set; }
        
     }
 }

@@ -36,6 +36,6 @@ export class LessonService {
 
   getLessonMasterData(): Observable<LessonMasterDataModel> {
     return this.httpClient
-    .get<LessonMasterDataModel>(environment.apiUrl + "Lesson/getLessonMasterData");
+    .get<LessonMasterDataModel>(environment.apiUrl + "LessonDesign/getLessonMasterData");
   }
 }
