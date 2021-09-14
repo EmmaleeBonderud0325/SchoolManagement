@@ -144,7 +144,7 @@
                     <span>
                       <button
                         class="btn btn-icon icon-left btn-primary rounded-button"
-                        (click)="addRow(addEditRecord)"
+                        (click)="createNewLesson(addEditRecord)"
                       >
                         <i class="material-icons">add</i>
                       </button>
@@ -219,13 +219,13 @@
     
                 <!-- Edit Record Modal Window -->
                 <!-- Edit Record Modal Window -->
-                <!-- <ng-template #addEditRecord let-modal>
+                <ng-template #addEditRecord let-modal>
                   <div class="modal-header editRowModal">
                     <h4 class="modal-title" id="modal-basic-title">
                       <div class="table-modal-header">
                         <div class="modal-about">
                           <div class="fw-bold p-t-10 font-17">
-                            {{ selectedRowData?.subject }}
+                            {{ selectedRowData?.name }}
                           </div>
                         </div>
                       </div>
@@ -242,9 +242,74 @@
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form [formGroup]="subjectTeacherForm" (ngSubmit)="save()">
+                    <form 
+                      [formGroup]="lessonForm" 
+                      (ngSubmit)="save()"
+
+                      >
     
                       <div class="row">
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label> Name <span class="text-danger">*</span></label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Lesson Name"
+                            formControlName="name"
+                            required
+                          />
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('name').valid &&
+                              lessonForm.get('name').touched
+                            "
+                          >
+                            Lesson name is required</small
+                          >
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label> Description <span class="text-danger">*</span></label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            placeholder="Lesson Description"
+                            formControlName="description"
+                            required
+                          />
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('name').valid &&
+                              lessonForm.get('name').touched
+                            "
+                          >
+                           Description is required</small
+                          >
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Class Name <span class="text-danger">*</span></label>
+                          <select
+                            class="form-select form-control"
+                            formControlName="classNameId"
+                          >
+                            <option [ngValue]="item.id" *ngFor="let item of classNames">
+                              {{ item.name }}
+                            </option>
+                          </select>
+                          <small
+                            class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('classNameId').valid &&
+                              lessonForm.get('classNameId').touched
+                            "
+                          >
+                            Class name is required</small
+                          >
+                        </div>
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <label
                             >Academic Year <span class="text-danger">*</span></label
@@ -263,8 +328,8 @@
                           <small
                             class="form-text text-danger"
                             *ngIf="
-                              !subjectTeacherForm.get('academicYearId').valid &&
-                              subjectTeacherForm.get('academicYearId').touched
+                              !lessonForm.get('academicYearId').valid &&
+                              lessonForm.get('academicYearId').touched
                             "
                           >
                             Academic year is required</small
@@ -284,8 +349,8 @@
                           <small
                             class="form-text text-danger"
                             *ngIf="
-                              !subjectTeacherForm.get('academicLevelId').valid &&
-                              subjectTeacherForm.get('academicLevelId').touched
+                              !lessonForm.get('academicLevelId').valid &&
+                              lessonForm.get('academicLevelId').touched
                             "
                           >
                             Academic Level is required</small
@@ -305,32 +370,52 @@
                           <small
                             class="form-text text-danger"
                             *ngIf="
-                              !subjectTeacherForm.get('subjectId').valid &&
-                              subjectTeacherForm.get('subjectId').touched
+                              !lessonForm.get('subjectId').valid &&
+                              lessonForm.get('subjectId').touched
                             "
                           >
                           Subjects name is required</small
                           >
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label for="assignedTeachers">Assigned Teachers <span class="text-danger">*</span></label>
-                          <p-multiSelect
-                          [options]="allTeachers"
-                          id="assignedTeachers"
-                          [style]="{ width: '100%' }"
-                          formControlName="assignedTeacherIds"
-                          optionLabel="name"
-                          optionValue="id"
-                          display="chip"
-                        ></p-multiSelect>
+
+                        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label> Learning Out Comes <span class="text-danger">*</span></label>
+                          <textarea
+                            type="text"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="learningOutcome"
+                            required
+                          ></textarea>
                           <small
                             class="form-text text-danger"
                             *ngIf="
-                              !subjectTeacherForm.get('assignedTeacherIds').valid &&
-                              subjectTeacherForm.get('assignedTeacherIds').touched
+                              !lessonForm.get('learningOutcome').valid &&
+                              lessonForm.get('learningOutcome').touched
                             "
                           >
-                            Assigned Subject teacher is required</small
+                            Lesson out is required</small
+                          >
+                        </div>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                         
+                            <label for="date">Planned Date</label>
+                            <p-calendar
+                              class="form-control"
+                              id="date"
+                              [style]="{ width: '100%' }"
+                              [inputStyle]="{ width: '100%' }"
+                              inputId="basic"
+                              formControlName="plannedDate"
+                            ></p-calendar>
+                            <small
+                            class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('plannedDate').valid &&
+                              lessonForm.get('plannedDate').touched
+                            "
+                          >
+                            Planned Date is required</small
                           >
                         </div>
 
@@ -347,10 +432,10 @@
                           type="submit"
                           class="btn btn-primary"
                           [disabled]="
-                            !subjectTeacherForm.valid
+                            !lessonForm.valid
                           "
                         >
-                          Save
+                          Save Lesson
                         </button>
                         <button
                           type="button"
@@ -362,7 +447,7 @@
                       </div>
                     </form>
                   </div>
-                </ng-template> -->
+                </ng-template>
               </div>
             </div>
           </div>

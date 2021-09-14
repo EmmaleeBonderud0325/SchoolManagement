@@ -12,6 +12,6 @@ export class LessonModel
     subjectId:number;
     learningOutcome:string;
     plannedDate:Date;
-    completedDate:Date 
+    //completedDate:Date 
         
 }

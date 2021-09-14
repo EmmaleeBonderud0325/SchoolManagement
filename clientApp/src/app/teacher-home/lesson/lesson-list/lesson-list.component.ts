@@ -30,6 +30,8 @@ export class LessonListComponent implements OnInit {
   lessonFilter:LessonFilterModel;
   reorderable = true;
 
+  date:Date;
+
   
   currentPage: number = 0;
   pageSize: number = 25;
@@ -49,6 +51,7 @@ export class LessonListComponent implements OnInit {
     private toastr:ToastrService, 
     private spinner: NgxSpinnerService
     ) {
+      this.date= new Date();
       this.lessonFilterForm = this.createLessonFilterForm();
      }
 

@@ -6,6 +6,7 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule } from 'ngx-toastr';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
@@ -20,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    CalendarModule,
     ToastrModule.forRoot(),
   ]
 })
