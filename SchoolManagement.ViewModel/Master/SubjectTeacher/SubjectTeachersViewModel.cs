@@ -26,10 +26,5 @@ namespace SchoolManagement.ViewModel.Master
     public List<DropDownViewModel> AllTeachers { get; set; }
   }
 
-  public class SubjectTeacherFilter
-  {
-    public string SearchText { get; set; }
-    public int SelectedAcademicYearId { get; set; }
-    public int SelectedAcademicLevelId { get; set; }
-  }
+  
 }

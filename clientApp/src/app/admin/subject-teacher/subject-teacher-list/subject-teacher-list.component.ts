@@ -73,7 +73,7 @@ export class SubjectTeacherListComponent implements OnInit {
     });
   }
 
-  //get class Names DropDown Meta Data
+  //get  DropDown Master  Meta Data
   getMasterData() {
     this.subjectTeacherService.getSubjectTeacherMasterData()
       .subscribe(response => {
@@ -91,6 +91,7 @@ export class SubjectTeacherListComponent implements OnInit {
       });
   }
 
+  //get subject
   getSubjects() {
 
     this.subjectTeacherService.getSubjectsForSelectedAcademicLevel(this.academicLevelFilterId)
