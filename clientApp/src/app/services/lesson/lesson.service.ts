@@ -28,7 +28,7 @@ export class LessonService {
             .delete<ResponseModel>(environment.apiUrl + 'LessonDesign/' + id); 
   }       
 
-  saveLesson(vm, LessonModel): Observable <ResponseModel>{
+  saveLesson(vm :LessonModel): Observable <ResponseModel>{
            return this.httpClient
               .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
  

@@ -86,6 +86,7 @@ namespace SchoolManagement.Business
                     lesson = new Lesson()
                     {
                         Id = vm.Id,
+                        Name = vm.Name,
                         Description = vm.Description,
                         OwnerId = loggedInUser.Id,
                         AcademicLevelId = vm.AcademicLevelId,

@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class BasicLessonModel
 {
-    LessonName:string;
-    Description:string;
-    AcademicLevelId:number; 
-    ClassNameId:number;
-    AcademicYearId:number;
-    SubjectId:number;
+    lessonName:string;
+    description:string;
+    academicLevelId:number; 
+    classNameId:number;
+    scademicYearId:number;
+    subjectId:number;
 }

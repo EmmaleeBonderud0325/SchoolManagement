@@ -80,7 +80,7 @@ export class LessonListComponent implements OnInit {
     this.spinner.show();
     //this.getAll();
   }
-
+  //get Master DropDown Meta Data
   getMasterData() {
     this.lessonService.getLessonMasterData()
       .subscribe(response => {
@@ -116,16 +116,32 @@ export class LessonListComponent implements OnInit {
      });
    }
   
-  saveLesson(content){
-    {
-      this.modalService.open(content, {
-        ariaLabelledBy: 'modal-basic-title',
-        size: 'lg',
-      })
-          
-         
+  saveLesson()
+  {
+  
+      this.spinner.show();
+      var lessonModel = this.lessonForm.getRawValue();
+      console.log("++++++++++++++++++++++++++++++++=");
       
-    }
+      console.log(this.lessonForm.value);
+      
+      /* this.lessonService.saveLesson(lessonModel).subscribe(response=>{
+        this.spinner.hide();
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          //this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Errror");
+        }
+      },error=>{
+        this.spinner.hide();
+        this.toastr.error("Network error has been occured. Please try again.", "Error");
+      }); */
+  
 
   }
 
