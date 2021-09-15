@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.ViewModel.Lesson
+namespace SchoolManagement.ViewModel.Master
 {
-    public class LessonFilterViewModel
+    public class SubjectTeacherFilter
     {
-        public string searchText { get; set; }
+        public string SearchText { get; set; }
         public int SelectedAcademicYearId { get; set; }
         public int SelectedAcademicLevelId { get; set; }
-        public int SelectedClassNameId { get; set; }
-        public int SelectedSubjectId { get; set; }
     }
 }
