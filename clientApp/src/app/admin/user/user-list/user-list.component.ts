@@ -44,7 +44,7 @@ export class UserListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    //this.spinner.show();
+    this.spinner.show();
     //this.getAll();
     this.userFilterForm = this.createFilterForm();
     this.getUserRoles();
@@ -55,12 +55,11 @@ export class UserListComponent implements OnInit {
   getUserList()
   {
      this.loadingIndicator =true;
-     this.userService.getUserList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.roleFIlterId, this.academicLevelFilterId)
+     this.userService.getUserList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.roleFIlterId)
         .subscribe(response=>{
           this.data = response.data;
           console.log("==============");
           console.log(response.data);
-          
           
           this.totalRecord = response.totalRecordCount;
           this.spinner.hide();
@@ -94,21 +93,21 @@ export class UserListComponent implements OnInit {
     this.getUserList();
   }
 
-  onAcademicLevelFilterChanged(item: any) {
+  /* onAcademicLevelFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
     this.getUserList();
-  }
+  } */
 
   //getters
   get roleFIlterId(){
     return this.userFilterForm.get("roleId").value
   }
-  get academicLevelFilterId() {
+ /*  get academicLevelFilterId() {
     return this.userFilterForm.get("academicLevelId").value;
-  }
+  } */
 
   get searchTextFilterId() {
     return this.userFilterForm.get("searchText").value;

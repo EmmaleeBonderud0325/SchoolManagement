@@ -19,7 +19,7 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         List<DropDownViewModel> GetAllRoles();
         //List<UserViewModel> GetAllUsersByRole();
         UserMasterDataViewModel GetUserMasterData();
-        PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId, int academicLevelId);
+        PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId);
 
 
 

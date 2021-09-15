@@ -257,7 +257,7 @@ namespace SchoolManagement.Business
             return null;
         }
 
-        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId, int academicLevelId)
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -277,10 +277,6 @@ namespace SchoolManagement.Business
                 users = users.Where(x=> x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
             }
 
-            if (academicLevelId > 0)
-            {
-                
-            }
 
             totalRecordCount = users.Count();
             totalPages = (double)totalRecordCount / pageSize;

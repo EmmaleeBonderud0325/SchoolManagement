@@ -220,7 +220,7 @@ namespace SchoolManagement.Business
 
             return response;
         }
-        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(LessonFilterViewModel filters,int cuttrentPage, int pageSize, string userName)
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText,int cuttrentPage, int pageSize, string userName)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -232,29 +232,29 @@ namespace SchoolManagement.Business
             //var lessons = schoolDb.Lessons.OrderBy(l => l.Name && loggedInUser.Id);
             var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(o => o.Name);
 
-            if (!string.IsNullOrEmpty(filters.searchText))
+            if (!string.IsNullOrEmpty(searchText))
             {
-                query = query.Where(x => x.Name.Contains(filters.searchText)).OrderBy(o => o.Name);
+                query = query.Where(x => x.Name.Contains(searchText)).OrderBy(o => o.Name);
             }
 
-            if (filters.SelectedAcademicYearId > 0)
+            if (SelectedAcademicYearId > 0)
             {
-                query = query.Where(x => x.AcademicYearId == filters.SelectedAcademicYearId).OrderBy(o => o.Name);
+                query = query.Where(x => x.AcademicYearId == SelectedAcademicYearId).OrderBy(o => o.Name);
             }
 
-            if (filters.SelectedAcademicLevelId > 0)
+            if (SelectedAcademicLevelId > 0)
             {
-                query = query.Where(x => x.AcademicLevelId == filters.SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.AcademicLevelId == SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
             }
 
-            if (filters.SelectedClassNameId > 0)
+            if (SelectedClassNameId > 0)
             {
-                query = query.Where(x => x.ClassNameId == filters.SelectedClassNameId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.ClassNameId == SelectedClassNameId).OrderBy(o => o.CreatedOn);
             }
 
-            if (filters.SelectedSubjectId > 0)
+            if (SelectedSubjectId > 0)
             {
-                query = query.Where(x => x.SubjectId == filters.SelectedSubjectId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.SubjectId == SelectedSubjectId).OrderBy(o => o.CreatedOn);
             }
 
             totalRecordCount = query.Count();

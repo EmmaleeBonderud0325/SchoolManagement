@@ -34,14 +34,13 @@ export class UserService {
     .get<UserMasterDataModel>(environment.apiUrl + "User/getUserMasterData");
   }
 
-  getUserList(searchText: string, currentPage: number, pageSize: number, roleId:number, academicLevelId: number):Observable<UserPaginatedItemViewModel>{
+  getUserList(searchText: string, currentPage: number, pageSize: number, roleId:number,):Observable<UserPaginatedItemViewModel>{
     return this.httpClient.get<UserPaginatedItemViewModel>(environment.apiUrl + "User/getUserList",{
       params:new HttpParams()
         .set('searchText',searchText)
         .set('currentPage', currentPage.toString())
         .set('pageSize', pageSize.toString())
         .set('roleId', roleId.toString())
-        .set('academicLevelId', academicLevelId.toString())
     });
   }
 

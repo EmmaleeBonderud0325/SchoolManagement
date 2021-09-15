@@ -79,9 +79,9 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getUserList")]
-        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId, int academicLevelId)
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
         {
-            var response = userService.GetUserList(searchText, currentPage, pageSize, roleId, academicLevelId);
+            var response = userService.GetUserList(searchText, currentPage, pageSize, roleId);
 
             return response;
         }
