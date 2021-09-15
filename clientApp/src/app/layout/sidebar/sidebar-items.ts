@@ -100,11 +100,8 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible:true
       },
-
-
-        isVisible: true
-      }
     ],
+    
   },
   {
     path: '',
