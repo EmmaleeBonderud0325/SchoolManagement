@@ -1,4 +1,4 @@
-import { ClassDetailComponent } from './class-detail/class-detail.component';
+
 import { ClassListComponent } from './class-list/class-list.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
@@ -13,11 +13,7 @@ const routes: Routes = [
   {
     path: 'classes',
     component: ClassListComponent,
-  },
-  {
-    path: 'classes-detail',
-    component: ClassDetailComponent,
-  },
+  }
 ];
 
 

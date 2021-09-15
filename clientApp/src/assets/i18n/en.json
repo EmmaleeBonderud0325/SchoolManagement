@@ -1,11 +1,11 @@
 {
-  "HEADER":{
+  "HEADER": {
     "SEARCH": {
       "TEXT": "Search.."
     }
   },
   "MENUITEMS": {
-    "USER":{
+    "USER": {
       "POST": "Admin"
     },
     "MAIN": {
@@ -35,6 +35,8 @@
         "CLASS-TEACHER": "Class Teachers",
         "STUDENT": "Students",
         "SUBJECT": "Subjects",
+        "SUBJECT_TEACHERS": "Subject Teachers",
+        "HEAD_Of_DEPARTMENT":"Head Of Department",
         "EXAMPLE": "Example"
       }
     }

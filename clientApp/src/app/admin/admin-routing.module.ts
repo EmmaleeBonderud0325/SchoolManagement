@@ -12,7 +12,7 @@ const routes: Routes = [
   {
     path: 'user',
     loadChildren: () =>
-          import('./user/user.module').then((m) => m.UserModule)
+      import('./user/user.module').then((m) => m.UserModule)
   },
 
   {
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'academic-level',
     loadChildren: () =>
-          import('./academic-level/academic-level.module').then((m) => m.AcademicLevelModule)
+      import('./academic-level/academic-level.module').then((m) => m.AcademicLevelModule)
   },
 
   {
@@ -34,7 +34,7 @@ const routes: Routes = [
   {
     path: 'academic-year',
     loadChildren: () =>
-          import('./academic-year/academic-year.module').then((m) => m.AcademicYearModule)
+      import('./academic-year/academic-year.module').then((m) => m.AcademicYearModule)
   },
 
   {
@@ -45,7 +45,7 @@ const routes: Routes = [
   {
     path: 'class-name',
     loadChildren: () =>
-          import('./class-name/class-name.module').then((m) => m.ClassNameModule)
+      import('./class-name/class-name.module').then((m) => m.ClassNameModule)
   },
 
   {
@@ -56,7 +56,7 @@ const routes: Routes = [
   {
     path: 'class',
     loadChildren: () =>
-          import('./class/class.module').then((m) => m.ClassModule)
+      import('./class/class.module').then((m) => m.ClassModule)
   },
 
   {
@@ -67,7 +67,7 @@ const routes: Routes = [
   {
     path: 'class-teacher',
     loadChildren: () =>
-          import('./class-teacher/class-teacher.module').then((m) => m.ClassTeacherModule)
+      import('./class-teacher/class-teacher.module').then((m) => m.ClassTeacherModule)
   },
 
   {
@@ -78,7 +78,7 @@ const routes: Routes = [
   {
     path: 'student',
     loadChildren: () =>
-          import('./student/student.module').then((m) => m.StudentModule)
+      import('./student/student.module').then((m) => m.StudentModule)
   },
 
   {
@@ -89,7 +89,28 @@ const routes: Routes = [
   {
     path: 'subject',
     loadChildren: () =>
-          import('./subject/subject.module').then((m) => m.SubjectModule)
+      import('./subject/subject.module').then((m) => m.SubjectModule)
+  },
+  {
+    path: '',
+    redirectTo: 'subject-teacher',
+    pathMatch: 'full',
+  },
+  {
+    path: 'subject-teacher',
+    loadChildren: () =>
+      import('./subject-teacher/subject-teacher.module').then((m) => m.SubjectTeacherModule)
+  },
+
+  {
+    path: '',
+    redirectTo: 'head-of-department',
+    pathMatch: 'full',
+  },
+  {
+    path: 'head-of-department',
+    loadChildren: () =>
+          import('./head-of-department/head-of-department.module').then((m) => m.HeadOfDepartmentModule)
   },
 
   {
@@ -100,9 +121,9 @@ const routes: Routes = [
   {
     path: 'example',
     loadChildren: () =>
-          import('./example/example.module').then((m) => m.ExampleModule)
+      import('./example/example.module').then((m) => m.ExampleModule)
   },
-  
+
 
 ];
 

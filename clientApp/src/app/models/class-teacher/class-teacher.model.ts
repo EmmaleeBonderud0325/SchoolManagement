@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/* import { Injectable } from '@angular/core';
 
 @Injectable()
 export class classteacherModel{
@@ -17,4 +17,4 @@ export class classteacherModel{
     updatedOn:Date;
     updatedById:number;
     updatedByName:string;
-}
+} */
