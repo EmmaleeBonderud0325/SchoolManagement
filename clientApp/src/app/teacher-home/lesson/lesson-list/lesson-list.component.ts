@@ -1,6 +1,5 @@
 import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DropDownModel } from './../../../models/common/drop-down.model';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
@@ -130,7 +129,7 @@ export class LessonListComponent implements OnInit {
       
       console.log(this.lessonForm.value);
       
-      /* this.lessonService.saveLesson(lessonModel).subscribe(response=>{
+       this.lessonService.saveLesson(lessonModel).subscribe(response=>{
         this.spinner.hide();
         if(response.isSuccess)
         {
@@ -145,7 +144,7 @@ export class LessonListComponent implements OnInit {
       },error=>{
         this.spinner.hide();
         this.toastr.error("Network error has been occured. Please try again.", "Error");
-      }); */
+      }); 
   
 
   }
