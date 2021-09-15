@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.AccountData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.WebService.Infrastructure.Services;
@@ -72,6 +73,15 @@ namespace SchoolManagement.WebService.Controllers
         public UserMasterDataViewModel GetUserMasterData()
         {
             var response = userService.GetUserMasterData();
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getUserList")]
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId, int academicLevelId)
+        {
+            var response = userService.GetUserList(searchText, currentPage, pageSize, roleId, academicLevelId);
 
             return response;
         }

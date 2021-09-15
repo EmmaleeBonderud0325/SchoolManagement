@@ -4,8 +4,9 @@ import { ResponseModel } from './../../models/common/response.model';
 import { environment } from './../../../environments/environment';
 import { UserModel } from './../../models/user/user.model';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { UserPaginatedItemViewModel } from "src/app/models/user/user.paginated.item.model";
 
 @Injectable({
   providedIn: 'root'
@@ -31,6 +32,17 @@ export class UserService {
   getClassMasterData(): Observable<UserMasterDataModel> {
     return this.httpClient
     .get<UserMasterDataModel>(environment.apiUrl + "User/getUserMasterData");
+  }
+
+  getUserList(searchText: string, currentPage: number, pageSize: number, roleId:number, academicLevelId: number):Observable<UserPaginatedItemViewModel>{
+    return this.httpClient.get<UserPaginatedItemViewModel>(environment.apiUrl + "User/getUserList",{
+      params:new HttpParams()
+        .set('searchText',searchText)
+        .set('currentPage', currentPage.toString())
+        .set('pageSize', pageSize.toString())
+        .set('roleId', roleId.toString())
+        .set('academicLevelId', academicLevelId.toString())
+    });
   }
 
   ///get user by id Service

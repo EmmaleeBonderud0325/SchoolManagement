@@ -48,10 +48,11 @@
                               <label>Role</label>
                               <select
                                 class="form-select form-control"
-                                formControlName="academicYearId"
+                                formControlName="roleId"
+                                (change)="onRoleFilterChanged($event.target.value)"
                               >
                                 <option
-                                  *ngFor="let item of "
+                                  *ngFor="let item of userRoles"
                                   [value]="item.id"
                                 >
                                   {{ item.name }}
@@ -65,10 +66,10 @@
                               <select
                                 class="form-select form-control"
                                 formControlName="academicLevelId"
-                                
+                                (change)="onAcademicLevelFilterChanged($event.target.value)"
                               >
                                 <option
-                                  *ngFor="let item of "
+                                  *ngFor="let item of academicLevels"
                                   [value]="item.id"
                                 >
                                   {{ item.name }}

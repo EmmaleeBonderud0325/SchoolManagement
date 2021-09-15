@@ -1,3 +1,4 @@
+import { BasicUserModel } from './../../../models/user/basic.user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
@@ -18,7 +19,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class UserListComponent implements OnInit {
 
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
 
@@ -29,6 +29,8 @@ export class UserListComponent implements OnInit {
   isDisabled: boolean;
   userRoles:DropDownModel[]=[];
   academicLevels:DropDownModel[]=[];
+
+  data = new Array<BasicUserModel>();
 
   currentPage: number = 0;
   pageSize: number = 25;
@@ -42,9 +44,74 @@ export class UserListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.getAll();
+    //this.spinner.show();
+    //this.getAll();
+    this.userFilterForm = this.createFilterForm();
     this.getUserRoles();
+    this.getUserMasterData();
+  }
+
+  //Get paginatedUser Details
+  getUserList()
+  {
+     this.loadingIndicator =true;
+     this.userService.getUserList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.roleFIlterId, this.academicLevelFilterId)
+        .subscribe(response=>{
+          this.data = response.data;
+          console.log("==============");
+          console.log(response.data);
+          
+          
+          this.totalRecord = response.totalRecordCount;
+          this.spinner.hide();
+          this.loadingIndicator = false;
+        },erroe=>{
+          this.spinner.hide();
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured. Please try again.", "Error");
+        });
+  }
+
+  //User Filter data
+  createFilterForm():FormGroup{
+
+    return this.fb.group({
+
+      searchText: new FormControl(""),
+      academicLevelId : new FormControl(0),
+      roleId : new FormControl(0),
+     
+
+    })
+  }
+
+  onRoleFilterChanged(item:any)
+  {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    this.spinner.show();
+    this.getUserList();
+  }
+
+  onAcademicLevelFilterChanged(item: any) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    this.spinner.show();
+    this.getUserList();
+  }
+
+  //getters
+  get roleFIlterId(){
+    return this.userFilterForm.get("roleId").value
+  }
+  get academicLevelFilterId() {
+    return this.userFilterForm.get("academicLevelId").value;
+  }
+
+  get searchTextFilterId() {
+    return this.userFilterForm.get("searchText").value;
   }
 
   //create new user (Reactive Form)
@@ -77,7 +144,7 @@ export class UserListComponent implements OnInit {
       this.userRoles = response.userRoles;
       this.academicLevels = response.academicLevels;
 
-      this.getAll();
+      this.getUserList();
     },error=>{
       this.spinner.hide();
     })
@@ -89,7 +156,7 @@ export class UserListComponent implements OnInit {
     this.spinner.show();
     this.loadingIndicator = true;
     this.currentPage = pageInfo.offset;
-    this.getAll();
+    this.getUserList();
   }
   //FIlter Master 
   filterDatatable(event) {
@@ -98,7 +165,7 @@ export class UserListComponent implements OnInit {
     this.totalRecord = 0;
     const val = event.target.value.toLowerCase();
     this.spinner.show();
-    this.getAll();
+    this.getUserList();
   }
 
   //delete user
@@ -157,7 +224,7 @@ export class UserListComponent implements OnInit {
             if(response.isSuccess)
             {
               this.toastr.success(response.message,"Success");
-              this.getAll();
+              this.getUserList();
             }
             else
             {
@@ -192,7 +259,7 @@ export class UserListComponent implements OnInit {
      this.loadingIndicator = true;
      this.userService.getAll().subscribe(response=>
     {
-      this.data=response;
+      //this.data=response;
       this.spinner.hide();
       this.loadingIndicator = false;
      },error=>{
@@ -206,6 +273,7 @@ export class UserListComponent implements OnInit {
   {
     this.userService.getAllRoles().subscribe(response=>{
         this.userRoles= response;
+        this.getUserList();
     },error=>{
 
     });
@@ -223,7 +291,7 @@ export class UserListComponent implements OnInit {
         {
             this.modalService.dismissAll();
             this.toastr.success(response.message,"Success");
-            this.getAll();
+            this.getUserList();
         }
         else
         {

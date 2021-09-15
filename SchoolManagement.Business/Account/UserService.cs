@@ -288,21 +288,28 @@ namespace SchoolManagement.Business
 
             var userList = users.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
 
-            userList.ForEach(x =>
+            userList.ForEach(user =>
             {
                 var vm = new BasicUserViewModel()
                 {
-                    Id = x.Id,
-                    FullName = x.FullName,
-                    Email = x.Email,
-                    MobileNo = x.MobileNo,
-                    Username = x.Username,
-                    Address = x.Address,
-                   // CreatedOn = x.CreatedOn.CreatedById.HasValue ? x.CreatedBy.FullName : string.Empty,
-
-
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    MobileNo = user.MobileNo,
+                    Username = user.Username,
+                    Address = user.Address,
+                    CreatedByName= user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
+                    UpdatedOn = user.UpdatedOn,
                 };
+                vmu.Add(vm);
             });
+
+            var container = new PaginatedItemsViewModel<BasicUserViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+
         }
     }
 }
