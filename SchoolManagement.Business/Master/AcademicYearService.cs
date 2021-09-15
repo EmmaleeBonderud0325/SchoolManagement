@@ -94,7 +94,7 @@ namespace SchoolManagement.Business.Master
 
                     response.IsSuccess = true;
                     response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
-                    
+
                 }
 
                 await schoolDb.SaveChangesAsync();

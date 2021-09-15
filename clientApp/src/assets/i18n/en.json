@@ -31,6 +31,7 @@
         "STUDENT": "Students",
         "SUBJECT": "Subjects",
         "SUBJECT_TEACHERS": "Subject Teachers",
+        "HEAD_Of_DEPARTMENT":"Head Of Department",
         "EXAMPLE": "Example"
       }
     }
