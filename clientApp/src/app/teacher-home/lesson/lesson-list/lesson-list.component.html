@@ -178,7 +178,11 @@
                       >
                         <i class="fas fa-pen"></i>
                       </button>
-                      <button class="btn btn-icon btn-sm btn-danger ms-1">
+                      <button 
+                        class="btn btn-icon btn-sm btn-danger ms-1"
+                        (click)="deleteLesson(row)"
+
+                      >
                         <i class="fas fa-trash-alt"></i>
                       </button>
                     </span>
@@ -191,18 +195,17 @@
                       let-value="value"
                       let-i="index"
                       ngx-datatable-cell-template
-                    >
-                      <!--                   <img src="{{ row.img }}" class="data-table-img" /> -->
+                    >               
                       <div class="name-col-style">
                         <div>{{ row.lessonName  }}</div>
-                        <!--                     <div class="font-12 text-muted">{{ row.designation }}</div> -->
+                                     
                       </div>
                     </ng-template>
                   </ngx-datatable-column>
 
-                  <ngx-datatable-column [width]="100" name="Teachers Count">
+                  <ngx-datatable-column [width]="100" name="Description">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.Description}}
+                      {{ row.description}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -214,7 +217,7 @@
 
                   <ngx-datatable-column [width]="150" name="Class Name">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.classNameId}}
+                      {{ row.className}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -226,7 +229,7 @@
 
                   <ngx-datatable-column [width]="150" name="Subject">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.SubjectId }}
+                      {{row.subjectName}}
                     </ng-template>
                   </ngx-datatable-column>
                 </ngx-datatable>

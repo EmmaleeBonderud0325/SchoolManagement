@@ -128,6 +128,7 @@ export class LessonListComponent implements OnInit {
         this.spinner.hide();
       });
   }
+  //getLessonList
   getAllLessonList()
   {
     this.loadingIndicator = true;
@@ -211,7 +212,7 @@ export class LessonListComponent implements OnInit {
     });
   }
 
-  delete(row){
+  deleteLesson(row){
     
       Swal.fire({
       title: 'Are you sure to Delete Lesson ?',
@@ -227,7 +228,7 @@ export class LessonListComponent implements OnInit {
             if(response.isSuccess)
            {
               this.toastr.success(response.message,"Success");
-              //this.getAllLesson();
+              this.getAllLessonList()
             }
            else
             {

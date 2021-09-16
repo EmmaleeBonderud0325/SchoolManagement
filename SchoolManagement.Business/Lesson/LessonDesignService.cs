@@ -269,11 +269,13 @@ namespace SchoolManagement.Business
             {
                 var vm = new BasicLessonViewModel()
                 {
+                    Id =item.Id,
                     LessonName = item.Name,
-                    AcademicLevelId = item.AcademicLevelId,
-                    ClassNameId = item.ClassNameId,
+                    Description = item.Description,
+                    AcademicLevelId = item.Class.AcademicLevel.Name,
+                    ClassName = item.Class.Name,
                     AcademicYearId = item.AcademicYearId,
-                    SubjectId = item.SubjectId
+                    SubjectName = item.SubjectAcedemicLevel.Subject.Name
                     
                 };
                 vml.Add(vm);
