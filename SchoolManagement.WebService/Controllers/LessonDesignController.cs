@@ -76,11 +76,11 @@ namespace SchoolManagement.WebService.Controllers
         [HttpGet]
         [Route("getLessonList")]
         public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
-                                                                            int cuttrentPage, int classNameId, int subjectId, int pageSize)
+                                                                            int currentPage, int classNameId, int subjectId, int pageSize)
         {
             var userName = identityService.GetUserName();
             var response = lessonDesignService.GetLessonList(searchText, academicYearId, academicLevelId,
-                                                                            cuttrentPage, classNameId, subjectId, pageSize, userName);
+                                                                            currentPage, classNameId, subjectId, pageSize, userName);
 
             return response;
 

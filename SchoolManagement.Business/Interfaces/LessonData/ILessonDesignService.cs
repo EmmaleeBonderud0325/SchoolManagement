@@ -17,6 +17,6 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         Task<ResponseViewModel> DeleteLesson(int id);
         LessonMasterDataViewModel GetLessonMasterData();
         PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
-                                                                     int cuttrentPage, int classNameId, int subjectId, int pageSize, string userName);
+                                                                     int currentPage, int classNameId, int subjectId, int pageSize, string userName);
     }
 }

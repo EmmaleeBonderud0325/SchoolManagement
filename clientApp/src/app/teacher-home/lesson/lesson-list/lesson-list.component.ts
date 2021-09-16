@@ -135,7 +135,7 @@ export class LessonListComponent implements OnInit {
                                                this.classNameFilterId,this.subjectFilterId, this.currentPage + 1,this.pageSize)
       .subscribe(response=>{
         console.log("Table Data");
-        console.log(this.data = response.data);
+        console.log(response);
         this.data = response.data;
         this.totalRecord = response.totalRecordCount;
         this.spinner.hide();

@@ -221,7 +221,7 @@ namespace SchoolManagement.Business
             return response;
         }
         public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
-                                                                            int cuttrentPage, int classNameId, int subjectId, int pageSize, string userName)
+                                                                            int currentPage, int classNameId, int subjectId, int pageSize, string userName)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -262,7 +262,7 @@ namespace SchoolManagement.Business
             totalPages = (double)totalRecordCount / pageSize;
             totalPageCount = (int)Math.Ceiling(totalPages);
 
-            var lessonList = query.Skip((cuttrentPage - 1) * pageSize).Take(pageSize).ToList();
+            var lessonList = query.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
             //var lessonList = query.ToList();
 
             foreach (var item in lessonList)
@@ -279,7 +279,7 @@ namespace SchoolManagement.Business
                 vml.Add(vm);
             }
 
-            var container = new PaginatedItemsViewModel<BasicLessonViewModel>(pageSize, totalPageCount, totalRecordCount,vml);
+            var container = new PaginatedItemsViewModel<BasicLessonViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vml);
 
             return container;
 
