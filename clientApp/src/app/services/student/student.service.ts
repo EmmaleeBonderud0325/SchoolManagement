@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ResponseModel } from 'src/app/models/common/response.model';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class StudentService {
   saveStudent(vm: StudentModel): Observable<ResponseModel> {
     return this.httpClient.
       post<ResponseModel>(environment.apiUrl + 'Student', vm);
+  }
+
+  getAllGenders():Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllGenders');
   }
 
   delete(id: number): Observable<ResponseModel> {

@@ -40,10 +40,6 @@ namespace SchoolManagement.Business.Master
                 var student = schoolDb.Students.FirstOrDefault(a => a.Id == id);
                 var userRole = schoolDb.UserRoles.FirstOrDefault(d => d.UserId == id);
 
-                user.IsActive = false;
-                schoolDb.Users.Update(user);
-                await schoolDb.SaveChangesAsync();
-
                 userRole.IsActive = false;
                 schoolDb.UserRoles.Update(userRole);
                 await schoolDb.SaveChangesAsync();
@@ -62,6 +58,23 @@ namespace SchoolManagement.Business.Master
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllGenders()
+        {
+            var genderList = new List<DropDownViewModel>();
+
+            foreach (var item in Enum.GetValues(typeof(Gender)))
+            {
+                var listItem = new DropDownViewModel()
+                {
+                    Id = (int)item,
+                    Name = item.ToString()
+                };
+                genderList.Add(listItem);
+            }
+
+            return genderList;
         }
 
         public List<StudentViewModel> GetAllStudent()
@@ -83,8 +96,8 @@ namespace SchoolManagement.Business.Master
                         Id = item.Id,
                         AdmissionNo = item.AdmissionNo,
                         EmegencyContactNo = item.EmegencyContactNo2,
-                        //EmegencyContactNo2 = user.MobileNo,
                         Gender = item.Gender,
+                        GenderName = item.Gender.ToString(),
                         DateOfBirth = item.DateOfBirth,
                         IsActive = item.IsActive,
                         FullName = user.FullName,
@@ -121,7 +134,7 @@ namespace SchoolManagement.Business.Master
                         FullName = vm.FullName,
                         MobileNo = vm.MobileNo,
                         Password = CustomPasswordHasher.GenerateHash(vm.Password),
-                        IsActive = true,
+                        IsActive = false,
                         CreatedById = loggedInUser.Id,
                         CreatedOn = DateTime.UtcNow,
                         UpdatedOn = DateTime.UtcNow,
@@ -133,11 +146,12 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Users.Add(user);
                     await schoolDb.SaveChangesAsync();
 
-                    //get inserted user id  sss
+                    //get inserted user id 
                     var insertedId = schoolDb.Users.Max(i => i.Id);
 
                     //Add student role to UserRoles table
                     var roleItems = schoolDb.Roles.Where(s => s.Name == "student");
+
                     foreach (var item in roleItems)
                     {
                         var role = new Role()

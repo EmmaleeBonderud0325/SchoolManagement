@@ -44,5 +44,13 @@ namespace SchoolManagement.WebService.Controllers
             var response = await studentService.DeleteStudent(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllGenders")]
+        public IActionResult GetAllGenders()
+        {
+            var response = studentService.GetAllGenders();
+            return Ok(response);
+        }
     }
 }
