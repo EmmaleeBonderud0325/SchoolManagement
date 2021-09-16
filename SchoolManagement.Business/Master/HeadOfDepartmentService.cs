@@ -103,6 +103,7 @@ namespace SchoolManagement.Business.Master
                     HeadOfDepartment.SubjectId = vm.SubjectId;
                     HeadOfDepartment.AcademicYearId = vm.AcademicYearId;
                     HeadOfDepartment.AcademicLevelId = vm.AcademicLevelId;
+                    HeadOfDepartment.TeacherId = vm.TeacherId;
                     HeadOfDepartment.IsActive = true;
                     HeadOfDepartment.UpdatedById = currentuser.Id;
                     HeadOfDepartment.UpdateOn = DateTime.UtcNow;

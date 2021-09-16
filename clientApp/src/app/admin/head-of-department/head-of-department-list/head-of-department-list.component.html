@@ -185,7 +185,19 @@
                                 *ngFor="let item of academicYears" 
                                 [value]="item.id">{{item.id}}                           
                               </option>
+                              
                             </select>
+                            <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('academicYearId').valid && 
+                        headOfDepartmentFrom.get('academicYearId').touched
+                        "
+                        >   
+
+                        Academic Year is required</small
+
+                        >
                           </div>
                         </div> 
     
@@ -200,6 +212,17 @@
                                 [value]="item.id">{{item.name}}
                               </option>
                             </select>
+                            <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('academicLevelId').valid && 
+                        headOfDepartmentFrom.get('academicLevelId').touched
+                        "
+                        >   
+
+                        Academic Level is required</small
+
+                        >
                           </div>
                         </div> 
                       </div>
@@ -217,6 +240,17 @@
                             [value]="item.id">{{item.name}}                           
                           </option>
                         </select>
+                        <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('teacherId').valid && 
+                        headOfDepartmentFrom.get('teacherId').touched
+                        "
+                        >   
+
+                        Teacher's name is required</small
+
+                        >
                       </div>
                     </div> 
 
@@ -231,6 +265,17 @@
                             [value]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('subjectId').valid && 
+                        headOfDepartmentFrom.get('subjectId').touched
+                        "
+                        >   
+
+                        Subject name is required</small
+
+                        >
                       </div>
                     </div> 
                   </div>
