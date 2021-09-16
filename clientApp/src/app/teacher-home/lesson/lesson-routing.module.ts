@@ -18,6 +18,10 @@ const routes: Routes = [
     path: 'lesson-detail',
     component:LessonDetailComponent,
   },
+   {
+    path: 'lesson-detail/:id',
+    component:LessonDetailComponent,
+  }, 
 ]
 
 
