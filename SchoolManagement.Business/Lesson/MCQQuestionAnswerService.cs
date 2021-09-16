@@ -31,7 +31,7 @@ namespace SchoolManagement.Business
         public List<MCQQuestionAnswerViewModel> GetMCQQuestionAnswers()
         {
             var response = new List<MCQQuestionAnswerViewModel>();
-            var query = schoolDb.MCQQuestionAnswers.Where(u => u.Id != null);
+            var query = schoolDb.MCQQuestionAnswers.Where(u => u.Id != 0);
             var MCQQuestionAnswerList = query.ToList();
 
             foreach (var item in MCQQuestionAnswerList)

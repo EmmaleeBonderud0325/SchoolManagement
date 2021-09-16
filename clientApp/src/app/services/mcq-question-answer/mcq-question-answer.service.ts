@@ -17,7 +17,7 @@ export class McqQuestionAnswerService {
     console.log("service call")
     return this.httpClient.
       get<MCQQuestionAnswerModel[]>
-      (environment.apiUrl + 'MCQQuestionAnswer');
+      (environment.apiUrl + 'MCQQuestionAnswer/getAll');
   }
  
   saveMcqQuestionAnswer(vm: MCQQuestionAnswerModel): Observable<ResponseModel> {

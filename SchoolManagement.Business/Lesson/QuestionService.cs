@@ -113,8 +113,8 @@ namespace SchoolManagement.Business
                         IsActive = true,
                         CreateOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
-                        //UpdateOn = DateTime.UtcNow,
-                        //UpdatedById = loggedInUser.Id,
+                        UpdateOn = DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id,
                 };
 
                     schoolDb.Questions.Add(Questions);

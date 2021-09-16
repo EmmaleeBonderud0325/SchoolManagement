@@ -26,8 +26,8 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        //[Route("getAll")]
-        public ActionResult GetMCQQuestionAnswers()
+        [Route("getAll")]
+        public IActionResult GetMCQQuestionAnswers()
         {
             var response = mcqQuestionAnswerService.GetMCQQuestionAnswers();
             return Ok(response);
