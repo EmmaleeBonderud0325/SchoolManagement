@@ -158,7 +158,7 @@
                     <span>
                       <button
                         class="btn btn-icon icon-left btn-primary rounded-button"
-                        (click)="addNewLessonRoute()"
+                        (click)='createNewLesson(addEditRecord)'
                       >
                         <i class="material-icons">add</i>
                       </button>
@@ -174,7 +174,7 @@
                     <span>
                       <button
                         class="btn btn-icon btn-sm btn-primary ms-1"
-                        (click)="editRow(row, rowIndex, addEditRecord)"
+                        (click)="updateLesson(row, rowIndex, addEditRecord)"
                       >
                         <i class="fas fa-pen"></i>
                       </button>
