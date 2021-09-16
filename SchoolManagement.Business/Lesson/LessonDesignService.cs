@@ -220,7 +220,8 @@ namespace SchoolManagement.Business
 
             return response;
         }
-        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText,int cuttrentPage, int pageSize, string userName)
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
+                                                                            int cuttrentPage, int classNameId, int subjectId, int pageSize, string userName)
         {
             int totalRecordCount = 0;
             double totalPages = 0;
@@ -229,32 +230,32 @@ namespace SchoolManagement.Business
             var vml = new List<BasicLessonViewModel>();
 
             var loggedInUser = currentUserService.GetUserByUsername(userName);
-            //var lessons = schoolDb.Lessons.OrderBy(l => l.Name && loggedInUser.Id);
-            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(o => o.Name);
+
+            var query = schoolDb.Lessons.Where(u => u.IsActive == true && u.OwnerId == loggedInUser.Id).OrderBy(x => x.CreatedOn);
 
             if (!string.IsNullOrEmpty(searchText))
             {
-                query = query.Where(x => x.Name.Contains(searchText)).OrderBy(o => o.Name);
+                query = query.Where(x => x.Name.Contains(searchText)).OrderBy(o => o.CreatedOn);
             }
 
-            if (SelectedAcademicYearId > 0)
+            if (academicYearId > 0)
             {
-                query = query.Where(x => x.AcademicYearId == SelectedAcademicYearId).OrderBy(o => o.Name);
+                query = query.Where(x => x.AcademicYearId == academicYearId).OrderBy(o => o.CreatedOn);
             }
 
-            if (SelectedAcademicLevelId > 0)
+            if (academicLevelId > 0)
             {
-                query = query.Where(x => x.AcademicLevelId == SelectedAcademicLevelId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.AcademicLevelId == academicLevelId).OrderBy(o => o.CreatedOn);
             }
 
-            if (SelectedClassNameId > 0)
+            if (classNameId > 0)
             {
-                query = query.Where(x => x.ClassNameId == SelectedClassNameId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.ClassNameId == classNameId).OrderBy(o => o.CreatedOn);
             }
 
-            if (SelectedSubjectId > 0)
+            if (subjectId > 0)
             {
-                query = query.Where(x => x.SubjectId == SelectedSubjectId).OrderBy(o => o.CreatedOn);
+                query = query.Where(x => x.SubjectId == subjectId).OrderBy(o => o.CreatedOn);
             }
 
             totalRecordCount = query.Count();
@@ -262,6 +263,7 @@ namespace SchoolManagement.Business
             totalPageCount = (int)Math.Ceiling(totalPages);
 
             var lessonList = query.Skip((cuttrentPage - 1) * pageSize).Take(pageSize).ToList();
+            //var lessonList = query.ToList();
 
             foreach (var item in lessonList)
             {

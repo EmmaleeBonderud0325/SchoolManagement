@@ -33,7 +33,7 @@ export class UserListComponent implements OnInit {
   data = new Array<BasicUserModel>();
 
   currentPage: number = 0;
-  pageSize: number = 25;
+  pageSize: number = 10;
   totalRecord: number = 0;
 
   constructor(

@@ -18,7 +18,7 @@ namespace SchoolManagement.WebService.Controllers
         private readonly IIdentityService identityService;
         private readonly ILessonDesignService lessonDesignService;
 
-        public LessonDesignController(IIdentityService identityService,ILessonDesignService lessonDesignService )
+        public LessonDesignController(IIdentityService identityService, ILessonDesignService lessonDesignService)
         {
             this.identityService = identityService;
             this.lessonDesignService = lessonDesignService;
@@ -32,7 +32,7 @@ namespace SchoolManagement.WebService.Controllers
             var userName = identityService.GetUserName();
             var response = lessonDesignService.GetAllLessons(filters, userName);
             return Ok(response);
-        }       
+        }
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
@@ -75,13 +75,17 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getLessonList")]
-        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(LessonFilterViewModel filters, int cuttrentPage, int pageSize)
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
+                                                                            int cuttrentPage, int classNameId, int subjectId, int pageSize)
         {
             var userName = identityService.GetUserName();
-            var response = lessonDesignService.GetLessonList(filters, cuttrentPage, pageSize, userName);
+            var response = lessonDesignService.GetLessonList(searchText, academicYearId, academicLevelId,
+                                                                            cuttrentPage, classNameId, subjectId, pageSize, userName);
 
             return response;
 
         }
-    }
+
+
+    }   
 }

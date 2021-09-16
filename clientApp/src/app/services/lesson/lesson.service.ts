@@ -17,34 +17,33 @@ export class LessonService {
  
   constructor(private httpClient: HttpClient) { }
 
-  getAllLessonList(filter:LessonFilterModel,currentPage: number, pageSize: number): Observable<LessonPaginatedItemsViewModel>{
+  getAllLessonList(searchText:string, academicYearId:number, academicLevelId:number,classNameId:number,subjectId:number,currentPage: number, pageSize: number): Observable<LessonPaginatedItemsViewModel>{
     return this.httpClient
         .get<LessonPaginatedItemsViewModel>(environment.apiUrl +"LessonDesign/getLessonList",{
           params: new HttpParams()
-            .set('searchText',filter.searchText)
-            .set('selectedAcademicLevelId', filter.selectedAcademicLevelId.toString())
-            .set('selectedAcademicYearId', filter.selectedAcademicYearId.toString())
-            .set('selectedClassNameId', filter.selectedClassNameId.toString())
-            .set('selectedSubjectId',filter.selectedSubjectId.toString())
+            .set('searchText',searchText)
+            .set('academicLevelId',academicYearId.toString())
+            .set('academicYearId', academicLevelId.toString())
+            .set('classNameId', classNameId.toString())
+            .set('subjectId',subjectId.toString())
             .set('currentPage', currentPage.toString())
             .set('pageSize', pageSize.toString())
-          
         });
   }
 
   delete(id: number): Observable <ResponseModel> { 
-          return this.httpClient
-            .delete<ResponseModel>(environment.apiUrl + 'LessonDesign/' + id); 
+    return this.httpClient
+      .delete<ResponseModel>(environment.apiUrl + 'LessonDesign/' + id); 
   }       
 
   saveLesson(vm :LessonModel): Observable <ResponseModel>{
-           return this.httpClient
-              .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
+    return this.httpClient
+      .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
  
   }
 
   getLessonMasterData(): Observable<LessonMasterDataModel> {
     return this.httpClient
-    .get<LessonMasterDataModel>(environment.apiUrl + "LessonDesign/getLessonMasterData");
+      .get<LessonMasterDataModel>(environment.apiUrl + "LessonDesign/getLessonMasterData");
   }
 }
