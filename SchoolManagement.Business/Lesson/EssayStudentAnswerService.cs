@@ -75,7 +75,7 @@ namespace SchoolManagement.Business
         {
             var students = schoolDb.Students
             .Where(x => x.IsActive == true)
-            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st. ) })
+            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName ) })
             .Distinct().ToList();
 
             return students;
