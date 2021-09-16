@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -17,5 +18,10 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         UserViewModel GetUserbyId(int id);
         List<DropDownViewModel> GetAllRoles();
         //List<UserViewModel> GetAllUsersByRole();
+        UserMasterDataViewModel GetUserMasterData();
+        PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId);
+
+
+
     }
 }

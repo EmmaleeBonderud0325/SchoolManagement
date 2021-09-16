@@ -1,14 +1,17 @@
+import { ClassSubjectTeacherModel } from './../../models/class/class.subject.teacher.model';
+import { ClassMasterDataModel } from './../../models/class/class.masterdata.model';
+import { ClassPaginatedItemsViewModel } from './../../models/class/class.paginated.items.model';
+import { ClassModel } from './../../models/class/class.model';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from '../../models/common/response.model';
 import { environment } from '../../../environments/environment';
-import { ClassModel } from '../../models/class/class.model';
-import { ClassPaginatedItemsViewModel } from "../../models/class/class.paginated.items.model";
+
+
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserModel } from 'src/app/models/user/user.model';
-import { ClassMasterDataModel } from "../../models/class/class.masterdata.model";
-import { ClassSubjectTeacherModel } from 'src/app/models/class/class.subject.teacher.model';
+
 
 
 @Injectable({
@@ -56,8 +59,7 @@ export class ClassService {
 
   getClassMasterData(): Observable<ClassMasterDataModel> {
     return this.httpClient
-      .get<ClassMasterDataModel>
-        (environment.apiUrl + "Class/getClassMasterData");
+    .get<ClassMasterDataModel>(environment.apiUrl + "Class/getClassMasterData");
   }
 
 }
