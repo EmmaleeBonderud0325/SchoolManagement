@@ -26,27 +26,7 @@ export class SubjectService {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Subject/' + id);
   }
-
-  getAllSubjectStreams():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectStreams');
-  }
-
-  getAllAcademicLevels(): Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllAcademicLevels');
-  }
-
-  getAllSubjectCategorys(): Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllSubjectCategorys');
-  }
-
-  getAllParentBasketSubjects(): Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Subject/getAllParentBasketSubjects');
-  }
-
+  
   getSubjectbyId(id:number): Observable<SubjectModel>{
     return this.httpClient.get<SubjectModel>
         (environment.apiUrl + 'User/getSubjectbyId/'+ id);

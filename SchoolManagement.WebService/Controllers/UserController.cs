@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.AccountData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.WebService.Infrastructure.Services;
@@ -29,6 +30,7 @@ namespace SchoolManagement.WebService.Controllers
         {
             var userName = identityService.GetUserName();
             var response = await userService.SaveUser(vm, userName);
+
             return Ok(response);
         }
 
@@ -37,6 +39,7 @@ namespace SchoolManagement.WebService.Controllers
         public ActionResult GetAllUsers(/*DropDownViewModel vm*/)
         {
             var response = userService.GetAllUsersByRole(/*vm*/);
+
             return Ok(response);
         }
 
@@ -44,6 +47,7 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var response = await userService.DeleteUser(id);
+
             return Ok(response);
         }
 
@@ -62,6 +66,24 @@ namespace SchoolManagement.WebService.Controllers
             var response = userService.GetAllRoles();
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getUserMasterData")]
+        public UserMasterDataViewModel GetUserMasterData()
+        {
+            var response = userService.GetUserMasterData();
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getUserList")]
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
+        {
+            var response = userService.GetUserList(searchText, currentPage, pageSize, roleId);
+
+            return response;
         }
 
     }

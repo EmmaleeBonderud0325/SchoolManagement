@@ -1,5 +1,5 @@
-﻿using SchoolManagement.Model.Master;
-using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.ViewModel.Common;
+using SchoolManagement.ViewModel.Master;
 using System;
 using System.Collections.Generic;
 using System.Linq;
