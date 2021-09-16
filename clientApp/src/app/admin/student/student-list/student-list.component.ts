@@ -75,7 +75,7 @@ export class StudentListComponent implements OnInit {
       { 
         this.allGenders = response;
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
+        
        });
   }
 
