@@ -182,7 +182,7 @@ namespace SchoolManagement.Business.Master
                 {
                     subject.Name = vm.Name;
                     subject.SubjectCode = vm.SubjectCode;
-                    subject.SubjectCategory = vm.SubjectCategory;
+                    subject.SubjectCategory = (SubjectCategory)vm.CategorysId;
                     subject.ParentBasketSubjectId = vm.ParentBasketSubjectId;
                     subject.SubjectStreamId = vm.SubjectStreamId;
                     subject.IsActive = true;
