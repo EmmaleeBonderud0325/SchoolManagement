@@ -1,7 +1,8 @@
+import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { MCQQuestionAnswerModel } from './../../../models/mcq-question-answer/mcq-question-answer.model';
 import  Swal  from 'sweetalert2';
-import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
@@ -66,8 +67,8 @@ export class McqQuestionAnswerListComponent implements OnInit {
        }); 
   } 
 
-    //add new question using form
-  createNewMcqQuestionAnswer(content)
+    //add new MCQ Question Answer using form
+  createNewMCQQuestionAnswer(content)
   {
     this.mcqQuestionAnswerForm = this.fb.group({
       questionId : [null, [Validators.required]],
@@ -83,7 +84,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   }
 
   //update button
-  editRow(row:MCQQuestionAnswerModel, rowIndex:number, content : any) 
+  editRow(row:MCQQuestionAnswerModel, rowIndex:number, content) 
   {
     console.log(row);
 
@@ -101,11 +102,11 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
 
   //save MCQ Student Answer button 
-  saveMcqQuestionAnswer()
+  saveMCQQuestionAnswer()
   {
     console.log(this.mcqQuestionAnswerForm.value);
 
-    this.McqQuestionAnswerService.saveMcqQuestionAnswer(this.mcqQuestionAnswerForm.value)
+    this.McqQuestionAnswerService.saveMCQQuestionAnswer(this.mcqQuestionAnswerForm.value)
       .subscribe(response=>{
         
         if(response.isSuccess)
@@ -120,9 +121,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
         } 
       },error=>{
 
-            this.toastr.error("Network error has been occre.Please try again","Error");
+            this.toastr.error("Save functions error has been occre.Please try again","Error");
       });
-
     }
-    
 }

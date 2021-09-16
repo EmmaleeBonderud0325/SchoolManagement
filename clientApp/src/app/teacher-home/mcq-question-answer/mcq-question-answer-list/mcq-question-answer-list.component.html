@@ -39,7 +39,7 @@
                     <div class="ngxTableHeader">
                       <div class="header-buttons-left" >
                         <div class="icon-button-demo buttons" >
-                          <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewMcqQuestionAnswer(addEditRecord)' >
+                          <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewMCQQuestionAnswer(addEditRecord)' >
                             <i class="material-icons">add</i>
                           </button>
                         </div>
@@ -68,12 +68,6 @@
                           class="btn btn-icon btn-sm btn-primary" 
                           (click)='editRow(row, rowIndex, addEditRecord)'>
                           <i class="fas fa-edit"></i>
-                        </button>
-
-                        <button 
-                          class="btn btn-icon btn-sm btn-danger" 
-                          (click)='deleteQuestion(row)'>
-                          <i class="far fa-trash-alt"></i>
                         </button>
                       </span>
                     </div>                    
@@ -115,19 +109,6 @@
                   {{row.modifiedDate| date}}
                 </ng-template>
               </ngx-datatable-column>
-
-              <!-- <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                  <span>
-                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                      <i class="fas fa-pen"></i>
-                    </button>
-                    <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                  </span>
-                </ng-template>
-              </ngx-datatable-column> -->
             </ngx-datatable>
 
             <!-- Add Record Modal Window -->
@@ -151,9 +132,8 @@
 
             <div class="modal-body">
               <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
-                
-              
-                <div class="row">
+                              
+              <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <div class="form-group">
                     <label> Question <span class="text-danger">*</span></label>
@@ -177,10 +157,25 @@
                       </small>
                     </div>
                   </div> 
-                </div>                
+              </div>
+
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <label> Is Correct Answer <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Type is cirrect answer or not" 
+                          formControlName="isCorrectAnswer"
+                          required>
+                    <small class="form-text text-danger"
+                      *ngIf="!mcqQuestionAnswerForm.get('isCorrectAnswer').valid && mcqQuestionAnswerForm.get('isCorrectAnswer').touched"> Answer ID required
+                    </small>
+                </div>
+              </div>            
                
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary" (click)="saveMcqQuestionAnswer()" [disabled]="!mcqQuestionAnswerForm.valid">Save</button>
+                  <button type="button" class="btn btn-primary" (click)="saveMCQQuestionAnswer()" [disabled]="!mcqQuestionAnswerForm.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
               </form>

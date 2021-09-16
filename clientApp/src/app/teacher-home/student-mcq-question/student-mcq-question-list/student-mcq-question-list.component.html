@@ -93,11 +93,11 @@
               </ngx-datatable-column>
 
               <!--Student Answer Text-->
-              <ngx-datatable-column name="Student Answer Text" [width]="50">
+              <!-- <ngx-datatable-column name="Student Answer Text" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.studentAnswerTexts}}
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
 
               <!--Topic ID-->
               <ngx-datatable-column name="Teacher Comment" [width]="75">
@@ -164,8 +164,8 @@
                   </div>                 
                               
                   <!-- this is a row two -->
-                  <div class="row">
-                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <!-- <div class="row"> -->
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label>Student Answer Text<span class="text-danger">*</span></label>
                         <select 
@@ -175,8 +175,8 @@
                           <option *ngFor="let item of studentAnswerTexts" [ngValue]="item.id">{{item.name}}</option>
                         </select>
                       </div>
-                    </div>
-
+                    </div> -->
+                    <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label> Teacher Comments <span class="text-danger">*</span></label>
                       <input 
@@ -191,10 +191,10 @@
                         Teacher comment is  required
                       </small>
                     </div>                     
-                  </div>
+                 
 
                   <!-- this is a row three -->
-                  <div class="row">
+                  <!-- <div class="row"> -->
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="form-group">
                         <label> Marks <span class="text-danger">*</span></label>
