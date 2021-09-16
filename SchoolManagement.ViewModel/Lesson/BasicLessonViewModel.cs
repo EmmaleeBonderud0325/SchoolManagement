@@ -8,12 +8,13 @@ namespace SchoolManagement.ViewModel.Lesson
 {
     public class BasicLessonViewModel
     {
+        public int Id { get; set; }
         public string LessonName { get; set; }
         public string Description { get; set; }
-        public int AcademicLevelId { get; set; }
-        public int ClassNameId { get; set; }
+        public string AcademicLevelId { get; set; }
+        public string ClassName { get; set; }
         public int AcademicYearId { get; set; }
-        public int SubjectId { get; set; }
+        public string SubjectName { get; set; }
        
     }
 }
