@@ -1,6 +1,7 @@
+import { environment } from 'src/environments/environment';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
-import { environment } from './../../../environments/environment.prod';
+
 import { MCQQuestionAnswerModel } from './../../models/mcq-question-answer/mcq-question-answer.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -26,10 +27,10 @@ export class McqQuestionAnswerService {
       (environment.apiUrl + 'MCQQuestionAnswer', vm);
   }
 
- /*  getAllQuestions():Observable<DropDownModel[]>{
+  getAllQuestions():Observable<DropDownModel[]>{
     return this.httpClient.
       get<DropDownModel[]>
       (environment.apiUrl + 'MCQQuestionAnswer/getAllQuestions');
   }
-   */
+   
 }

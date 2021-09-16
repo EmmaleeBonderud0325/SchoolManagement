@@ -36,7 +36,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    //this.getAllQuestions();
+    this.getAllQuestions();
   }
 
   getAll(){
@@ -55,7 +55,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   
 
  getAllQuestions(){
-   /*  this.McqQuestionAnswerService.getAllQuestions()
+     this.McqQuestionAnswerService.getAllQuestions()
     .subscribe(response=>
     { 
         this.questionNames = response;
@@ -63,7 +63,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
       },error=>{
         this.toastr.error("Question is not generated. Please try again.","Error");
-       }); */
+       }); 
   } 
 
     //add new question using form

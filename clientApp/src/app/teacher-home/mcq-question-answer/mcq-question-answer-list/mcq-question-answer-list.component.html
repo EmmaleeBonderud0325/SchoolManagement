@@ -48,16 +48,7 @@
                       <div class="header-buttons-left">
                         <div class="icon-button-dleftemo buttons">
                         </div>
-                      </div>
-                      <!-- dropdown for the pages-->
-                      <!-- <div class="header-buttons">
-                        <div>
-                         
-                          <p-multiSelect [options]=""  [style]="{'width':'100%'}"> </p-multiSelect>
-                        </div>
-                      </div> -->
-                     
-
+                      </div>            
 
                     </div>
                   </div>
@@ -68,6 +59,26 @@
             <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='editRow(row, rowIndex, addEditRecord)'>
+                          <i class="fas fa-edit"></i>
+                        </button>
+
+                        <button 
+                          class="btn btn-icon btn-sm btn-danger" 
+                          (click)='deleteQuestion(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>                    
+                  </ng-template>
+                </ngx-datatable-column>
 
               <!-- Answer Id -->
               <ngx-datatable-column name="Question" [width]="100">
@@ -105,7 +116,7 @@
                 </ng-template>
               </ngx-datatable-column>
 
-              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+              <!-- <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   <span>
                     <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
@@ -116,7 +127,7 @@
                     </button>
                   </span>
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
             </ngx-datatable>
 
             <!-- Add Record Modal Window -->
@@ -139,7 +150,7 @@
 
 
             <div class="modal-body">
-              <!-- <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
+              <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
                 
               
                 <div class="row">
@@ -172,7 +183,7 @@
                   <button type="button" class="btn btn-primary" (click)="saveMcqQuestionAnswer()" [disabled]="!mcqQuestionAnswerForm.valid">Save</button>
                   <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
                 </div>
-              </form> -->
+              </form>
             </div>
 
 
