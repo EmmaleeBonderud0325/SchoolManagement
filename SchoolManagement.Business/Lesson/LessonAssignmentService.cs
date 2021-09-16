@@ -129,6 +129,8 @@ namespace SchoolManagement.Business
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
                         CreatedById = loggedInUser.Id,
+                        UpdatedOn= DateTime.UtcNow,
+                        UpdatedById = loggedInUser.Id
          
 
                 };

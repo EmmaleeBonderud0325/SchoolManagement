@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.WebService.Controllers
 {
-  [Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ClassController : ControllerBase
@@ -28,70 +28,69 @@ namespace SchoolManagement.WebService.Controllers
         }
 
 
-    [HttpGet]
-    [Route("getClassList")]
-    public PaginatedItemsViewModel<BasicClassViewModel> GetClassList(string searchText, int currentPage, int pageSize, int academicYearId, int academicLevelId)
-    {
-      var response = classService.GetClassList(searchText, currentPage, pageSize, academicYearId, academicLevelId);
+        [HttpGet]
+        [Route("getClassList")]
+        public PaginatedItemsViewModel<BasicClassViewModel> GetClassList(string searchText, int currentPage, int pageSize, int academicYearId, int academicLevelId)
+        {
+            var response = classService.GetClassList(searchText, currentPage, pageSize, academicYearId, academicLevelId);
 
-      return response;
-    }
-
-    [HttpGet]
-    [Route("getClassDetails/{academicYearId}/{academicLevelId}/{classNameId}")]
-    public ClassViewModel GetClassDetails(int academicYearId, int academicLevelId, int classNameId)
-    {
-      var response = classService.GetClassDetails(academicYearId, academicLevelId, classNameId);
-
-      return response;
-    }
-
-    [HttpGet]
-    [Route("getClassSubjectsForSelectedAcademiclevel/{academicYearId}/{academicLevelId}")]
-    public List<ClassSubjectTeacherViewModel> GetClassSubjectsForSelectedAcademiclevel(int academicYearId, int academicLevelId)
-    {
-      var response = classService.GetClassSubjectsForSelectedAcademiclevel(academicYearId, academicLevelId);
-
-      return response;
-    }
-
-    [HttpPost]
-    [Route("saveClassDetail")]
-    public async Task<ResponseViewModel> SaveClassDetail(ClassViewModel vm)
-    {
-      var userName = identityService.GetUserName();
-
-      var response = await classService.SaveClassDetail(vm, userName);
-
-      return response;
-    }
-
-    [HttpGet]
-    [Route("getClassMasterData")]
-    public ClassMasterDataViewModel GetClassMasterData()
-    {
-      var response = classService.GetClassMasterData();
-
-      return response;
-    }
-
-    [HttpDelete]
-    [Route("deleteClass/{academicYearId}/{academicLevelId}/{classNameId}")]
-    public async Task<ResponseViewModel> DeleteClass(int academicYearId, int academicLevelId, int classNameId)
-    {
-      var userName = identityService.GetUserName();
-
-      var response = await classService.DeleteClass(academicYearId, academicLevelId, classNameId, userName);
-
-      return response;
-    }
-
-
-
-            return Ok(response);
+            return response;
         }
+
+        [HttpGet]
+        [Route("getClassDetails/{academicYearId}/{academicLevelId}/{classNameId}")]
+        public ClassViewModel GetClassDetails(int academicYearId, int academicLevelId, int classNameId)
+        {
+            var response = classService.GetClassDetails(academicYearId, academicLevelId, classNameId);
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getClassSubjectsForSelectedAcademiclevel/{academicYearId}/{academicLevelId}")]
+        public List<ClassSubjectTeacherViewModel> GetClassSubjectsForSelectedAcademiclevel(int academicYearId, int academicLevelId)
+        {
+            var response = classService.GetClassSubjectsForSelectedAcademiclevel(academicYearId, academicLevelId);
+
+            return response;
+        }
+
+        [HttpPost]
+        [Route("saveClassDetail")]
+        public async Task<ResponseViewModel> SaveClassDetail(ClassViewModel vm)
+        {
+            var userName = identityService.GetUserName();
+
+            var response = await classService.SaveClassDetail(vm, userName);
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getClassMasterData")]
+        public ClassMasterDataViewModel GetClassMasterData()
+        {
+            var response = classService.GetClassMasterData();
+
+            return response;
+        }
+
+        [HttpDelete]
+        [Route("deleteClass/{academicYearId}/{academicLevelId}/{classNameId}")]
+        public async Task<ResponseViewModel> DeleteClass(int academicYearId, int academicLevelId, int classNameId)
+        {
+            var userName = identityService.GetUserName();
+
+            var response = await classService.DeleteClass(academicYearId, academicLevelId, classNameId, userName);
+
+            return response;
+        }
+
+
+
+
+
+
+
     }
-
-
-  }
 }
