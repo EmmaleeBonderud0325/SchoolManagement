@@ -415,7 +415,7 @@
                             Lesson out is required</small
                           >
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                          
                             <label for="date">Planned Date</label>
                             <p-calendar
@@ -435,6 +435,22 @@
                           >
                             Planned Date is required</small
                           >
+                        </div> -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Planned Date <span class="text-danger">*</span></label>
+                          <input 
+                              type="date" 
+                              class="form-control" 
+                              formControlName="plannedDate"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('plannedDate').valid && 
+                              lessonForm.get('plannedDate').touched
+                              "
+                            > 
+                            Planned Date is required</small
+                            >
                         </div>
 
     
