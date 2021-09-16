@@ -66,16 +66,12 @@ export class LessonListComponent implements OnInit {
     this.getMasterData();
    // this.getAllLessonList();
   }
-
-  
-
   setPage(pageInfo) {
     this.spinner.show();
     this.loadingIndicator = true;
     this.currentPage = pageInfo.offset;
     this.getAllLessonList();
   }
-
   filterDatatable(event) {
     this.currentPage = 0;
     this.pageSize = 25;
@@ -84,7 +80,6 @@ export class LessonListComponent implements OnInit {
     this.spinner.show();
     this.getAllLessonList();
   }
-
   //filter onchanged Master filter data
   onAcademicYearFilterChanged(item: any) {
     this.currentPage = 0;
@@ -114,10 +109,6 @@ export class LessonListComponent implements OnInit {
     this.spinner.show();
     this.getAllLessonList();
   }
-
- 
-  //FIlter Master 
-  
   //get Master DropDown Meta Data
   getMasterData() {
     this.lessonService.getLessonMasterData()
@@ -152,9 +143,8 @@ export class LessonListComponent implements OnInit {
         this.toastr.error("Network error has been occured. Please try again.", "Error");
       });
   }
-  
    //add new lesson using form
-   createNewLesson(content)
+  createNewLesson(content)
    {
      this.lessonForm = this.fb.group({
       id:[0],
@@ -173,8 +163,7 @@ export class LessonListComponent implements OnInit {
        ariaLabelledBy: 'modal-basic-title',
        size: 'lg',
      });
-   }
-  
+  }
   saveLesson()
   {
   
@@ -190,7 +179,7 @@ export class LessonListComponent implements OnInit {
         {
           this.modalService.dismissAll();
           this.toastr.success(response.message,"Success");
-          //this.getAll();
+          this.getAllLessonList();
         }
         else
         {
@@ -203,7 +192,6 @@ export class LessonListComponent implements OnInit {
   
 
   }
-
   createLessonFilterForm() : FormGroup{
 
     return new FormGroup({
@@ -215,7 +203,6 @@ export class LessonListComponent implements OnInit {
 
     });
   }
-
   deleteLesson(row){
     
       Swal.fire({
@@ -245,8 +232,20 @@ export class LessonListComponent implements OnInit {
           }
        });   
   }
-
   updateLesson(row:LessonModel,rowIndex:number,content:any){
+
+    this.lessonForm = this.fb.group({
+      id:[0],
+       name:[row.name, [Validators.required]],
+       description:[row.classNameId, [Validators.required]],
+       academicLevelId:[row.academicLevelId, [Validators.required]],
+       classNameId:[row.classNameId, [Validators.required]],
+       academicYearId:[row.academicYearId, [Validators.required]],
+       subjectId:[row.subjectId, [Validators.required]],
+       learningOutcome:[row.learningOutcome, [Validators.required]],
+       plannedDate:[row.plannedDate, [Validators.required]],
+       
+   });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
@@ -254,6 +253,7 @@ export class LessonListComponent implements OnInit {
     });
 
   }
+
   /* getAllLesson(){
       this.loadingIndicator = true;
       this.lessonService.getAllLesson(this.lessonFilterForm.getRawValue()).subscribe(response => {
@@ -279,14 +279,6 @@ export class LessonListComponent implements OnInit {
       size: 'lg',
     });
   }
-
- 
-
-  /* onAcademicYearFilterChanged(item:any)
-  {
-     this.lessonFilterForm.get("selectedAcademicLevelId").setValue(0);
-  } */
-
   //list genarate
   get searchTextFilterData() {
     return this.lessonFilterForm.get("searchText").value;
@@ -295,22 +287,18 @@ export class LessonListComponent implements OnInit {
   {
     return this.lessonFilterForm.get("academicYearId").value;
   }
-
   get academicLevelFilterId()
   {
     return this.lessonFilterForm.get("academicLevelId").value;
   }
-
   get classNameFilterId()
   {
     return this.lessonFilterForm.get("classNameId").value;
   }
-
   get subjectFilterId()
   {
     return this.lessonFilterForm.get("subjectId").value;
   }
-
   //Routes
   addNewLessonRoute()
   {
