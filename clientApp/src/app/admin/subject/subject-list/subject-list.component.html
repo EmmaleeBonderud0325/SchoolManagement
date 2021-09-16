@@ -228,6 +228,11 @@
                           [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectType').valid && subjectForm.get('subjectType').touched "> 
+                         Subject Types is required
+                       </small>
                       </div>
                     </div> 
 
@@ -242,6 +247,11 @@
                             [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('parentBasketSubjectId').valid && subjectForm.get('parentBasketSubjectId').touched "> 
+                         Parent Subject is required
+                       </small>
                       </div>
                     </div> 
 
@@ -256,6 +266,11 @@
                             [ngValue]="item.id">{{item.name}}                           
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('categorysId').valid && subjectForm.get('categorysId').touched "> 
+                         Categorys is required
+                       </small>
                       </div>
                     </div> 
 
@@ -270,6 +285,11 @@
                             [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectstreamId').valid && subjectForm.get('subjectstreamId').touched "> 
+                         Subjectstreams is required
+                       </small>
                       </div>
                     </div> 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -282,6 +302,11 @@
                           optionLabel="name" 
                           [style]="{'width':'100%'}">
                         </p-multiSelect>
+                        <small 
+                          class="form-text text-danger"
+                          *ngIf="!subjectForm.get('subjectAcademicLevels').valid && subjectForm.get('subjectAcademicLevels').touched "> 
+                          Academic Levels are required
+                        </small>
                       
                     </div>                 
                   </div>                
