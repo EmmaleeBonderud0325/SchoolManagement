@@ -47,4 +47,11 @@ export class LessonService {
     return this.httpClient
       .get<LessonMasterDataModel>(environment.apiUrl + "LessonDesign/getLessonMasterData");
   }
+
+   ///get user by id Service
+   getLessonById(id:number): Observable<LessonModel>{
+    return this.httpClient.get<LessonModel>
+        (environment.apiUrl + 'LessonDesign/getLessonById/'+ id);
+  }
+  
 }

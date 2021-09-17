@@ -47,7 +47,7 @@ export class UserService {
   ///get user by id Service
   getUserById(id:number): Observable<UserModel>{
     return this.httpClient.get<UserModel>
-        (environment.apiUrl + 'User/GetUserById/'+ id);
+        (environment.apiUrl + 'User/getUserById/'+ id);
   }
 
   //get user Roles Service 
