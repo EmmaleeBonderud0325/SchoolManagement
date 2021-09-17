@@ -189,6 +189,26 @@ namespace SchoolManagement.Business.Master
                     subject.UpdatedOn = DateTime.UtcNow;
                     subject.UpdatedById = loggedInUser.Id;
 
+                    var existingSubjects = subject.SubjectAcademicLevels.ToList();
+                    var selectedSubject = vm.SubjectAcademicLevels.ToList();
+                   
+                    foreach (var deletedsubject in existingSubjects)
+                    {
+                        subject.SubjectAcademicLevels.Remove(deletedsubject);
+                    }
+
+
+                    foreach (var item in selectedSubject)
+                    {
+                        var subjectAccodemicLevel = new SubjectAcademicLevel()
+                        {
+                            SubjectId = vm.Id,
+                            AcademicLevelId= item.Id,
+                        };
+
+                        subject.SubjectAcademicLevels.Add(subjectAccodemicLevel);
+                    }
+
                     schoolDb.Subjects.Update(subject);
 
                     response.IsSuccess = true;
