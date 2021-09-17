@@ -228,25 +228,35 @@ export class LessonListComponent implements OnInit {
           }
        });   
   }
-  updateLesson(row:LessonModel,rowIndex:number,content:any){
+  updateLesson(row:BasicLessonModel,rowIndex:number,content:any)
+  {
 
-    this.lessonForm = this.fb.group({
+    this.spinner.show();
+      this.lessonService.getLessonById(row.id)
+      .subscribe(response=>{
+        this.spinner.hide();
+
+        this.lessonForm = this.fb.group({
      
-       name:[row.name, [Validators.required]],
-       description:[row.classNameId, [Validators.required]],
-       academicLevelId:[row.academicLevelId, [Validators.required]],
-       classNameId:[row.classNameId, [Validators.required]],
-       academicYearId:[row.academicYearId, [Validators.required]],
-       subjectId:[row.subjectId, [Validators.required]],
-       learningOutcome:[row.learningOutcome, [Validators.required]],
-       plannedDate:[row.plannedDate, [Validators.required]],
-       
-   });
-
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+          name:[response.name, [Validators.required]],
+          description:[response.classNameId, [Validators.required]],
+          academicLevelId:[response.academicLevelId, [Validators.required]],
+          classNameId:[response.classNameId, [Validators.required]],
+          academicYearId:[response.academicYearId, [Validators.required]],
+          subjectId:[response.subjectId, [Validators.required]],
+          learningOutcome:[response.learningOutcome, [Validators.required]],
+          plannedDate:[response.plannedDate, [Validators.required]],
+          
+      });
+   
+       this.modalService.open(content, {
+         ariaLabelledBy: 'modal-basic-title',
+         size: 'lg',
+       });
+      },error=>{
+        this.spinner.hide();
+      });
+     
 
   }
 

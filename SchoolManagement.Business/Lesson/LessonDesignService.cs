@@ -286,5 +286,27 @@ namespace SchoolManagement.Business
             return container;
 
         }
+        public LessonViewModel GetLessonById(int id)
+        {
+            var response = new LessonViewModel();
+
+            var lesson = schoolDb.Lessons.FirstOrDefault(u => u.Id == id);
+
+            response.Id = lesson.Id;
+            response.Name = lesson.Name;
+            response.AcademicLevelId = lesson.AcademicLevelId;
+            response.ClassNameId = lesson.ClassNameId;
+            response.AcademicYearId = lesson.AcademicYearId;
+            response.SubjectId = lesson.SubjectId;
+            response.LearningOutcome = lesson.LearningOutcome;
+            response.Description = lesson.Description;
+            response.PlannedDate = lesson.PlannedDate;
+
+            return response;
+
+
+
+
+        }
     }
 }

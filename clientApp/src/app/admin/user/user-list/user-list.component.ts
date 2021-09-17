@@ -266,7 +266,8 @@ export class UserListComponent implements OnInit {
   }
 
   //update user (Reactive Form)
-  updateUser(row:BasicUserModel, rowIndex:number, content:any) {
+  updateUser(row:BasicUserModel, rowIndex:number, content:any) 
+  {
 
     this.spinner.show();
       this.userService.getUserById(row.id)

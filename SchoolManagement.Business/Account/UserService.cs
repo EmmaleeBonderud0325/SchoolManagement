@@ -242,7 +242,6 @@ namespace SchoolManagement.Business
         {
             return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
         }
-
         public UserMasterDataViewModel GetUserMasterData()
         {
             var response = new UserMasterDataViewModel();
@@ -252,7 +251,6 @@ namespace SchoolManagement.Business
 
             return null;
         }
-
         public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
         {
             int totalRecordCount = 0;
