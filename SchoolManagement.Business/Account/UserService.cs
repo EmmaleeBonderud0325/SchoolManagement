@@ -62,7 +62,7 @@ namespace SchoolManagement.Business
             response.FullName = user.FullName;
             response.Username = user.Username;
             response.Address = user.Address;
-            response.Address = user.Email;
+            response.Email = user.Email;
             response.MobileNo = user.MobileNo;
             response.IsActive = user.IsActive;
 
@@ -70,7 +70,7 @@ namespace SchoolManagement.Business
 
             foreach (var item in assignedRoles)
             {
-                response.Roles.Add(new DropDownViewModel() { Id = item.RoleId, Name = item.Role.Name });
+                response.Roles.Add(item.RoleId);
             }
 
             return response;
@@ -107,10 +107,6 @@ namespace SchoolManagement.Business
 
                 var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
 
-                foreach (var item in assignedRoles)
-                {
-                    uvm.Roles.Add(new DropDownViewModel() { Id = item.RoleId, Name = item.Role.Name });
-                }
 
                 response.Add(uvm);
             }
@@ -174,7 +170,7 @@ namespace SchoolManagement.Business
                     {
                         var userRole = new UserRole()
                         {
-                            RoleId = item.Id,
+                            RoleId = item,
                             IsActive = true,
                             CreatedById = loggedInUser.Id,
                             CreatedOn = DateTime.UtcNow,
@@ -202,15 +198,15 @@ namespace SchoolManagement.Business
                     var existingRoles = user.UserRoles.ToList();
                     var selectedRols = vm.Roles.ToList();
 
-                    var newRoles = (from r in selectedRols where !existingRoles.Any(x => x.RoleId == r.Id) select r).ToList();
+                    var newRoles = (from r in vm.Roles where !existingRoles.Any(x => x.RoleId == r) select r).ToList();
 
-                    var deletedRoles = (from r in existingRoles where selectedRols.Any(x => x.Id == r.RoleId) select r).ToList();
+                    var deletedRoles = (from r in existingRoles where !vm.Roles.Any(x => x == r.RoleId) select r).ToList();
 
                     foreach (var item in newRoles)
                     {
                         var userRole = new UserRole()
                         {
-                            RoleId = item.Id,
+                            RoleId = item,
                             IsActive = true,
                             CreatedById = loggedInUser.Id,
                             CreatedOn = DateTime.UtcNow,
@@ -307,5 +303,6 @@ namespace SchoolManagement.Business
             return container;
 
         }
+
     }
 }

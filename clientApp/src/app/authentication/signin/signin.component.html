@@ -35,6 +35,15 @@
                           class="form-control psl-5"
                           formControlName="schoolDomain" 
                           placeholder="School Domain">
+                          <small 
+                            class="form-text text-danger"
+                            *ngIf="
+                              !loginForm.get('schoolDomain').valid && 
+                              loginForm.get('schoolDomain').touched
+                              "
+                          > 
+                              School Domain is required</small
+                          >
                     </div>
                   </div>
 
@@ -47,6 +56,15 @@
                           class="form-control psl-5" 
                           formControlName="username" 
                           placeholder="Email">
+                          <small 
+                            class="form-text text-danger"
+                            *ngIf="
+                              !loginForm.get('username').valid && 
+                              loginForm.get('username').touched
+                              "
+                          > 
+                              Email Or Username is required</small
+                          >
                      </div>
                    </div>
 
@@ -59,6 +77,15 @@
                           class="form-control psl-5" 
                           formControlName="password"
                           placeholder="Password">
+                          <small 
+                            class="form-text text-danger"
+                            *ngIf="
+                              !loginForm.get('password').valid && 
+                              loginForm.get('password').touched
+                              "
+                          > 
+                              Email Or Username is required</small
+                          >
                      </div>
                    </div>
 

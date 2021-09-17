@@ -231,7 +231,7 @@ export class LessonListComponent implements OnInit {
   updateLesson(row:LessonModel,rowIndex:number,content:any){
 
     this.lessonForm = this.fb.group({
-      id:[0],
+     
        name:[row.name, [Validators.required]],
        description:[row.classNameId, [Validators.required]],
        academicLevelId:[row.academicLevelId, [Validators.required]],
