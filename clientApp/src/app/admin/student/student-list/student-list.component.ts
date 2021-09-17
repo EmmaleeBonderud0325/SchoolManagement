@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StudentModel } from './../../../models/student/student.model'
 import { StudentService } from './../../../services/student/student.service'
 import Swal from 'sweetalert2';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 @Component({
   selector: 'app-student-list',
@@ -21,6 +22,7 @@ export class StudentListComponent implements OnInit {
   saveStudentForm:FormGroup;
   reorderable = true;
   user:StudentModel;
+  allGenders:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -30,6 +32,7 @@ export class StudentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllGenders();
   }
 
   getAll(){
@@ -63,6 +66,17 @@ export class StudentListComponent implements OnInit {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+  }
+
+  getAllGenders()
+  {
+    this.studentService.getAllGenders()
+      .subscribe(response=>
+      { 
+        this.allGenders = response;
+      },error=>{
+        
+       });
   }
 
   saveStudent(){   
@@ -115,6 +129,30 @@ export class StudentListComponent implements OnInit {
           this.toastr.error("Network error has been occured. Please try again.","Error");
         });
       }
+    });
+  }
+
+  editRow(row:StudentModel, rowIndex:number, content:any) {
+
+    console.log(row);
+
+    this.saveStudentForm = this.fb.group({
+      id:[row.id],
+      fullName:[row.fullName, [Validators.required]],
+      admissionNo:[row.admissionNo, [Validators.required]],
+      address:[row.address, [Validators.required]],
+      dateOfBirth:[row.dateOfBirth, [Validators.required]],
+      mobileNo:[row.mobileNo, [Validators.required]],
+      emegencyContactNo:[row.emegencyContactNo, [Validators.required]],
+      gender:[row.gender, [Validators.required]],
+      email:[row.email, [Validators.required]],
+      password:[row.password],
+      isActive:[true]
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
     });
   }
 

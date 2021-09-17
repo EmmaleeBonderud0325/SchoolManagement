@@ -18,5 +18,7 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         LessonMasterDataViewModel GetLessonMasterData();
         PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
                                                                      int currentPage, int classNameId, int subjectId, int pageSize, string userName);
+
+        LessonViewModel GetLessonById(int id);
     }
 }

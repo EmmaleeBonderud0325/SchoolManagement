@@ -54,6 +54,24 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 				
+                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="buttons">
+                        <span>
+                          <button 
+                            class="btn btn-icon btn-sm btn-primary" 
+                            (click)='editRow(row, rowIndex, updateRecord)'>
+                            <i class="far fa-edit"></i>
+                          </button>
+                          <button 
+                            class="btn btn-icon btn-sm btn-danger" 
+                            (click)='deleteStudent(row)'>
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </span>
+                      </div>
+                    </ng-template>
+                  </ngx-datatable-column>
                 
                   <!-- Student name column -->
                   <ngx-datatable-column name="Student name" [width]="100">
@@ -86,7 +104,7 @@
                   <!-- Gender column -->  
                   <ngx-datatable-column name="Gender" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.gender}}
+                      {{row.genderName}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -103,21 +121,6 @@
                       {{row.address}}
                     </ng-template>
                   </ngx-datatable-column>
-
-                  <!-- Edit and delete icon column -->
-                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                      <span>
-                        <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
-                          <i class="fas fa-pen"></i>
-                        </button>
-                        <button class="btn btn-tbl-delete h-auto" (click)='deleteStudent(row)'>
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                      </span>
-                    </ng-template>
-                  </ngx-datatable-column>
-
                 </ngx-datatable>
 
                 <!-- Add new student model -->
@@ -138,7 +141,7 @@
                     <div class="modal-body">
                       <form class="register-form" [formGroup]="saveStudentForm">
                         
-                        <!-- Form rows starts here -->
+                        <!-- Add new student Form rows starts here -->
                         <!-- Student name and admissionNo -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -158,8 +161,8 @@
                             <label>Admission number <span class="text-danger">*</span></label>
                             <input 
                                 type="number" 
-                                class="form-control" 
-                                placeholder="Admission number" 
+                                class="form-control"
+                                placeholder="Admission number"
                                 formControlName="admissionNo"
                                 required>
                             <small class="form-text text-danger"
@@ -168,7 +171,7 @@
                           </div>
                         </div>
 
-                        <!-- Address and Date of birth  s -->
+                        <!-- Address and Date of birth -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <label>Address <span class="text-danger">*</span></label>
@@ -226,19 +229,17 @@
                         </div>
 
                         <!-- Gender -->
-                        <div class="row">
-                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                            <label>Gender <span class="text-danger">*</span></label>
-                            <input 
-                                type="number" 
-                                class="form-control" 
-                                placeholder="Male 1, Female 2" 
-                                formControlName="gender"
-                                required>
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <div class="form-group">
+                              <label>Gender<span class="text-danger">*</span></label>
+                                <select class="form-select form-control" formControlName="gender">
+                                  <option *ngFor="let item of allGenders" [ngValue]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+
                             <small class="form-text text-danger"
                               *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
                               required</small>
-                          </div>
                         </div>
 
                         <!-- Email and Password -->
@@ -275,6 +276,159 @@
                       </form>
                     </div>
                 </ng-template>
+
+
+                <!-- Update student model -->
+
+                <ng-template #updateRecord let-modal>
+                  <div class="modal-header editRowModal">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      <div class="table-modal-header">
+                        <div class="modal-about">
+                          <div class="fw-bold p-t-10 font-17">
+                           Update Student</div>
+                        </div>
+                      </div>
+                    </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                      <span aria-hidden="true"><i class="material-icons">close</i></span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form class="register-form" [formGroup]="saveStudentForm">
+                      
+                      <!-- Add new student Form rows starts here -->
+                      <!-- Student name and admissionNo -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Student Name <span class="text-danger">*</span></label>
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="Full Name" 
+                              formControlName="fullName"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('fullName').valid && saveStudentForm.get('fullName').touched"> This field is
+                            required</small>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Admission number <span class="text-danger">*</span></label>
+                          <input 
+                              type="number" 
+                              class="form-control"
+                              placeholder="Admission number"
+                              formControlName="admissionNo"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('admissionNo').valid && saveStudentForm.get('admissionNo').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <!-- Address and Date of birth -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Address <span class="text-danger">*</span></label>
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="Address" 
+                              formControlName="address"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('address').valid && saveStudentForm.get('address').touched"> This field is
+                            required</small>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Date of birth <span class="text-danger">*</span></label>
+                          <input 
+                              type="date" 
+                              class="form-control" 
+                              formControlName="dateOfBirth"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('dateOfBirth').valid && saveStudentForm.get('dateOfBirth').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <!-- Mobile number and emergency contact number -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Mobile number <span class="text-danger">*</span></label>
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="077xxxxxxx" 
+                              formControlName="mobileNo"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('mobileNo').valid && saveStudentForm.get('mobileNo').touched"> This field is
+                            required</small>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Emergency contact number <span class="text-danger">*</span></label>
+                          <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="033xxxxxxx" 
+                              formControlName="emegencyContactNo"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('emegencyContactNo').valid && saveStudentForm.get('emegencyContactNo').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <!-- Gender -->
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <div class="form-group">
+                            <label>Gender<span class="text-danger">*</span></label>
+                              <select class="form-select form-control" formControlName="gender">
+                                <option *ngFor="let item of allGenders" [ngValue]="item.id">{{item.name}}</option>
+                              </select>
+                          </div>
+
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('gender').valid && saveStudentForm.get('gender').touched"> This field is
+                            required</small>
+                      </div>
+
+                      <!-- Email and Password -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Email <span class="text-danger">*</span></label>
+                          <input 
+                              type="email" 
+                              class="form-control" 
+                              formControlName="email"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('email').valid && saveStudentForm.get('email').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <div class="modal-footer">
+                        <button 
+                          type="submit" 
+                          class="btn btn-primary" 
+                          (click)="saveStudent()" 
+                          [disabled]="!saveStudentForm.valid">Update</button>
+
+                        <button 
+                          type="button" 
+                          class="btn btn-light" 
+                          (click)="modal.close('Close click')">Cancel</button>
+                      </div>
+                    </form>
+                  </div>
+              </ng-template>
+                
                     </div>
                   </div>
                 </div>

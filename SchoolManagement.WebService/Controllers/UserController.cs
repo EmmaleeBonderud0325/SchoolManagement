@@ -52,7 +52,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("GetUserById/{id}")]
+        [Route("getUserById/{id}")]
         public ActionResult GetUserById(int id)
         {
             var response = userService.GetUserbyId(id);

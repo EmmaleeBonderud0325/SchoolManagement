@@ -8,6 +8,7 @@ export class StudentModel {
     gender:number;
     dateOfBirth:Date;
     isActive:boolean;
+    genderName:string;
 
     fullName:string;
     email:string;
