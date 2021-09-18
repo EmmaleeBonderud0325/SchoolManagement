@@ -16,4 +16,6 @@ export class StudentModel {
     address:string;
     mobileNo:string;
     username:string;
+    classes:number;
+    className:string;
 }

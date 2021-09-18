@@ -32,4 +32,9 @@ export class StudentService {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Student/' + id);
   }
+
+  getAllClasses(): Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllClasses');
+  }
 }

@@ -88,16 +88,16 @@
                   </ngx-datatable-column>
 
                   <!-- Contact no 1 column -->
-                  <ngx-datatable-column name="Contact no1" [width]="100">
+                  <ngx-datatable-column name="Class" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.mobileNo}}
+                      {{row.className}}
                     </ng-template>
                   </ngx-datatable-column>
 
                   <!-- Contact no 2 column -->
-                  <ngx-datatable-column name="Contact no2" [width]="100">
+                  <ngx-datatable-column name="Contact no" [width]="100">
                     <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.emegencyContactNo}}
+                      {{row.mobileNo}}
                     </ng-template>
                   </ngx-datatable-column>
 
@@ -269,6 +269,48 @@
                           </div>
                         </div>
 
+                        <!-- Student class add  -->
+                        <!-- <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <div class="row">
+                              <label>Student class<span class="text-danger ">*</span></label>
+                              <p-multiSelect 
+                                [options]="studentClass"  
+                                formControlName="classes" 
+                                optionLabel="name" 
+                                optionValue="id"
+                                display="chip"
+                                [style]="{'width':'100%'}">
+                              </p-multiSelect>
+                              <small 
+                              class="form-text text-danger"
+                              *ngIf="
+                              !saveStudentForm.get('classes').valid && 
+                              saveStudentForm.get('classes').touched
+                              "
+                              > 
+      
+                              Classes are required</small
+      
+                              >
+                            </div>
+                          </div>
+                        </div> -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <div class="form-group">
+                              <label>Class<span class="text-danger">*</span></label>
+                                <select class="form-select form-control" formControlName="classes">
+                                  <option *ngFor="let item of studentClass" [ngValue]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('classes').valid && saveStudentForm.get('classes').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
                         <div class="modal-footer">
                           <button type="submit" class="btn btn-primary" (click)="saveStudent()" [disabled]="!saveStudentForm.valid">Submit</button>
                           <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
@@ -345,7 +387,7 @@
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <label>Date of birth <span class="text-danger">*</span></label>
                           <input 
-                              type="date" 
+                              type=date
                               class="form-control" 
                               formControlName="dateOfBirth"
                               required>
@@ -409,6 +451,22 @@
                               required>
                           <small class="form-text text-danger"
                             *ngIf="!saveStudentForm.get('email').valid && saveStudentForm.get('email').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <!-- Student class select -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <div class="form-group">
+                            <label>Class<span class="text-danger">*</span></label>
+                              <select class="form-select form-control" formControlName="classes">
+                                <option *ngFor="let item of studentClass" [ngValue]="item.id">{{item.name}}</option>
+                              </select>
+                          </div>
+
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('classes').valid && saveStudentForm.get('classes').touched"> This field is
                             required</small>
                         </div>
                       </div>

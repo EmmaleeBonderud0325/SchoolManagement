@@ -23,6 +23,7 @@ export class StudentListComponent implements OnInit {
   reorderable = true;
   user:StudentModel;
   allGenders:DropDownModel[] = [];
+  studentClass:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -33,6 +34,7 @@ export class StudentListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getAllGenders();
+    this.getClasses();
   }
 
   getAll(){
@@ -60,6 +62,7 @@ export class StudentListComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      classes: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
@@ -147,12 +150,22 @@ export class StudentListComponent implements OnInit {
       gender:[row.gender, [Validators.required]],
       email:[row.email, [Validators.required]],
       password:[row.password],
-      isActive:[true]
+      isActive:[true],
+      classes:[row.classes, [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
+    });
+  }
+
+  getClasses() {
+    this.studentService.getAllClasses().subscribe(response => {
+      console.log(response);
+      this.studentClass = response;
+    }, error=>{
+
     });
   }
 

@@ -52,5 +52,13 @@ namespace SchoolManagement.WebService.Controllers
             var response = studentService.GetAllGenders();
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getAllClasses")]
+        public IActionResult GetAllClasses()
+        {
+            var response = studentService.GetAllClasses();
+            return Ok(response);
+        }
     }
 }

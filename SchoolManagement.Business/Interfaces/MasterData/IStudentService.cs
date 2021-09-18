@@ -14,5 +14,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         Task<ResponseViewModel> SaveStudent(StudentViewModel studentView, String userName);
         Task<ResponseViewModel> DeleteStudent(int id);
         List<DropDownViewModel> GetAllGenders();
+        List<DropDownViewModel> GetAllClasses();
     }
 }

@@ -28,7 +28,8 @@ namespace SchoolManagement.ViewModel.Master
         public string Password { get; set; }
         public string Address { get; set; }
         public string Username { get; set; }
-
+        public int Classes { get; set; }
+        public string ClassName { get; set; }
 
         /*public int ClassNameId { get; set; }
         public string ClassClassName { get; set; }
