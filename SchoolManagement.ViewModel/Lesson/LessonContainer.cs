@@ -11,7 +11,7 @@ namespace SchoolManagement.ViewModel.Lesson
        
     }
 
-    public class Lesson
+    public class LessonVM
     {
         public int LessonId { get; set; }
         public string LessonName { get; set; }
