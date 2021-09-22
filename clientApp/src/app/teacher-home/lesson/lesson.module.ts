@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ToastrModule } from 'ngx-toastr';
 import { CalendarModule } from 'primeng/calendar';
-import { LessonContentComponent } from './lesson-content/lesson-content/lesson-content.component';
+import{LessonContentComponent} from './lesson-content/lesson-content.component'
 
 
 
