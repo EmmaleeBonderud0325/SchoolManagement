@@ -16,5 +16,7 @@ namespace SchoolManagement.ViewModel.Common
         public List<IFormFile> Files { get; set; }
         public int Id { get; set; }
         public int Type { get; set; }
+
+        //fie container
     }
 }
