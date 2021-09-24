@@ -20,7 +20,7 @@ namespace SchoolManagement.ViewModel.Common
         public bool IsSuccess { get; set; }
         public string  ValidateMessage { get; set; }
 
-}
+    }
 
 
 }
