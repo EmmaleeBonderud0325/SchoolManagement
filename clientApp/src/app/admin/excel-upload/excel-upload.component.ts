@@ -14,7 +14,10 @@ export class ExcelUploadComponent implements OnInit {
 
   constructor(private studentService:StudentService ,private spinner:NgxSpinnerService) { }
 
-  fileTypes:any[]= [{id:1,name:"Student Excel"}];
+  fileTypes:any[]= [
+    {id:1,name:"Student Excel"},
+    {id:2,name:"Management Level User Excel"}
+  ];
   selectedExcelFileTypeId=1;
 
   ngOnInit(): void {
