@@ -1,6 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
 
 const routes: Routes = [
 
@@ -112,15 +113,20 @@ const routes: Routes = [
     loadChildren: () =>
           import('./head-of-department/head-of-department.module').then((m) => m.HeadOfDepartmentModule)
   },
-  {
+  /*{
     path: '',
     redirectTo: 'excel-upload',
     pathMatch: 'full',
   },
   {
-    path: 'example',
+    path: 'excel-upload',
     loadChildren: () =>
       import('./excel-upload/excel-upload.component').then((c) => c.ExcelUploadComponent)
+  },*/
+
+  {
+    path:'excel-upload',
+    component:ExcelUploadComponent
   },
 
   {

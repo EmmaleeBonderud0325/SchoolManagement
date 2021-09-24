@@ -203,8 +203,8 @@ export const ROUTES: RouteInfo[] = [
        //Head Of Department
        {
         path: '/admin/head-of-department',
-        title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
-        moduleName: 'excel-upload',
+        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
+        moduleName: 'head-of-department',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -216,7 +216,7 @@ export const ROUTES: RouteInfo[] = [
       },
       {
         path: '/admin/excel-upload',
-        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
+        title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
         moduleName: 'head-of-department',
         iconType: '',
         icon: '',
