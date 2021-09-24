@@ -20,6 +20,8 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         //List<UserViewModel> GetAllUsersByRole();
         UserMasterDataViewModel GetUserMasterData();
         PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId);
+        Task<MasterDataUploadResponse> UploadClassStudents(FileContainerViewModel container, string userName);
+        List<MasterDataFileValidateResult> ValidateExcelFileContents(string fileSavePath);
 
 
 

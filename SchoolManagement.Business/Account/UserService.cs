@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using OfficeOpenXml;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -10,6 +11,7 @@ using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,11 +24,15 @@ namespace SchoolManagement.Business
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
+        private StudentExcelContainer studentExcelContainer;
+
         public UserService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
+
+            studentExcelContainer = new StudentExcelContainer();
         }
         public async Task<ResponseViewModel> DeleteUser(int id)
         {
@@ -302,5 +308,118 @@ namespace SchoolManagement.Business
 
         }
 
+        public async Task<MasterDataUploadResponse> UploadClassStudents(FileContainerViewModel container, string userName)
+        {
+            var response = new MasterDataUploadResponse();
+            response.IsSuccess = true;
+
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+                var folderPath = config.GetSection("FileUploadPath").Value;
+
+                if (!Directory.Exists(folderPath))
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
+
+                var upLoadedFiles = new Dictionary<string, string>();
+
+                foreach (var item in container.Files)
+                {
+                    var filePath = string.Format(@"{0}\{1}", folderPath, item.FileName);
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await item.CopyToAsync(stream);
+                    }
+
+                    upLoadedFiles.Add(filePath, item.FileName);
+                }
+
+                foreach(var item in upLoadedFiles)
+                {
+                    studentExcelContainer = new StudentExcelContainer();
+
+                    try
+                    {
+                      //  var validateResult = Validate
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+
+            }catch(Exception e)
+            {
+
+            }
+
+            return response;
+        }
+
+        public List<MasterDataFileValidateResult> ValidateExcelFileContents(string fileSavePath)
+        {
+            var response = new List<MasterDataFileValidateResult>();
+
+            var academicYears = schoolDb.AcademicYears.ToList();
+            var academicLevels = schoolDb.AcademicLevels.ToList();
+
+            FileInfo fileInfo = new FileInfo(fileSavePath);
+            using(ExcelPackage package = new ExcelPackage(fileInfo))
+            {
+                //get the first worksheet in the workbook
+                ExcelWorksheet worksheet = package.Workbook.Worksheets["ClassStudents"];
+
+                int colCount = worksheet.Dimension.End.Column;  //get Column Count
+                int rowCount = worksheet.Dimension.End.Row - 5;
+
+                var yearValue = worksheet.Cells[1, 2].Value.ToString().Trim();
+
+                if (!string.IsNullOrEmpty(yearValue))
+                {
+                    int enteredYear;
+
+                    if(int.TryParse(yearValue, out enteredYear))
+                    {
+                        var currentYear = DateTime.Now.Year;
+                        if(!(enteredYear == currentYear || enteredYear == currentYear + 1))
+                        {
+                            response.Add(new MasterDataFileValidateResult() 
+                            { ValidateMessage = "Invalid user excel template. Year can be current year or next year only.", IsSuccess = false });
+                        }
+                        else
+                        {
+                           // studentExcelContainer.Year = schoolDb.AcademicYears.FirstOrDefault(x =>x.Id == yearValue).Id;
+                        }
+                    }
+                    else
+                    {
+                        response.Add(new MasterDataFileValidateResult() 
+                        { ValidateMessage = "Invalid user excel template. Invalid Year format has been entered.", IsSuccess = false });
+                    }
+
+                }
+                else
+                {
+                    response.Add(new MasterDataFileValidateResult() 
+                    { ValidateMessage = "Invalid user excel template. Academic year is not entered.", IsSuccess = false });
+                }
+                var academicLevel = worksheet.Cells[2, 2].Value.ToString().Trim().ToLower();
+
+                var enteredAcademicLevel = schoolDb.AcademicLevels.FirstOrDefault(x => x.Name.Trim().ToLower() == academicLevel);
+
+                if (enteredAcademicLevel != null)
+                {
+                    studentExcelContainer.GradeId = enteredAcademicLevel.Id;
+                }
+                else
+                {
+                    response.Add(new MasterDataFileValidateResult() { ValidateMessage = "Invalid user excel template. Academic Level value does not exists or invalid Academic Levele value has been entered.", IsSuccess = false });
+                }
+
+
+            }
+        }
     }
 }
