@@ -112,6 +112,16 @@ const routes: Routes = [
     loadChildren: () =>
           import('./head-of-department/head-of-department.module').then((m) => m.HeadOfDepartmentModule)
   },
+  {
+    path: '',
+    redirectTo: 'excel-upload',
+    pathMatch: 'full',
+  },
+  {
+    path: 'example',
+    loadChildren: () =>
+      import('./excel-upload/excel-upload.component').then((c) => c.ExcelUploadComponent)
+  },
 
   {
     path: '',
