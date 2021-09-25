@@ -82,6 +82,16 @@ namespace SchoolManagement.Business
 
             return response;
         }
+        public UserViewModel GetUserDetail(string userName)
+        {
+            var user = new UserViewModel();
+
+            var currentUser = currentUserService.GetUserByUsername(userName);
+
+
+
+            return user;
+        }
         public List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/)
         {
             var response =  new List<UserViewModel>();
@@ -343,7 +353,46 @@ namespace SchoolManagement.Business
 
                     try
                     {
-                      //  var validateResult = Validate
+                        var validateResult = ValidateExcelFileContents(item.Key);
+
+                        response.Results.AddRange(validateResult);
+
+                        var validationErrorCount = response.Results.Where(x => x.IsSuccess == false).Count();
+
+                        if (response.IsSuccess == true && validationErrorCount > 0)
+                        {
+                            response.IsSuccess = false;
+                        }
+                        else
+                        {
+                            foreach(var student in studentExcelContainer.Students)
+                            {
+                                var studentRecord = schoolDb.Users.FirstOrDefault(x => x.Username.Trim().ToLower() == student.Username.Trim().ToLower());
+                                if(studentRecord == null)
+                                {
+                                    studentRecord = new User()
+                                    {
+                                        FullName = studentRecord.FullName,
+                                        Address = studentRecord.Address,
+                                        
+                                    };
+
+                                    studentRecord.UserRoles = new HashSet<UserRole>();
+
+                                    studentRecord.UserRoles.Add(new UserRole()
+                                    {
+                                        RoleId = (int)RoleType.Student,
+                                        CreatedById = loggedInUser.Id,
+                                        CreatedOn = DateTime.UtcNow,
+                                        UpdatedById = loggedInUser.Id,
+                                        UpdatedOn = DateTime.UtcNow
+                                    });
+
+                                  //  studentRecord. = new HashSet<StudentClass>();
+                                }
+                            }
+                        }
+
                     }
                     catch (Exception ex)
                     {

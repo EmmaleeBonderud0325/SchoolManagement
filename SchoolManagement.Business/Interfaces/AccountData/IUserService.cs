@@ -16,6 +16,7 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/);
         Task<ResponseViewModel> DeleteUser(int id);
         UserViewModel GetUserbyId(int id);
+        UserViewModel GetUserDetail(string userName);
         List<DropDownViewModel> GetAllRoles();
         //List<UserViewModel> GetAllUsersByRole();
         UserMasterDataViewModel GetUserMasterData();

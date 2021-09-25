@@ -86,5 +86,14 @@ namespace SchoolManagement.WebService.Controllers
             return response;
         }
 
+        public UserViewModel GetUserDetail()
+        {
+            var userName = identityService.GetUserName();
+
+            var response = userService.GetUserDetail(userName);
+
+            return response;
+        }
+
     }
 }
