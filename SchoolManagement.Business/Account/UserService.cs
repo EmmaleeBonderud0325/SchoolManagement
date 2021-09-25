@@ -618,5 +618,37 @@ namespace SchoolManagement.Business
             return response;
 
         }
+
+        public async Task<ResponseViewModel> UpdateUserMasterData(UserMasterViewModel vm, string userName)
+        {
+            var response = new ResponseViewModel();
+            try
+            {
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+                loggedInUser.Username = vm.UserName;
+                loggedInUser.FullName = vm.FullName;
+                loggedInUser.Address = vm.Address;
+                loggedInUser.MobileNo = vm.MobileNumber;
+                loggedInUser.UpdatedById = loggedInUser.Id;
+                loggedInUser.UpdatedOn = DateTime.UtcNow;
+
+                schoolDb.Users.Update(loggedInUser);
+
+                response.IsSuccess = true;
+                response.Message = UserServiceConstants.EXISTING_USER_SAVE_SUCCESS_MESSAGE;
+
+                await schoolDb.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE;
+            }
+
+
+            return response;
+
+        }
     }
 }

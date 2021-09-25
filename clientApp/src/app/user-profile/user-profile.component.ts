@@ -1,3 +1,4 @@
+import { UserMasterModel } from './../models/user/user.master';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserModel } from './../models/user/user.model';
 import { UserService } from './../services/user/user.service';
@@ -13,9 +14,10 @@ import { throwIfAlreadyLoaded } from '../core/guard/module-import.guard';
 })
 export class UserProfileComponent implements OnInit {
   active;
-  currentUser:User;
-  loggedUserId: number;
+  currentUser:UserMasterModel;
+  loggedInUserName:string;
   user:UserModel;
+  userName = "avdunusinghe@gmail.com"
 
   data=[];
 
@@ -27,34 +29,32 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.getLoggedInUser();
-    this.getUserById();
+    this.getuserDetails();
     this.spinner.hide();
   }
 
-  getLoggedInUser(){
+
+
+ getLoggedInUser(){
     this.spinner.show();
     this.authService.currentUser.subscribe(user=>{
-      this.loggedUserId=user.id;
+      this.loggedInUserName=user.username;
       console.log("LoggedInUser");
       
-      console.log(user);
+     console.log(user.username);
       
     })
   }
 
-  getUserById(){
-    
-    this.userService.getUserById(this.loggedUserId).subscribe(response=>{
-        this.user = response;
-        console.log(response);
-        
+  getuserDetails(){
 
-    },error=>{
-        this.spinner.show();
+    this.userService.getUserDetails(this.userName).subscribe(response=>{
+      this.currentUser = response;
+      console.log(response);
+      
     })
-
+  
   }
-
 
   
 

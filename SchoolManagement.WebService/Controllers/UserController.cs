@@ -89,7 +89,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getUserDetail")]
+        [Route("getUserDetail/{'userName'}")]
         public UserMasterViewModel GetUserDetail()
         {
             var userName = identityService.GetUserName();
@@ -98,6 +98,15 @@ namespace SchoolManagement.WebService.Controllers
 
             return response;
         }
+        [HttpPost]
+        public async Task<ActionResult> UpdateUserMasterData([FromBody] UserMasterViewModel vm)
+        {
+            var userName = identityService.GetUserName();
+            var response = await userService.UpdateUserMasterData(vm, userName);
+
+            return Ok(response);
+        }
+
 
     }
 }

@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserPaginatedItemViewModel } from "src/app/models/user/user.paginated.item.model";
+import { UserMasterModel } from "src/app/models/user/user.master";
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,13 @@ export class UserService {
     return this.httpClient.
       delete<ResponseModel>
         (environment.apiUrl + 'User/' + id);
+  }
+
+  //getUserDetails
+  getUserDetails(userName:string):Observable<UserMasterModel>{
+    return this.httpClient.
+      get<UserMasterModel>
+        (environment.apiUrl + 'User/getUserDetails' + userName);
+
   }
 }
