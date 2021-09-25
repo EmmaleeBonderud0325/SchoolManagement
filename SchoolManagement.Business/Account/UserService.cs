@@ -82,17 +82,21 @@ namespace SchoolManagement.Business
 
             return response;
         }
-        public UserViewModel GetUserDetail(string userName)
+        public UserMasterViewModel GetUserDetail(string userName)
         {
-            var user = new UserViewModel();
+            var user = new UserMasterViewModel();
 
-            var currentUser = currentUserService.GetUserByUsername(userName);
+            var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-
+            loggedInUser.Username = user.UserName;
+            loggedInUser.FullName = user.FullName;
+            loggedInUser.Address = user.Address;
+            loggedInUser.Email = user.Email;
+            loggedInUser.MobileNo = user.MobileNumber;
 
             return user;
         }
-        public List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/)
+        public List<UserViewModel> GetAllUsersByRole()
         {
             var response =  new List<UserViewModel>();
 
@@ -318,7 +322,6 @@ namespace SchoolManagement.Business
             return container;
 
         }
-
         public async Task<MasterDataUploadResponse> UploadClassStudents(FileContainerViewModel container, string userName)
         {
             var response = new MasterDataUploadResponse();
@@ -407,7 +410,6 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
         public List<MasterDataFileValidateResult> ValidateExcelFileContents(string fileSavePath)
         {
             var response = new List<MasterDataFileValidateResult>();

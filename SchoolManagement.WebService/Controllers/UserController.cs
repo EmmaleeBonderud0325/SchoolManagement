@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.ViewModel;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.WebService.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -36,9 +38,9 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getAllUsers")]
-        public ActionResult GetAllUsers(/*DropDownViewModel vm*/)
+        public ActionResult GetAllUsers()
         {
-            var response = userService.GetAllUsersByRole(/*vm*/);
+            var response = userService.GetAllUsersByRole();
 
             return Ok(response);
         }
@@ -86,7 +88,9 @@ namespace SchoolManagement.WebService.Controllers
             return response;
         }
 
-        public UserViewModel GetUserDetail()
+        [HttpGet]
+        [Route("getUserDetail")]
+        public UserMasterViewModel GetUserDetail()
         {
             var userName = identityService.GetUserName();
 
