@@ -72,4 +72,10 @@ export class UserService {
         (environment.apiUrl + 'User/getUserDetails' + userName);
 
   }
+  //updateUserProfile
+  UpdateUserMasterData(vm:UserMasterModel):Observable<ResponseModel>{
+    return this.httpClient.
+      post<ResponseModel>
+        (environment.apiUrl+ + 'User/updateUserMasterData', vm);
+  }
 }

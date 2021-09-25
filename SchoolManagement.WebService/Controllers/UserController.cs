@@ -98,7 +98,9 @@ namespace SchoolManagement.WebService.Controllers
 
             return response;
         }
+
         [HttpPost]
+        [Route("updateUserMasterData")]
         public async Task<ActionResult> UpdateUserMasterData([FromBody] UserMasterViewModel vm)
         {
             var userName = identityService.GetUserName();
