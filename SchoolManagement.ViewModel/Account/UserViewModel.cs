@@ -39,8 +39,8 @@ namespace SchoolManagement.ViewModel.Account
         {
             Students = new List<UserViewModel>();
         }
-        public int Year { get; set; }
-        public int GradeId { get; set; }
+        public int AcademicYear { get; set; }
+        public int AcademicLevelId { get; set; }
         public int ClassId { get; set; }
         public int ClassTeacherId { get; set; }
 

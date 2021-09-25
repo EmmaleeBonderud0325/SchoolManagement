@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants;
 using SchoolManagement.ViewModel;
@@ -362,64 +363,209 @@ namespace SchoolManagement.Business
         {
             var response = new List<MasterDataFileValidateResult>();
 
-            var academicYears = schoolDb.AcademicYears.ToList();
-            var academicLevels = schoolDb.AcademicLevels.ToList();
-
-            FileInfo fileInfo = new FileInfo(fileSavePath);
-            using(ExcelPackage package = new ExcelPackage(fileInfo))
+            try
             {
-                //get the first worksheet in the workbook
-                ExcelWorksheet worksheet = package.Workbook.Worksheets["ClassStudents"];
+                var academicYears = schoolDb.AcademicYears.ToList();
+                var academicLevels = schoolDb.AcademicLevels.ToList();
 
-                int colCount = worksheet.Dimension.End.Column;  //get Column Count
-                int rowCount = worksheet.Dimension.End.Row - 5;
-
-                var yearValue = worksheet.Cells[1, 2].Value.ToString().Trim();
-
-                if (!string.IsNullOrEmpty(yearValue))
+                FileInfo fileInfo = new FileInfo(fileSavePath);
+                using (ExcelPackage package = new ExcelPackage(fileInfo))
                 {
-                    int enteredYear;
+                    //get the first worksheet in the workbook
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets["ClassStudents"];
 
-                    if(int.TryParse(yearValue, out enteredYear))
+                    int colCount = worksheet.Dimension.End.Column;  //get Column Count
+                    int rowCount = worksheet.Dimension.End.Row - 5;
+
+                    var yearValue = worksheet.Cells[1, 2].Value.ToString().Trim();
+
+                    if (!string.IsNullOrEmpty(yearValue))
                     {
-                        var currentYear = DateTime.Now.Year;
-                        if(!(enteredYear == currentYear || enteredYear == currentYear + 1))
+                        int enteredYear;
+
+                        if (int.TryParse(yearValue, out enteredYear))
                         {
-                            response.Add(new MasterDataFileValidateResult() 
-                            { ValidateMessage = "Invalid user excel template. Year can be current year or next year only.", IsSuccess = false });
+                            var currentYear = DateTime.Now.Year;
+                            if (!(enteredYear == currentYear || enteredYear == currentYear + 1))
+                            {
+                                response.Add(new MasterDataFileValidateResult()
+                                { ValidateMessage = "Invalid user excel template. Year can be current year or next year only.", IsSuccess = false });
+                            }
+                            else
+                            {
+                                // studentExcelContainer.Year = schoolDb.AcademicYears.FirstOrDefault(x =>x.Id == yearValue).Id;
+                            }
                         }
                         else
                         {
-                           // studentExcelContainer.Year = schoolDb.AcademicYears.FirstOrDefault(x =>x.Id == yearValue).Id;
+                            response.Add(new MasterDataFileValidateResult()
+                            { ValidateMessage = "Invalid user excel template. Invalid Year format has been entered.", IsSuccess = false });
                         }
+
                     }
                     else
                     {
-                        response.Add(new MasterDataFileValidateResult() 
-                        { ValidateMessage = "Invalid user excel template. Invalid Year format has been entered.", IsSuccess = false });
+                        response.Add(new MasterDataFileValidateResult()
+                        { ValidateMessage = "Invalid user excel template. Academic year is not entered.", IsSuccess = false });
+                    }
+                    var academicLevel = worksheet.Cells[2, 2].Value.ToString().Trim().ToLower();
+
+                    var enteredAcademicLevel = schoolDb.AcademicLevels.FirstOrDefault(x => x.Name.Trim().ToLower() == academicLevel);
+
+                    if (enteredAcademicLevel != null)
+                    {
+                        studentExcelContainer.AcademicLevelId = enteredAcademicLevel.Id;
+                    }
+                    else
+                    {
+                        response.Add(new MasterDataFileValidateResult()
+                        { ValidateMessage = "Invalid user excel template. Academic Level value does not exists or invalid Academic Levele value has been entered.", IsSuccess = false });
                     }
 
-                }
-                else
-                {
-                    response.Add(new MasterDataFileValidateResult() 
-                    { ValidateMessage = "Invalid user excel template. Academic year is not entered.", IsSuccess = false });
-                }
-                var academicLevel = worksheet.Cells[2, 2].Value.ToString().Trim().ToLower();
+                    if (studentExcelContainer.AcademicYear > 0 && studentExcelContainer.AcademicLevelId > 0)
+                    {
+                        var classValue = worksheet.Cells[3, 2].Value.ToString().Trim().ToLower();
 
-                var enteredAcademicLevel = schoolDb.AcademicLevels.FirstOrDefault(x => x.Name.Trim().ToLower() == academicLevel);
+                        var enteredClass = schoolDb.Classes
+                            .FirstOrDefault(x => x.Name.Trim().ToLower() == classValue && x.AcademicLevelId == studentExcelContainer.AcademicLevelId /*x.AcademicYear == studentExcelContainer.AcademicYear*/);
 
-                if (enteredAcademicLevel != null)
-                {
-                    studentExcelContainer.GradeId = enteredAcademicLevel.Id;
+                        if (enteredClass != null)
+                        {
+                            studentExcelContainer.ClassId = enteredClass.ClassNameId;
+                        }
+                        else
+                        {
+                            response.Add(new MasterDataFileValidateResult()
+                            { ValidateMessage = "Invalid user excel template. Class name value does not exists or invalid class name value has been entered.", IsSuccess = false });
+                        }
+
+                    }
+
+                    var teacherValue = worksheet.Cells[4, 2].Value.ToString().Trim().ToLower();
+
+                    var enterTeacher = schoolDb.Users
+                         .FirstOrDefault(x => x.Username.Trim().ToLower() == teacherValue);
+
+                    if (enterTeacher != null)
+                    {
+                        studentExcelContainer.ClassTeacherId = enterTeacher.Id;
+                    }
+                    else
+                    {
+                        response.Add(new MasterDataFileValidateResult()
+                        { ValidateMessage = "Invalid user excel template. Teacher username does not exists or invalid teacher username has been entered.", IsSuccess = false });
+                    }
+
+                    if (colCount != 3)
+                    {
+                        response.Add(new MasterDataFileValidateResult()
+                        { ValidateMessage = "Invalid user excel template. Column count does not match.", IsSuccess = false });
+                    }
+                    else
+                    {
+                        response.Add(new MasterDataFileValidateResult()
+                        { ValidateMessage = "Uploaded user excel template valid.", IsSuccess = true });
+                    }
+
+                    for (int row = 6; row <= rowCount; row++)
+                    {
+                        var user = new UserViewModel();
+
+                        for (int col = 1; col <= colCount; col++)
+                        {
+                            if (row == 6)
+                            {
+                                if (col == 1)
+                                {
+                                    if (worksheet.Cells[row, col].Value.ToString().Trim() != "IndexNo")
+                                    {
+                                        response.Add(new MasterDataFileValidateResult()
+                                        { ValidateMessage = "Invalid excel file. IndexNo column (Column index 0) is missing.", IsSuccess = false });
+                                    }
+                                }
+                                else if (col == 2)
+                                {
+                                    if (worksheet.Cells[row, col].Value.ToString().Trim() != "Full Name")
+                                    {
+                                        response.Add(new MasterDataFileValidateResult()
+                                        { ValidateMessage = "Invalid excel file. Full Name column (Column index 1) is missing.", IsSuccess = false });
+
+                                    }
+                                }
+                                else if (col == 3)
+                                {
+                                    if (worksheet.Cells[row, col].Value.ToString().Trim() != "Gender")
+                                    {
+                                        response.Add(new MasterDataFileValidateResult()
+                                        { ValidateMessage = "Invalid excel file. Gender column (Column index 2) is missing.", IsSuccess = false });
+
+                                    }
+                                }
+
+                            }
+                            else
+                            {
+                                if (col == 1)
+                                {
+                                    var indexNo = worksheet.Cells[row, col].Value == null ? string.Empty : worksheet.Cells[row, col].Value.ToString().Trim();
+                                    if (!string.IsNullOrEmpty(indexNo))
+                                    {
+                                        user.Username = indexNo;
+                                    }
+                                    else
+                                    {
+                                        response.Add(new MasterDataFileValidateResult()
+                                        { ValidateMessage = "Empty index number found in row " + row.ToString() + ".", IsSuccess = false });
+                                    }
+                                }
+                                else if (col == 2)
+                                {
+                                    var fullName = worksheet.Cells[row, col].Value == null ? string.Empty : worksheet.Cells[row, col].Value.ToString().Trim();
+                                    if (!string.IsNullOrEmpty(fullName))
+                                    {
+                                        user.FullName = fullName;
+                                    }
+                                    else
+                                    {
+                                        response.Add(new MasterDataFileValidateResult()
+                                        { ValidateMessage = "Full name can not be empty in row " + row.ToString() + ".", IsSuccess = false });
+                                    }
+
+                                }
+                                else if (col == 3)
+                                {
+                                    var gender = worksheet.Cells[row, col].Value == null ? string.Empty : worksheet.Cells[row, col].Value.ToString().Trim();
+                                    if (!string.IsNullOrEmpty(gender))
+                                    {
+
+                                       // user.Gender = gender;
+                                    }
+                                    else
+                                    {
+                                        response.Add(new MasterDataFileValidateResult() 
+                                        { ValidateMessage = "Gender can not be empty in row " + row.ToString() + ".", IsSuccess = false });
+                                    }
+                                }
+                            }
+
+                            if (row > 6)
+                                studentExcelContainer.Students.Add(user);
+
+                        }
+                    }
+
+
+
+
+
                 }
-                else
-                {
-                    response.Add(new MasterDataFileValidateResult() { ValidateMessage = "Invalid user excel template. Academic Level value does not exists or invalid Academic Levele value has been entered.", IsSuccess = false });
-                }
-
-
+            }catch(Exception ex)
+            {
+                throw ex;
             }
+
+            return response;
+
         }
     }
 }
