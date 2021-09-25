@@ -231,7 +231,6 @@ namespace SchoolManagement.Business.Master
 
             var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
 
-
             response.Id = subject.Id;
             response.Name = subject.Name;
             response.SubjectCode = subject.SubjectCode;
