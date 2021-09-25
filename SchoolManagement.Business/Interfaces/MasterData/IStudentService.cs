@@ -15,5 +15,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         Task<ResponseViewModel> DeleteStudent(int id);
         List<DropDownViewModel> GetAllGenders();
         List<DropDownViewModel> GetAllClasses();
+        List<DropDownViewModel> GetAllAcademicYears();
+        List<DropDownViewModel> GetAllAcademicLevels();
     }
 }

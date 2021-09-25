@@ -18,4 +18,6 @@ export class StudentModel {
     username:string;
     classes:number;
     className:string;
+    academicYear:number;
+    academicLevel:number;
 }

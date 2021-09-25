@@ -24,6 +24,8 @@ export class StudentListComponent implements OnInit {
   user:StudentModel;
   allGenders:DropDownModel[] = [];
   studentClass:DropDownModel[] = [];
+  allAcademicYears:DropDownModel[] = [];
+  allAcademicLevels:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -35,6 +37,8 @@ export class StudentListComponent implements OnInit {
     this.getAll();
     this.getAllGenders();
     this.getClasses();
+    this.getAllAcademicYears();
+    this.getAllAcademicLevels();
   }
 
   getAll(){
@@ -63,6 +67,8 @@ export class StudentListComponent implements OnInit {
       gender: ['', [Validators.required]],
       email: ['', [Validators.required]],
       classes: ['', [Validators.required]],
+      academicYear: ['', [Validators.required]],
+      academicLevel: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
@@ -80,6 +86,28 @@ export class StudentListComponent implements OnInit {
       },error=>{
         
        });
+  }
+
+  getAllAcademicYears()
+  {
+    this.studentService.getAllAcademicYears()
+      .subscribe(response =>
+        {
+          this.allAcademicYears = response;
+        },error => {
+
+        });
+  }
+
+  getAllAcademicLevels()
+  {
+    this.studentService.getAllAcademicLevels()
+      .subscribe(response =>
+        {
+          this.allAcademicLevels = response;
+        },error => {
+
+        });
   }
 
   saveStudent(){   
@@ -152,6 +180,8 @@ export class StudentListComponent implements OnInit {
       password:[row.password],
       isActive:[true],
       classes:[row.classes, [Validators.required]],
+      academicYear:[row.academicYear, [Validators.required]],
+      academicLevel:[row.academicLevel, [Validators.required]]
     });
 
     this.modalService.open(content, {

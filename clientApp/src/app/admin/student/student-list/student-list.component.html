@@ -296,6 +296,7 @@
                             </div>
                           </div>
                         </div> -->
+                        <!-- class and academic year select -->
                         <div class="row">
                           <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                             <div class="form-group">
@@ -307,6 +308,35 @@
 
                             <small class="form-text text-danger"
                               *ngIf="!saveStudentForm.get('classes').valid && saveStudentForm.get('classes').touched"> This field is
+                              required</small>
+                          </div>
+
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <div class="form-group">
+                              <label>Academic year<span class="text-danger">*</span></label>
+                                <select class="form-select form-control" formControlName="academicYear">
+                                  <option *ngFor="let item of allAcademicYears" [ngValue]="item.id">{{item.id}}</option>
+                                </select>
+                            </div>
+  
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('academicYear').valid && saveStudentForm.get('academicYear').touched"> This field is
+                              required</small>
+                          </div>
+                        </div>
+
+                        <!-- academic level row -->
+                        <div class="row">
+                          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                            <div class="form-group">
+                              <label>Academic level<span class="text-danger">*</span></label>
+                                <select class="form-select form-control" formControlName="academicLevel">
+                                  <option *ngFor="let item of allAcademicLevels" [ngValue]="item.id">{{item.name}}</option>
+                                </select>
+                            </div>
+  
+                            <small class="form-text text-danger"
+                              *ngIf="!saveStudentForm.get('academicLevel').valid && saveStudentForm.get('academicLevel').touched"> This field is
                               required</small>
                           </div>
                         </div>
@@ -455,7 +485,7 @@
                         </div>
                       </div>
 
-                      <!-- Student class select -->
+                      <!-- class and academic year select -->
                       <div class="row">
                         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                           <div class="form-group">
@@ -467,6 +497,35 @@
 
                           <small class="form-text text-danger"
                             *ngIf="!saveStudentForm.get('classes').valid && saveStudentForm.get('classes').touched"> This field is
+                            required</small>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <div class="form-group">
+                            <label>Academic year<span class="text-danger">*</span></label>
+                              <select class="form-select form-control" formControlName="academicYear">
+                                <option *ngFor="let item of allAcademicYears" [ngValue]="item.id">{{item.id}}</option>
+                              </select>
+                          </div>
+
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('academicYear').valid && saveStudentForm.get('academicYear').touched"> This field is
+                            required</small>
+                        </div>
+                      </div>
+
+                      <!-- academic level row -->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <div class="form-group">
+                            <label>Academic level<span class="text-danger">*</span></label>
+                              <select class="form-select form-control" formControlName="academicLevel">
+                                <option *ngFor="let item of allAcademicLevels" [ngValue]="item.id">{{item.name}}</option>
+                              </select>
+                          </div>
+
+                          <small class="form-text text-danger"
+                            *ngIf="!saveStudentForm.get('academicLevel').valid && saveStudentForm.get('academicLevel').touched"> This field is
                             required</small>
                         </div>
                       </div>

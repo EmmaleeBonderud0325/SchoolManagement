@@ -30,6 +30,8 @@ namespace SchoolManagement.ViewModel.Master
         public string Username { get; set; }
         public int Classes { get; set; }
         public string ClassName { get; set; }
+        public int AcademicYear { get; set; }
+        public int AcademicLevel { get; set; }
 
         /*public int ClassNameId { get; set; }
         public string ClassClassName { get; set; }
