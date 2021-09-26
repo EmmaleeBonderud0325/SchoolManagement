@@ -5,8 +5,10 @@ using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
+using SchoolManagement.ViewModel.Master.Subject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -229,7 +231,6 @@ namespace SchoolManagement.Business.Master
 
             var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
 
-
             response.Id = subject.Id;
             response.Name = subject.Name;
             response.SubjectCode = subject.SubjectCode;
@@ -262,6 +263,51 @@ namespace SchoolManagement.Business.Master
 
             return response;
         }
+
+        public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicSubjectViewModel>();
+
+            var subjects = schoolDb.Subjects.Where(x => x.IsActive == true).OrderBy(s => s.Name);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                subjects = subjects.Where(x => x.Name.Contains(searchText)).OrderBy(s => s.Name);
+            }
+
+            totalRecordCount = subjects.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var subjectList = subjects.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            subjectList.ForEach(subject =>
+            {
+                var vm = new BasicSubjectViewModel()
+                {
+                    Id = subject.Id,
+                    Name = subject.Name,
+                    SubjectCode = subject.SubjectCode,
+                    SubjectCategoryName = subject.SubjectCategory.ToString(),
+                    ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
+                    SubjectStreamName = subject.SubjectStream.Name,
+                    CreatedByName = subject.CreatedBy.FullName,
+                    CreatedOn = subject.CreatedOn,
+                    UpdatedByName = subject.UpdatedBy.FullName,
+                    UpdatedOn = subject.UpdatedOn,
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicSubjectViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
+
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
             var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
@@ -275,7 +321,8 @@ namespace SchoolManagement.Business.Master
                 return quary.Name;
             }      
         }
-             
+
+       
     }
 }
                 
