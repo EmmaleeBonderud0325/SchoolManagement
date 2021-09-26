@@ -14,9 +14,7 @@ namespace SchoolManagement.ViewModel.Common
             Files = new List<IFormFile>();
         }
         public List<IFormFile> Files { get; set; }
-        public int Id { get; set; }
-        public int Type { get; set; }
-
-        //fie container
+        
+        
     }
 }

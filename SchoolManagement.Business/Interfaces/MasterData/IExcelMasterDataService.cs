@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.ExcelHelper;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
 {
     public interface IExcelMasterDataService
     {
-        ResponseViewModel UploadExcelData();
+        Task<ResponseViewModel> UploadExcelData(ExcelMasterDataContainerViewModel container, string userName);
+        DownloadFileViewModel DownloadExcelData(ExcelUploadType excelType);
     }
 }
