@@ -1,5 +1,4 @@
-﻿using SchoolManagement.ExcelHelper;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ExcelHelper
 {
-    public class StudentExcelUploader : BaseExcelUploader
+    public class UserExcelUploader : BaseExcelUploader
     {
     }
 }
