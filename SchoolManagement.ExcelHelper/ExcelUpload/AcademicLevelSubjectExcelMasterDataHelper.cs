@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.ExcelHelper
 {
-    public class SubjectTeacherExcelUploader : BaseExcelUploader 
+    public class AcademicLevelSubjectExcelUploader : BaseExcelMasterDataHelper 
     {
     }
 }
