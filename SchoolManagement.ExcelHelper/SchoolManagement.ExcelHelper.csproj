@@ -8,4 +8,11 @@
     <Folder Include="ExcelReport\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj" />
+    <ProjectReference Include="..\SchoolManagement.Util\SchoolManagement.Util.csproj" />
+    <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>
