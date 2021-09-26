@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.ExcelHelper.ExcelUpload.Common
+namespace SchoolManagement.ViewModel.Common
 {
     public class DownloadFileViewModel
     {
