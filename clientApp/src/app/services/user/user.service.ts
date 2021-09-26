@@ -66,10 +66,10 @@ export class UserService {
   }
 
   //getUserDetails
-  getUserDetails(userName:string):Observable<UserMasterModel>{
+  getUserDetails():Observable<UserMasterModel>{
     return this.httpClient.
       get<UserMasterModel>
-        (environment.apiUrl + 'User/getUserDetails' + userName);
+        (environment.apiUrl + 'User/getUserDetails');
 
   }
   //updateUserProfile

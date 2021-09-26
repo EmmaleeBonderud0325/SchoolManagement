@@ -28,7 +28,7 @@ export class UserProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getLoggedInUser();
+    //this.getLoggedInUser();
     this.getuserDetails();
     this.spinner.hide();
   }
@@ -48,7 +48,7 @@ export class UserProfileComponent implements OnInit {
 
   getuserDetails(){
 
-    this.userService.getUserDetails(this.userName).subscribe(response=>{
+    this.userService.getUserDetails().subscribe(response=>{
       this.currentUser = response;
       console.log(response);
       

@@ -89,7 +89,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getUserDetail/{'userName'}")]
+        [Route("getUserDetail")]
         public UserMasterViewModel GetUserDetail()
         {
             var userName = identityService.GetUserName();
