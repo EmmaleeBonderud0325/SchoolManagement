@@ -1,196 +1,191 @@
 <section class="main-content">
-    <ul class="breadcrumb breadcrumb-style ">
-        <li class="breadcrumb-item">
-          <h5 class="page-title m-b-0">Admin</h5>
-        </li>
-        <li class="breadcrumb-item bcrumb-1">
-          <a routerLink="/dashboard/main">
-            <i class="fas fa-home font-17"></i></a>
-        </li>
-        <li class="breadcrumb-item">ClassName List</li>
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">Admin</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/dashboard/main">
+        <i class="fas fa-home font-17"></i></a>
+    </li>
+    <li class="breadcrumb-item">Class Name List</li>
     </ul>
-        <div class="section-body">
-            <div class="row clearfix">
-              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="card">
-                  <div class="p-10">
-                    <div class="row">
-                      <div class="col-lg-6">
-                        <div class="row m-0">
-                          <div class="col-lg-3 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-title">
-                                <h2><strong>ClassNames</strong></h2>
-                              </div>
-                            </div>
+      <div class="section-body">
+        <div class="row clearfix">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="card">
+              <div class="p-10">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <div class="row m-0">
+                      <div class="col-lg-3 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-title">
+                            <h2><strong>ClassNames</strong></h2>
                           </div>
-                          <div class="col-lg-5 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-search-area">
-                                <div>
-                                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                  <input placeholder="Search" type="text" class="browser-default search-field"
+                        </div>
+                      </div>
+                      <div class="col-lg-5 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-search-area">
+                            <div>
+                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                              <input placeholder="Search" type="text" class="browser-default search-field"
                                      aria-label="Search box">
-                                </div>
-                              </div>
                             </div>
                           </div>
-                          <div class="col-lg-4 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="header-buttons-left">
-                                <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" >
-                                    <i class="material-icons">add</i>
-                                  </button>
-                                  <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                    <i class="material-icons">delete</i>
-                                  </button>
-                                </div>
-                              </div>
+                        </div>
+                      </div>
+                      <div class="col-lg-4 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="header-buttons-left">
+                            <div class="icon-button-demo buttons">
+                              <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewClassName(addEditRecord)'>
+                                <i class="material-icons">add</i>
+                              </button>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                  </div>
+                </div>
 
-                    <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
-				
-				        <ngx-datatable-column name="Id" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Id}}
-                  </ng-template>
-                </ngx-datatable-column>
-				
-                <ngx-datatable-column name="Name" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.name}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="Description" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Description}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="IsActive" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.IsActive}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="CreatedOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="CreatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.CreatedById}}
-                  </ng-template>
-                </ngx-datatable-column>
-				
-				        <ngx-datatable-column name="UpdatedOn" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedOn | date}}
-                  </ng-template>
-                </ngx-datatable-column>
-
-                <ngx-datatable-column name="UpdatedById" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.UpdatedById}}
-                  </ng-template>
-                </ngx-datatable-column>
 
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
                       <span>
-                        <button class="btn btn-tbl-edit h-auto" >
-                          <i class="fas fa-pen"></i>
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='editRow(row, rowIndex, addEditRecord)'>
+                          <i class="far fa-edit"></i>
                         </button>
-                        <button class="btn btn-tbl-delete h-auto">
+                        <button 
+                          class="btn btn-icon btn-sm btn-danger" 
+                          (click)='deleteClassName(row)'>
                           <i class="far fa-trash-alt"></i>
                         </button>
                       </span>
+                    </div>
+                  </ng-template>
+                </ngx-datatable-column>
+                
+                  <!-- Id Column -->
+                  <ngx-datatable-column name="Name" [width]="100">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.name}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- Description Column -->
+                  <ngx-datatable-column name="Description">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.description}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- isActive Column -->
+                  <ngx-datatable-column name="Is Active">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.isActive}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- createdOn Column -->
+                  <ngx-datatable-column name="Created On">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.createdOn | date}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- createdByName Column -->
+                  <ngx-datatable-column name="Created By">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.createdByName}}
+                    </ng-template>
+                  </ngx-datatable-column>
+                  
+                  <!-- updatedOn Column -->
+                  <ngx-datatable-column name="Updated On">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.updatedOn | date}}
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                  <!-- updatedByName Column -->
+                  <ngx-datatable-column name="Updated By">
+                    <ng-template let-row="row" ngx-datatable-cell-template>
+                      {{row.updatedByName}}
                     </ng-template>
                   </ngx-datatable-column>
                 </ngx-datatable>
 
-                <ng-template #addRecord let-modal>
-                    <div class="modal-header editRowModal">
-                      <h4 class="modal-title" id="modal-basic-title">
-                        <div class="table-modal-header">
-                          <div class="modal-about">
-                            <div class="fw-bold p-t-10 font-17">
-                             Add New ClassName</div>
-                          </div>
+                <!-- Add new class name Modal Window -->
+                <ng-template #addEditRecord let-modal>
+                  <div class="modal-header editRowModal">
+                    <h4 class="modal-title" id="modal-basic-title">
+                      <div class="table-modal-header">
+                        <div class="modal-about">
+                          <div class="fw-bold p-t-10 font-17">
+                             Add New Class Name</div>
                         </div>
-                      </h4>
-                      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                        <span aria-hidden="true"><i class="material-icons">close</i></span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      <form class="register-form" [formGroup]="saveClassNameForm" (ngSubmit)="onAddRowSave(saveClassNameForm)">
-                        <!-- <div class="input-field col s12 d-none">
-                          <input 
-                            formControlName="id" 
-                            class="form-control" 
-                            type="hidden">
-                        </div>-->
-                        <div class="row">
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                              <label>Name <span class="text-danger">*</span></label>
-                              <input 
-                                  type="text" 
-                                  class="form-control" 
-                                  placeholder="Name" 
-                                  formControlName="Name"
-                                  required>
-                              <small class="form-text text-danger"
-                                *ngIf="!saveClassNameForm.get('Name').valid && saveClassNameForm.get('Name').touched"> Name is
-                                required</small>
-                            </div>
-
-                            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                                <label>Description<span class="text-danger">*</span></label>
-                                <input 
-                                    type="text" 
-                                    class="form-control" 
-                                    placeholder="Description" 
-                                    formControlName="Description"
-                                    required>
-                                <small class="form-text text-danger"
-                                  *ngIf="!saveClassNameForm.get('Description').valid && saveClassNameForm.get('Description').touched"> Description is
-                                  required</small>
-                              </div>  
-                            </div>
-                            <div class="row">
-                              <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                                <label>Is Active <span class="text-danger">*</span></label>
-                                <select class="form-control" formControlName="isActive" required>
-                                  <option value="" selected disabled>Please select</option>
-                                  <option *ngFor="let desig of designationType" [value]="desig.value">
-                                    <!-- {{desig.value}} -->
-                                  </option>
-                                </select>
-                              </div>                 
-                            </div>
-
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-primary" [disabled]="!saveClassNameForm.valid">Submit</button>
-                                <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancel</button>
-                              </div>
-                            </form>
-                        </div>
-                    </ng-template>
-                    </div>
+                      </div>
+                    </h4>
+                    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                      <span aria-hidden="true"><i class="material-icons">close</i></span>
+                    </button>
                   </div>
-                </div>
+                  <div class="modal-body">
+                    <form class="register-form" [formGroup]="saveClassNameForm">
+                      <!-- <div class="input-field col s12 d-none">
+                        <input 
+                          formControlName="id" 
+                          class="form-control" 
+                          type="hidden">
+                      </div>-->
+                      <div class="row">
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Name <span class="text-danger">*</span></label>
+                            <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="Name" 
+                              formControlName="name"
+                              required>
+                            <small class="form-text text-danger"
+                                *ngIf="!saveClassNameForm.get('name').valid && saveClassNameForm.get('name').touched"> Name is
+                                required</small>
+                        </div>
+
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Description<span class="text-danger">*</span></label>
+                            <input 
+                              type="text" 
+                              class="form-control" 
+                              placeholder="Description" 
+                              formControlName="description"
+                              required>
+                            <small class="form-text text-danger"
+                                  *ngIf="!saveClassNameForm.get('description').valid && saveClassNameForm.get('description').touched"> Description is
+                                  required</small>
+                        </div>  
+                      </div>
+
+                      <!-- Modal Footer -->
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" (click)="saveClassName()" [disabled]="!saveClassNameForm.valid">Save Class Name</button>
+                        <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                      </div>
+                    </form>
+                  </div>
+                </ng-template>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
 </section>
 

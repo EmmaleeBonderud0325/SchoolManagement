@@ -36,7 +36,13 @@ namespace SchoolManagement.Business.Master
 
             try
             {
+                var user = schoolDb.Users.FirstOrDefault(x => x.Id == id);
                 var student = schoolDb.Students.FirstOrDefault(a => a.Id == id);
+                var userRole = schoolDb.UserRoles.FirstOrDefault(d => d.UserId == id);
+
+                userRole.IsActive = false;
+                schoolDb.UserRoles.Update(userRole);
+                await schoolDb.SaveChangesAsync();
 
                 student.IsActive = false;
                 schoolDb.Students.Update(student);
@@ -54,28 +60,55 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        public List<DropDownViewModel> GetAllGenders()
+        {
+            var genderList = new List<DropDownViewModel>();
+
+            foreach (var item in Enum.GetValues(typeof(Gender)))
+            {
+                var listItem = new DropDownViewModel()
+                {
+                    Id = (int)item,
+                    Name = item.ToString()
+                };
+                genderList.Add(listItem);
+            }
+
+            return genderList;
+        }
+
         public List<StudentViewModel> GetAllStudent()
         {
             var response = new List<StudentViewModel>();
 
-            var query = schoolDb.Students.Where(u => u.IsActive == true);
-
-            var StudentList = query.ToList();
-
-            foreach (var Student in StudentList)
+            var studentQuery = schoolDb.Students.Where(u => u.IsActive == true);
+            var studentList = studentQuery.ToList();
+                
+            foreach (var item in studentList)
             {
-                var viewModelOb = new StudentViewModel
-                {
-                    Id = Student.Id,
-                    AdmissionNo = Student.AdmissionNo,
-                    EmegencyContactNo1 = Student.EmegencyContactNo1,
-                    EmegencyContactNo2 = Student.EmegencyContactNo2,
-                    Gender = Student.Gender,
-                    DateOfBirth = Student.DateOfBirth,
-                    IsActive = Student.IsActive,
-                };
+                var user = schoolDb.Users.Find(item.Id);
+                //var studentClassList = schoolDb.StudentClasses.Find(item.Id);
 
-                response.Add(viewModelOb);
+                if (user != null)
+                {
+                    var vm = new StudentViewModel
+                    {
+                        Id = item.Id,
+                        AdmissionNo = item.AdmissionNo,
+                        EmegencyContactNo = item.EmegencyContactNo2,
+                        Gender = item.Gender,
+                        GenderName = item.Gender.ToString(),
+                        DateOfBirth = item.DateOfBirth,
+                        IsActive = item.IsActive,
+                        FullName = user.FullName,
+                        Email = user.Email,
+                        Password = user.Password,
+                        MobileNo = user.MobileNo,
+                        Username = user.Username,
+                        Address = user.Address,
+                    };
+                    response.Add(vm);
+                }
             }
 
             return response;
@@ -93,15 +126,15 @@ namespace SchoolManagement.Business.Master
 
                 if (student == null)
                 {
+                    //Add student as a user
                     var user = new User()
                     {
-                        Id = vm.Id,
                         Username = vm.Email,
                         Email = vm.Email,
                         FullName = vm.FullName,
                         MobileNo = vm.MobileNo,
                         Password = CustomPasswordHasher.GenerateHash(vm.Password),
-                        IsActive = true,
+                        IsActive = false,
                         CreatedById = loggedInUser.Id,
                         CreatedOn = DateTime.UtcNow,
                         UpdatedOn = DateTime.UtcNow,
@@ -110,13 +143,43 @@ namespace SchoolManagement.Business.Master
                         LastLoginDate = DateTime.UtcNow,
                         LoginSessionId = 0
                     };
-                    
-                    user.Student = new Student()
+                    schoolDb.Users.Add(user);
+                    await schoolDb.SaveChangesAsync();
+
+                    //get inserted user id 
+                    var insertedId = schoolDb.Users.Max(i => i.Id);
+
+                    //Add student role to UserRoles table
+                    var roleItems = schoolDb.Roles.Where(s => s.Name == "student");
+
+                    foreach (var item in roleItems)
                     {
-                        Id = user.Id,
+                        var role = new Role()
+                        {
+                            Id = item.Id
+                        };
+
+                        var userRole = new UserRole()
+                        {
+                            UserId = insertedId,
+                            RoleId = role.Id,
+                            IsActive = true,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedOn = DateTime.UtcNow,
+                            CreatedById = loggedInUser.Id,
+                            UpdatedById = loggedInUser.Id
+                        };
+                        schoolDb.UserRoles.Add(userRole);
+                        await schoolDb.SaveChangesAsync();
+                    }
+
+                    //Add student to Student table
+                    student = new Student()
+                    {
+                        Id = insertedId,
                         AdmissionNo = vm.AdmissionNo,
-                        EmegencyContactNo1 = vm.EmegencyContactNo1,
-                        EmegencyContactNo2 = vm.EmegencyContactNo2,
+                        EmegencyContactNo1 = user.MobileNo,
+                        EmegencyContactNo2 = vm.EmegencyContactNo,
                         Gender = vm.Gender,
                         DateOfBirth = vm.DateOfBirth,
                         IsActive = true,
@@ -126,7 +189,7 @@ namespace SchoolManagement.Business.Master
                         UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.Students.Add(user.Student);
+                    schoolDb.Students.Add(student);
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.NEW_STUDENT_ADD_SUCCESS_MESSAGE;
@@ -134,8 +197,8 @@ namespace SchoolManagement.Business.Master
                 else
                 {
                     student.AdmissionNo = vm.AdmissionNo;
-                    student.EmegencyContactNo1 = vm.EmegencyContactNo1;
-                    student.EmegencyContactNo2 = vm.EmegencyContactNo2;
+                    student.EmegencyContactNo1 = vm.MobileNo;
+                    student.EmegencyContactNo2 = vm.EmegencyContactNo;
                     student.Gender = vm.Gender;
                     student.IsActive = true;
                     student.UpdatedById = loggedInUser.Id;
@@ -143,6 +206,20 @@ namespace SchoolManagement.Business.Master
                     student.DateOfBirth = vm.DateOfBirth;
 
                     schoolDb.Students.Update(student);
+                    await schoolDb.SaveChangesAsync();
+
+                    var user = schoolDb.Users.Find(student.Id);
+                    user.FullName = vm.FullName;
+                    user.Address = vm.Address;
+                    user.UpdatedById = loggedInUser.Id;
+                    user.Email = vm.Email;
+                    user.MobileNo = vm.MobileNo;
+                    user.Username = vm.Username;
+                    user.Password = CustomPasswordHasher.GenerateHash(vm.Password);
+                    user.UpdatedOn = DateTime.UtcNow;
+
+                    schoolDb.Users.Update(user);
+                    await schoolDb.SaveChangesAsync();
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.STUDENT_UPDATE_MESSAGE;

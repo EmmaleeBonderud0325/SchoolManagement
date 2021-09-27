@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -35,22 +37,27 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.ClassTeachers.Where(u => u.IsActive == true);
 
-            var ClassTeacherList = query.ToList();
+            var classTeacherList = query.ToList();
 
-            foreach (var classteacher in ClassTeacherList)
+            foreach (var item in classTeacherList)
             {
                 var vm = new ClassTeacherViewModel
                 {
-                    ClassNameId = classteacher.ClassNameId,
-                    AcademicLevelId = classteacher.AcademicLevelId,
-                    AcademicYearId = classteacher.AcademicYearId,
-                    TeacherId = classteacher.TeacherId,
-                    IsPrimary = classteacher.IsPrimary,
-                    IsActive = classteacher.IsActive,
-                    CreatedOn = classteacher.CreatedOn,
-                    CreatedById = classteacher.CreatedById,
-                    UpdatedOn = classteacher.UpdatedOn,
-                    UpdatedById = classteacher.UpdatedById,
+                    ClassNameId = item.ClassNameId,
+                    TeacherClassName = item.Class.Name, 
+                    AcademicLevelId = item.AcademicLevelId,
+                    AcademicLevelName = item.Class.AcademicLevel.Name,
+                    AcademicYearId = item.AcademicYearId,
+                    TeacherId = item.TeacherId,
+                    TeacherName = item.Teacher.FullName,
+                    IsPrimary = item.IsPrimary,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
+                    UpdatedOn = item.UpdatedOn,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
                 };
 
                 response.Add(vm);
@@ -65,9 +72,9 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var classTeacher = schoolDb.ClassTeachers.FirstOrDefault(x => x.ClassNameId == vm.ClassNameId);
+                var classTeacher = schoolDb.ClassTeachers.FirstOrDefault(ct => ct.ClassNameId == vm.ClassNameId);
 
                 if (classTeacher == null)
                 {
@@ -80,22 +87,30 @@ namespace SchoolManagement.Business.Master
                         IsPrimary = true,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
+                        UpdatedById = currentuser.Id,
                     };
 
                     schoolDb.ClassTeachers.Add(classTeacher);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Teacher Added Successfull.";
+                    response.Message = ClassTeacherServiceConstants.NEW_CLASS_TEACHER_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
+                    //classTeacher.AcademicLevelId = vm.AcademicLevelId;
+                    //classTeacher.AcademicYearId = vm.AcademicYearId;
+                    classTeacher.TeacherId = vm.TeacherId;
                     classTeacher.IsPrimary = true;
                     classTeacher.IsActive = true;
                     classTeacher.UpdatedOn = DateTime.UtcNow;
                     classTeacher.UpdatedById = vm.UpdatedById;
+
+                    schoolDb.ClassTeachers.Update(classTeacher);
+
+                    response.IsSuccess = true;
+                    response.Message = ClassTeacherServiceConstants.EXISTING_CLASS_TEACHER_SAVE_SUCCESS_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -103,7 +118,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_SAVE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -123,15 +138,53 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "Class Teacher Deleted Successfull.";
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassTeacherServiceConstants.CLASS_TEACHER_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;
+        }
+
+        public List<DropDownViewModel> GetAllClassNames()
+        {
+            var classNames = schoolDb.Classes
+                .Select(cn => new DropDownViewModel() { Id = cn.ClassNameId, Name = string.Format("{0}", cn.Name) })
+                .Distinct().ToList();
+
+            return classNames;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            var academicLevels = schoolDb.Classes
+                .Select(al => new DropDownViewModel() { Id = al.AcademicLevelId, Name = string.Format("{0}", al.AcademicLevel.Name) })
+                .Distinct().ToList();
+
+            return academicLevels;
+        }
+
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            var academicYears = schoolDb.Classes
+                .Select(ay => new DropDownViewModel() { Id = ay.AcademicYearId })
+                .Distinct().ToList();
+
+            return academicYears;
+        }
+
+        public List<DropDownViewModel> GetAllTeachers()
+        {
+            var classTeachers = schoolDb.UserRoles
+                .Where(x => x.RoleId == (int)RoleType.Teacher)
+                .Select(u => new DropDownViewModel() { Id = u.User.Id, Name = string.Format("{0}", u.User.FullName) })
+                .Distinct().ToList();
+
+            return classTeachers;
+
         }
     }
 }

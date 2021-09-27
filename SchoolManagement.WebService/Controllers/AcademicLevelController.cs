@@ -24,17 +24,17 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public ActionResult GetAllAcademicLevel()
         {
             var response = academicLevelService.GetAllAcademicLevel();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] AcademicLevelViewModel academicLevelVM)
+        public async Task<ActionResult> Post([FromBody] AcademicLevelViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = await academicLevelService.SaveAcademicLevel(academicLevelVM, userName);
+            var response = await academicLevelService.SaveAcademicLevel(vm, userName);
             return Ok(response);
         }
 

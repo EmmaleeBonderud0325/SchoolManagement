@@ -1,11 +1,11 @@
 {
-  "HEADER":{
+  "HEADER": {
     "SEARCH": {
       "TEXT": "Search.."
     }
   },
   "MENUITEMS": {
-    "USER":{
+    "USER": {
       "POST": "Admin"
     },
     "MAIN": {
@@ -14,7 +14,9 @@
     "HOME": {
       "TEXT": "Home",
       "LIST": {
-        "TEACHER_LESSONS": "My Lessons"
+        "TEACHER_LESSONS": "My Lessons",
+        "TEACHER_QUESTION": "Question",
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Answer"
       }
     },
     "ADMIN": {
@@ -23,10 +25,13 @@
         "USER": "Users",
         "ACADEMIC_LEVEL": "Academic Levels",
         "ACADEMIC_YEAR": "Academic Years",
-        "CLASS": "Classes",
         "CLASS-NAME": "Class Names",
+        "CLASS": "Classes",
+        "CLASS-TEACHER": "Class Teachers",
         "STUDENT": "Students",
         "SUBJECT": "Subjects",
+        "SUBJECT_TEACHERS": "Subject Teachers",
+        "HEAD_Of_DEPARTMENT":"Head Of Department",
         "EXAMPLE": "Example"
       }
     }

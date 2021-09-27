@@ -5,6 +5,7 @@ using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -17,19 +18,16 @@ namespace SchoolManagement.Business
 {
     public class UserService: IUserService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public UserService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public UserService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
         }
-
         public async Task<ResponseViewModel> DeleteUser(int id)
         {
             var response = new ResponseViewModel();
@@ -43,17 +41,16 @@ namespace SchoolManagement.Business
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "User has been deleted.";
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error occured. Please try again.";
+                response.Message = UserServiceConstants.EXISTING_USER_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;
         }
-
         public UserViewModel GetUserbyId(int id)
         {
             var response = new UserViewModel();
@@ -65,7 +62,7 @@ namespace SchoolManagement.Business
             response.FullName = user.FullName;
             response.Username = user.Username;
             response.Address = user.Address;
-            response.Address = user.Email;
+            response.Email = user.Email;
             response.MobileNo = user.MobileNo;
             response.IsActive = user.IsActive;
 
@@ -73,28 +70,27 @@ namespace SchoolManagement.Business
 
             foreach (var item in assignedRoles)
             {
-                response.Roles.Add(new DropDownViewModel() { Id = item.RoleId, Name = item.Role.Name });
+                response.Roles.Add(item.RoleId);
             }
 
             return response;
         }
-
-        public List<UserViewModel> GetAllUsers(int roleId)
+        public List<UserViewModel> GetAllUsersByRole(/*DropDownViewModel vm*/)
         {
             var response =  new List<UserViewModel>();
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
-            if (roleId > 0)
-            {
-                query = query.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
-            }
+            //if (vm.Id > 0)
+            //{
+            //    query = query.Where(x => x.UserRoles.Any(x => x.RoleId == vm.Id)).OrderBy(x => x.FullName);
+            //}
 
             var userList = query.ToList();
 
             foreach(var user in userList)
             {
-                var vm = new UserViewModel
+                var uvm = new UserViewModel
                 {
                     Id = user.Id,
                     FullName = user.FullName,
@@ -102,17 +98,21 @@ namespace SchoolManagement.Business
                     Address = user.Address,
                     Email = user.Email,
                     MobileNo = user.MobileNo,
-                    
+                    CreatedByName = user.CreatedById.HasValue? user.CreatedBy.FullName:string.Empty,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedById.HasValue? user.UpdatedBy.FullName:string.Empty,
+                    UpdatedOn = user.UpdatedOn,
+
                 };
 
-                response.Add(vm);
+                var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
+
+
+                response.Add(uvm);
             }
 
             return response;
         }
-
-
-
         public async Task<ResponseViewModel> SaveUser(UserViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -128,6 +128,26 @@ namespace SchoolManagement.Business
 
                 if (user == null)
                 {
+                    var exisistingUserName = schoolDb.Users.FirstOrDefault(u => u.Username.Trim().ToUpper() == vm.Username.Trim().ToUpper());
+
+                    if(exisistingUserName != null)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = UserServiceConstants.EXISTING_USERNAME_ALLREADY_TAKEN_EXCEPTION_MESSAGE;
+
+                        return response;
+                    }
+
+                    var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                    if (exsitingEmail != null)
+                    {
+                        response.IsSuccess = false;
+                        response.Message = UserServiceConstants.EXISTING_EMAIL_ALLREADY_TAKEN_EXCEPTION_MESSAGE;
+
+                        return response;
+                    }
+
                     user = new User()
                     {
                         Id = vm.Id,
@@ -146,23 +166,23 @@ namespace SchoolManagement.Business
 
                     user.UserRoles = new HashSet<UserRole>();
 
-                    //foreach (var item in vm.Roles.Where(x=>x.IsChecked))
-                    //{
-                    //    var userRole = new UserRole()
-                    //    {
-                    //        RoleId = item.Id,
-                    //        IsActive = true,
-                    //        CreatedById = loggedInUser.Id,
-                    //        CreatedOn=DateTime.UtcNow,
-                    //        UpdatedById= loggedInUser.Id,
-                    //        UpdatedOn= DateTime.UtcNow
-                    //    };
+                    foreach (var item in vm.Roles)
+                    {
+                        var userRole = new UserRole()
+                        {
+                            RoleId = item,
+                            IsActive = true,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = loggedInUser.Id,
+                            UpdatedOn = DateTime.UtcNow
+                        };
 
-                    //    user.UserRoles.Add(userRole);
-                    //}
+                        user.UserRoles.Add(userRole);
+                    }
 
                     schoolDb.Users.Add(user);
-
+   
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -176,31 +196,31 @@ namespace SchoolManagement.Business
                     user.UpdatedOn = DateTime.UtcNow;
 
                     var existingRoles = user.UserRoles.ToList();
-                    //var selectedRols = vm.Roles.Where(x => x.IsChecked).ToList();
+                    var selectedRols = vm.Roles.ToList();
 
-                    //var newRoles = (from r in selectedRols where !existingRoles.Any(x => x.RoleId == r.Id) select r).ToList();
+                    var newRoles = (from r in vm.Roles where !existingRoles.Any(x => x.RoleId == r) select r).ToList();
 
-                    //var deletedRoles = (from r in existingRoles where selectedRols.Any(x => x.Id == r.RoleId) select r).ToList();
+                    var deletedRoles = (from r in existingRoles where !vm.Roles.Any(x => x == r.RoleId) select r).ToList();
 
-                    //foreach (var item in newRoles)
-                    //{
-                    //    var userRole = new UserRole()
-                    //    {
-                    //        RoleId = item.Id,
-                    //        IsActive = true,
-                    //        CreatedById = loggedInUser.Id,
-                    //        CreatedOn = DateTime.UtcNow,
-                    //        UpdatedById = loggedInUser.Id,
-                    //        UpdatedOn = DateTime.UtcNow
-                    //    };   
+                    foreach (var item in newRoles)
+                    {
+                        var userRole = new UserRole()
+                        {
+                            RoleId = item,
+                            IsActive = true,
+                            CreatedById = loggedInUser.Id,
+                            CreatedOn = DateTime.UtcNow,
+                            UpdatedById = loggedInUser.Id,
+                            UpdatedOn = DateTime.UtcNow
+                        };
 
-                    //    user.UserRoles.Add(userRole);
-                    //}
+                        user.UserRoles.Add(userRole);
+                    }
 
-                    //foreach(var deletedRole in deletedRoles)
-                    //{
-                    //    user.UserRoles.Remove(deletedRole);
-                    //}
+                    foreach (var deletedRole in deletedRoles)
+                    {
+                        user.UserRoles.Remove(deletedRole);
+                    }
 
                     schoolDb.Users.Update(user);
 
@@ -218,49 +238,69 @@ namespace SchoolManagement.Business
             }
             return response;
         }
-
-        //public async Task<ResponseViewModel> SaveUser(UserViewModel vm, )
-        //{
-        //    var response = new ResponseViewModel();
-
-        //    try
-        //    {
-        //        var managementLevelUser = new User()
-
-        //        {
-        //            Id = vm.Id,
-        //            FullName = vm.FullName,
-        //            Email = vm.Email,
-        //            MobileNo = vm.MobileNo,
-        //            Username = vm.Username,
-        //            Address = vm.Address,
-        //            Password = CustomPasswordHasher.GenerateHash(vm.Password),
-        //            IsActive = true,
-        //            CreatedOn = DateTime.UtcNow,
-
-
-        //        };
-
-        //        schoolDb.Users.Add(managementLevelUser);
-        //        await schoolDb.SaveChangesAsync();
-
-        //        response.IsSuccess = true;
-        //        response.Message = "Mangement Level User Added Successfull.";
-
-        //    }
-        //    catch(Exception ex)
-        //    {
-        //        response.IsSuccess = false;
-        //        response.Message = ex.ToString();
-        //    }
-
-        //    return response;
-        //}
-
-
         public List<DropDownViewModel> GetAllRoles()
         {
             return schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
         }
+        public UserMasterDataViewModel GetUserMasterData()
+        {
+            var response = new UserMasterDataViewModel();
+
+            response.UserRoles = schoolDb.Roles.Where(x => x.IsActive == true).Select(r => new DropDownViewModel() { Id = r.Id, Name = r.Name }).ToList();
+            response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Name).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
+
+            return null;
+        }
+        public PaginatedItemsViewModel<BasicUserViewModel> GetUserList(string searchText, int currentPage, int pageSize, int roleId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicUserViewModel>();
+
+            var users = schoolDb.Users.Where(x => x.IsActive == true).OrderBy(u => u.FullName);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                users = users.Where(x => x.FullName.Contains(searchText)).OrderBy(u => u.FullName);
+            }
+
+            if (roleId > 0)
+            {
+                users = users.Where(x=> x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+            }
+
+
+            totalRecordCount = users.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var userList = users.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            userList.ForEach(user =>
+            {
+                var vm = new BasicUserViewModel()
+                {
+                    Id = user.Id,
+                    FullName = user.FullName,
+                    Email = user.Email,
+                    MobileNo = user.MobileNo,
+                    Username = user.Username,
+                    Address = user.Address,
+                    CreatedByName= user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
+                    CreatedOn = user.CreatedOn,
+                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
+                    UpdatedOn = user.UpdatedOn,
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicUserViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+
+        }
+
     }
 }

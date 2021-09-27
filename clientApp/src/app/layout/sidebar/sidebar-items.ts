@@ -11,6 +11,7 @@ export const ROUTES: RouteInfo[] = [
     badge: '',
     badgeClass: '',
     submenu: [],
+    isVisible: true
   },
   {
     path: '',
@@ -22,9 +23,11 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
+    isVisible: true,
     submenu: [
+      //lesson
       {
-        path: '/teacher-home/lessons',
+        path: '/teacher-home/lesson',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
         moduleName: 'teacher-home',
         iconType: '',
@@ -34,6 +37,37 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
+      },
+
+      //question
+      {
+        path: '/teacher-home/question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_QUESTION',
+        moduleName: 'question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+
+      // mcq-question-answer
+      {
+        path: '/teacher-home/mcq-question-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_ANSWER',
+        moduleName: 'mcq-question-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       }
     ],
   },
@@ -47,6 +81,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
+    isVisible: true,
     submenu: [
       {
         path: '/admin/user',
@@ -59,6 +94,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/academic-level',
@@ -71,6 +107,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true,
       },
       {
         path: '/admin/academic-year',
@@ -83,18 +120,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-      },
-      {
-        path: '/admin/class',
-        title: 'MENUITEMS.ADMIN.LIST.CLASS',
-        moduleName: 'class',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/class-name',
@@ -107,6 +133,33 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/class',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS',
+        moduleName: 'class',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/class-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS-TEACHER',
+        moduleName: 'class-teacher',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/student',
@@ -119,6 +172,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/subject',
@@ -131,11 +185,12 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
-        path: '/admin/example',
-        title: 'MENUITEMS.ADMIN.LIST.EXAMPLE',
-        moduleName: 'example',
+        path: '/admin/subject-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.SUBJECT_TEACHERS',
+        moduleName: 'subject-teacher',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -143,8 +198,26 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
+      },
+       //Head Of Department
+       {
+        path: '/admin/head-of-department',
+        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
+        moduleName: 'head-of-department',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       }
+      
+
+      
     ],
   }
-  //section end admin 
+ 
 ];

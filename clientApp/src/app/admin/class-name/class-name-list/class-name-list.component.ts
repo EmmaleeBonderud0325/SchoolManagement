@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-class-name-list',
@@ -20,7 +21,7 @@ export class ClassNameListComponent implements OnInit {
   loadingIndicator = false;
   saveClassNameForm:FormGroup;
   reorderable = true;
-  user:classnameModel;
+  classname:classnameModel;
 
   constructor(
     private fb: FormBuilder,
@@ -30,28 +31,58 @@ export class ClassNameListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
-    this.saveClassNameForm = this.fb.group({
-      Name:['', Validators.required],
-      Description:['', Validators.required],
-    });
   }
 
+  //Retrive class name details
   getAll(){
-
+    this.loadingIndicator=true;
+    this.classnameService.getAll().subscribe(response=>
+    {
+      this.data= response;
+      this.loadingIndicator=false;
+    },error=>{
+      this.loadingIndicator=false;
+    });
   }
 
-  saveClassName(content){
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    })
-  }
+  //create new class name (Reactive Form)
+  addNewClassName(content) {
 
-  editRow(row, rowIndex, content) {
+    this.saveClassNameForm = this.fb.group({
+      name: ['', [Validators.required]],
+      description: ['', [Validators.required]],
+    });
+
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+
+  }
+
+  //Save created class name
+  saveClassName(){   
+    
+    console.log(this.saveClassNameForm.value);
+    
+    this.classnameService.saveClassName(this.saveClassNameForm.value)
+    .subscribe(response=>{
+
+        if(response.isSuccess)
+        {
+          this.modalService.dismissAll();
+          this.toastr.success(response.message,"Success");
+          this.getAll();
+        }
+        else
+        {
+          this.toastr.error(response.message,"Error");
+        }
+
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+
   }
 
   onAddRowSave(form: FormGroup) {
@@ -62,10 +93,54 @@ export class ClassNameListComponent implements OnInit {
     this.addRecordSuccess();
   }
 
-  deleteSingleRow(row) {
+  //Update class name
+  editRow(row:classnameModel, rowIndex:number, content:any) {
 
+    console.log(row);
+
+    this.saveClassNameForm = this.fb.group({
+      id:[row.id],
+      name: [row.name, [Validators.required]],
+      description: [row.description,[Validators.required]],
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
   }
 
+  //delete class name
+  deleteClassName(row) {
+    Swal.fire({
+      title: 'Are you sure Delete Class Name ?',
+      showCancelButton: true,
+      confirmButtonColor: 'red',
+      cancelButtonColor: 'green',
+      confirmButtonText: 'Yes',
+    }).then((result) => {
+      if (result.value) {
+
+        this.classnameService.delete(row.id).subscribe(response=>{
+
+          if(response.isSuccess)
+          {
+            this.toastr.success(response.message,"Success");
+            this.getAll();
+          }
+          else
+          {
+            this.toastr.error(response.message,"Error");
+          }
+    
+        },error=>{
+          this.toastr.error("Network error has been occured. Please try again.","Error");
+        });
+      }
+    });
+  }
+
+  //Success save message
   addRecordSuccess() {
     this.toastr.success('ClassName Add Successfully', '');
   }

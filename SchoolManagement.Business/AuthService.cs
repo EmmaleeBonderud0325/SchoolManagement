@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Util;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Account;
 using System;
 using System.Collections.Generic;
@@ -38,7 +39,7 @@ namespace SchoolManagement.Business
             if(user == null)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "User Not Found";
+                response.LoginMessage = AuthServiceConstants.AUTH_USER_EXCEPTION_MESSAGE;
 
                 return response;
             }
@@ -46,7 +47,7 @@ namespace SchoolManagement.Business
             if (CustomPasswordHasher.GenerateHash(model.Password) != user.Password)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "Login failed Username or Password Invalid";
+                response.LoginMessage = AuthServiceConstants.AUTH_FAILED_EXCEPTION_MESSAGE;
 
                 return response;
             }
@@ -56,7 +57,7 @@ namespace SchoolManagement.Business
             if(school==null)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "Login failed.Invalid school domain name provided.";
+                response.LoginMessage = AuthServiceConstants.AUTH_SCHOOLDOMAIN_INVALID_EXCEPTION_MESSAGE;
 
                 return response;
             }

@@ -1,0 +1,185 @@
+<section class="main-content">
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">MCQ Question Answer</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/dashboard/main">
+        <i class="fas fa-home font-17"></i></a>
+    </li>
+    <li class="breadcrumb-item">MCQ Question Answer List</li>
+  </ul>
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="row m-0">
+                  <div class="col-lg-3 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-title">
+                        <h2><strong>MCQ Question Answer Level</strong></h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-search-area">
+                        <div>
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" class="browser-default search-field"
+                             aria-label="Search box">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="header-buttons-left">
+                        <div class="icon-button-demo buttons">
+                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewMcqQuestionAnswer(addEditRecord)' >
+                            <i class="material-icons">add</i>
+                          </button>
+                          <button  class="btn btn-icon icon-left btn-danger rounded-button"
+                            >
+                            <i class="material-icons">delete</i>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ngx-datatable #table class="material" [rows]="" [loadingIndicator]="loadingIndicator"
+                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+
+              <!-- Answer Id -->
+              <ngx-datatable-column name="Id" [width]="100">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.id}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Question Id -->
+              <ngx-datatable-column name="QuestionId">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.questionId}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Answer Text -->
+              <ngx-datatable-column name="AnswerText">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.answerText}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Sequence No -->
+              <ngx-datatable-column name="SequenceNo">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.sequenceNo}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Is Correct Answer -->
+              <ngx-datatable-column name="IsCorrectAnswer">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.isCorrectAnswer}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Modified Date -->
+              <ngx-datatable-column name="ModifiedDate">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.modifiedDate}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <!-- Created On -->
+              <ngx-datatable-column name="CreatedOn">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{row.createdOn}}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <span>
+                    <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, addEditRecord)'>
+                      <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+            <!-- Add Record Modal Window -->
+          <ng-template #addEditRecord let-modal>
+            <div class="modal-header editRowModal">
+              <h4 class="modal-title" id="modal-basic-title">
+                <div class="table-modal-header">
+                  <div class="modal-about">
+                    <div class="fw-bold p-t-10 font-17">
+                      Add new MCQ Question Answer</div>
+                  </div>
+                </div>
+              </h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                <span aria-hidden="true"><i class="material-icons">close</i></span>
+              </button>
+            </div>
+
+
+
+
+            <div class="modal-body">
+              <form class="register-form" [formGroup]="McqQuestionAnswerForm" (ngSubmit)="onAddRowSave(McqQuestionAnswerForm)">
+                <div class="row">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <label> AnswerID <span class="text-danger">*</span></label>
+                    <input 
+                        type="id" 
+                        class="form-control" 
+                        placeholder="Answer id" 
+                        formControlName="answerid"
+                        required>
+                    <small class="form-text text-danger"
+                      *ngIf="!McqQuestionAnswerForm.get('AnswerID').valid && McqQuestionAnswerForm.get('AnswerID').touched"> Answer ID required</small>
+                  </div>
+
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="form-group">
+                      <label> AnswerText <span class="text-danger">*</span></label>
+                      <select class="form-select form-control" formControlName="selectanswerid">
+                        <option *ngFor="let item of levelHeads" [value]="item.id">{{item.name}}</option>
+                      </select>
+                    </div>
+                  </div> 
+                </div>
+
+                
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" (click)="save()" [disabled]="!McqQuestionAnswerForm.valid">Save</button>
+                  <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                </div>
+              </form>
+            </div>
+
+
+  
+          </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

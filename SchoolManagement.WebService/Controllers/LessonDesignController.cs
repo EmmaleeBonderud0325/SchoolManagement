@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -17,21 +18,21 @@ namespace SchoolManagement.WebService.Controllers
         private readonly IIdentityService identityService;
         private readonly ILessonDesignService lessonDesignService;
 
-        public LessonDesignController(IIdentityService identityService,ILessonDesignService lessonDesignService )
+        public LessonDesignController(IIdentityService identityService, ILessonDesignService lessonDesignService)
         {
             this.identityService = identityService;
             this.lessonDesignService = lessonDesignService;
 
         }
 
-        [HttpGet("GetAllLessons")]
+        [HttpPost]
+        [Route("getAllLessons")]
         public ActionResult GetAllLessons(LessonFilterViewModel filters)
         {
             var userName = identityService.GetUserName();
             var response = lessonDesignService.GetAllLessons(filters, userName);
             return Ok(response);
         }
-
         [HttpPost]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
@@ -62,5 +63,38 @@ namespace SchoolManagement.WebService.Controllers
             var response = await lessonDesignService.DeleteLesson(Id);
             return Ok(response);
         }
-    }
+
+        [HttpGet]
+        [Route("getLessonMasterData")]
+        public LessonMasterDataViewModel GetLessonMasterData()
+        {
+            var response = lessonDesignService.GetLessonMasterData();
+
+            return response;
+        }
+
+        [HttpGet]
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
+                                                                            int currentPage, int classNameId, int subjectId, int pageSize)
+        {
+            var userName = identityService.GetUserName();
+            var response = lessonDesignService.GetLessonList(searchText, academicYearId, academicLevelId,
+                                                                            currentPage, classNameId, subjectId, pageSize, userName);
+
+            return response;
+
+        }
+
+        [HttpGet]
+        [Route("getLessonById/{id}")]
+        public ActionResult  GetLessonById(int id)
+        {
+            var response = lessonDesignService.GetLessonById(id);
+
+            return Ok(response);
+        }
+
+
+    }   
 }

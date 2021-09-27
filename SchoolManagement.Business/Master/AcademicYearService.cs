@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.MasterData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
 using System;
@@ -15,14 +16,12 @@ namespace SchoolManagement.Business.Master
 {
     public class AcademicYearService : IAcademicYearService
     {
-        private readonly MasterDbContext masterDb;
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
-        public AcademicYearService(MasterDbContext masterDb, SchoolManagementContext schoolDb, IConfiguration config , ICurrentUserService currentUserService)
+        public AcademicYearService(SchoolManagementContext schoolDb, IConfiguration config , ICurrentUserService currentUserService)
         {
-            this.masterDb = masterDb;
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
@@ -34,69 +33,68 @@ namespace SchoolManagement.Business.Master
 
             var query = schoolDb.AcademicYears.Where(u => u.IsActive == true);
 
-            var AcademicYearList = query.ToList();
+            var academicYears = query.ToList();
 
-            foreach (var AcademicYear in AcademicYearList)
+            foreach (var item in academicYears)
             {
-                var viewModel = new AcademicYearViewModel
+                var vm = new AcademicYearViewModel
                 {
-                    Id = AcademicYear.Id,
-                    //Name = AcademicYear.Name,
-                    IsActive = AcademicYear.IsActive,
-                    CreatedOn = AcademicYear.CreatedOn,
-                    CreatedById = AcademicYear.CreatedById,
-                    UpdatedOn = AcademicYear.UpdatedOn,
-                    UpdatedById = AcademicYear.UpdatedById,
+                    Id = item.Id,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    createdByName = item.CreatedBy.FullName,
+                    UpdatedOn = item.UpdatedOn,
+                    updatedByName = item.UpdatedBy.FullName,
+                    UpdatedById = item.UpdatedById,
 
                 };
 
-                response.Add(viewModel);
+                response.Add(vm);
 
             }
 
             return response;
         }
 
-        public async Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel academicYearVM, string userName)
+        public async Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
             try
             {
-                var currentuser = currentUserService.GetUserByUsername(userName);
+                var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var academicYearExist = schoolDb.AcademicYears.FirstOrDefault(ay => ay.Id == academicYearVM.Id);
+                var academicYear = schoolDb.AcademicYears.FirstOrDefault(ay => ay.Id == vm.Id);
 
-                if (academicYearExist == null)
+                if (academicYear == null)
                 {
-                    academicYearExist = new AcademicYear()
+                    academicYear = new AcademicYear()
                     {
-                        Id = academicYearVM.Id,
-                        //Name = academicYearVM.Name,
+                        Id = vm.Id,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = currentuser.Id,
+                        CreatedById = loggedInUser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = currentuser.Id,
+                        UpdatedById = loggedInUser.Id,
                     };
 
-                    schoolDb.AcademicYears.Add(academicYearExist);
+                    schoolDb.AcademicYears.Add(academicYear);
 
                     response.IsSuccess = true;
-                    response.Message = "Academic Year successfully created";
+                    response.Message = AcademicYearServiceConstants.NEW_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
-                    //academicYearExist.Name = academicYearVM.Name;
-                    academicYearExist.IsActive = true;
-                    academicYearExist.UpdatedOn = DateTime.UtcNow;
-                    academicYearExist.UpdatedById = currentuser.Id;
+                    academicYear.Id = vm.Id;
+                    academicYear.IsActive = true;
+                    academicYear.UpdatedOn = DateTime.UtcNow;
+                    academicYear.UpdatedById = loggedInUser.Id;
 
-                    schoolDb.AcademicYears.Update(academicYearExist);
+                    schoolDb.AcademicYears.Update(academicYear);
 
                     response.IsSuccess = true;
-                    response.Message = "Academic Year successfully updated";
-                    
+                    response.Message = AcademicYearServiceConstants.EXISTING_ACADEMICYEAR_SAVE_SUCCESS_MESSAGE;
+
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -104,7 +102,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = AcademicYearServiceConstants.ACADEMICYEAR_SAVE_EXCEPTION_MESSAGE;
             }
             return response;
         }

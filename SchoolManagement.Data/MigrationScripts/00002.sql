@@ -1,44 +1,35 @@
 ﻿BEGIN TRANSACTION;
 GO
 
-ALTER TABLE [Lesson].[Lesson] DROP CONSTRAINT [FK_Lesson_Subject_SubjectId];
+ALTER TABLE [Master].[Class] ADD [IsActive] bit NOT NULL DEFAULT CAST(0 AS bit);
 GO
 
-DROP INDEX [IX_Lesson_SubjectId] ON [Lesson].[Lesson];
-GO
-
-UPDATE [Account].[User] SET [CreatedOn] = '2021-08-22T16:11:13.1038924Z', [UpdatedOn] = '2021-08-22T16:11:13.1039833Z'
+UPDATE [Account].[User] SET [CreatedOn] = '2021-09-12T03:52:42.4029177Z', [UpdatedOn] = '2021-09-12T03:52:42.4029854Z'
 WHERE [Id] = 1;
 SELECT @@ROWCOUNT;
 
 GO
 
-UPDATE [Account].[User] SET [CreatedOn] = '2021-08-22T16:11:13.1042531Z', [UpdatedOn] = '2021-08-22T16:11:13.1042543Z'
+UPDATE [Account].[User] SET [CreatedOn] = '2021-09-12T03:52:42.4031878Z', [UpdatedOn] = '2021-09-12T03:52:42.4031882Z'
 WHERE [Id] = 2;
 SELECT @@ROWCOUNT;
 
 GO
 
-UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-08-22T16:11:13.1479455Z', [UpdatedOn] = '2021-08-22T16:11:13.1480339Z'
+UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-09-12T03:52:42.4273358Z', [UpdatedOn] = '2021-09-12T03:52:42.4274163Z'
 WHERE [RoleId] = 1 AND [UserId] = 1;
 SELECT @@ROWCOUNT;
 
 GO
 
-UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-08-22T16:11:13.1485312Z', [UpdatedOn] = '2021-08-22T16:11:13.1485321Z'
+UPDATE [Account].[UserRole] SET [CreatedOn] = '2021-09-12T03:52:42.4277427Z', [UpdatedOn] = '2021-09-12T03:52:42.4277432Z'
 WHERE [RoleId] = 2 AND [UserId] = 2;
 SELECT @@ROWCOUNT;
 
 GO
 
-CREATE INDEX [IX_Lesson_SubjectId_AcademicLevelId] ON [Lesson].[Lesson] ([SubjectId], [AcademicLevelId]);
-GO
-
-ALTER TABLE [Lesson].[Lesson] ADD CONSTRAINT [FK_Lesson_SubjectAcademicLevel_SubjectId_AcademicLevelId] FOREIGN KEY ([SubjectId], [AcademicLevelId]) REFERENCES [Master].[SubjectAcademicLevel] ([SubjectId], [AcademicLevelId]) ON DELETE NO ACTION;
-GO
-
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
-VALUES (N'20210822161116_Schoolmanagement00002', N'5.0.8');
+VALUES (N'20210912035244_Schoolmanagement00002', N'5.0.8');
 GO
 
 COMMIT;

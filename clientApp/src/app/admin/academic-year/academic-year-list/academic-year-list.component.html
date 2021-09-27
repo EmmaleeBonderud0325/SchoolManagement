@@ -1,4 +1,189 @@
 <section class="main-content">
-    <p>academic-year-list works!</p>
-</section>
+  <ul class="breadcrumb breadcrumb-style ">
+    <li class="breadcrumb-item">
+      <h5 class="page-title m-b-0">Admin</h5>
+    </li>
+    <li class="breadcrumb-item bcrumb-1">
+      <a routerLink="/dashboard/main">
+        <i class="fas fa-home font-17"></i></a>
+    </li>
+    <li class="breadcrumb-item">Academic Years List</li>
+  </ul>
+  <div class="section-body">
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="row m-0">
+                  <div class="col-lg-3 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-title">
+                        <h2><strong>Academic Years</strong></h2>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="table-search-area">
+                        <div>
+                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                          <input placeholder="Search" type="text" class="browser-default search-field"
+                             aria-label="Search box">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 p-0">
+                    <div class="ngxTableHeader">
+                      <div class="header-buttons-left">
+                        <div class="icon-button-demo buttons">
+                          <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicYear(addEditRecord)' >
+                            <i class="material-icons">add</i>
+                          </button>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <ngx-datatable 
+            #table class="material" 
+            [rows]="data" 
+            [loadingIndicator]="loadingIndicator"
+            columnMode="force" 
+            [headerHeight]="60" 
+            [footerHeight]="80" 
+            rowHeight="auto" 
+            [limit]="10"
+            [scrollbarH]="scrollBarHorizontal" 
+            [reorderable]="reorderable">       
 
+                <!--Academic Year Column-->
+                <ngx-datatable-column name="Academic Year" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.id}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--IsActive Column-->
+                <ngx-datatable-column name="Is Active">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.isActive}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Created on Column-->
+                <ngx-datatable-column name="Created On">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Updated on Column-->
+                <ngx-datatable-column name="updated On">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Updated by Column-->
+                <ngx-datatable-column name="Updated By">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <span>
+
+                      <!--Academic Year edit Button
+                      <button class="btn btn-tbl-edit h-auto" 
+                      (click)='editRow(row, rowIndex, addEditRecord)'>
+                      <i class="fas fa-pen"></i>
+                      </button> -->
+
+                      <!--Delete Academic year Button-->
+                      <button class="btn btn-tbl-delete h-auto" 
+                      (click)='deleteAcademicYear(row)'>
+                      <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>                    
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+
+              <!-- Add Record Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        Add new Academic Year</div>
+                    </div>
+                  </div>
+                </h4>
+
+                <!--Modal Close Button-->
+                <button type="button" 
+                class="close" 
+                aria-label="Close" 
+                (click)="modal.dismiss()">
+                <span aria-hidden="true">
+                  <i class="material-icons">close</i></span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form class="register-form" 
+                [formGroup]="academicYearFrom">
+
+                    <!--First Form Row -->                  
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Year <span class="text-danger">*</span></label>
+                      <input 
+                          type="number" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="id"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!academicYearFrom.get('id').valid && academicYearFrom.get('id').touched"> Academic Year is
+                        required</small>
+                    </div>
+                  </div>
+
+                    <!--Second Form Row -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">                      
+                    </div>                 
+                  </div>
+
+                  <!--Modal Footer -->
+                  <div class="modal-footer">
+
+                    <!--Academic Year Save Button -->
+                    <button type="button" 
+                    class="btn btn-primary" 
+                    (click)="saveAcademicYear()" 
+                    [disabled]="!academicYearFrom.valid">Save</button>
+                    
+                    <!--Modal Cancel Button -->
+                    <button type="button" 
+                    class="btn btn-light" 
+                    (click)="modal.close('Close click')">Cancel</button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

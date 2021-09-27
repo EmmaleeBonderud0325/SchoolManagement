@@ -12,7 +12,7 @@ namespace SchoolManagement.ViewModel.Account
     {
         public UserViewModel()
         {
-            Roles = new List<DropDownViewModel>();
+            Roles = new List<int>();
         }
         public int Id { get; set; }
         public string FullName { get; set; }
@@ -20,16 +20,15 @@ namespace SchoolManagement.ViewModel.Account
         public string MobileNo { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        //public string LastLoginDate { get; set; }
-       // public byte ProfileImage { get; set; }
         public string Address { get; set; }
-       // public int LoginSessionId { get; set; }
         public bool IsActive { get; set; }
-        public List<DropDownViewModel> Roles { get; set; }
- 
-        //public DateTime CreatedOn { get; set; }
-        //public int? CreatedById { get; set; }
-        //public DateTime UpdatedOn { get; set; }
-        //public int? UpdatedById { get; set; }
+        public List<int> Roles { get; set; }
+
+        public DateTime CreatedOn { get; set; }
+        public int? CreatedById { get; set; }
+        public string CreatedByName { get; set; }
+        public DateTime UpdatedOn { get; set; }
+        public string UpdatedByName { get; set; }
+        public int? UpdatedById { get; set; }
     }
 }

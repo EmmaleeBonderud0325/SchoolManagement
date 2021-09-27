@@ -34,6 +34,7 @@ export class SigninComponent implements OnInit {
 
     if (this.loginForm.invalid) {
       this.error = 'Username and Password not valid !';
+      
       return;
     } else {
       this.authService
@@ -43,7 +44,7 @@ export class SigninComponent implements OnInit {
             if (res) {
               const token = this.authService.currentUserValue.token;
               if (token) {
-                this.router.navigate(['/teacher-home/lessons']);
+                this.router.navigate(['/teacher-home/lesson']);
               }
             } else {
               this.error = 'Invalid Login';

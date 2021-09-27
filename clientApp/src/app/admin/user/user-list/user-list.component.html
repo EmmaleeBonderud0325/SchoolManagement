@@ -17,125 +17,231 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="row m-0">
-                    <div class="col-lg-3 p-0">
-                      <div class="ngxTableHeader">
-                        <div class="table-title">
-                          <h2><strong>Users</strong></h2>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-lg-5 p-0">
-                      <div class="ngxTableHeader">
-                        <div class="table-search-area">
-                          <div>
-                            <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                            <input placeholder="Search" type="text" class="browser-default search-field"
-                               aria-label="Search box">
+                    <form [formGroup]="userFilterForm">
+                      <div class="col-12 p-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-title">
+                            <h2><strong>User</strong></h2>
                           </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="col-lg-4 p-0">
-                      <div class="ngxTableHeader">
-                        <div class="header-buttons-left">
-                          <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='saveUser(addRecord)' >
-                              <i class="material-icons">add</i>
-                            </button>
-                            <button  class="btn btn-icon icon-left btn-danger rounded-button"
+                      <div class="col-12 p-0">
+                        <div class="row">
+                          <div class="col-4">
+                            <div class="form-group position-relative">
+                              <label>Search Text</label>
+                              <i class="fas fa-search input-icons"></i>
+                              <input
+                                type="text"
+                                (keyup)="filterDatatable($event)"
+                                formControlName="searchText"
+                                class="form-control psl-5"
+                                placeholder="Search by name"
+                                name="searchText"
+                                required=""
+                              />
+                            </div>
+                          </div>
+  
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label>Role</label>
+                              <select
+                                class="form-select form-control"
+                                formControlName="roleId"
+                                (change)="onRoleFilterChanged($event.target.value)"
                               >
-                              <i class="material-icons">delete</i>
-                            </button>
+                                <option
+                                  *ngFor="let item of userRoles"
+                                  [value]="item.id"
+                                >
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                            </div>
                           </div>
+                          <!-- <div class="col-4">
+                            <div class="form-group">
+                              <label>Academic Level</label>
+                              <select
+                                class="form-select form-control"
+                                formControlName="academicLevelId"
+                                (change)="onAcademicLevelFilterChanged($event.target.value)"
+                              >
+                                <option
+                                  *ngFor="let item of academicLevels"
+                                  [value]="item.id"
+                                >
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div> -->
                         </div>
                       </div>
-                    </div>
+                    </form>
                   </div>
                 </div>
               </div>
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+              <ngx-datatable 
+                #table 
+                class="material"
+                [rows]="data"
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force"
+                [headerHeight]="60"
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
 
-                <ngx-datatable-column name="Id" [width]="100">
+                >
+
+                <!-- Action Column -->
+                <ngx-datatable-column [width]="80" name="" sortable="false">
+                  <ng-template 
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center"
+                    >
+                    <div class="icon-button-demo buttons">
+                      <button 
+                        class="btn btn-icon icon-left btn-primary rounded-button"
+                        (click)='createNewUser(addEditRecord)'>
+                        <i class="material-icons">add</i>
+                      </button>
+                    </div>
+                  </ng-template>
+                  <ng-template  let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    ngx-datatable-cell-template
+                    class="text-center"
+                    >
+
+                  <div class="buttons">
+                    <span>
+                       <!--User Edit Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-primary" 
+                        (click)='updateUser(row, rowIndex, addEditRecord)'>
+                        <i class="far fa-edit"></i>
+                      </button>
+                       <!--User Delete Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-danger" 
+                        (click)='deleteUser(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </div>  
+                  </ng-template>
+                    
+                  
+                </ngx-datatable-column>
+
+                <!-- Id Column -->
+                <ngx-datatable-column name="Id" [width]="5">
                   <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.Id}}
+                    {{row.id}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Full Name">
+
+                 <!-- Full Name Column -->
+                <ngx-datatable-column name="Full Name" [width]="180">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.fullName}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Email">
+
+                 <!-- Email Column -->
+                <ngx-datatable-column name="Email" [width]="200">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.email}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Mobile Number">
+
+                 <!-- Mobile Number Column -->
+                <ngx-datatable-column name="Mobile Number" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.mobileNo}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Address">
+
+                <!-- Address Column -->
+                <ngx-datatable-column name="Address" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.address}}
                   </ng-template>
                 </ngx-datatable-column>
-                <ngx-datatable-column name="Address">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.address}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                  <ngx-datatable-column name="Address">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.address}}
-                    </ng-template>
-                  </ngx-datatable-column>
 
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <button class="btn btn-tbl-edit h-auto" (click)='editRow(row, rowIndex, editRecord)'>
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button class="btn btn-tbl-delete h-auto" (click)='deleteSingleRow(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
+                 <!-- Created byy Column -->
+                <ngx-datatable-column name="Created By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!-- Created on Column -->
+                <ngx-datatable-column name="Created On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!-- updated By Column -->
+                <ngx-datatable-column name="Updated By" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!-- updated on Column -->
+                <ngx-datatable-column name="Updated On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+                
               </ngx-datatable>
-              <!-- Add Record Modal Window -->
-            <ng-template #addRecord let-modal>
+
+              <!-- Add new User Modal Window -->
+            <ng-template #addEditRecord let-modal>
               <div class="modal-header editRowModal">
                 <h4 class="modal-title" id="modal-basic-title">
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                       Add New User</div>
+                       Add New User
+                      </div>
                     </div>
                   </div>
                 </h4>
-                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
-                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                <!-- Modal Close Button -->
+                <button 
+                  type="button" 
+                  class="close" 
+                  aria-label="Close" 
+                  (click)="modal.dismiss()">
+                  <span aria-hidden="true">
+                    <i class="material-icons">close</i>
+                  </span>
                 </button>
               </div>
               <div class="modal-body">
-                <form class="register-form" [formGroup]="saveUserForm" (ngSubmit)="onAddRowSave(saveUserForm)">
-                  <!-- <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="id" 
-                      class="form-control" 
-                      type="hidden">
-                  </div>
-                  <div class="input-field col s12 d-none">
-                    <input 
-                      formControlName="img" 
-                      class="form-control" 
-                      type="hidden">
-                  </div> -->
+                <form 
+                  class="register-form" 
+                  [formGroup]="saveUserForm">
 
+                  <!-- First Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Full Name <span class="text-danger">*</span></label>
@@ -145,9 +251,17 @@
                           placeholder="Full Name" 
                           formControlName="fullName"
                           required>
-                      <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('fullName').valid && saveUserForm.get('fullName').touched"> Full Name is
-                        required</small>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                          !saveUserForm.get('fullName').valid && 
+                          saveUserForm.get('fullName').touched
+                          "
+                          > 
+
+                        Full Name is required</small
+
+                        >
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -158,11 +272,20 @@
                           placeholder="Email" 
                           formControlName="email"
                           required>
-                      <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('email').valid && saveUserForm.get('email').touched"> Email is
-                        required</small>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                          !saveUserForm.get('email').valid &&
+                           saveUserForm.get('email').touched
+                           "
+                           > 
+
+                        Email is required</small
+
+                        >
                     </div>  
                   </div>
+                   <!-- Second Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <label>Mobile Number<span class="text-danger">*</span></label>
@@ -172,9 +295,17 @@
                           placeholder="Mobile Number" 
                           formControlName="mobileNo"
                           required>
-                      <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('mobileNo').valid && saveUserForm.get('mobileNo').touched"> Mobile number is
-                        required</small>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                          !saveUserForm.get('mobileNo').valid && 
+                          saveUserForm.get('mobileNo').touched
+                          "
+                          >
+
+                          Mobile number isrequired</small
+
+                          >
                     </div>
                     
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -185,36 +316,109 @@
                           placeholder="User Name" 
                           formControlName="userName"
                           required>
-                      <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('userName').valid && saveUserForm.get('userName').touched"> Mobile number is
-                        required</small>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                          !saveUserForm.get('userName').valid && 
+                          saveUserForm.get('userName').touched
+                          "
+                          >
+
+                          User Name is required</small
+
+                        >
                     </div>
                   </div>
-
+                     <!-- Third Form Row -->
                   <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                      <label>Password<span class="text-danger">*</span></label>
+                      <label>Address<span class="text-danger">*</span></label>
                       <input 
                           type="text" 
+                          class="form-control" 
+                          placeholder="Address" 
+                          formControlName="address"
+                          required>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                          !saveUserForm.get('address').valid &&
+                          saveUserForm.get('address').touched
+                          "
+                          > 
+
+                          Address is required</small
+
+                        >
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" *ngIf="id==0">
+                      <label>Password<span class="text-danger">*</span></label>
+                      <input 
+                          type="password" 
                           class="form-control" 
                           placeholder="password" 
                           formControlName="password"
                           required>
-                      <small class="form-text text-danger"
-                        *ngIf="!saveUserForm.get('password').valid && saveUserForm.get('password').touched"> Password is
-                        required</small>
-                    </div>
+                      <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !saveUserForm.get('password').valid && 
+                        saveUserForm.get('password').touched
+                        "
+                        > 
 
+                        Password is required</small
+
+                        >
+                    </div>
+                  </div>
+                   <!-- Fourth Form Row -->
+                  <div class="row">
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                       <div class="row">
                         <label>Roles<span class="text-danger ">*</span></label>
-                        <p-multiSelect [options]="userRoles"  formControlName="roles" optionLabel="name" [style]="{'width':'100%'}"></p-multiSelect>
+                        <p-multiSelect 
+                          [options]="userRoles"  
+                          formControlName="roles" 
+                          optionLabel="name" 
+                          optionValue="id"
+                          display="chip"
+                          [style]="{'width':'100%'}">
+                        </p-multiSelect>
+                        <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !saveUserForm.get('roles').valid && 
+                        saveUserForm.get('roles').touched
+                        "
+                        > 
+
+                        Roles are required</small
+
+                        >
                       </div>
                     </div>
                   </div>
+                  <!-- Modal Footer -->
                   <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary" [disabled]="!saveUserForm.valid">Save</button>
-                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    <!-- Save user Button -->
+                    <button 
+                        type="submit" 
+                        class="btn btn-primary" 
+                        (click)="saveUser()"
+                        [disabled]="!saveUserForm.valid"
+                      >
+                        Save User
+                    </button>
+                    <!-- Modal Close Button -->
+                    <button 
+                        type="button" 
+                        class="btn btn-light" 
+                        (click)="modal.close('Close click')"
+                      >
+                        Close
+                    </button>
                   </div>
                 </form>
               </div>
