@@ -1,6 +1,7 @@
 import { questionModel } from './../../../models/question/question.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 import  Swal  from 'sweetalert2';
 import { QuestionService } from './../../../services/question/question.service';
 import { ToastrService } from 'ngx-toastr';
@@ -25,13 +26,19 @@ export class QuestionListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     questionForm: FormGroup;
+    questionFilterForm:FormGroup;
     lessonNames :DropDownModel[] = [];
     topicNames :DropDownModel[] = [];
+
+    currentPage: number = 0;
+    pageSize: number = 25;
+    totalRecord: number = 0;
 
     constructor(
       private fb: FormBuilder,
       private modalService: NgbModal,
       private QuestionService : QuestionService,
+      private spinner: NgxSpinnerService,
       private toastr: ToastrService) { }
 
 
@@ -39,6 +46,23 @@ export class QuestionListComponent implements OnInit {
       this.getAll();
       this.getAllLessonName();
       this.getAllTopic();
+    }
+
+    onQuestionFilterChanged(item: any) {
+      this.currentPage = 0;
+      this.pageSize = 25;
+      this.totalRecord = 0;
+      this.spinner.show();
+      this.getAllLessonName();
+    }
+
+    filterDatatable(event) {
+      this.currentPage = 0;
+      this.pageSize = 25;
+      this.totalRecord = 0;
+      const val = event.target.value.toLowerCase();
+      this.spinner.show();
+      this.getAllLessonName();
     }
   
     //display lesson name and topic

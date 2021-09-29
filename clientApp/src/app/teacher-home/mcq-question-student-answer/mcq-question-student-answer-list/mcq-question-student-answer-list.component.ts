@@ -1,5 +1,6 @@
 import { McqQuestionStudentAnswerModel } from './../../../models/mcq-question-student-answer/mcq-question-student-answer.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 import Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { McqQuestionStudentAnswerService } from './../../../services/mcq-question-student-answer/mcq-question-student-answer.service';
@@ -24,15 +25,21 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     McqStudenAnswerForm: FormGroup;
+    questionStudentAnswerFilterForm: FormGroup;
     questionNames :DropDownModel[] = [];
     studentNames :DropDownModel[] = [];
     mCQQuestionAnswerNames :DropDownModel[] = [];
+
+    currentPage: number = 0;
+    pageSize: number = 25;
+    totalRecord: number = 0;
 
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private McqQuestionStudentAnswerService : McqQuestionStudentAnswerService,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService) { }
   
 
@@ -41,7 +48,22 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.getAllQuestion();
     this.getAllStudentName();
     this.getAllTeacherAnswer();
+  }
+  onQuestionStudentAnswerFilterChanged(item: any) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    this.spinner.show();
+    this.getAllQuestion();
+  }
 
+  filterDatatable(event) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    const val = event.target.value.toLowerCase();
+    this.spinner.show();
+    this.getAllQuestion();
   }
 
   //all dropdowns

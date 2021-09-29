@@ -1,8 +1,8 @@
 import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { MCQQuestionAnswerModel } from './../../../models/mcq-question-answer/mcq-question-answer.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 import  Swal  from 'sweetalert2';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
@@ -25,18 +25,41 @@ export class McqQuestionAnswerListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     mcqQuestionAnswerForm: FormGroup;
+    questionStudentAnswerFilterForm: FormGroup;
     questionNames :DropDownModel[] = [];
+
+    currentPage: number = 0;
+    pageSize: number = 25;
+    totalRecord: number = 0;
 
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private mcqQuestionAnswerService : McqQuestionAnswerService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllQuestions();
+  }
+
+  onMcqQuestionAnswerFilterChanged(item: any) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    this.spinner.show();
+    this.getAllQuestions();
+  }
+
+  filterDatatable(event) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    const val = event.target.value.toLowerCase();
+    this.spinner.show();
     this.getAllQuestions();
   }
 
