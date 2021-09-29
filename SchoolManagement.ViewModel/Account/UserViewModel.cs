@@ -31,4 +31,19 @@ namespace SchoolManagement.ViewModel.Account
         public string UpdatedByName { get; set; }
         public int? UpdatedById { get; set; }
     }
+
+    public class StudentExcelContainer
+    {
+
+        public StudentExcelContainer()
+        {
+            Students = new List<UserViewModel>();
+        }
+        public int AcademicYear { get; set; }
+        public int AcademicLevelId { get; set; }
+        public int ClassId { get; set; }
+        public int ClassTeacherId { get; set; }
+
+        public List<UserViewModel> Students { get; set; }
+    }
 }

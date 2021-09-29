@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.ViewModel"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SchoolManagement.Master.Data", "SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj", "{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchoolManagement.ExcelHelper", "SchoolManagement.ExcelHelper\SchoolManagement.ExcelHelper.csproj", "{314BA6D4-7B4C-4D9F-B151-8742817CCB61}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{503ECBEF-51FF-4C1D-B227-B6892FEE5A53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{314BA6D4-7B4C-4D9F-B151-8742817CCB61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{314BA6D4-7B4C-4D9F-B151-8742817CCB61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{314BA6D4-7B4C-4D9F-B151-8742817CCB61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{314BA6D4-7B4C-4D9F-B151-8742817CCB61}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
