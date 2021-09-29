@@ -18,7 +18,7 @@
                 <img alt="image" src="assets/images/users/user-1.png" class="rounded-circle author-box-picture">
                 <div class="clearfix"></div>
                 <div class="author-box-name">
-                  <a href="#" onClick="return false;">Sarah Smith</a>
+                  <a href="#" onClick="return false;">{{ currentUser.fullName }}</a>
                 </div>
                 <div class="author-box-job">Web Developer</div>
               </div>
@@ -56,42 +56,42 @@
               <div class="py-4">
                 <p class="clearfix">
                   <span class="float-start">
-                    Birthday
+                   Full Name
                   </span>
                   <span class="float-end text-muted">
-                    30-05-1998
+                    {{currentUser.fullName}}
                   </span>
                 </p>
                 <p class="clearfix">
                   <span class="float-start">
-                    Phone
+                   User Name
                   </span>
                   <span class="float-end text-muted">
-                    (0123)123456789
+                    {{currentUser.userName}}
                   </span>
                 </p>
                 <p class="clearfix">
                   <span class="float-start">
-                    Mail
+                    Mobile Number
                   </span>
                   <span class="float-end text-muted">
-                    test@example.com
+                    {{ currentUser.mobileNumber }}
                   </span>
                 </p>
                 <p class="clearfix">
                   <span class="float-start">
-                    Facebook
+                    Email
                   </span>
                   <span class="float-end text-muted">
-                    <a href="#" onClick="return false;">John Deo</a>
+                    {{ currentUser.email }}
                   </span>
                 </p>
                 <p class="clearfix">
                   <span class="float-start">
-                    Twitter
+                    Address
                   </span>
                   <span class="float-end text-muted">
-                    <a href="#" onClick="return false;">@johndeo</a>
+                    {{ currentUser.address }}
                   </span>
                 </p>
               </div>

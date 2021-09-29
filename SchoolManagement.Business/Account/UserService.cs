@@ -185,6 +185,8 @@ namespace SchoolManagement.Business
                         UpdatedById = loggedInUser.Id
                     };
 
+                   
+
                     user.UserRoles = new HashSet<UserRole>();
 
                     foreach (var item in vm.Roles)
@@ -203,7 +205,7 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
-   
+                    EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -618,7 +620,6 @@ namespace SchoolManagement.Business
             return response;
 
         }
-
         public async Task<ResponseViewModel> UpdateUserMasterData(UserMasterViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
