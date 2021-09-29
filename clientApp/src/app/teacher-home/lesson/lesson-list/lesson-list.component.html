@@ -158,7 +158,7 @@
                     <span>
                       <button
                         class="btn btn-icon icon-left btn-primary rounded-button"
-                        (click)="addNewLessonRoute()"
+                        (click)='createNewLesson(addEditRecord)'
                       >
                         <i class="material-icons">add</i>
                       </button>
@@ -174,7 +174,7 @@
                     <span>
                       <button
                         class="btn btn-icon btn-sm btn-primary ms-1"
-                        (click)="editRow(row, rowIndex, addEditRecord)"
+                        (click)="updateLesson(row, rowIndex, addEditRecord)"
                       >
                         <i class="fas fa-pen"></i>
                       </button>
@@ -197,7 +197,7 @@
                       ngx-datatable-cell-template
                     >               
                       <div class="name-col-style">
-                        <div>{{ row.lessonName  }}</div>
+                        <div>{{row.lessonName}}</div>
                                      
                       </div>
                     </ng-template>
@@ -234,7 +234,6 @@
                   </ngx-datatable-column>
                 </ngx-datatable>
     
-                <!-- Edit Record Modal Window -->
                 <!-- Edit Record Modal Window -->
                 <ng-template #addEditRecord let-modal>
                   <div class="modal-header editRowModal">
@@ -416,7 +415,7 @@
                             Lesson out is required</small
                           >
                         </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                          
                             <label for="date">Planned Date</label>
                             <p-calendar
@@ -436,6 +435,22 @@
                           >
                             Planned Date is required</small
                           >
+                        </div> -->
+                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Planned Date <span class="text-danger">*</span></label>
+                          <input 
+                              type="date" 
+                              class="form-control" 
+                              formControlName="plannedDate"
+                              required>
+                          <small class="form-text text-danger"
+                            *ngIf="
+                              !lessonForm.get('plannedDate').valid && 
+                              lessonForm.get('plannedDate').touched
+                              "
+                            > 
+                            Planned Date is required</small
+                            >
                         </div>
 
     

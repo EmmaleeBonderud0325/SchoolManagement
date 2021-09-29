@@ -93,21 +93,10 @@ export class UserListComponent implements OnInit {
     this.getUserList();
   }
 
-  /* onAcademicLevelFilterChanged(item: any) {
-    this.currentPage = 0;
-    this.pageSize = 25;
-    this.totalRecord = 0;
-    this.spinner.show();
-    this.getUserList();
-  } */
-
   //getters
   get roleFIlterId(){
     return this.userFilterForm.get("roleId").value
   }
- /*  get academicLevelFilterId() {
-    return this.userFilterForm.get("academicLevelId").value;
-  } */
 
   get searchTextFilterId() {
     return this.userFilterForm.get("searchText").value;
@@ -116,6 +105,7 @@ export class UserListComponent implements OnInit {
   //create new user (Reactive Form)
   createNewUser(content)
   {
+    
     this.saveUserForm = this.fb.group({
       id:[0],
       fullName:['', [Validators.required]],
@@ -167,36 +157,7 @@ export class UserListComponent implements OnInit {
     this.getUserList();
   }
 
-  //delete user
-/*   deleteUser(row) {
-    Swal.fire({
-      title: 'Are you sure Delete User ?',
-      showCancelButton: true,
-      confirmButtonColor: 'red',
-      cancelButtonColor: 'green',
-      confirmButtonText: 'Yes',
-    }).then((result) => {
 
-      if (result.value) {
-
-        this.userService.delete(row.id).subscribe(response=>{
-
-          if(response.isSuccess)
-          {
-            this.toastr.success(response.message,"Success");
-            this.getAll();
-          }
-          else
-          {
-            this.toastr.error(response.message,"Error");
-          }
-    
-        },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-        });
-      }
-    });
-  } */
 
   deleteUser(row) {
     const swalWithBootstrapButtons = Swal.mixin({
@@ -281,11 +242,12 @@ export class UserListComponent implements OnInit {
   //save User 
   saveUser()
   {
-    console.log(this.saveUserForm.value);
+    
+    this.spinner.show();
 
     this.userService.saveUser(this.saveUserForm.value)
       .subscribe(response=>{
-        
+        this.spinner.hide();
         if(response.isSuccess)
         {
             this.modalService.dismissAll();
@@ -297,35 +259,42 @@ export class UserListComponent implements OnInit {
             this.toastr.error(response.message,"Error");
         }
       },error=>{
-
+        this.spinner.hide();
             this.toastr.error("Network error has been occre.Please try again","Error");
       });
     
   }
 
   //update user (Reactive Form)
-  updateUser(row:UserModel, rowIndex:number, content:any) {
+  updateUser(row:BasicUserModel, rowIndex:number, content:any) 
+  {
 
-    console.log(row);
+    this.spinner.show();
+      this.userService.getUserById(row.id)
+      .subscribe(response=>{
+        this.spinner.hide();
+
+        this.saveUserForm = this.fb.group({
+          id:[row.id],
+          fullName:[response.fullName, [Validators.required]],
+          email:[response.email, [Validators.required]],
+          mobileNo:[response.mobileNo, [Validators.required]],
+          userName:[response.username, [Validators.required]],
+          address:[response.address, [Validators.required]],
+          password:[''],
+          isActive:[true],
+          roles:[response.roles,[Validators.required]]
+        });
     
-    let selectedRoles = [];
+        this.modalService.open(content, {
+          ariaLabelledBy: 'modal-basic-title',
+          size: 'lg',
+        });
+      },error=>{
+        this.spinner.hide();
+      });
 
-    this.saveUserForm = this.fb.group({
-      id:[row.id],
-      fullName:[row.fullName, [Validators.required]],
-      email:[row.email, [Validators.required]],
-      mobileNo:[row.mobileNo, [Validators.required]],
-      userName:[row.username, [Validators.required]],
-      address:[row.address, [Validators.required]],
-      password:[row.password],
-      isActive:[true],
-      roles:[row.roles,[Validators.required]]
-    });
 
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
   }
 
   //id getter

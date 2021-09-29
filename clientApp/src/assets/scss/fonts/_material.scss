@@ -1,13 +1,9 @@
-﻿/*
- *  Document   : _material.scss
- *  Author     : RedStar Template
- *  Description: This scss file for import material design icons classes
- */
+﻿
 @font-face {
   font-family: "Material Icons";
   font-style: normal;
   font-weight: 400;
-  src: url(../fonts/iconfont/MaterialIcons-Regular.eot); /* For IE6-8 */
+  src: url(../fonts/iconfont/MaterialIcons-Regular.eot); 
   src: local("Material Icons"), local("MaterialIcons-Regular"),
     url(../fonts/iconfont/MaterialIcons-Regular.woff2) format("woff2"),
     url(../fonts/iconfont/MaterialIcons-Regular.woff) format("woff"),

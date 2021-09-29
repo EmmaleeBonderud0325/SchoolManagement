@@ -245,6 +245,19 @@ export const ROUTES: RouteInfo[] = [
         badgeClass: '',
         submenu: [],
         isVisible: true
+      },
+      {
+        path: '/admin/excel-upload',
+        title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
+        moduleName: 'head-of-department',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       }
       
 
