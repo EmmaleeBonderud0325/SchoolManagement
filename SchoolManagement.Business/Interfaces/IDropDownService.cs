@@ -25,6 +25,6 @@ namespace SchoolManagement.Business.Interfaces
         List<DropDownViewModel> GetAllLanguageStreams();
         List<DropDownViewModel> GetAllTeachers();
 
-        List<DropDownViewModel> GetExcelMasterData():
+        List<DropDownViewModel> GetExcelMasterData();
     }
 }

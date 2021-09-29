@@ -113,7 +113,9 @@ namespace SchoolManagement.WebService.Controllers
         [Route("getExcelMasterData")]
         public IActionResult GetExcelMasterData()
         {
-            var response = dropDownService.GetExcel
+            var response = dropDownService.GetExcelMasterData();
+
+            return Ok(response);
         }
 
 

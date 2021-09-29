@@ -1,3 +1,4 @@
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import Swal from 'sweetalert2';
 import { Upload } from './../../models/common/upload';
 import { EMPTY, Observable } from 'rxjs';
@@ -12,7 +13,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ExcelUploadComponent implements OnInit {
 
+  excelTypes:DropDownModel[]=[];
+
   constructor(private studentService:StudentService ,private spinner:NgxSpinnerService) { }
+
+
 
   fileTypes:any[]= [
     {id:1,name:"Student Excel"},
