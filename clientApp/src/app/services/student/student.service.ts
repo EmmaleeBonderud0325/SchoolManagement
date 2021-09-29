@@ -1,3 +1,4 @@
+import { upload, Upload } from './../../models/common/upload';
 import { HttpClient } from '@angular/common/http';
 import { StudentModel } from './../../models/student/student.model'
 import { Injectable } from '@angular/core';
@@ -43,8 +44,7 @@ export class StudentService {
       delete<ResponseModel>(environment.apiUrl + 'Student/' + id);
   }
 
-  getAllClasses(): Observable<DropDownModel[]> {
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllClasses');
+  uploadClassStudents(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl +'Student/uploadClassStudents', data,{reportProgress: true,observe: 'events'}).pipe(upload());
   }
 }

@@ -60,7 +60,7 @@
   }
 
   .team-member-sm:hover {
-    webkit-transform: translateY(-4px) scale(1.02);
+    -webkit-transform: translateY(-4px) scale(1.02);
     -moz-transform: translateY(-4px) scale(1.02);
     -ms-transform: translateY(-4px) scale(1.02);
     -o-transform: translateY(-4px) scale(1.02);
@@ -533,4 +533,26 @@ table tr:hover .table-links {
       min-width: 800px;
     }
   }
+}
+
+.ngx-datatable.material .datatable-body .datatable-body-row .datatable-body-cell {
+  text-align: left;
+  padding: 0.9rem 1.2rem;
+  vertical-align: top;
+  border-top: 0;
+  color: rgba(0, 0, 0, 0.87);
+  transition: width 0.3s ease;
+  font-size: 17px;
+  font-weight: 400;
+}
+
+.ngx-datatable.material .datatable-header .datatable-header-cell {
+  text-align: left;
+  padding: 0.9rem 1.2rem;
+  font-weight: 400;
+  //background-color: #fff;
+  color: rgba(0, 0, 0, 0.54);
+  vertical-align: bottom;
+  font-size: 16px;
+  font-weight: 500;
 }
