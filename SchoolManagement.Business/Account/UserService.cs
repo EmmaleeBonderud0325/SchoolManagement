@@ -185,8 +185,6 @@ namespace SchoolManagement.Business
                         UpdatedById = loggedInUser.Id
                     };
 
-                   
-
                     user.UserRoles = new HashSet<UserRole>();
 
                     foreach (var item in vm.Roles)
