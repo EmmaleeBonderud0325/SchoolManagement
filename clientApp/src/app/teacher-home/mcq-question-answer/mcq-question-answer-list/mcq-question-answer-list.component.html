@@ -131,7 +131,8 @@
 
 
             <div class="modal-body">
-              <form class="register-form" [formGroup]="mcqQuestionAnswerForm">
+              <form class="register-form" 
+              [formGroup]="mcqQuestionAnswerForm">
                               
               <div class="row">
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -153,7 +154,8 @@
                           formControlName="answerText"
                           required>
                       <small class="form-text text-danger"
-                        *ngIf="!mcqQuestionAnswerForm.get('answerText').valid && mcqQuestionAnswerForm.get('answerText').touched"> Answer ID required
+                        *ngIf="!mcqQuestionAnswerForm.get('answerText').valid && mcqQuestionAnswerForm.get('answerText').touched"> 
+                        Answer is required
                       </small>
                     </div>
                   </div> 
@@ -169,7 +171,8 @@
                           formControlName="isCorrectAnswer"
                           required>
                     <small class="form-text text-danger"
-                      *ngIf="!mcqQuestionAnswerForm.get('isCorrectAnswer').valid && mcqQuestionAnswerForm.get('isCorrectAnswer').touched"> Answer ID required
+                      *ngIf="!mcqQuestionAnswerForm.get('isCorrectAnswer').valid && mcqQuestionAnswerForm.get('isCorrectAnswer').touched">
+                      Is correct or not required
                     </small>
                 </div>
               </div>            

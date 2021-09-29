@@ -52,17 +52,12 @@ namespace SchoolManagement.Business
             return response;
         }
 
-        public static Task SaveMCQQuestionAnswer(MCQQuestionAnswer vm, string userName)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<ResponseViewModel> SaveMCQQuestionAnswer(MCQQuestionAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                //var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var MCQQuestionAnswers = schoolDb.MCQQuestionAnswers.FirstOrDefault(x => x.Id == vm.Id);
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 

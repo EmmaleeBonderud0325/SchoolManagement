@@ -34,7 +34,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
-        [Route("saveMCQQuestionAnswer")]
+        //[Route("saveMCQQuestionAnswer")]
         public async Task<ActionResult> Post([FromBody] MCQQuestionAnswerViewModel vm)
         {
             var userName = identityService.GetUserName();

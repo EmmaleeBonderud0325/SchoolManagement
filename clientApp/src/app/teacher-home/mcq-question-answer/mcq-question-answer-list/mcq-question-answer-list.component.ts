@@ -31,7 +31,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private McqQuestionAnswerService : McqQuestionAnswerService,
+    private mcqQuestionAnswerService : McqQuestionAnswerService,
     private toastr: ToastrService
   ) { }
 
@@ -42,7 +42,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
 
   getAll(){
     this.loadingIndicator = true;
-    this.McqQuestionAnswerService .getAll().subscribe(response => {
+    this.mcqQuestionAnswerService .getAll().subscribe(response => {
       console.log("init")
       this.data=response;
       console.log(response);
@@ -56,7 +56,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   
 
  getAllQuestions(){
-     this.McqQuestionAnswerService.getAllQuestions()
+     this.mcqQuestionAnswerService.getAllQuestions()
     .subscribe(response=>
     { 
         this.questionNames = response;
@@ -71,6 +71,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   createNewMCQQuestionAnswer(content)
   {
     this.mcqQuestionAnswerForm = this.fb.group({
+      
       questionId : [null, [Validators.required]],
       answerText : ['', [Validators.required]],
       isCorrectAnswer : ['', [Validators.required]],
@@ -86,9 +87,10 @@ export class McqQuestionAnswerListComponent implements OnInit {
   //update button
   editRow(row:MCQQuestionAnswerModel, rowIndex:number, content) 
   {
-    console.log(row);
+    
 
     this.mcqQuestionAnswerForm = this.fb.group({
+      id:[row.id],
       questionId : [row.questionId, [Validators.required]],
       answerText : [row.answerText, [Validators.required]],
       isCorrectAnswer : [row.isCorrectAnswer, [Validators.required]],
@@ -106,7 +108,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   {
     console.log(this.mcqQuestionAnswerForm.value);
 
-    this.McqQuestionAnswerService.saveMCQQuestionAnswer(this.mcqQuestionAnswerForm.value)
+    this.mcqQuestionAnswerService.saveMCQQuestionAnswer(this.mcqQuestionAnswerForm.value)
       .subscribe(response=>{
         
         if(response.isSuccess)
