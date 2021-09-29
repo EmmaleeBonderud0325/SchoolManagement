@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="5.7.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SchoolManagement.Data\SchoolManagement.Data.csproj" />
+    <ProjectReference Include="..\SchoolManagement.ExcelHelper\SchoolManagement.ExcelHelper.csproj" />
     <ProjectReference Include="..\SchoolManagement.Master.Data\SchoolManagement.Master.Data.csproj" />
     <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
   </ItemGroup>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,10 +11,10 @@ namespace SchoolManagement.ViewModel.Common
     {
         public FileContainerViewModel()
         {
-           // Files = new List<IFormFile>();
+            Files = new List<IFormFile>();
         }
-        //public List<IFormFile> Files { get; set; }
-        public int Id { get; set; }
-        public int Type { get; set; }
+        public List<IFormFile> Files { get; set; }
+        
+        
     }
 }
