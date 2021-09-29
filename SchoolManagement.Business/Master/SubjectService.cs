@@ -5,8 +5,10 @@ using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
+using SchoolManagement.ViewModel.Master.Subject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,7 +84,7 @@ namespace SchoolManagement.Business.Master
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
                     SubjectCategory = subject.SubjectCategory,
-                    SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory),
+                    SubjectCategoryName = subject.SubjectCategory.ToString(),
                     ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
                     SubjectStreamId = subject.SubjectStreamId,
@@ -189,21 +191,26 @@ namespace SchoolManagement.Business.Master
                     subject.UpdatedOn = DateTime.UtcNow;
                     subject.UpdatedById = loggedInUser.Id;
 
-                    if(vm.SubjectType==SubjectType.BasketSubject)
+                    var existingSubjects = subject.SubjectAcademicLevels.ToList();
+                    var selectedSubject = vm.SubjectAcademicLevels.ToList();
+                   
+                    foreach (var deletedsubject in existingSubjects)
                     {
-                        subject.IsBuscketSubject = true;
-                        subject.IsParentBasketSubject = false;
+                        subject.SubjectAcademicLevels.Remove(deletedsubject);
                     }
-                    else if (vm.SubjectType==SubjectType.ParentBasketSubject)
+
+
+                    foreach (var item in selectedSubject)
                     {
-                        subject.IsParentBasketSubject = true;
-                        subject.IsBuscketSubject = false;
+                        var subjectAccodemicLevel = new SubjectAcademicLevel()
+                        {
+                            SubjectId = vm.Id,
+                            AcademicLevelId= item.Id,
+                        };
+
+                        subject.SubjectAcademicLevels.Add(subjectAccodemicLevel);
                     }
-                    else
-                    {
-                        subject.IsBuscketSubject = false;
-                        subject.IsParentBasketSubject = false;
-                    }
+
                     schoolDb.Subjects.Update(subject);
 
                     response.IsSuccess = true;
@@ -224,12 +231,11 @@ namespace SchoolManagement.Business.Master
 
             var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
 
-
             response.Id = subject.Id;
             response.Name = subject.Name;
             response.SubjectCode = subject.SubjectCode;
             response.SubjectCategory = subject.SubjectCategory;
-            response.SubjectCategoryName = GetSubjectCategoryName(subject.SubjectCategory);
+            response.SubjectCategoryName = subject.SubjectCategory.ToString();
 
             if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
             {
@@ -237,7 +243,7 @@ namespace SchoolManagement.Business.Master
             }
             else if (subject.IsParentBasketSubject == true)
             {
-                response.SubjectType = SubjectType.ParentBasketSubject;   
+                response.SubjectType = SubjectType.ParentBasketSubject;
             }
             else
             {
@@ -247,7 +253,6 @@ namespace SchoolManagement.Business.Master
             response.ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId);
             response.SubjectStreamId = subject.SubjectStreamId;
             response.SubjectStreamName = subject.SubjectStream.Name;
-            
 
             var subjectAcademicLevels = subject.SubjectAcademicLevels.Where(x => x.SubjectId == subject.Id);
 
@@ -258,6 +263,51 @@ namespace SchoolManagement.Business.Master
 
             return response;
         }
+
+        public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicSubjectViewModel>();
+
+            var subjects = schoolDb.Subjects.Where(x => x.IsActive == true).OrderBy(s => s.Name);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                subjects = subjects.Where(x => x.Name.Contains(searchText)).OrderBy(s => s.Name);
+            }
+
+            totalRecordCount = subjects.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var subjectList = subjects.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            subjectList.ForEach(subject =>
+            {
+                var vm = new BasicSubjectViewModel()
+                {
+                    Id = subject.Id,
+                    Name = subject.Name,
+                    SubjectCode = subject.SubjectCode,
+                    SubjectCategoryName = subject.SubjectCategory.ToString(),
+                    ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
+                    SubjectStreamName = subject.SubjectStream.Name,
+                    CreatedByName = subject.CreatedBy.FullName,
+                    CreatedOn = subject.CreatedOn,
+                    UpdatedByName = subject.UpdatedBy.FullName,
+                    UpdatedOn = subject.UpdatedOn,
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicSubjectViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
+
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
             var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
@@ -269,24 +319,7 @@ namespace SchoolManagement.Business.Master
             else
             {
                 return quary.Name;
-            }
-        
-        }
-        private string GetSubjectCategoryName(SubjectCategory SubjectCategory)
-        {
-            if (((int)SubjectCategory) == 1)
-                 {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_PRIMARY_SCHOOL_SUBJECT;
-                 }
-            else if (((int)SubjectCategory) == 2)
-                {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_JUNIOR_SCHOOL_SUBJECT;
-                }
-            else 
-                {
-                    return SubjectServiceConstants.SUBJECT_CATEGORY_HIGH_SCHOOL_SUBJECT;
-            }
-        
+            }      
         }
 
        

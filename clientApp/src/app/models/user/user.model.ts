@@ -12,7 +12,7 @@ export class UserModel
     mobileNo:string;
     password:string;
     isActive:boolean;
-    roles:CheckBoxModel[];
+    roles:number[];
     createdOn:Date;
     createdById:number; 
     createdByName:string; 

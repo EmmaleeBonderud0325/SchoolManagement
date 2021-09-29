@@ -86,6 +86,15 @@ namespace SchoolManagement.WebService.Controllers
 
         }
 
+        [HttpGet]
+        [Route("getLessonById/{id}")]
+        public ActionResult  GetLessonById(int id)
+        {
+            var response = lessonDesignService.GetLessonById(id);
+
+            return Ok(response);
+        }
+
 
     }   
 }

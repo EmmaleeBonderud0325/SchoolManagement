@@ -9,12 +9,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArchwizardModule } from 'angular-archwizard';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
 
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ExcelUploadComponent
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,

@@ -68,7 +68,7 @@
 
       .email {
         @include three-dots-overflow();
-        font-size: 12px;
+        font-size: 20px;
         max-width: 200px;
         color: #fff;
       }
@@ -110,7 +110,7 @@
               content: '\f105';
               font-family: 'Font Awesome 5 Free';
               font-weight: 900;
-              font-size: 12px;
+              font-size: 25px;
               position: absolute;
               transition: 0.5s;
               left: 25px;
@@ -123,24 +123,13 @@
           }
         }
 
-        // li {
-        //   a:before {
-        //     content: '\f105';
-        //     font-family: 'Font Awesome 5 Free';
-        //     font-weight: 900;
-        //     font-size: 12px;
-        //     position: absolute;
-        //     transition: 0.5s;
-        //     left: 30px;
-        //     color: #868e96;
-        //   }
-        // }
+        
       }
 
       .header {
         padding: 3px 15px;
         color: #868e96;
-        font-size: 10px;
+        font-size: 20px;
         text-transform: uppercase;
         letter-spacing: 1.3px;
         font-weight: 600;

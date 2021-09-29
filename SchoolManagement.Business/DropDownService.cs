@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Data.Data;
+using SchoolManagement.ExcelHelper;
 using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.Util;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
@@ -118,6 +120,15 @@ namespace SchoolManagement.Business
             return teachers;
         }
 
+        public List<DropDownViewModel> GetExcelMasterData()
+        {
+            var response = Enum.GetValues(typeof(ExcelUploadType)).Cast<ExcelUploadType>()
+                .Select(x => new DropDownViewModel() { Id = (int)x, Name = x.ToString() })
+                .ToList();
+
+            return response;
+          
+        }
        
     }
 }
