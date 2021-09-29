@@ -7,6 +7,12 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './lesson-content.component.html',
   styleUrls: ['./lesson-content.component.sass']
 })
+
+
+
+							
+						
+
 export class LessonContentComponent implements OnInit {
 
   constructor() { }

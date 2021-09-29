@@ -19,11 +19,11 @@
                 <button type="button" class="btn btn-primary waves-effect btn-compose m-b-15">LessonDetails</button>
                 <ul class="" id="mail-folders">
                   <li>
-                    <a routerLink="/email/inbox" title="Inbox">Lesson 
+                    <a routerLink="/teacher-home/lesson" title="Inbox">Lesson 
                     </a>
                   </li>
                   <li>
-                    <a onClick="return false;" title="Sent">Lesson Objective</a>
+                    <a routerLink="/teacher-home/lesson/lesson-detail" title="Sent">Add New Lesson</a>
                   </li>
                   <li>
                     <a onClick="return false;" title="Draft">Competency Level</a>
@@ -36,14 +36,7 @@
                   </li>
                   <li>
                      <a routerLink="/teacher-home/lesson/lesson-content" title="Starred">Lesson content</a> 
-                    <button 
-                      type="button" 
-                      class="btn btn-primary waves-effect btn-compose m-b-15"
-                      
-                      routerLink="/teacher-home/lesson/lesson-content"
-                      >
-                      Lesson content
-                    </button>
+                    
                   </li>
                 </ul>
                

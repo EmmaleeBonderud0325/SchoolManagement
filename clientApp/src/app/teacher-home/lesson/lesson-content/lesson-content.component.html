@@ -1,7 +1,6 @@
 <section class="main-content">
   <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
-      
       <h5 class="page-title m-b-0">Lesson</h5>
     </li>
     <li class="breadcrumb-item bcrumb-1">
@@ -11,9 +10,53 @@
     <li class="breadcrumb-item">Lesson List</li>
     <li class="breadcrumb-item active">Lesson Content</li>
   </ul>
-  <div class="section-body">
-         <h2><strong>Lesson Content</strong></h2>
-
+  
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+        <div class="card">
+          <div class="body">
+            <div id="mail-nav">
+              <button type="button" 
+              class="btn btn-primary waves-effect btn-compose m-b-15">LessonDetails</button>
+              <ul class="" id="mail-folders">
+                <li>
+                  <a routerLink="/teacher-home/lesson" title="Inbox">Lesson 
+                  </a>
+                </li>
+                <li>
+                  <a routerLink="/teacher-home/lesson/lesson-detail" title="Sent">Add New Lesson</a>
+                </li>
+                <li>
+                  <a onClick="return false;" title="Draft">Competency Level</a>
+                </li>
+                <li>
+                  <a onClick="return false;" title="Bin">Teaching Aids</a>
+                </li>
+                <li>
+                  <a onClick="return false;" title="Important">Teaching Process</a>
+                </li>
+                <li>
+                   <a routerLink="/teacher-home/lesson/lesson-content"
+                    title="Starred">Lesson Content</a> 
+                 </li>
+              </ul>
+             </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9" id="msg">
+        <div class="card">
+          <div class="card-header">
+            <h4 class="card-title">Lesson Content</h4>
+          </div>
+          <div class="boxs mail_listing">
+            <div class="row">
+              <div class="modal-body">
+                    <form 
+                      class="register-form" 
+                      [formGroup]="">
+             <div class="section-body">
+         
          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
           <label
             >Lesson <span class="text-danger">*</span></label
@@ -45,24 +88,24 @@
                 {{ item.name }}
               </option>
             </select>
-
-             <label for="title" class="control-label">Lesson Topic</label>
-                      <div class="form-control-counter-container">
-                        <input placeholder="Insert your Lesson topic" name="topic" 
-                        data-purpose="edit-course-title" maxlength="60" id="title" class="form-control" >
-                       
-                        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Introduction<span class="text-danger">*</span></label>
-                          <textarea
-                            type="text"
-                            class="form-control"
-                            placeholder=""
-                            formControlName="learningOutcome"
-                            required
-                          ></textarea>
-
-                          <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
-                            <label>Description<span class="text-danger">*</span></label>
+            </div>
+          <label for="title" class="control-label">Lesson Topic</label>
+             <div class="form-control-counter-container">
+                <input placeholder="Insert your Lesson topic" 
+                name="topic" 
+                    data-purpose="edit-course-title"
+                     maxlength="60" id="title" class="form-control" >
+              <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+                <label>Introduction<span class="text-danger">*</span></label>
+                  <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder=""
+                      formControlName="learningOutcome"
+                      required
+                  ></textarea>
+                <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+                     <label>Description<span class="text-danger">*</span></label>
                             <textarea
                               type="text"
                               class="form-control"
@@ -70,38 +113,48 @@
                               formControlName="learningOutcome"
                               required
                             ></textarea>
-                       
-                             <div class="form-group">
-                                  <label class="control-label">Lesson References</label>
-                                  <div><div class="image-upload-preview-with-crop--stack--35r3L">
-                                    <div class="image-upload-preview-with-crop--previewWrapper--2Py_C">
-                                      <div class="image-upload-preview-with-crop--imageWrapper--cPa0q">
-                                        <img data-purpose="image-preview" alt="Course image" class="" src="https://s.udemycdn.com/course/750x422/placeholder.jpg"></div>
-                                        <div class="image-upload-preview-with-crop--tips--3jM-I"></div></div>
-                                        <div class="image-upload-preview-with-crop--form-element--2S89s"><div><p>
-                                          <span>Upload your Lesson image,Video or file here.
-                                             </span></p></div><div class="file-uploader--file-selector--3zSt7" data-purpose="">
-                                               <input accept=".gif,.jpg,.jpeg,.png" type="file" id="FileUploaderS3-0--3" class="sr-only">
-                                               <label for="FileUploaderS3-0--3">
-                                                 <span class="input-group">
-                                                   <div class="form-control file-uploader--fake-file-input--30NIH">No file selected</div>
-                                                   <span class="input-group-btn"><div type="button" class="btn btn-default">Upload File</div>
-                                                  </span></span></label></div><input type="hidden" value=""></div></div></div></div>
-                                
-
+                 <div class="form-group">
+                   <label class="control-label">Lesson References</label>
+                    <div>
+                      <div class="image-upload-preview-with-crop--stack--35r3L">
+                      <div class="image-upload-preview-with-crop--previewWrapper--2Py_C">
+                         <div class="image-upload-preview-with-crop--imageWrapper--cPa0q">
+                             <img data-purpose="image-preview" 
+                             alt="Course image" 
+                             class="" 
+                             src="https://s.udemycdn.com/course/750x422/placeholder.jpg">
+                            </div>
+                          <div class="image-upload-preview-with-crop--tips--3jM-I">
+                              </div></div>
+                      <div class="image-upload-preview-with-crop--form-element--2S89s">
+                        <div><p>
+                    <span>Upload your Lesson image,Video or file here.
+                      </span>
+                    </p></div>
+                    <div class="file-uploader--file-selector--3zSt7" data-purpose="">
+                    <input type="file" 
+                    id="FileUploaderS3-0--3" 
+                    class="sr-only">
+                      <label for="FileUploaderS3-0--3">
+                        <span class="input-group">
+                         <div class="form-control file-uploader--fake-file-input--30NIH">No file selected</div>
+                  <span class="input-group-btn">
+                    <div type="button" class="btn btn-default">Upload File</div>
+                    </span></span></label></div>
+                    <input type="hidden" value="">
+                  </div></div></div></div>
+                    <div class="col-lg-12">
+                     <div class="buttons m-l-25 m-b-20">
+                        <button type="button" class="btn btn-primary">back</button>
+                        <button type="button" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-primary">Publish</button>
+                        <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                </div>
+                
                                                   
 
-
-
-
-
-
-
-
-
-
-                                                                
-                            </div></div></div> </div>
+</div></div></div> </div>
                             
                        
 
