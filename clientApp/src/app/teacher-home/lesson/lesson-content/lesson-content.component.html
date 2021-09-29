@@ -1,6 +1,7 @@
 <section class="main-content">
   <ul class="breadcrumb breadcrumb-style ">
     <li class="breadcrumb-item">
+      
       <h5 class="page-title m-b-0">Lesson</h5>
     </li>
     <li class="breadcrumb-item bcrumb-1">
@@ -12,44 +13,84 @@
   </ul>
   <div class="section-body">
          <h2><strong>Lesson Content</strong></h2>
+
+         <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label
+            >Lesson <span class="text-danger">*</span></label
+          >
+          <select
+            class="form-select form-control"
+            formControlName="academicYearId"
+          >
+            <option
+              [ngValue]="item.id"
+              *ngFor="let item of "
+            >
+              {{ item.name }}
+            </option>
+          </select>
+
+          <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+            <label
+              >Content Type<span class="text-danger">*</span></label
+            >
+            <select
+              class="form-select form-control"
+              formControlName="academicYearId"
+            >
+              <option
+                [ngValue]="item.id"
+                *ngFor="let item of "
+              >
+                {{ item.name }}
+              </option>
+            </select>
+
              <label for="title" class="control-label">Lesson Topic</label>
                       <div class="form-control-counter-container">
                         <input placeholder="Insert your Lesson topic" name="topic" 
                         data-purpose="edit-course-title" maxlength="60" id="title" class="form-control" >
-                        <div class="form-group">
-                          
-                            <label for="title" class="control-label">Lesson SubTopic</label>
-                            <div class="form-control-counter-container">
-                              <input placeholder="Insert your Lesson subtopic" name="topic" 
-                              data-purpose="edit-course-title" maxlength="60" id="title" class="form-control" >
-                             
-                              <label for="title" class="control-label">Description</label>
-                              <div class="form-control-counter-container">
+                       
+                        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+                          <label>Introduction<span class="text-danger">*</span></label>
+                          <textarea
+                            type="text"
+                            class="form-control"
+                            placeholder=""
+                            formControlName="learningOutcome"
+                            required
+                          ></textarea>
+                       
+                             <div class="form-group">
+                                  <label class="control-label">Lesson References</label>
+                                  <div><div class="image-upload-preview-with-crop--stack--35r3L">
+                                    <div class="image-upload-preview-with-crop--previewWrapper--2Py_C">
+                                      <div class="image-upload-preview-with-crop--imageWrapper--cPa0q">
+                                        <img data-purpose="image-preview" alt="Course image" class="" src="https://s.udemycdn.com/course/750x422/placeholder.jpg"></div>
+                                        <div class="image-upload-preview-with-crop--tips--3jM-I"></div></div>
+                                        <div class="image-upload-preview-with-crop--form-element--2S89s"><div><p>
+                                          <span>Upload your Lesson image,Video or file here.
+                                             </span></p></div><div class="file-uploader--file-selector--3zSt7" data-purpose="">
+                                               <input accept=".gif,.jpg,.jpeg,.png" type="file" id="FileUploaderS3-0--3" class="sr-only">
+                                               <label for="FileUploaderS3-0--3">
+                                                 <span class="input-group">
+                                                   <div class="form-control file-uploader--fake-file-input--30NIH">No file selected</div>
+                                                   <span class="input-group-btn"><div type="button" class="btn btn-default">Upload File</div>
+                                                  </span></span></label></div><input type="hidden" value=""></div></div></div></div>
+                                
 
-                                <span pripple="" tabindex="0" class="p-button p-component p-fileupload-choose p-ripple"><input type="file" multiple="" accept="image/*" title="">
-                                  <span class="pi pi-plus p-button-icon p-button-icon-left"></span>
-                                
-                                <span class="p-ink" style="height: 91px; width: 91px; top: -22.1667px; left: 1px;">
-                                </span></span>
-                                <p-button type="button" 
-                                class="ng-star-inserted">
-                                
-                                <button pripple="" disabled="" type="button" class="p-button p-component 
-                                p-disabled p-ripple"><!----><span class="pi pi-upload p-button-icon 
-                                p-button-icon-left ng-star-inserted" aria-hidden="true">
-                              </span><!----><span class="p-button-label ng-star-inserted" 
-                              aria-hidden="false">Upload</span><!----><!---->
-                              <span class="p-ink"></span></button></p-button>
-                                <p-button type="button" class="ng-star-inserted">
-                                  <button pripple="" disabled="" type="button" class="p-button p-component 
-                                  p-disabled p-ripple"><!----><span class="pi pi-times p-button-icon 
-                                  p-button-icon-left ng-star-inserted" aria-hidden="true">
-                                </span><!----><span class="p-button-label ng-star-inserted"
-                                 aria-hidden="false">Cancel</span><!----><!----><span class="p-ink"></span>
-                                </button></p-button>
+                                                  
 
-                                
-                                
+
+
+
+
+
+
+
+
+
+                                                                
                             </div></div></div> </div>
                             
                        

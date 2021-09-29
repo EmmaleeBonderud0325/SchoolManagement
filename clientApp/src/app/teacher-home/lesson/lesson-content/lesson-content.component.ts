@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {EditorModule} from 'primeng/editor';
+
+
 
 @Component({
   selector: 'app-lesson-content',
@@ -12,8 +13,7 @@ export class LessonContentComponent implements OnInit {
 
   ngOnInit(): void {
   }
- 
-          
-  }
   
+}
 
+  
