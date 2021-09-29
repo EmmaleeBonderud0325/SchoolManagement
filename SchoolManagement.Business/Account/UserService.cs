@@ -88,11 +88,11 @@ namespace SchoolManagement.Business
 
             var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-            loggedInUser.Username = user.UserName;
-            loggedInUser.FullName = user.FullName;
-            loggedInUser.Address = user.Address;
-            loggedInUser.Email = user.Email;
-            loggedInUser.MobileNo = user.MobileNumber;
+            user.UserName = loggedInUser.Username;
+            user.FullName = loggedInUser.FullName;
+            user.Address = loggedInUser.Address;
+            user.Email = loggedInUser.Email;
+            user.MobileNumber = loggedInUser.MobileNo;
 
             return user;
         }
