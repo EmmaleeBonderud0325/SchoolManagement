@@ -20,5 +20,9 @@ namespace SchoolManagement.Business.Interfaces.LessonData
                                                                      int currentPage, int classNameId, int subjectId, int pageSize, string userName);
 
         LessonViewModel GetLessonById(int id);
+        Task<ResponseViewModel> CreateNewLesson(string userName);
+
+
     }
+
 }

@@ -308,5 +308,27 @@ namespace SchoolManagement.Business
 
 
         }
+
+        public Task<ResponseViewModel> CreateNewLesson(string userName)
+        {
+            var loggedInUser = currentUserService.GetUserByUsername(userName);
+            var response = new ResponseViewModel(); 
+           /* var lesson = new Lesson()
+            {
+                OwnerId = loggedInUser.Id,
+                CreatedOn = DateTime.UtcNow,
+                CreatedById = loggedInUser.Id,
+                UpdatedOn = DateTime.UtcNow,
+                UpdatedById = loggedInUser.Id,
+                Status = LessonStatus.Design,
+                IsActive = true
+            };*/
+
+           // schoolDb.Add(lesson);
+            // await schoolDb.SaveChangesAsync();
+
+            return null;
+
+        }
     }
 }

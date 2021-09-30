@@ -23,6 +23,9 @@ export class StudentListComponent implements OnInit {
   reorderable = true;
   user:StudentModel;
   allGenders:DropDownModel[] = [];
+  studentClass:DropDownModel[] = [];
+  allAcademicYears:DropDownModel[] = [];
+  allAcademicLevels:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -33,6 +36,9 @@ export class StudentListComponent implements OnInit {
   ngOnInit(): void {
     this.getAll();
     this.getAllGenders();
+    this.getClasses();
+    this.getAllAcademicYears();
+    this.getAllAcademicLevels();
   }
 
   getAll(){
@@ -60,6 +66,9 @@ export class StudentListComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      classes: ['', [Validators.required]],
+      academicYear: ['', [Validators.required]],
+      academicLevel: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
@@ -77,6 +86,28 @@ export class StudentListComponent implements OnInit {
       },error=>{
         
        });
+  }
+
+  getAllAcademicYears()
+  {
+    this.studentService.getAllAcademicYears()
+      .subscribe(response =>
+        {
+          this.allAcademicYears = response;
+        },error => {
+
+        });
+  }
+
+  getAllAcademicLevels()
+  {
+    this.studentService.getAllAcademicLevels()
+      .subscribe(response =>
+        {
+          this.allAcademicLevels = response;
+        },error => {
+
+        });
   }
 
   saveStudent(){   
@@ -147,12 +178,24 @@ export class StudentListComponent implements OnInit {
       gender:[row.gender, [Validators.required]],
       email:[row.email, [Validators.required]],
       password:[row.password],
-      isActive:[true]
+      isActive:[true],
+      classes:[row.classes, [Validators.required]],
+      academicYear:[row.academicYear, [Validators.required]],
+      academicLevel:[row.academicLevel, [Validators.required]]
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
+    });
+  }
+
+  getClasses() {
+    this.studentService.getAllClasses().subscribe(response => {
+      console.log(response);
+      this.studentClass = response;
+    }, error=>{
+
     });
   }
 
