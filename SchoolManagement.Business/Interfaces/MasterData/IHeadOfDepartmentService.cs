@@ -1,5 +1,7 @@
-﻿using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Master;
+using SchoolManagement.ViewModel.Master.Academic;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +19,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<DropDownViewModel> GetAllAcademicLevels();
         List<DropDownViewModel> GetAllSubjects();
         List<DropDownViewModel> GetAllTeachers();
+        PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel> GetHeadOfDepartmentList(string searchText, int currentPage, int pageSize);
     }
 }
