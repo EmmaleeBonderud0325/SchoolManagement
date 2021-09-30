@@ -60,7 +60,6 @@ namespace SchoolManagement.WebService.Controllers
         public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
         {
             var response = subjectService.GetSubjectList(searchText, currentPage, pageSize);
-
             return response;
         }
     }
