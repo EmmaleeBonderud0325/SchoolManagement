@@ -300,7 +300,7 @@ namespace SchoolManagement.Business
             response.SubjectId = (int)lesson.SubjectId;
             response.LearningOutcome = lesson.LearningOutcome;
             response.Description = lesson.Description;
-            response.PlannedDate = lesson.PlannedDate;
+            response.PlannedDate = (DateTime)lesson.PlannedDate;
 
             return response;
 

@@ -18,8 +18,8 @@ namespace SchoolManagement.Model
         public int? SubjectId { get; set; }
         public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
-        public DateTime PlannedDate { get; set; }
-        public DateTime CompletedDate { get; set; }
+        public DateTime? PlannedDate { get; set; }
+        public DateTime? CompletedDate { get; set; }
         public LessonStatus Status { get; set; }
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
