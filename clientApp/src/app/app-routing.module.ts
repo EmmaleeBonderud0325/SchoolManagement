@@ -25,6 +25,11 @@ const routes: Routes = [
         path:'user-profile',
         component:UserProfileComponent
       },
+      {
+        path: 'student-home',
+        loadChildren: () =>
+          import('./student-home/student-home.module').then((m) => m.StudentHomeModule),
+      },
     ],
   },
 

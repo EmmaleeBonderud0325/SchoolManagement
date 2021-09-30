@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.MasterData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Master;
+using SchoolManagement.ViewModel.Master.Academic;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -80,6 +82,15 @@ namespace SchoolManagement.WebService.Controllers
             var response = HeadOfDepartmentService.GetAllSubjects();
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getHeadOfDepartmentList")]
+        public PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel> GetHeadOfDepartmentList(string searchText, int currentPage, int pageSize)
+        {
+            var response = HeadOfDepartmentService.GetHeadOfDepartmentList(searchText, currentPage, pageSize);
+
+            return response;
         }
 
 

@@ -13,6 +13,8 @@ using System.Text;
 using System.Threading.Tasks;
 using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
+using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Master.Academic;
 
 namespace SchoolManagement.Business.Master
 {
@@ -148,7 +150,53 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
-        
+        //Search
+
+        public PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel> GetHeadOfDepartmentList(string searchText, int currentPage, int pageSize)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicHeadOfDepartmentViewModel>();
+
+            var headOfDepartments = schoolDb.HeadOfDepartments.Where(x => x.IsActive == true).OrderBy(hd => hd.AcademicYearId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                headOfDepartments = headOfDepartments.Where(x => x.AcademicLevel.Name.Contains(searchText)).OrderBy(hd => hd.AcademicYearId);
+            }
+
+            totalRecordCount = headOfDepartments.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var headOfDepartmentList = headOfDepartments.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            headOfDepartmentList.ForEach(headOfDepartment =>
+            {
+                var vm = new BasicHeadOfDepartmentViewModel()
+                {
+                    Id = headOfDepartment.Id,
+                    SubjectName = headOfDepartment.Subject.Name,
+                    AcademicLevelName = headOfDepartment.AcademicLevel.Name,
+                    AcademicYearId = headOfDepartment.AcademicYearId,
+                    TeacherName = GetTeacher(headOfDepartment.TeacherId),                 
+                    CreateOn = headOfDepartment.CreateOn,
+                    CreatedByName = headOfDepartment.CreatedBy.FullName,
+                    UpdateOn = headOfDepartment.UpdateOn,                   
+                    UpdatedByName = headOfDepartment.UpdatedBy.FullName,
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+
+        }
+
+
         public List<DropDownViewModel> GetAllAcademicYears()
         {
             var academicYears = schoolDb.AcademicYears
@@ -189,7 +237,7 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllSubjects ()
         {
-            var subjects = schoolDb.Subjects
+            var subjects = schoolDb.HeadOfDepartment
                 .Where(x => x.IsActive == true )
                 .Select(s => new DropDownViewModel() { Id = s.Id, Name = string.Format("{0}", s.Name) })
                 .Distinct().ToList();
@@ -210,5 +258,7 @@ namespace SchoolManagement.Business.Master
                 return quary.Teacher.FullName;
             }
         }
+
+       
     }
 }
