@@ -1,4 +1,4 @@
-<!-- <section class="main-content">
+<section class="main-content">
     <ul class="breadcrumb breadcrumb-style">
       <li class="breadcrumb-item">
         <h5 class="page-title m-b-0">Lesson Design List</h5>
@@ -36,24 +36,13 @@
                   *ngIf="selectedMenu.id == 1"
                   formGroupName="lessonDetail"
                 >
-                </lesson-details>
-  
-                <lesson-prerequisites
-                  *ngIf="selectedMenu.id == 2"
-                ></lesson-prerequisites>
-  
-                <lesson-learning-outcome *ngIf="selectedMenu.id == 3">
-                </lesson-learning-outcome>
-  
-                <lesson-teaching-process
-                  *ngIf="selectedMenu.id == 4"
-                ></lesson-teaching-process>
-  
-                <lesson-content *ngIf="selectedMenu.id == 5"> </lesson-content>
+                </lesson-details> 
+
+                <topic-content *ngIf="selectedMenu.id == 5"> </topic-content>
               </ng-container>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section> -->
+  </section> 
