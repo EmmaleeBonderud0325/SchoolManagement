@@ -68,7 +68,30 @@
               rowHeight="auto" 
               [limit]="10"
               [scrollbarH]="scrollBarHorizontal" 
-              [reorderable]="reorderable">       
+              [reorderable]="reorderable">  
+              
+              <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                  <div class="buttons">
+                  <span>
+
+                   <!--  Head Of Department edit Button -->
+                    <button class="btn btn-icon btn-sm btn-primary" 
+                    (click)='updateHeadOfDepartment(row, rowIndex, addEditRecord)'>
+                    <i class="fas fa-pen"></i>
+                    </button>
+
+                    <!--Delete Head Of Department Button-->
+                    <button class="btn btn-icon btn-sm btn-danger" 
+                    (click)='deleteHeadOfDepartment(row)'>
+                    <i class="far fa-trash-alt"></i>
+                    </button>
+
+                  </span>
+                </div>                    
+                </ng-template>
+              </ngx-datatable-column>
+         
   
                   <!--Academic Year Column-->
                   <ngx-datatable-column name="Academic Year" [width]="100">
@@ -126,25 +149,6 @@
                     </ng-template>
                   </ngx-datatable-column>
   
-                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                      <span>
-
-                       <!--  Head Of Department edit Button -->
-                        <button class="btn btn-tbl-edit h-auto" 
-                        (click)='updateHeadOfDepartment(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
-                        </button>
-  
-                        <!--Delete Head Of Department Button-->
-                        <button class="btn btn-tbl-delete h-auto" 
-                        (click)='deleteHeadOfDepartment(row)'>
-                        <i class="far fa-trash-alt"></i>
-                        </button>
-
-                      </span>                    
-                    </ng-template>
-                  </ngx-datatable-column>
                 </ngx-datatable>
   
                 <!-- Add Record Modal Window -->
@@ -185,7 +189,19 @@
                                 *ngFor="let item of academicYears" 
                                 [value]="item.id">{{item.id}}                           
                               </option>
-                            </select>
+                              </select>
+
+                            <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('academicYearId').valid && 
+                        headOfDepartmentFrom.get('academicYearId').touched
+                        "
+                        >   
+
+                        Academic Year is required</small
+
+                        >
                           </div>
                         </div> 
     
@@ -200,6 +216,18 @@
                                 [value]="item.id">{{item.name}}
                               </option>
                             </select>
+
+                            <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('academicLevelId').valid && 
+                        headOfDepartmentFrom.get('academicLevelId').touched
+                        "
+                        >   
+
+                        Academic Level is required</small
+
+                        >
                           </div>
                         </div> 
                       </div>
@@ -217,6 +245,18 @@
                             [value]="item.id">{{item.name}}                           
                           </option>
                         </select>
+
+                        <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('teacherId').valid && 
+                        headOfDepartmentFrom.get('teacherId').touched
+                        "
+                        >   
+
+                        Teacher's name is required</small
+
+                        >
                       </div>
                     </div> 
 
@@ -231,6 +271,18 @@
                             [value]="item.id">{{item.name}}
                           </option>
                         </select>
+                        
+                        <small 
+                        class="form-text text-danger"
+                        *ngIf="
+                        !headOfDepartmentFrom.get('subjectId').valid && 
+                        headOfDepartmentFrom.get('subjectId').touched
+                        "
+                        >   
+
+                        Subject name is required</small
+
+                        >
                       </div>
                     </div> 
                   </div>
