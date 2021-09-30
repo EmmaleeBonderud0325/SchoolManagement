@@ -47,7 +47,6 @@ export class HeadOfDepartmentListComponent implements OnInit {
       .subscribe(response=>
       { this.academicYears = response;
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
        });
   }
 
@@ -57,8 +56,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
       .subscribe(response=>
       { this.academicLevels = response;
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
+        });
   }
 
   getAllTeachers()
@@ -67,10 +65,8 @@ export class HeadOfDepartmentListComponent implements OnInit {
       .subscribe(response=>
       { 
         this.teachers = response;
-        console.log( response);
-      },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
-       });
+        },error=>{
+          });
   }
 
   getAllSubjects()
@@ -79,7 +75,6 @@ export class HeadOfDepartmentListComponent implements OnInit {
       .subscribe(response=>
       { this.subjects = response;
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
        });
   }
 
@@ -94,8 +89,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
         console.log( response);
     },error=>{
       this.loadingIndicator=false;
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-    });
+        });
   }
 
 
@@ -135,8 +129,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
         }
 
     },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
-    });
+      });
 
   }
 
@@ -183,8 +176,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
           }
     
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
-        });
+         });
       }
     });
   }
