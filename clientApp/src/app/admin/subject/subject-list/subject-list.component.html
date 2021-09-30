@@ -17,78 +17,100 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="row m-0">
-                      <div class="col-lg-3 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-title">
-                            <h2><strong>Subjects</strong></h2>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-5 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-search-area">
-                            <div>
-                              <label for="search-input">
-                                <i class="material-icons search-icon">search</i>
-                              </label>
-                              <input 
-                                placeholder="Search" 
-                                type="text" 
-                                class="browser-default search-field"
-                                aria-label="Search box">
+                      <form [formGroup]="subjectFilterForm">
+                        <div class="col-12 p-0">
+                          <div class="ngxTableHeader">
+                            <div class="table-title">
+                              <h2><strong>Subject</strong></h2>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-lg-4 p-0">
-                        <div class="ngxTableHeader">
-                          <!-- Add New Subject Button -->
-                          <div class="header-buttons-left">
-                            <div class="icon-button-demo buttons">
-                              <button 
-                                class="btn btn-icon icon-left btn-primary rounded-button" 
-                                (click)='addNewSubject(addEditRecord)' >
-                                <i class="material-icons">add</i>
-                              </button>
+                        <div class="col-12 p-0">
+                          <div class="row">
+                            <div class="col-4">
+                              <div class="form-group position-relative">
+                                <label>Search Text</label>
+                                <i class="fas fa-search input-icons"></i>
+                                <input
+                                  type="text"
+                                  (keyup)="filterDatatable($event)"
+                                  formControlName="searchText"
+                                  class="form-control psl-5"
+                                  placeholder="Search by name"
+                                  name="searchText"
+                                  required=""
+                                />
+                              </div>
                             </div>
+    
+                            
+                            
                           </div>
                         </div>
-                      </div>
+                      </form>
                     </div>
                   </div>
                 </div>
 
               <ngx-datatable 
-                #table class="material" 
-                [rows]="data" 
+                #table 
+                class="material"
+                [rows]="data"
                 [loadingIndicator]="loadingIndicator"
-                columnMode="force" 
+                columnMode="force"
                 [headerHeight]="60"
-                [footerHeight]="80" 
-                rowHeight="auto" 
-                [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" 
-                [reorderable]="reorderable">
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
+              >
 
                 <!-- Action Column -->
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <div class="buttons">
-                      <span>
-                        <!--Subject Edit Button -->
-                        <button 
-                          class="btn btn-icon btn-sm btn-primary" 
-                          (click)='updateSubject(row, rowIndex, addEditRecord)'>
-                          <i class="far fa-edit"></i>
-                        </button>
-                        <!--Subject Delete Button -->
-                        <button 
-                          class="btn btn-icon btn-sm btn-danger" 
-                          (click)='deleteSubject(row)'>
-                          <i class="far fa-trash-alt"></i>
-                        </button>
-                      </span>
+                <ngx-datatable-column [width]="80" name="" sortable="false">
+                  <ng-template 
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center"
+                    >
+                    <div class="icon-button-demo buttons">
+                      <button 
+                        class="btn btn-icon icon-left btn-primary rounded-button"
+                        (click)='addNewSubject(addEditRecord)'>
+                        <i class="material-icons">add</i>
+                      </button>
                     </div>
+                  </ng-template>
+                  <ng-template  let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    ngx-datatable-cell-template
+                    class="text-center"
+                    >
+
+                  <div class="buttons">
+                    <span>
+                       <!--User Edit Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-primary" 
+                        (click)='updateSubject(row, rowIndex, addEditRecord)'>
+                        <i class="far fa-edit"></i>
+                      </button>
+                       <!--User Delete Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-danger" 
+                        (click)='deleteSubject(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </div>  
                   </ng-template>
                 </ngx-datatable-column>
 
