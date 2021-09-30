@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DropDownModel } from './../../../models/common/drop-down.model';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableComponent, id } from '@swimlane/ngx-datatable';
@@ -29,6 +29,10 @@ export class LessonListComponent implements OnInit {
   lessonFilterForm:FormGroup;
   lesson:LessonModel;
   lessonFilter:LessonFilterModel;
+  lessondesignAcademicLevels:DropDownModel[]=[];
+  lessondesignAcademicYears:DropDownModel[]=[];
+  lessondesignSubjects:DropDownModel[]=[];
+  lessondesignClassNames:DropDownModel[]=[];
   reorderable = true;
 
   date:Date;
