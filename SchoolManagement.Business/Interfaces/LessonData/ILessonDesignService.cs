@@ -21,4 +21,5 @@ namespace SchoolManagement.Business.Interfaces.LessonData
 
         LessonViewModel GetLessonById(int id);
     }
+
 }
