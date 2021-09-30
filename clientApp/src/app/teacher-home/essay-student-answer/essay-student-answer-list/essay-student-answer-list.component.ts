@@ -7,6 +7,7 @@ import {EssayStudentAnswerService} from './../../../services/essay-student-answe
 import Swal from 'sweetalert2';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { EssayStudentAnswerModel } from 'src/app/models/essay-student-answer/essay.student.answer.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -26,12 +27,19 @@ export class EssayStudentAnswerListComponent implements OnInit {
   questionNames:DropDownModel[] = [];
   studentNames:DropDownModel[] = [];
   essayQuestionAnswerNames:DropDownModel[] = [];
+  EssayStudentAnswerFilterForm:FormGroup;
+
+  currentPage:number=0;
+  pageSize:number = 25;
+  totalRecord:number=0;
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private EssayStudentAnswerService:EssayStudentAnswerService ,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService) { }
+    
 
     ngOnInit(): void {
       this.getAll();
@@ -57,6 +65,30 @@ export class EssayStudentAnswerListComponent implements OnInit {
           ariaLabelledBy: 'modal-basic-title',
           size: 'lg',
         });
+      }
+
+      filterDatatable(event) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        const val = event.target.value.toLowerCase();
+        this.spinner.show();
+        this.getAllQuestions();
+        this.getAllStudents();
+      }
+      onQuestionFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getAllQuestions();
+      }
+      onStudentFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getAllStudents();
       }
     
       //get all

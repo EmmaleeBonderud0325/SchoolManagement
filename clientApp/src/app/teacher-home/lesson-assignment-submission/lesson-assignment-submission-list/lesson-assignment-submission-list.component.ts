@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { LessonAssignmentSubmissionModule } from '../lesson-assignment-submission.module';
 import { LessonAssignmentSubmissionModel } from 'src/app/models/lesson-assignment-submission/lesson.assignment.submission.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -27,12 +28,18 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
   reorderable = true;
   studentNames:DropDownModel[] = [];
   lessonAssignmentNames:DropDownModel[] = [];
+  LessonAssignmentSubmissionFilterForm:FormGroup;
   
+
+  currentPage:number=0;
+  pageSize:number = 25;
+  totalRecord:number=0;
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private LessonAssignmentSubmissionService:LessonAssignmentSubmissionService,
+    private spinner: NgxSpinnerService,
     private toastr: ToastrService) { }
 
     ngOnInit(): void {
@@ -60,6 +67,31 @@ export class LessonAssignmentSubmissionListComponent implements OnInit {
         });
       }
  
+      filterDatatable(event) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        const val = event.target.value.toLowerCase();
+        this.spinner.show();
+        this.getAllLessonAssignments();
+        this.getAllStudents();
+      }
+      onLessonFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getAllLessonAssignments();
+      }
+      onStudentFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getAllStudents();
+      }
+
+      //retrieve
       getAll(){
 
         this.loadingIndicator = true;

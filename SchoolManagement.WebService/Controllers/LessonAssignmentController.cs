@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SchoolManagement.ViewModel;
 
 namespace SchoolManagement.WebService.Controllers
 {
@@ -31,6 +32,15 @@ namespace SchoolManagement.WebService.Controllers
             var userName = identityService.GetUserName();
             var response = await lessonassignmentService.SaveLessonAssignment(vm, userName);
             return Ok(response);
+        }
+
+      [HttpGet]
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicLessonAssignmentViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int lessonId)
+        {
+            var response = lessonassignmentService.GetLessonList(searchText, currentPage, pageSize, lessonId);
+
+            return response;
         }
 
         [HttpGet]

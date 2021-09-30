@@ -1,12 +1,15 @@
+import { HttpParams } from "@angular/common/http";
 import { Component, OnInit, ViewChild } from "@angular/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DatatableComponent } from "@swimlane/ngx-datatable";
+import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
 import { DropDownModel } from "src/app/models/common/drop-down.model";
 import { LessonAssignmentModel } from "src/app/models/lesson-assignment/lesson.assignment.model";
 import Swal from "sweetalert2";
 import {LessonAssignmentService} from './../../../services/lesson-assignment/lesson-assignment.service';
+import { BasicLessonAssignmentModel } from "src/app/models/lesson-assignment/basic.lesson.assignment.model";
 
 
 @Component({
@@ -19,24 +22,35 @@ import {LessonAssignmentService} from './../../../services/lesson-assignment/les
 export class LessonAssignmentListComponent implements OnInit{
 
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
+  
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   lessonAssignmentForm:FormGroup;
   reorderable = true;
   lessonNames:DropDownModel[] = [];
+  lessonAssignmentFilterForm:FormGroup;
 
+ 
+
+  currentPage:number=0;
+  pageSize:number = 25;
+  totalRecord:number=0;
+
+  data = new Array<BasicLessonAssignmentModel>();
+ 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private LessonAssignmentService:LessonAssignmentService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
-
-    this.getAll();
+   
     this.getAllLessons();
+    this.lessonAssignmentFilterForm = this.createFilterForm();
+    
   }
 
   createNewLessonAssignment(content)
@@ -59,6 +73,69 @@ export class LessonAssignmentListComponent implements OnInit{
         });
       }
 
+       //User Filter data
+     createFilterForm():FormGroup{
+
+       return this.fb.group({
+
+      searchText: new FormControl(""),
+      lessonId : new FormControl(0),
+     
+
+    })
+  }
+
+      filterDatatable(event) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        const val = event.target.value.toLowerCase();
+        this.spinner.show();
+        this.getLessonList();
+      }
+      onLessonFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getLessonList();
+      }
+
+  
+
+   //Get paginated Details
+   getLessonList()
+  {
+     this.loadingIndicator =true;
+     this.LessonAssignmentService.getLessonList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.lessonFilterId)
+        .subscribe(response=>{
+          this.data = response.data;
+
+          console.log("==============");
+          console.log(response);
+          
+          this.totalRecord = response.totalRecordCount;
+          this.spinner.hide();
+          this.loadingIndicator = false;
+        },erroe=>{
+          this.spinner.hide();
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured. Please try again.", "Error");
+        });
+  } 
+      //getters 
+      get lessonFilterId()
+      {
+        return this.lessonAssignmentFilterForm.get("lessonId").value;
+      }
+
+      get searchTextFilterId() {
+
+        return this.lessonAssignmentFilterForm.get("searchText").value;
+    
+      }  
+
+      //retrieve
       getAll(){
 
         this.loadingIndicator = true;
@@ -76,6 +153,14 @@ export class LessonAssignmentListComponent implements OnInit{
        }
  
 
+       setPage(pageInfo) {
+        this.spinner.show();
+        this.loadingIndicator = true;
+        this.currentPage = pageInfo.offset;
+        this.getLessonList();
+    
+      }
+
     //get all lesons
     getAllLessons()
     {
@@ -84,9 +169,10 @@ export class LessonAssignmentListComponent implements OnInit{
         { 
           this.lessonNames = response;
           console.log(response);
+          this.getLessonList();
           
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.spinner.hide();
          });
     }
 
@@ -119,6 +205,7 @@ deleteLessonAssignment(row) {
     }
   });
 }
+
 
 
  //save essay answer
@@ -177,7 +264,8 @@ deleteLessonAssignment(row) {
         this.addRecordSuccess();
       }
      
-    
+      
+
       addRecordSuccess() {
         this.toastr.success('SUCCESS', '');
       } 

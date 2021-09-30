@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
+import { LessonAssignmentPaginatedItemsViewModel } from 'src/app/models/lesson-assignment/lesson.assignment.paginated.items';
 import { environment } from 'src/environments/environment';
 import { LessonAssignmentModel } from '../../models/lesson-assignment/lesson.assignment.model';
 
@@ -10,6 +11,9 @@ import { LessonAssignmentModel } from '../../models/lesson-assignment/lesson.ass
   providedIn: 'root'
 })
 export class LessonAssignmentService {
+  uploadFile(formData: any) {
+    throw new Error("Method not implemented.");
+  }
 
   constructor(private httpClient: HttpClient) { }
 
@@ -37,5 +41,17 @@ export class LessonAssignmentService {
       get<DropDownModel[]>(environment.apiUrl + 'LessonAssignment/getAllLessons');
       }
   
+
+        getLessonList(searchText: string, currentPage: number, pageSize: number, lessonId:number,):Observable<LessonAssignmentPaginatedItemsViewModel>{
+        return this.httpClient.get<LessonAssignmentPaginatedItemsViewModel>(environment.apiUrl + "LessonAssignment/getLessonList",{
+          params:new HttpParams()
+            .set('searchText',searchText)
+            .set('currentPage', currentPage.toString())
+            .set('pageSize', pageSize.toString())
+            .set('lessonId', lessonId.toString())
+    
+        });
+    
+      }  
 }
 

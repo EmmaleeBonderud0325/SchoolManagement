@@ -15,48 +15,98 @@
               <div class="card">
                 <div class="p-10">
                   <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-12">
                       <div class="row m-0">
-                        <div class="col-lg-3 p-0">
-                          <div class="ngxTableHeader">
-                            <div class="table-title">
-                              <h2><strong>Lesson Assignment</strong></h2>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-5 p-0">
-                          <div class="ngxTableHeader">
-                            <div class="table-search-area">
-                              <div>
-                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                <input placeholder="Search" type="text" class="browser-default search-field"
-                                   aria-label="Search box">
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-lg-4 p-0">
-                          <div class="ngxTableHeader">
-                            <div class="header-buttons-left">
-                              <div class="icon-button-demo buttons">
-                             <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewLessonAssignment(addEditRecord)' >
-                                  <i class="material-icons">add</i>
-                             </button>
-                                <!-- <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                  <i class="material-icons">delete</i>
-                                </button> -->  
-                              </div>
-                            </div>
+                       <form 
+                        [formGroup]="lessonAssignmentFilterForm">
+                      <div class="col-lg-12 -0">
+                        <div class="ngxTableHeader">
+                          <div class="table-title">
+                            <h2><strong>Lessons </strong></h2>
                           </div>
                         </div>
                       </div>
+                      <div class="col-12 p-0">
+                        <div class="row">
+                          <div class = "row">
+                          <div class="col-4">
+                            <div class="form-group position-relative">
+                              <label>Search Text</label>
+                              <i class="fas fa-search input-icons"></i>
+                              <input
+                                type="text"
+                                (keyup)="filterDatatable($event)"
+                                formControlName="searchText"
+                                class="form-control psl-5"
+                                placeholder="Search by name"
+                                name="searchText"
+                                required=""
+                               />
+                            </div>
+                          </div>
+                            <div class="col-4">
+                              <div class="form-group">
+                                <label> Lessons </label>
+                                <select
+                                  class="form-select form-control"
+                                  formControlName="lessonId"
+                                  (change) ="onLessonFilterChanged($event.target.value)"
+                                >
+                                  <option
+                                    *ngFor="let item of lessonNames"
+                                    [value]="item.id"
+                                  >
+                                    {{ item.name }}
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+                            <div class="col-lg-6 ">
+                              <div class="ngxTableHeader">
+                                <div class="header-buttons-left">
+                                  <div class="icon-button-dleftemo buttons">
+                                    <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewLessonAssignment(addEditRecord)' >
+                                    <i class="material-icons">add</i>
+                                    </button>
+                                  </div>
+                                </div>
+                                <div class="header-buttons-left">
+                                  <div class="icon-button-dleftemo buttons"></div>
+                                </div> 
+                              </div>                        
+                            </div>
+                          </div>
+                        </div>
+                        </div>
+                        </form> 
+                      </div>
                     </div>
-                  </div>
+                    </div>
+                
+               
 
                  <!--Table-->
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-              columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+               <ngx-datatable 
+                          #table 
+                          class="material"
+                          [rows]="data"
+                          [loadingIndicator]="loadingIndicator"
+                          columnMode="force"
+                          [headerHeight]="60"
+                          [footerHeight]="80"
+                          rowHeight="auto"
+                          [externalPaging]="true"
+                          [count]="totalRecord"
+                          [offset]="currentPage"
+                          [limit]="pageSize"
+                          [scrollbarH]="scrollBarHorizontal"
+                          [reorderable]="reorderable"
+                          (page)="setPage($event)"
+                          >
+                 
+
+
+            
 
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
@@ -148,7 +198,7 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Update Student Essay  Answer</div>
+                        Insert Lesson Assignment</div>
                     </div>
                   </div>
                 </h4>
@@ -229,6 +279,37 @@
                           required</small> 
                   </div> 
                   </div>
+                  <div class="form-group">
+
+                    <label class="control-label">Lesson References</label>
+
+                    <div><div class="image-upload-preview-with-crop--stack--35r3L">
+
+                      <div class="image-upload-preview-with-crop--previewWrapper--2Py_C">
+
+                        <div class="image-upload-preview-with-crop--imageWrapper--cPa0q">
+
+                          <img data-purpose="image-preview" alt="Course image" class="" src="https://s.udemycdn.com/course/750x422/placeholder.jpg"></div>
+
+                          <div class="image-upload-preview-with-crop--tips--3jM-I"></div></div>
+
+                          <div class="image-upload-preview-with-crop--form-element--2S89s"><div><p>
+
+                            <span>Upload your Lesson image,Video or file here.
+
+                               </span></p></div><div class="file-uploader--file-selector--3zSt7" data-purpose="">
+
+                                 <input accept=".gif,.jpg,.jpeg,.png" type="file" id="FileUploaderS3-0--3" class="sr-only">
+
+                                 <label for="FileUploaderS3-0--3">
+
+                                   <span class="input-group">
+
+                                     <div class="form-control file-uploader--fake-file-input--30NIH">No file selected</div>
+
+                                     <span class="input-group-btn"><div type="button" class="btn btn-default">Upload File</div>
+
+                                    </span></span></label></div><input type="hidden" value=""></div></div></div></div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-primary" (click)="saveLessonAssignment()" [disabled]="!lessonAssignmentForm.valid"> ADD NEW LESSON ASSIGNMENTS </button>
                     <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>

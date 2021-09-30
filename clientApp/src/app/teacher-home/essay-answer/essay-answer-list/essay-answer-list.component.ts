@@ -7,6 +7,7 @@ import { DatatableComponent } from '@swimlane/ngx-datatable';
 import Swal from 'sweetalert2';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { EssayQuestionAnswerModel } from 'src/app/models/essay-answer/essay.answer.model';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-essay-answer-list',
@@ -24,13 +25,19 @@ export class EssayAnswerListComponent implements OnInit {
     reorderable = true;
     essayAnswerForm: FormGroup;
     questionNames:DropDownModel[] = [];
+    EssayAnswerFilterForm:FormGroup;
+
+  currentPage:number=0;
+  pageSize:number = 25;
+  totalRecord:number=0;
 
     
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private toastr: ToastrService,
-    private EssayQuestionAnswerService : EssayQuestionAnswerService
+    private EssayQuestionAnswerService : EssayQuestionAnswerService,
+    private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
@@ -56,6 +63,22 @@ export class EssayAnswerListComponent implements OnInit {
         });
       }
     
+      filterDatatable(event) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        const val = event.target.value.toLowerCase();
+        this.spinner.show();
+        this.getAllQuestions();
+      }
+      onQuestionFilterChanged(item: any) {
+        this.currentPage = 0;
+        this.pageSize = 25;
+        this.totalRecord = 0;
+        this.spinner.show();
+        this.getAllQuestions();
+      }
+      
     //get all
     getAll(){
 

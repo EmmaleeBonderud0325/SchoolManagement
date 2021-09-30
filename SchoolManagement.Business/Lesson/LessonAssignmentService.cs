@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -100,6 +101,61 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        public PaginatedItemsViewModel<BasicLessonAssignmentViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int lessonId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicLessonAssignmentViewModel>();
+
+            var lessonassignments = schoolDb.LessonAssignments.OrderBy(u => u.Name); 
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                lessonassignments = lessonassignments.Where(x => x.Lesson.Name.Contains(searchText)).OrderBy(u => u.Name);
+            }
+
+            if (lessonId > 0)
+            {
+                lessonassignments = lessonassignments.Where(x => x.LessonId == lessonId).OrderBy(u => u.Name);
+            }
+
+
+            totalRecordCount = lessonassignments.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonList = lessonassignments.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            lessonList.ForEach(lessonassignments =>
+            {
+                var vm = new BasicLessonAssignmentViewModel()
+                {
+                    Id = lessonassignments.Id,
+                    LessonId = lessonassignments.LessonId,
+                    LessonName= lessonassignments.Lesson.Name,
+                    Name = lessonassignments.Name,
+                    Description = lessonassignments.Description,
+                    StartDate = (DateTime)lessonassignments.StartDate,
+                    DuetDate = (DateTime)lessonassignments.DuetDate,
+                    IsActive = true,
+                    CreatedOn = DateTime.UtcNow,
+                    CreatedById = lessonassignments.CreatedById,
+                    CreatedByName = lessonassignments.CreatedBy.FullName,
+                    UpdatedOn = DateTime.UtcNow,
+                    UpdatedById = lessonassignments.UpdatedById,
+                    UpdatedByName = lessonassignments.UpdatedBy.FullName,
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicLessonAssignmentViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
 
         public async Task<ResponseViewModel> SaveLessonAssignment(LessonAssignmentViewModel vm, string userName)
         {

@@ -17,36 +17,82 @@
                     <div class="row">
                       <div class="col-lg-6">
                         <div class="row m-0">
-                          <div class="col-lg-3 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-title">
-                                <h2><strong>Lesson Assignment Submission </strong></h2>
-                              </div>
+
+                          <form 
+                          [formGroup]="LessonAssignmentSubmissionFilterForm">
+                        <div class="col-lg-5 -0">
+                          <div class="ngxTableHeader">
+                            <div class="table-title">
+                              <h2><strong>Lesson Assignment Submission</strong></h2>
                             </div>
                           </div>
-                          <div class="col-lg-5 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="table-search-area">
-                                <div>
-                                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                                  <input placeholder="Search" type="text" class="browser-default search-field"
-                                     aria-label="Search box">
+                        </div>
+                        <div class="col-lg-5 p-0">
+                          <div class="ngxTableHeader">
+                            <div class="table-search-area">
+                              <div>
+                                <label>search</label>
+                                <i class="fas fa-search input-icons"></i>
+                                  <input
+                                    type="text"
+                                    (keyup)="filterDatatable($event)"
+                                    formControlName="searchText"
+                                    class="form-control psl-5"
+                                    placeholder="Search"
+                                    name="searchText"
+                                    required=""/>
+                              </div>
+                            </div></div>
+                              <div class="col-3">
+                                <div class="form-group">
+                                  <label> Lessons </label>
+                                  <select
+                                    class="form-select form-control"
+                                    formControlName="lessonId"
+                                    (change) ="onLessonFilterChanged($event.target.value)"
+                                  >
+                                    <option
+                                      *ngFor="let item of lessonAssignmentNames"
+                                      [value]="item.id"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
                                 </div>
                               </div>
-                            </div>
-                          </div>
-                          <div class="col-lg-4 p-0">
-                            <div class="ngxTableHeader">
-                              <div class="header-buttons-left">
-                               <!--  <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button"  (click)='createNewLessonAssignmentSubmission(addEditRecord)' >
-                                    <i class="material-icons">add</i>
-                                  </button> 
-                                
-                                </div>-->
+                              <div class="col-3">
+                                <div class="form-group">
+                                  <label> Students </label>
+                                  <select
+                                    class="form-select form-control"
+                                    formControlName="studentId"
+                                    (change) ="onStudentFilterChanged($event.target.value)"
+                                  >
+                                    <option
+                                      *ngFor="let item of studentNames"
+                                      [value]="item.id"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="col-lg-4 p-0">
+                                <div class="ngxTableHeader">
+                                  <div class="header-buttons-left">
+                                    <div class="icon-button-dleftemo buttons">
+                                     <!--  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewEssayanswer(addEditRecord)' >
+                                      <i class="material-icons">add</i>
+                                      </button> -->
+                                    </div>
+                                  </div>
+                                  <div class="header-buttons-left">
+                                    <div class="icon-button-dleftemo buttons"></div>
+                                  </div> 
+                                </div>                        
                               </div>
                             </div>
-                          </div>
+                          </form>
                         </div>
                       </div>
                     </div>
