@@ -105,6 +105,7 @@ namespace SchoolManagement.Business.Master
                     HeadOfDepartment.SubjectId = vm.SubjectId;
                     HeadOfDepartment.AcademicYearId = vm.AcademicYearId;
                     HeadOfDepartment.AcademicLevelId = vm.AcademicLevelId;
+                    HeadOfDepartment.TeacherId = vm.TeacherId;
                     HeadOfDepartment.IsActive = true;
                     HeadOfDepartment.UpdatedById = currentuser.Id;
                     HeadOfDepartment.UpdateOn = DateTime.UtcNow;
@@ -120,7 +121,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = "Error has been occured while saving the Head Of Department.";
+                response.Message = ex.ToString();
             }
             return response;
         }
@@ -218,15 +219,23 @@ namespace SchoolManagement.Business.Master
 
         public List<DropDownViewModel> GetAllTeachers()
         {
-            var teachers = schoolDb.UserRoles
-                .Where(x => x.RoleId == (int)RoleType.Teacher)
-                .Select(t => new DropDownViewModel() { Id = t.User.Id, Name = string.Format("{0}", t.User.FullName) })
+            /* var teachers = schoolDb.UserRoles
+                 .Where(x => x.RoleId == (int)RoleType.Teacher)
+                 .Select(t => new DropDownViewModel() { Id = t.User.Id, Name = string.Format("{0}", t.User.FullName) })
+                 .Distinct().ToList();
+
+             return teachers;*/
+
+
+            var teachers = schoolDb.SubjectTeachers
+                .Where(x => x.IsActive == true)
+                .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t.Teacher.FullName) })
                 .Distinct().ToList();
 
             return teachers;
         }
 
-        public List<DropDownViewModel> GetAllSubjects()
+        public List<DropDownViewModel> GetAllSubjects ()
         {
             var subjects = schoolDb.HeadOfDepartment
                 .Where(x => x.IsActive == true )
@@ -238,7 +247,7 @@ namespace SchoolManagement.Business.Master
 
         private string GetTeacher(int TeacherId)
         {
-            var quary = schoolDb.Users.FirstOrDefault(T => T.Id == TeacherId);
+            var quary = schoolDb.SubjectTeachers.FirstOrDefault(T => T.Id == TeacherId);
 
             if (quary == null)
             {
@@ -246,7 +255,7 @@ namespace SchoolManagement.Business.Master
             }
             else
             {
-                return quary.FullName;
+                return quary.Teacher.FullName;
             }
         }
 
