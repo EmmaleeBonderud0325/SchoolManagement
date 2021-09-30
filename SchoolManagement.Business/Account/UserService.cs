@@ -88,11 +88,11 @@ namespace SchoolManagement.Business
 
             var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-            loggedInUser.Username = user.UserName;
-            loggedInUser.FullName = user.FullName;
-            loggedInUser.Address = user.Address;
-            loggedInUser.Email = user.Email;
-            loggedInUser.MobileNo = user.MobileNumber;
+            user.UserName = loggedInUser.Username;
+            user.FullName = loggedInUser.FullName;
+            user.Address = loggedInUser.Address;
+            user.Email = loggedInUser.Email;
+            user.MobileNumber = loggedInUser.MobileNo;
 
             return user;
         }
@@ -203,7 +203,7 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
-   
+                    EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -618,7 +618,6 @@ namespace SchoolManagement.Business
             return response;
 
         }
-
         public async Task<ResponseViewModel> UpdateUserMasterData(UserMasterViewModel vm, string userName)
         {
             var response = new ResponseViewModel();

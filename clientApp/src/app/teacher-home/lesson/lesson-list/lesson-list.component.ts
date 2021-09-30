@@ -313,6 +313,43 @@ export class LessonListComponent implements OnInit {
   addNewLessonRoute()
   {
     this.router.navigate(['/teacher-home/lesson/lesson-detail',0]);
+   /* Swal.fire({
+      title: 'Creating New Lesson',
+      text: "Do you want to create new lesson",
+      showCancelButton: true,
+      confirmButtonColor: '#54ca68',
+      cancelButtonColor: '#868a87',
+      confirmButtonText: 'Yes, create new lesson!',
+    }).then((result) => {
+      if (result.value) {
+  
+        this.spinner.show();
+        this.lessonService.createNewLesson()
+          .subscribe(response=>{
+      
+            this.spinner.hide();
+            if(response.id==0)
+            {
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: "Failed to create new lesson. Please contact ur support team for more details.",
+              });
+            }
+            else
+            {
+              this.router.navigate(['/teacher-lessons/lessons-in-design',response.id]);
+            }
+          },error=>{
+            this.spinner.hide();
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: "Network error has been occured. Please try again.",
+            });
+          })
+      }
+    });*/
   }
  
   
