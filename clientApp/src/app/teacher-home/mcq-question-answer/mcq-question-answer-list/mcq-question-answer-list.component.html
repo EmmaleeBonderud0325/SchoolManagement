@@ -47,7 +47,7 @@
                       
                         <div class="col-3">
                           <div class="form-group">
-                            <label> Lessons </label>
+                            <label> Questions </label>
                             <select
                               class="form-select form-control"
                               formControlName="lessonName"
@@ -62,16 +62,34 @@
                             </select>
                           </div>
                         </div>
-                      
+
                         <div class="col-lg-4 p-0">
                           <div class="ngxTableHeader">
-                            
+                            <div class="header-buttons-left">
+                              <div class="icon-button-dleftemo buttons">
+                                <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewMCQQuestionAnswer(addEditRecord)' >
+                                <i class="material-icons">add</i>
+                                </button>
+                              </div>
+                            </div>
+
+                            <!--<div class="header-buttons-left">
+                              <div class="icon-button-dleftemo buttons"></div>
+                            </div>-->
+                          </div>
+                        </div>
+                      
+                         <!--<div class="col-lg-4 p-0">
+                          <div class="ngxTableHeader">
+                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewQuestion(addEditRecord)' >
+                              <i class="material-icons">add</i>
+                              </button>
 
                             <div class="header-buttons-left">
                               <div class="icon-button-dleftemo buttons"></div>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
                       </div>
                     </form>
                 </div>
@@ -82,7 +100,7 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ngx-datatable-column [width]="1" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                     <div class="buttons">
                       <span>
@@ -105,21 +123,21 @@
 
               
               <!-- Answer Text -->
-              <ngx-datatable-column name="Answer Text">
+              <ngx-datatable-column name="Answer Text" [width]="400">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.answerText}}
                 </ng-template>
               </ngx-datatable-column>
 
               <!-- Is Correct Answer -->
-              <ngx-datatable-column name="Is Correct Answer">
+              <ngx-datatable-column name="Is Correct Answer" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.isCorrectAnswer}}
                 </ng-template>
               </ngx-datatable-column>
 
               <!-- Created On -->
-              <ngx-datatable-column name="Created On">
+              <ngx-datatable-column name="Created On" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.createdOn| date }}
                 </ng-template>

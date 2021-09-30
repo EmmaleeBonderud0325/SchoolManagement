@@ -62,8 +62,24 @@
                               </select>
                             </div>
                           </div>
-                        
+
                           <div class="col-lg-4 p-0">
+                            <div class="ngxTableHeader">
+                              <div class="header-buttons-left">
+                                <div class="icon-button-dleftemo buttons">
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createStudentMCQQuestion(addEditRecord)' >
+                                  <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+  
+                              <!--<div class="header-buttons-left">
+                                <div class="icon-button-dleftemo buttons"></div>
+                              </div>-->
+                            </div>
+                          </div>
+                        
+                          <!--<div class="col-lg-4 p-0">
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div 
@@ -71,7 +87,7 @@
                                 </div>
                               </div>
                             </div>
-                          </div> 
+                          </div> -->
 
                       </div>
                     </form>
@@ -111,11 +127,11 @@
               </ngx-datatable-column>
 
               <!--Student Answer Text-->
-              <ngx-datatable-column name="Student Answer Text" [width]="50">
+              <!--<ngx-datatable-column name="Student Answer Text" [width]="50">
                 <ng-template let-row="row" ngx-datatable-cell-template>
                   {{row.studentAnswerTexts}}
                 </ng-template>
-              </ngx-datatable-column>
+              </ngx-datatable-column> -->
 
               <!--Topic ID-->
               <ngx-datatable-column name="Teacher Comment" [width]="75">

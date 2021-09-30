@@ -1,5 +1,7 @@
 ﻿using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
+using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         Task<ResponseViewModel> DeleteQuestion(int Id);
         List<DropDownViewModel> GetAllLessonName();
         List<DropDownViewModel> GetAllTopic();
+
+        PaginatedItemsViewModel<BasicQuestionViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int LessonId);
 
 
     }

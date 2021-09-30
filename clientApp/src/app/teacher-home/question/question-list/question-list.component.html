@@ -15,11 +15,11 @@
           <div class="card">
             <div class="p-10">
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-12">
                   <div class="row m-0">
                     <form 
                       [formGroup]="questionFilterForm">
-                      <div class="col-lg-3 p-0">
+                      <div class="col-lg-12-0">
                         <div class="ngxTableHeader">
                           <div class="table-title">
                             <h2><strong>Question Level</strong></h2>
@@ -27,43 +27,45 @@
                         </div>
                       </div>
 
-                      <div class="col-lg-5 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-search-area">
-                            <div>
-                              <label>search</label>
+
+                      <div class="col-12 p-0">
+                        <div class="row">
+                          <div class="row">
+                          <div class="col-4">
+                            <div class="form-group position-relative">
+                              <label>Search Text</label>
                               <i class="fas fa-search input-icons"></i>
-                                <input
-                                  type="text"
-                                  (keyup)="filterDatatable($event)"
-                                  formControlName="searchText"
-                                  class="form-control psl-5"
-                                  placeholder="Search"
-                                  name="searchText"
-                                  required=""/>
+                              <input
+                                type="text"
+                                (keyup)="filterDatatable($event)"
+                                formControlName="searchText"
+                                class="form-control psl-5"
+                                placeholder="Search by name"
+                                name="searchText"
+                                required=""
+                              />
                             </div>
                           </div>
-                        </div>
-                        
-                          <div class="col-3">
+  
+                          <div class="col-4">
                             <div class="form-group">
                               <label> Lessons </label>
                               <select
                                 class="form-select form-control"
-                                formControlName="lessonName"
-                                (change) ="onQuestionFilterChanged($event.target.value)">
-
+                                formControlName="lessonId"
+                                (change)="onQuestionFilterChanged($event.target.value)"
+                              >
                                 <option
                                   *ngFor="let item of lessonNames"
-                                  [value]="item.id">
-
+                                  [value]="item.id"
+                                >
                                   {{ item.name }}
                                 </option>
                               </select>
                             </div>
                           </div>
-                        
-                          <div class="col-lg-4 p-0">
+            
+                          <div class="col-lg-6">
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
                                 <div class="icon-button-dleftemo buttons">
@@ -75,21 +77,43 @@
 
                               <div class="header-buttons-left">
                                 <div class="icon-button-dleftemo buttons"></div>
-                              </div>
+                              
+
                             </div>
                           </div>
-                        
+                          </div>
+                          </div>
+                        </div>
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-  
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                  columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                  [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 
-                  <ngx-datatable-column [width]="50" name="Actions" sortable="false">
+              <ngx-datatable 
+                #table 
+                class="material"
+                [rows]="data"
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force"
+                [headerHeight]="60"
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
+                > 
+
+               <!-- <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                  columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                  [count]="totalRecord" [offset]="currentPage" 
+                  [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable"(page)="setPage($event)">  -->
+
+                  <ngx-datatable-column [width]="05" name="Actions" sortable="false">
                     <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                       <div class="buttons">
                         <span>
@@ -112,70 +136,70 @@
                 
   
                 <!--Lesson ID-->
-                <ngx-datatable-column name="Lesson Name" [width]="75">
+                <ngx-datatable-column name="Lesson Name" [width]="10">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.lessonName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Topic ID-->
-                <ngx-datatable-column name="TopicId" [width]="75">
+                <ngx-datatable-column name="TopicId" [width]="10">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.topicName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Sequence Number-->
-                <ngx-datatable-column name="SequenceNo" [width]="95">
+                <ngx-datatable-column name="Seq No" [width]="01">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.sequenceNo}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Question Text-->
-                <ngx-datatable-column name="QuestionText" [width]="100">
+                <ngx-datatable-column name="QuestionText" [width]="70">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.questionText}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Question marks-->
-                <ngx-datatable-column name="Marks" [width]="70">
+                <ngx-datatable-column name="Marks" [width]="0.1">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.marks}}
                   </ng-template>
                 </ngx-datatable-column>
    
                 <!--Question Type-->
-                <ngx-datatable-column name="QuestionType" [width]="50">
+                <ngx-datatable-column name="QuestionType" [width]="05">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.questionTypeName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!-- Create on date-->
-                <ngx-datatable-column name="CreateOn" [width]="100">
+                <ngx-datatable-column name="CreateOn" [width]="20">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Question Creator ID-->
-                <ngx-datatable-column name="Created By Name" [width]="100">
+                <ngx-datatable-column name="Created By Name" [width]="50">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdByName}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Question updated date-->
-                <ngx-datatable-column name="UpdateOn" [width]="100">
+                <ngx-datatable-column name="UpdateOn" [width]="30">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updateOn | date}}
                   </ng-template>
                 </ngx-datatable-column>
   
                 <!--Question Updater ID-->
-                <ngx-datatable-column name="Updated By Name" [width]="100">
+                <ngx-datatable-column name="Updated By Name" [width]="50">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedByName}}
                   </ng-template>

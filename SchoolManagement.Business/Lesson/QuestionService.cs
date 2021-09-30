@@ -3,12 +3,12 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.Business
@@ -171,5 +171,65 @@ namespace SchoolManagement.Business
 
             return topic;
         }
+
+       PaginatedItemsViewModel<BasicQuestionViewModel> IQuestionService.GetLessonList(string searchText, int currentPage, int pageSize, int LessonId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicQuestionViewModel>();
+            
+            var question = schoolDb.Questions.OrderBy(x => x.LessonId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                 question = question.Where(x => x.Lesson.Name.Contains(searchText)).OrderBy(x => x.LessonId);
+            }
+
+            if (LessonId > 0)
+            {
+                question = question.Where(x => x.LessonId == LessonId).OrderBy(x => x.QuestionText);
+            }
+
+
+            totalRecordCount = question.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonList = question.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            lessonList.ForEach(question =>
+            {
+                var vm = new BasicQuestionViewModel()
+                {
+                    Id = question.Id,
+                    LessonId = question.LessonId,
+                    LessonName = question.Lesson.Name,
+                    TopicId = question.TopicId,
+                    TopicName = question.Topic.Name,
+                    SequenceNo = question.SequenceNo,
+                    QuestionText = question.QuestionText,
+                    QuestionName = question.QuestionText,
+                    Marks = question.Marks,
+                    QuestionTypeName = question.QuestionType.ToString(),
+                    IsActive = question.IsActive,
+                    CreateOn = question.CreateOn,
+                    CreatedById = question.CreatedById,
+                    CreatedByName = question.CreatedBy.FullName,
+                    UpdateOn = question.UpdateOn,
+                    UpdatedById = question.UpdatedById,
+                    UpdatedByName = question.UpdatedBy.FullName,
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicQuestionViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        } 
+
+       
     }
 }

@@ -49,12 +49,20 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.getAllStudentName();
     this.getAllTeacherAnswer();
   }
-  onQuestionStudentAnswerFilterChanged(item: any) {
+  onQuestionFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
     this.getAllQuestion();
+  }
+
+  onStudentNameFilterChanged(item: any) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    this.spinner.show();
+    this.getAllStudentName();
   }
 
   filterDatatable(event) {

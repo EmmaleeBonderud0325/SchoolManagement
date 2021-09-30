@@ -47,14 +47,31 @@
                         
                           <div class="col-3">
                             <div class="form-group">
-                              <label> Lessons </label>
+                              <label> Questions </label>
                               <select
                                 class="form-select form-control"
                                 formControlName="lessonName"
-                                (change) ="onQuestionStudentAnswerFilterChanged($event.target.value)">
+                                (change) ="onQuestionFilterChanged($event.target.value)">
 
                                 <option
                                   *ngFor="let item of questionNames"
+                                  [value]="item.id">
+
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          <div class="col-3">
+                            <div class="form-group">
+                              <label> Students </label>
+                              <select
+                                class="form-select form-control"
+                                formControlName="studentName"
+                                (change) ="onStudentNameFilterChanged($event.target.value)">
+
+                                <option
+                                  *ngFor="let item of studentNames"
                                   [value]="item.id">
 
                                   {{ item.name }}

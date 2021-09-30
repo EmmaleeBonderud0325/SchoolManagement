@@ -1,5 +1,5 @@
 import { questionModel } from './../../../models/question/question.model';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import  Swal  from 'sweetalert2';
@@ -26,6 +26,7 @@ export class QuestionListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     questionForm: FormGroup;
+  
     questionFilterForm:FormGroup;
     lessonNames :DropDownModel[] = [];
     topicNames :DropDownModel[] = [];
@@ -43,9 +44,11 @@ export class QuestionListComponent implements OnInit {
 
 
     ngOnInit(): void {
-      this.getAll();
-      this.getAllLessonName();
       this.getAllTopic();
+      this.questionFilterForm = this.createQuestionFilterForm();
+      
+      this.getAllLessonName();
+    
     }
 
     onQuestionFilterChanged(item: any) {
@@ -53,7 +56,7 @@ export class QuestionListComponent implements OnInit {
       this.pageSize = 25;
       this.totalRecord = 0;
       this.spinner.show();
-      this.getAllLessonName();
+      this.getLessonList();
     }
 
     filterDatatable(event) {
@@ -62,8 +65,40 @@ export class QuestionListComponent implements OnInit {
       this.totalRecord = 0;
       const val = event.target.value.toLowerCase();
       this.spinner.show();
-      this.getAllLessonName();
+      this.getLessonList();
     }
+    setPage(pageInfo) {
+      this.spinner.show();
+      this.loadingIndicator = true;
+      this.currentPage = pageInfo.offset;
+      this.getLessonList();
+    }
+   
+
+    //Get paginated Details
+   getLessonList()
+   {
+      this.loadingIndicator =true;
+      this.QuestionService.getLessonList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.lessonFilterId)
+         .subscribe(response=>{
+           this.data = response.data;
+           console.log(response);
+           console.log("===========================");
+           
+           this.totalRecord = response.totalRecordCount;
+           this.spinner.hide();
+           this.loadingIndicator = false;
+         },erroe=>{
+           this.spinner.hide();
+           this.loadingIndicator = false;
+           this.toastr.error("Network error has been occured. Please try again.", "Error");
+         });
+   }
+
+
+
+
+
   
     //display lesson name and topic
     getAllLessonName(){
@@ -74,7 +109,7 @@ export class QuestionListComponent implements OnInit {
           console.log(response)           
 
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+         
          });
     }
 
@@ -83,14 +118,13 @@ export class QuestionListComponent implements OnInit {
       .subscribe(response=>
       { 
           this.topicNames = response;
+          this.getLessonList();
           console.log(response)           
 
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.spinner.hide();
          });
     }
-
-    
 
     //retrive method
     getAll(){
@@ -152,7 +186,20 @@ export class QuestionListComponent implements OnInit {
           });
       }
 
+      createQuestionFilterForm(): FormGroup{
+        return new FormGroup({
+          searchText:new FormControl(""),
+          lessonId:new FormControl(0),
+        });
+      }
+       //getters
+    get lessonFilterId(){
+      return this.questionFilterForm.get("lessonId").value
+    }
 
+    get searchTextFilterId() {
+      return this.questionFilterForm.get("searchText").value;
+    } 
       //save Question button 
       saveQuestion()
       {
