@@ -12,10 +12,10 @@ namespace SchoolManagement.Model
         public string Name { get; set; }
         public string Description { get; set; }
         public int OwnerId { get; set; }
-        public int AcademicLevelId { get; set; }
-        public int ClassNameId { get; set; }
-        public int AcademicYearId { get; set; }
-        public int SubjectId { get; set; }
+        public int? AcademicLevelId { get; set; }
+        public int? ClassNameId { get; set; }
+        public int? AcademicYearId { get; set; }
+        public int? SubjectId { get; set; }
         public int VersionNo { get; set; }
         public string LearningOutcome { get; set; }
         public DateTime PlannedDate { get; set; }

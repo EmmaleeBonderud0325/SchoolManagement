@@ -274,7 +274,7 @@ namespace SchoolManagement.Business
                     Description = item.Description,
                     AcademicLevelId = item.Class.AcademicLevel.Name,
                     ClassName = item.Class.Name,
-                    AcademicYearId = item.AcademicYearId,
+                    AcademicYearId = (int)item.AcademicYearId,
                     SubjectName = item.SubjectAcedemicLevel.Subject.Name
                     
                 };
@@ -294,10 +294,10 @@ namespace SchoolManagement.Business
 
             response.Id = lesson.Id;
             response.Name = lesson.Name;
-            response.AcademicLevelId = lesson.AcademicLevelId;
-            response.ClassNameId = lesson.ClassNameId;
-            response.AcademicYearId = lesson.AcademicYearId;
-            response.SubjectId = lesson.SubjectId;
+            response.AcademicLevelId = (int)lesson.AcademicLevelId;
+            response.ClassNameId = (int)lesson.ClassNameId;
+            response.AcademicYearId = (int)lesson.AcademicYearId;
+            response.SubjectId = (int)lesson.SubjectId;
             response.LearningOutcome = lesson.LearningOutcome;
             response.Description = lesson.Description;
             response.PlannedDate = lesson.PlannedDate;
