@@ -49,7 +49,7 @@ namespace SchoolManagement.Business
 
         public List<DropDownViewModel> GetAllParentBasketSubjects()
         {
-            return schoolDb.Subjects
+            return schoolDb.HeadOfDepartment
                  .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
                  .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
                  .ToList();

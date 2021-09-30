@@ -105,6 +105,11 @@ export class SidebarComponent implements OnInit, OnDestroy {
           sidebarItem.isVisible=this.isUseRoleExsits("Admin") || this.isUseRoleExsits("SuperAdmin");
 
         }
+        if(sidebarItem.title=="MENUITEMS.HOME.LIST.STUDENT-HOME")
+        {
+          sidebarItem.isVisible=this.isUseRoleExsits("Student") 
+
+        }
 
         return sidebarItem
       });

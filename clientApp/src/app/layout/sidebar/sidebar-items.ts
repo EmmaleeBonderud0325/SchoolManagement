@@ -1,5 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
+  
+ 
   {
     path: '',
     title: 'MENUITEMS.MAIN.TEXT',
@@ -25,6 +27,19 @@ export const ROUTES: RouteInfo[] = [
     badgeClass: '',
     isVisible: true,
     submenu: [
+      {
+        path: '/student-home',
+        title: 'MENUITEMS.HOME.LIST.STUDENT-HOME',
+        moduleName: 'student-home',
+        iconType: 'feather',
+        icon: 'monitor',
+        class: 'menu-toggle',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        isVisible: true,
+        submenu: [],
+      },
       //lesson
       {
         path: '/teacher-home/lesson',

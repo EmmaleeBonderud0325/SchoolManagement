@@ -216,7 +216,7 @@ namespace SchoolManagement.Business
             response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Id).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
             response.ClassNames = schoolDb.ClassNames.OrderBy(x => x.Name).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
             response.AcademicYears = schoolDb.AcademicYears.OrderBy(x => x.Id).Select(ay => new DropDownViewModel() { Id = ay.Id, Name = ay.Id.ToString() }).ToList();
-            response.Subjects = schoolDb.Subjects.OrderBy(x => x.Id).Select(s => new DropDownViewModel() { Id = s.Id, Name = s.Name }).ToList();
+            response.Subjects = schoolDb.HeadOfDepartment.OrderBy(x => x.Id).Select(s => new DropDownViewModel() { Id = s.Id, Name = s.Name }).ToList();
 
             return response;
         }
