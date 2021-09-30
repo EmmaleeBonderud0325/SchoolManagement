@@ -32,6 +32,11 @@ export class LessonService {
         });
   }
 
+  createNewLesson(): Observable<LessonModel> {
+    return this.httpClient.post<LessonModel>
+    (environment.apiUrl +'LessonDesign/createNewLesson',null);
+  }
+
   delete(id: number): Observable <ResponseModel> { 
     return this.httpClient
       .delete<ResponseModel>(environment.apiUrl + 'LessonDesign/' + id); 

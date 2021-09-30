@@ -313,7 +313,7 @@ export class LessonListComponent implements OnInit {
   addNewLessonRoute()
   {
     this.router.navigate(['/teacher-home/lesson/lesson-detail',0]);
-   /* Swal.fire({
+    Swal.fire({
       title: 'Creating New Lesson',
       text: "Do you want to create new lesson",
       showCancelButton: true,
@@ -349,7 +349,7 @@ export class LessonListComponent implements OnInit {
             });
           })
       }
-    });*/
+    });
   }
  
   
