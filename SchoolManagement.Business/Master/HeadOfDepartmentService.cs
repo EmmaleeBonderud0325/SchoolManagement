@@ -187,7 +187,7 @@ namespace SchoolManagement.Business.Master
             return teachers;
         }
 
-        public List<DropDownViewModel> GetAllSubjects()
+        public List<DropDownViewModel> GetAllSubjects ()
         {
             var subjects = schoolDb.Subjects
                 .Where(x => x.IsActive == true )
