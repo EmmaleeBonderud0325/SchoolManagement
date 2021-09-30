@@ -39,10 +39,7 @@ namespace SchoolManagement.Business.Master
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == id);
                 var student = schoolDb.Students.FirstOrDefault(a => a.Id == id);
                 var userRole = schoolDb.UserRoles.FirstOrDefault(d => d.UserId == id);
-
-                user.IsActive = false;
-                schoolDb.Users.Update(user);
-                await schoolDb.SaveChangesAsync();
+                var studentClass = schoolDb.StudentClasses.FirstOrDefault(sc => sc.StudentId == id);
 
                 userRole.IsActive = false;
                 schoolDb.UserRoles.Update(userRole);
@@ -52,6 +49,8 @@ namespace SchoolManagement.Business.Master
                 schoolDb.Students.Update(student);
                 await schoolDb.SaveChangesAsync();
 
+                studentClass.IsActive = false;
+                schoolDb.StudentClasses.Update(studentClass);
                 response.IsSuccess = true;
                 response.Message = StudentServiceConstants.STUDENT_DISABLE_MESSAGE;
             }
@@ -64,6 +63,41 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        public List<DropDownViewModel> GetAllAcademicLevels()
+        {
+            return schoolDb.AcademicLevels.Where(al => al.IsActive == true)
+                .Select(li => new DropDownViewModel() { Id = li.Id, Name = li.Name }).ToList();
+        }
+
+        public List<DropDownViewModel> GetAllAcademicYears()
+        {
+            return schoolDb.AcademicYears.Where(ay => ay.IsActive == true)
+                .Select(li => new DropDownViewModel() { Id = li.Id, Name = null }).ToList();
+        }
+
+        public List<DropDownViewModel> GetAllClasses()
+        {
+            return schoolDb.Classes.Where(s => s.IsActive == true)
+                .Select(d => new DropDownViewModel() { Id = d.ClassNameId, Name = d.Name }).ToList();
+        }
+
+        public List<DropDownViewModel> GetAllGenders()
+        {
+            var genderList = new List<DropDownViewModel>();
+
+            foreach (var item in Enum.GetValues(typeof(Gender)))
+            {
+                var listItem = new DropDownViewModel()
+                {
+                    Id = (int)item,
+                    Name = item.ToString()
+                };
+                genderList.Add(listItem);
+            }
+
+            return genderList;
+        }
+
         public List<StudentViewModel> GetAllStudent()
         {
             var response = new List<StudentViewModel>();
@@ -74,6 +108,8 @@ namespace SchoolManagement.Business.Master
             foreach (var item in studentList)
             {
                 var user = schoolDb.Users.Find(item.Id);
+                var studentClass = schoolDb.StudentClasses.FirstOrDefault(sc => sc.StudentId == item.Id);
+                var classNameSet = schoolDb.Classes.FirstOrDefault(cns => cns.ClassNameId == studentClass.ClassNameId);
                 //var studentClassList = schoolDb.StudentClasses.Find(item.Id);
 
                 if (user != null)
@@ -83,9 +119,9 @@ namespace SchoolManagement.Business.Master
                         Id = item.Id,
                         AdmissionNo = item.AdmissionNo,
                         EmegencyContactNo = item.EmegencyContactNo2,
-                        //EmegencyContactNo2 = user.MobileNo,
                         Gender = item.Gender,
-                        DateOfBirth = item.DateOfBirth,
+                        GenderName = item.Gender.ToString(),
+                        DateOfBirth = (DateTime)item.DateOfBirth,
                         IsActive = item.IsActive,
                         FullName = user.FullName,
                         Email = user.Email,
@@ -93,6 +129,10 @@ namespace SchoolManagement.Business.Master
                         MobileNo = user.MobileNo,
                         Username = user.Username,
                         Address = user.Address,
+                        ClassName = classNameSet.Name,
+                        Classes = classNameSet.ClassNameId,
+                        AcademicYear = studentClass.AcademicYearId,
+                        AcademicLevel = studentClass.AcademicLevelId
                     };
                     response.Add(vm);
                 }
@@ -121,7 +161,7 @@ namespace SchoolManagement.Business.Master
                         FullName = vm.FullName,
                         MobileNo = vm.MobileNo,
                         Password = CustomPasswordHasher.GenerateHash(vm.Password),
-                        IsActive = true,
+                        IsActive = false,
                         CreatedById = loggedInUser.Id,
                         CreatedOn = DateTime.UtcNow,
                         UpdatedOn = DateTime.UtcNow,
@@ -133,11 +173,12 @@ namespace SchoolManagement.Business.Master
                     schoolDb.Users.Add(user);
                     await schoolDb.SaveChangesAsync();
 
-                    //get inserted user id  sss
+                    //get inserted user id 
                     var insertedId = schoolDb.Users.Max(i => i.Id);
 
                     //Add student role to UserRoles table
                     var roleItems = schoolDb.Roles.Where(s => s.Name == "student");
+
                     foreach (var item in roleItems)
                     {
                         var role = new Role()
@@ -176,6 +217,18 @@ namespace SchoolManagement.Business.Master
                     };
 
                     schoolDb.Students.Add(student);
+                    await schoolDb.SaveChangesAsync();
+
+                    //student details to StudentClass table
+                    var studentClass = new StudentClass()
+                    {
+                        StudentId = insertedId,
+                        ClassNameId = vm.Classes,
+                        AcademicLevelId = vm.AcademicLevel,
+                        AcademicYearId = vm.AcademicYear,
+                        IsActive = true
+                    };
+                    schoolDb.StudentClasses.Add(studentClass);
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.NEW_STUDENT_ADD_SUCCESS_MESSAGE;
@@ -206,6 +259,13 @@ namespace SchoolManagement.Business.Master
 
                     schoolDb.Users.Update(user);
                     await schoolDb.SaveChangesAsync();
+
+                    var studentClass = schoolDb.StudentClasses.First(r => r.StudentId == student.Id);
+                    studentClass.ClassNameId = vm.Classes;
+                    studentClass.AcademicYearId = vm.AcademicYear;
+                    studentClass.AcademicLevelId = vm.AcademicLevel;
+
+                    schoolDb.StudentClasses.Update(studentClass);
 
                     response.IsSuccess = true;
                     response.Message = StudentServiceConstants.STUDENT_UPDATE_MESSAGE;

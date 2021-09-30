@@ -28,9 +28,14 @@
                         <div class="ngxTableHeader">
                           <div class="table-search-area">
                             <div>
-                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                              <input placeholder="Search" type="text" class="browser-default search-field"
-                                 aria-label="Search box">
+                              <label for="search-input">
+                                <i class="material-icons search-icon">search</i>
+                              </label>
+                              <input 
+                                placeholder="Search" 
+                                type="text" 
+                                class="browser-default search-field"
+                                aria-label="Search box">
                             </div>
                           </div>
                         </div>
@@ -40,7 +45,9 @@
                           <!-- Add New Subject Button -->
                           <div class="header-buttons-left">
                             <div class="icon-button-demo buttons">
-                              <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewSubject(addEditRecord)' >
+                              <button 
+                                class="btn btn-icon icon-left btn-primary rounded-button" 
+                                (click)='addNewSubject(addEditRecord)' >
                                 <i class="material-icons">add</i>
                               </button>
                             </div>
@@ -87,7 +94,7 @@
 
                 
                 <!--Subject Name Column-->
-                <ngx-datatable-column name="Name" [width]="100">
+                <ngx-datatable-column name="Name" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.name}}
                   </ng-template>
@@ -101,7 +108,7 @@
                 </ngx-datatable-column>
 
                 <!--Subject Category Column-->
-                <ngx-datatable-column name="Category" [width]="100">
+                <ngx-datatable-column name="Category" [width]="180">
                   <ng-template #p let-row="row" ngx-datatable-cell-template>
                      {{row.subjectCategoryName}}
                    </ng-template>
@@ -115,7 +122,7 @@
                 </ngx-datatable-column>
 
                 <!--Subject Parent Column-->
-                <ngx-datatable-column name="Parent Subject" [width]="100">
+                <ngx-datatable-column name="Parent Subject" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.parentBasketSubjectName}}
                   </ng-template>
@@ -128,8 +135,8 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                <!--Subject CreatedBy Column-->
-                <ngx-datatable-column name="Created By" [width]="100">
+                 <!--Subject Createdby Column-->
+                 <ngx-datatable-column name="Created by" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.createdByName}}
                   </ng-template>
@@ -143,11 +150,12 @@
                 </ngx-datatable-column>
 
                 <!--Subject Updateby Column-->
-                <ngx-datatable-column name="Updated By" [width]="100">
+                <ngx-datatable-column name="Updated By" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.updatedByName}}
                   </ng-template>
                 </ngx-datatable-column>
+
               </ngx-datatable>
 
               
@@ -220,6 +228,11 @@
                           [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectType').valid && subjectForm.get('subjectType').touched "> 
+                         Subject Types is required
+                       </small>
                       </div>
                     </div> 
 
@@ -234,6 +247,11 @@
                             [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('parentBasketSubjectId').valid && subjectForm.get('parentBasketSubjectId').touched "> 
+                         Parent Subject is required
+                       </small>
                       </div>
                     </div> 
 
@@ -248,6 +266,11 @@
                             [ngValue]="item.id">{{item.name}}                           
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('categorysId').valid && subjectForm.get('categorysId').touched "> 
+                         Categorys is required
+                       </small>
                       </div>
                     </div> 
 
@@ -262,6 +285,11 @@
                             [ngValue]="item.id">{{item.name}}
                           </option>
                         </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectstreamId').valid && subjectForm.get('subjectstreamId').touched "> 
+                         Subjectstreams is required
+                       </small>
                       </div>
                     </div> 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -274,6 +302,11 @@
                           optionLabel="name" 
                           [style]="{'width':'100%'}">
                         </p-multiSelect>
+                        <small 
+                          class="form-text text-danger"
+                          *ngIf="!subjectForm.get('subjectAcademicLevels').valid && subjectForm.get('subjectAcademicLevels').touched "> 
+                          Academic Levels are required
+                        </small>
                       
                     </div>                 
                   </div>                

@@ -34,6 +34,7 @@ export class SigninComponent implements OnInit {
 
     if (this.loginForm.invalid) {
       this.error = 'Username and Password not valid !';
+      
       return;
     } else {
       this.authService

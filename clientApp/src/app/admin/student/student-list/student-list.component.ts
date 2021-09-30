@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { StudentModel } from './../../../models/student/student.model'
 import { StudentService } from './../../../services/student/student.service'
 import Swal from 'sweetalert2';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 
 @Component({
   selector: 'app-student-list',
@@ -21,6 +22,10 @@ export class StudentListComponent implements OnInit {
   saveStudentForm:FormGroup;
   reorderable = true;
   user:StudentModel;
+  allGenders:DropDownModel[] = [];
+  studentClass:DropDownModel[] = [];
+  allAcademicYears:DropDownModel[] = [];
+  allAcademicLevels:DropDownModel[] = [];
   
   constructor(
     private fb: FormBuilder,
@@ -30,6 +35,10 @@ export class StudentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAll();
+    this.getAllGenders();
+    this.getClasses();
+    this.getAllAcademicYears();
+    this.getAllAcademicLevels();
   }
 
   getAll(){
@@ -57,12 +66,48 @@ export class StudentListComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      classes: ['', [Validators.required]],
+      academicYear: ['', [Validators.required]],
+      academicLevel: ['', [Validators.required]],
     });
 
     this.modalService.open(content, {
       ariaLabelledBy: 'modal-basic-title',
       size: 'lg',
     });
+  }
+
+  getAllGenders()
+  {
+    this.studentService.getAllGenders()
+      .subscribe(response=>
+      { 
+        this.allGenders = response;
+      },error=>{
+        
+       });
+  }
+
+  getAllAcademicYears()
+  {
+    this.studentService.getAllAcademicYears()
+      .subscribe(response =>
+        {
+          this.allAcademicYears = response;
+        },error => {
+
+        });
+  }
+
+  getAllAcademicLevels()
+  {
+    this.studentService.getAllAcademicLevels()
+      .subscribe(response =>
+        {
+          this.allAcademicLevels = response;
+        },error => {
+
+        });
   }
 
   saveStudent(){   
@@ -115,6 +160,42 @@ export class StudentListComponent implements OnInit {
           this.toastr.error("Network error has been occured. Please try again.","Error");
         });
       }
+    });
+  }
+
+  editRow(row:StudentModel, rowIndex:number, content:any) {
+
+    console.log(row);
+
+    this.saveStudentForm = this.fb.group({
+      id:[row.id],
+      fullName:[row.fullName, [Validators.required]],
+      admissionNo:[row.admissionNo, [Validators.required]],
+      address:[row.address, [Validators.required]],
+      dateOfBirth:[row.dateOfBirth, [Validators.required]],
+      mobileNo:[row.mobileNo, [Validators.required]],
+      emegencyContactNo:[row.emegencyContactNo, [Validators.required]],
+      gender:[row.gender, [Validators.required]],
+      email:[row.email, [Validators.required]],
+      password:[row.password],
+      isActive:[true],
+      classes:[row.classes, [Validators.required]],
+      academicYear:[row.academicYear, [Validators.required]],
+      academicLevel:[row.academicLevel, [Validators.required]]
+    });
+
+    this.modalService.open(content, {
+      ariaLabelledBy: 'modal-basic-title',
+      size: 'lg',
+    });
+  }
+
+  getClasses() {
+    this.studentService.getAllClasses().subscribe(response => {
+      console.log(response);
+      this.studentClass = response;
+    }, error=>{
+
     });
   }
 

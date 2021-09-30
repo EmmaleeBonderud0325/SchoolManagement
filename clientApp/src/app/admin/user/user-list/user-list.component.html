@@ -219,9 +219,12 @@
                 <h4 class="modal-title" id="modal-basic-title">
                   <div class="table-modal-header">
                     <div class="modal-about">
-                      <div class="fw-bold p-t-10 font-17">
+                      <div class="fw-bold p-t-10 font-17" *ngIf="id==0">
                        Add New User
                       </div>
+                      <div class="fw-bold p-t-10 font-17" *ngIf="id!=0">
+                        Update User
+                       </div>
                     </div>
                   </div>
                 </h4>
@@ -382,6 +385,7 @@
                           [options]="userRoles"  
                           formControlName="roles" 
                           optionLabel="name" 
+                          optionValue="id"
                           display="chip"
                           [style]="{'width':'100%'}">
                         </p-multiSelect>

@@ -1,4 +1,5 @@
 import { environment } from 'src/environments/environment';
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { LessonModel } from './../../models/lesson/lesson.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ResponseModel } from '../../models/common/response.model';
@@ -46,4 +47,11 @@ export class LessonService {
     return this.httpClient
       .get<LessonMasterDataModel>(environment.apiUrl + "LessonDesign/getLessonMasterData");
   }
+
+   ///get user by id Service
+   getLessonById(id:number): Observable<LessonModel>{
+    return this.httpClient.get<LessonModel>
+        (environment.apiUrl + 'LessonDesign/getLessonById/'+ id);
+  }
+  
 }

@@ -84,21 +84,10 @@ namespace SchoolManagement.WebService.Infrastructure
               .As<IHeadOfDepartmentService>()
               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<StudentClassService>()
-            //  .As<IStudentClassService>()
-            //  .InstancePerLifetimeScope();
-
-            //builder.RegisterType<StudentClassSubjectService>()
-            //  .As<IStudentClassSubjectService>()
-            //  .InstancePerLifetimeScope();
-
             builder.RegisterType<StudentService>()
               .As<IStudentService>()
               .InstancePerLifetimeScope();
 
-            //builder.RegisterType<SubjectAcademicLevelService>()
-            //  .As<ISubjectAcademicLevelService>()
-            //  .InstancePerLifetimeScope();
 
             builder.RegisterType<SubjectService>()
               .As<ISubjectService>()
@@ -146,29 +135,18 @@ namespace SchoolManagement.WebService.Infrastructure
              .As<IQuestionService>()
              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<StudentLessonService>()
-            // .As<IStudentLessonService>()
-            // .InstancePerLifetimeScope();
-
-            //builder.RegisterType<StudentLessonTopicContentService>()
-            // .As<IStudentLessonTopicContentService>()
-            // .InstancePerLifetimeScope();
-
-            //builder.RegisterType<StudentLessonTopicService>()
-            // .As<IStudentLessonTopicService>()
-            // .InstancePerLifetimeScope();
-
             builder.RegisterType<StudentMCQQuestionService>()
              .As<IStudentMCQQuestionService>()
              .InstancePerLifetimeScope();
 
-            //builder.RegisterType<TopicContentService>()
-            // .As<ITopicContentService>()
-            // .InstancePerLifetimeScope();
+            builder.RegisterType<ExcelMasterDataService>()
+            .As<IExcelMasterDataService>()
+            .InstancePerLifetimeScope();
 
-            //builder.RegisterType<TopicService>()
-            // .As<ITopicService>()
-            // .InstancePerLifetimeScope();
+
+
+
+
 
 
         }

@@ -13,6 +13,10 @@ export class LessonDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  routeLesonContent(){
+    this.router.navigate(['/teacher-home/lesson/lesson-content']);
+
+  }
   
 
 }
