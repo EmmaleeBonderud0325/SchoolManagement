@@ -53,12 +53,14 @@ export class SubjectListComponent implements OnInit {
   ngOnInit(): void {
    this.spinner.show();
    this.subjectFilterForm=this.createSuvjectFilterForm();
+   this.getAll()
     this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
     this.getAllSubjectCategorys();
     this.getAllParentBasketSubjects();
   }
+
   //getAll Subject
   getAll()
   {
@@ -72,6 +74,7 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
+
   //get Subject Types DropDown Meta Data
   getSubjectTypes()
   {
@@ -84,6 +87,7 @@ export class SubjectListComponent implements OnInit {
         
     })
   }
+  
   //get Subject Stream Master Meta Data
   getAllSubjectStreams()
   {

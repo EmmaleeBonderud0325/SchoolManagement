@@ -11,6 +11,7 @@ namespace SchoolManagement.ViewModel.Master.Subject
         public int Id { get; set; }
         public string Name { get; set; }
         public string SubjectCode { get; set; }
+        public int CategorysId { get; set; }
         public string SubjectCategoryName { get; set; }
         public string ParentBasketSubjectName { get; set; }
         public string SubjectStreamName { get; set; }
