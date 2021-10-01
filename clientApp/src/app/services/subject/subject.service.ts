@@ -30,7 +30,7 @@ export class SubjectService {
   
   getSubjectbyId(id:number): Observable<SubjectModel>{
     return this.httpClient.get<SubjectModel>
-        (environment.apiUrl + 'User/getSubjectbyId/'+ id);
+        (environment.apiUrl + 'Subject/getSubjectbyId/'+ id);
   }
 
   getSubjectList(searchText: string, currentPage: number, pageSize: number):Observable<SubjectPaginatedItemViewModel>{
