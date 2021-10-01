@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { ResponseModel } from 'src/app/models/common/response.model';
 import { environment } from 'src/environments/environment';
 import { HeadOfDepartmentModel } from './../../models/head-of-department/head.of.department.model';
+import { HeadOfDepartmentPaginatedItemViewModel } from "src/app/models/head-of-department/head.of.department.paginated.item.model";
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +54,14 @@ export class HeadOfDepartmentService {
     return this.httpClient.
       get<DropDownModel[]>
         (environment.apiUrl + 'HeadOfDepartment/getAllSubjects');
+  }
+
+  getHeadOfDepartmentList(searchText: string, currentPage: number, pageSize: number):Observable<HeadOfDepartmentPaginatedItemViewModel>{
+    return this.httpClient.get<HeadOfDepartmentPaginatedItemViewModel>(environment.apiUrl + "HeadOfDepartment/getHeadOfDepartmentList",{
+      params:new HttpParams()
+        .set('searchText',searchText)
+        .set('currentPage', currentPage.toString())
+        .set('pageSize', pageSize.toString())
+      });
   }
 }

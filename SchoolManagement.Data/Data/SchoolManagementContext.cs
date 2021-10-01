@@ -122,7 +122,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentClass> StudentClasses { get; set; }
         public DbSet<StudentClassSubject> StudentClassSubjects { get; set; }
-        public DbSet<Subject> Subjects { get; set; }
+        public DbSet<Subject> HeadOfDepartment { get; set; }
         public DbSet<SubjectStream> SubjectStreams { get; set; }
         public DbSet<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public DbSet<SubjectTeacher> SubjectTeachers { get; set; }
