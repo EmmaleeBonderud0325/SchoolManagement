@@ -264,6 +264,7 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+ 
         public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
         {
             int totalRecordCount = 0;
@@ -272,7 +273,7 @@ namespace SchoolManagement.Business.Master
 
             var vmu = new List<BasicSubjectViewModel>();
 
-            var subjects = schoolDb.HeadOfDepartment.Where(x => x.IsActive == true).OrderBy(s => s.Name);
+            var subjects = schoolDb.HeadOfDepartment.Where(x => x.IsActive == true).OrderBy(s => s.Name );
 
             if (!string.IsNullOrEmpty(searchText))
             {
@@ -284,14 +285,35 @@ namespace SchoolManagement.Business.Master
             totalPageCount = (int)Math.Ceiling(totalPages);
 
             var subjectList = subjects.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            
+            SubjectType subjectType;
+            var subjectAcademicLevel = new List<DropDownViewModel>();
+
 
             subjectList.ForEach(subject =>
             {
+                
+                if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
+                {
+                    subjectType = SubjectType.NormalSubject;
+                }
+                else if (subject.IsParentBasketSubject == true)
+                {
+                    subjectType = SubjectType.ParentBasketSubject;
+                }
+                else
+                {
+                    subjectType = SubjectType.BasketSubject;
+                }
+
+
                 var vm = new BasicSubjectViewModel()
                 {
                     Id = subject.Id,
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
+                    SubjectCategory = subject.SubjectCategory,
+                    ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     SubjectCategoryName = subject.SubjectCategory.ToString(),
                     ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
                     SubjectStreamId = subject.SubjectStreamId,
@@ -300,7 +322,9 @@ namespace SchoolManagement.Business.Master
                     CreatedOn = subject.CreatedOn,
                     UpdatedByName = subject.UpdatedBy.FullName,
                     UpdatedOn = subject.UpdatedOn,
-                };
+                    SubjectType = subjectType,
+                   
+                 };
                 vmu.Add(vm);
             });
 
