@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { EssayQuestionAnswerService} from './../../../services/essay-answer/essay-answer.service';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { EssayQuestionAnswerModel } from 'src/app/models/essay-answer/essay.answer.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BasicEssayQuestionAnswerModel } from 'src/app/models/essay-answer/basic.essay.answer.model';
 
 @Component({
   selector: 'app-essay-answer-list',
@@ -19,7 +20,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class EssayAnswerListComponent implements OnInit {
   
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-    data = [];
+    
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
     reorderable = true;
@@ -31,6 +32,7 @@ export class EssayAnswerListComponent implements OnInit {
   pageSize:number = 25;
   totalRecord:number=0;
 
+  data = new Array<BasicEssayQuestionAnswerModel>();
     
   constructor(
     private fb: FormBuilder,
@@ -42,8 +44,9 @@ export class EssayAnswerListComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.getAll();
+   
     this.getAllQuestions();
+    this.EssayAnswerFilterForm = this.createFilterForm();
   
   }
 
@@ -63,22 +66,77 @@ export class EssayAnswerListComponent implements OnInit {
         });
       }
     
+
+         //User Filter data
+     createFilterForm():FormGroup{
+
+      return this.fb.group({
+
+     searchText: new FormControl(""),
+     questionId : new FormControl(0),
+    
+
+   })
+ }
+
       filterDatatable(event) {
         this.currentPage = 0;
         this.pageSize = 25;
         this.totalRecord = 0;
         const val = event.target.value.toLowerCase();
         this.spinner.show();
-        this.getAllQuestions();
+        this.getQuestionList();
       }
       onQuestionFilterChanged(item: any) {
         this.currentPage = 0;
         this.pageSize = 25;
         this.totalRecord = 0;
         this.spinner.show();
-        this.getAllQuestions();
+        this.getQuestionList();
       }
       
+
+       //Get paginated Details
+       getQuestionList()
+   {
+      this.loadingIndicator =true;
+      this.EssayQuestionAnswerService.getQuestionList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.questionFilterId)
+      .subscribe(response=>{
+        this.data = response.data;
+
+        console.log("==============");
+        console.log(response);
+        
+        this.totalRecord = response.totalRecordCount;
+        this.spinner.hide();
+        this.loadingIndicator = false;
+      },erroe=>{
+        this.spinner.hide();
+        this.loadingIndicator = false;
+        this.toastr.error("Network error has been occured. Please try again.", "Error");
+      });
+   } 
+
+       //getters 
+       get questionFilterId()
+       {
+         return this.EssayAnswerFilterForm.get("questionId").value;
+       }
+ 
+       get searchTextFilterId() {
+ 
+         return this.EssayAnswerFilterForm.get("searchText").value;
+     
+       }  
+
+       setPage(pageInfo) {
+        this.spinner.show();
+        this.loadingIndicator = true;
+        this.currentPage = pageInfo.offset;
+        this.getQuestionList();
+    
+      }
+ 
     //get all
     getAll(){
 
@@ -103,9 +161,11 @@ getAllQuestions()
         { 
           this.questionNames = response;
           console.log(response);
+          this.getQuestionList();
              
         },error=>{
           this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.spinner.hide();
         });
        }
 

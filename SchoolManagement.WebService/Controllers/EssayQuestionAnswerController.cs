@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -57,6 +58,15 @@ namespace SchoolManagement.WebService.Controllers
             var response = essayquestionanswerService.GetAllQuestions();
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getQuestionList")]
+        public PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            var response = essayquestionanswerService.GetQuestionList(searchText, currentPage, pageSize, questionId);
+
+            return response;
         }
 
     }

@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -146,6 +147,54 @@ namespace SchoolManagement.Business
            .Distinct().ToList();
 
             return questions;
+        }
+        //question list 
+        public PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicEssayQuestionAnswerViewModel>();
+
+            var essayquestions = schoolDb.EssayQuestionAnswers.OrderBy(u => u.Id);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                essayquestions = essayquestions.Where(x => x.Question.QuestionText.Contains(searchText)).OrderBy(u => u.Id);
+            }
+
+            if (questionId > 0)
+            {
+                essayquestions = essayquestions.Where(x => x.QuestionId == questionId).OrderBy(u => u.Id);
+            }
+
+
+            totalRecordCount = essayquestions.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var questionList = essayquestions.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            questionList.ForEach(essayquestions =>
+            {
+                var vm = new BasicEssayQuestionAnswerViewModel()
+                {
+                    Id = essayquestions.Id,
+                    QuestionId = essayquestions.QuestionId,
+                    QuestionName = essayquestions.Question.QuestionText,
+                    AnswerText = essayquestions.AnswerText,
+                    ModifiedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
         }
     }
 }

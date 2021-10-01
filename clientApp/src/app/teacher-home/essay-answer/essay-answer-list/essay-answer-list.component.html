@@ -15,37 +15,39 @@
                 <div class="card">
                   <div class="p-10">
                     <div class="row">
-                      <div class="col-lg-6">
+                      <div class="col-12">
                         <div class="row m-0">
 
                           <form 
                           [formGroup]="EssayAnswerFilterForm">
-                        <div class="col-lg-5 -0">
+                        <div class="col-lg-12 -0">
                           <div class="ngxTableHeader">
                             <div class="table-title">
                               <h2><strong>Essay Answers</strong></h2>
                             </div>
                           </div>
                         </div>
-                        <div class="col-lg-5 p-0">
-                          <div class="ngxTableHeader">
-                            <div class="table-search-area">
-                              <div>
-                                <label>search</label>
+                        <div class="col-12 p-0">
+                          <div class="row">
+                            <div class = "row">
+                            <div class="col-4">
+                              <div class="form-group position-relative">
+                                <label>Search Text</label>
                                 <i class="fas fa-search input-icons"></i>
-                                  <input
-                                    type="text"
-                                    (keyup)="filterDatatable($event)"
-                                    formControlName="searchText"
-                                    class="form-control psl-5"
-                                    placeholder="Search"
-                                    name="searchText"
-                                    required=""/>
+                                <input
+                                  type="text"
+                                  (keyup)="filterDatatable($event)"
+                                  formControlName="searchText"
+                                  class="form-control psl-5"
+                                  placeholder="Search by name"
+                                  name="searchText"
+                                  required=""
+                                 />
                               </div>
-                            </div></div>
-                              <div class="col-3">
+                            </div>
+                              <div class="col-4">
                                 <div class="form-group">
-                                  <label> Lessons </label>
+                                  <label> Questions </label>
                                   <select
                                     class="form-select form-control"
                                     formControlName="questionId"
@@ -60,7 +62,7 @@
                                   </select>
                                 </div>
                               </div>
-                              <div class="col-lg-4 p-0">
+                              <div class="col-lg-6">
                                 <div class="ngxTableHeader">
                                   <div class="header-buttons-left">
                                     <div class="icon-button-dleftemo buttons">
@@ -75,15 +77,32 @@
                                 </div>                        
                               </div>
                             </div>
+                          </div>
+                        </div>
                           </form>
                       </div>
                       </div>
                     </div>
 
                    <!--Table-->
-                <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+                   <ngx-datatable 
+                   #table 
+                   class="material"
+                   [rows]="data"
+                   [loadingIndicator]="loadingIndicator"
+                   columnMode="force"
+                   [headerHeight]="60"
+                   [footerHeight]="80"
+                   rowHeight="auto"
+                   [externalPaging]="true"
+                   [count]="totalRecord"
+                   [offset]="currentPage"
+                   [limit]="pageSize"
+                   [scrollbarH]="scrollBarHorizontal"
+                   [reorderable]="reorderable"
+                   (page)="setPage($event)"
+                   >
+          
                 
                 <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                   <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
