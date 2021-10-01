@@ -178,9 +178,12 @@ namespace SchoolManagement.Business.Master
                 var vm = new BasicHeadOfDepartmentViewModel()
                 {
                     Id = headOfDepartment.Id,
+                    SubjectId = headOfDepartment.SubjectId,
                     SubjectName = headOfDepartment.Subject.Name,
+                    AcademicLevelId = headOfDepartment.AcademicLevelId,
                     AcademicLevelName = headOfDepartment.AcademicLevel.Name,
                     AcademicYearId = headOfDepartment.AcademicYearId,
+                    TeacherId = headOfDepartment.TeacherId,
                     TeacherName = GetTeacher(headOfDepartment.TeacherId),                 
                     CreateOn = headOfDepartment.CreateOn,
                     CreatedByName = headOfDepartment.CreatedBy.FullName,

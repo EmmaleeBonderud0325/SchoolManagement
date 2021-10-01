@@ -7,6 +7,7 @@ export class BasicSubjectModel
     name:string;
     subjectCode:string;
     subjectCategoryName:string;
+    subjectStreamId:number;
     parentBasketSubjectName:string;
     subjectStreamName:string;
     createdByName:string;

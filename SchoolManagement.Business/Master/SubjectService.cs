@@ -294,6 +294,7 @@ namespace SchoolManagement.Business.Master
                     SubjectCode = subject.SubjectCode,
                     SubjectCategoryName = subject.SubjectCategory.ToString(),
                     ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
+                    SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     CreatedByName = subject.CreatedBy.FullName,
                     CreatedOn = subject.CreatedOn,
