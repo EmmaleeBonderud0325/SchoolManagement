@@ -29,6 +29,21 @@ export class StudentService {
       get<DropDownModel[]>(environment.apiUrl + 'Student/getAllGenders');
   }
 
+  getAllAcademicYears():Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllAcademicYears');
+  }
+
+  getAllClasses():Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllClasses');
+  }
+
+  getAllAcademicLevels():Observable<DropDownModel[]> {
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'Student/getAllAcademicLevels');
+  }
+
   delete(id: number): Observable<ResponseModel> {
     return this.httpClient.
       delete<ResponseModel>(environment.apiUrl + 'Student/' + id);

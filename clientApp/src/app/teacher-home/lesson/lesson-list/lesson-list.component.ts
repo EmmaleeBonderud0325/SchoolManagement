@@ -1,9 +1,9 @@
 import { Router } from '@angular/router';
 import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DropDownModel } from './../../../models/common/drop-down.model';
 import { Content } from '@angular/compiler/src/render3/r3_ast';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DatatableComponent, id } from '@swimlane/ngx-datatable';
@@ -29,6 +29,10 @@ export class LessonListComponent implements OnInit {
   lessonFilterForm:FormGroup;
   lesson:LessonModel;
   lessonFilter:LessonFilterModel;
+  lessondesignAcademicLevels:DropDownModel[]=[];
+  lessondesignAcademicYears:DropDownModel[]=[];
+  lessondesignSubjects:DropDownModel[]=[];
+  lessondesignClassNames:DropDownModel[]=[];
   reorderable = true;
 
   date:Date;
@@ -309,6 +313,43 @@ export class LessonListComponent implements OnInit {
   addNewLessonRoute()
   {
     this.router.navigate(['/teacher-home/lesson/lesson-detail',0]);
+   /* Swal.fire({
+      title: 'Creating New Lesson',
+      text: "Do you want to create new lesson",
+      showCancelButton: true,
+      confirmButtonColor: '#54ca68',
+      cancelButtonColor: '#868a87',
+      confirmButtonText: 'Yes, create new lesson!',
+    }).then((result) => {
+      if (result.value) {
+  
+        this.spinner.show();
+        this.lessonService.createNewLesson()
+          .subscribe(response=>{
+      
+            this.spinner.hide();
+            if(response.id==0)
+            {
+              Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: "Failed to create new lesson. Please contact ur support team for more details.",
+              });
+            }
+            else
+            {
+              this.router.navigate(['/teacher-lessons/lessons-in-design',response.id]);
+            }
+          },error=>{
+            this.spinner.hide();
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: "Network error has been occured. Please try again.",
+            });
+          })
+      }
+    });*/
   }
  
   

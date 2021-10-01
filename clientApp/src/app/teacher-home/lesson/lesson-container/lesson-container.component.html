@@ -1,0 +1,48 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Lesson Design List</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/attendance/attendance-list">
+          <i class="fas fa-home font-17"></i
+        ></a>
+      </li>
+      <li class="breadcrumb-item">Lesson Design</li>
+    </ul>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ps-3 pe-3 pt-3">
+          <p-listbox
+            [options]="menuItems"
+            [(ngModel)]="selectedMenu"
+            optionLabel="name"
+            pRipple
+          >
+            <ng-template pTemplate="header"> {{ lessonName }} </ng-template>
+            <ng-template let-menu pTemplate="item">
+              <div class="country-item">
+                <div>{{ menu.name }}</div>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="footer"> </ng-template>
+          </p-listbox>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 ps-3 pe-3 pt-3">
+          <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <ng-container [formGroup]="lessonForm">
+                <lesson-details
+                  *ngIf="selectedMenu.id == 1"
+                  formGroupName="lessonDetail"
+                >
+                </lesson-details> 
+
+                <topic-content *ngIf="selectedMenu.id == 5"> </topic-content>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section> 
