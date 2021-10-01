@@ -318,10 +318,12 @@
                       
                         <label for="academicLevels">AcademicLevels<span class="text-danger ">*</span></label>
                         <p-multiSelect
-                          id="academicLevels" 
+                         
                           [options]="subjectAcademicLevels" 
                           formControlName="subjectAcademicLevels" 
                           optionLabel="name" 
+                          optionValue="id"
+                          display="chip"
                           [style]="{'width':'100%'}">
                         </p-multiSelect>
                         <small 

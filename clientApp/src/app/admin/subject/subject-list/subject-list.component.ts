@@ -53,7 +53,7 @@ export class SubjectListComponent implements OnInit {
   ngOnInit(): void {
    this.spinner.show();
    this.subjectFilterForm=this.createSuvjectFilterForm();
-   this.getAll()
+  // this.getAll()
     this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
@@ -269,21 +269,31 @@ export class SubjectListComponent implements OnInit {
     
     let selectedRoles = [];
 
-    this.subjectForm = this.fb.group({
-      id:[row.id], 
-      name: [row.name, [Validators.required]],
-      subjectstreamId: [row.subjectStreamId, [Validators.required]],
-      categorysId:[row.subjectCategory,[Validators.required]],
-      subjectCode:[row.subjectCode,[Validators.required]],
-      subjectType:[row.subjectType,[Validators.required]], 
-      subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
-      parentBasketSubjectId:[row.parentBasketSubjectId],
-    });
+    
 
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+    this.spinner.show();
+    this.subjectService.getSubjectbyId(row.id)
+        .subscribe(response=>{
+          this.spinner.hide();
+
+          this.subjectForm = this.fb.group({
+            id:[response.id], 
+            name: [response.name, [Validators.required]],
+            subjectstreamId: [response.subjectStreamId, [Validators.required]],
+            categorysId:[response.subjectCategory,[Validators.required]],
+            subjectCode:[response.subjectCode,[Validators.required]],
+            subjectType:[response.subjectType,[Validators.required]], 
+            subjectAcademicLevels:[response.subjectAcademicLevels,[Validators.required]],
+            parentBasketSubjectId:[response.parentBasketSubjectId],
+          });
+      
+          this.modalService.open(content, {
+            ariaLabelledBy: 'modal-basic-title',
+            size: 'lg',
+          });
+        },error=>{
+            this.spinner.hide();
+        });
   }
   //Suject Type Getter
   get subjectType()

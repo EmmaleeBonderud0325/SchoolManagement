@@ -90,7 +90,7 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
-                    SubjectAcademicLevels = subjectAcademicLevel,
+                    //SubjectAcademicLevels = subjectAcademicLevel,
                     CreatedByName = subject.CreatedBy.FullName,
                     CreatedOn = subject.CreatedOn,
                     UpdatedByName = subject.UpdatedBy.FullName,
@@ -171,7 +171,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAcademicLevel = new SubjectAcademicLevel()
                         {
                             SubjectId = insetedId,
-                            AcademicLevelId=unit.Id,
+                            AcademicLevelId=unit,
                         };
 
                         subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
@@ -205,7 +205,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAccodemicLevel = new SubjectAcademicLevel()
                         {
                             SubjectId = vm.Id,
-                            AcademicLevelId= item.Id,
+                            AcademicLevelId= item,
                         };
 
                         subject.SubjectAcademicLevels.Add(subjectAccodemicLevel);
@@ -258,7 +258,7 @@ namespace SchoolManagement.Business.Master
 
             foreach (var item in subjectAcademicLevels)
             {
-                response.SubjectAcademicLevels.Add(new DropDownViewModel() { Id = item.AcademicLevelId, Name = item.AcademicLevel.Name, });
+                response.SubjectAcademicLevels.Add(item.AcademicLevelId);
             }
 
             return response;

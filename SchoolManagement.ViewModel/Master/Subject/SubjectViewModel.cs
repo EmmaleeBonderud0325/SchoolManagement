@@ -13,7 +13,7 @@ namespace SchoolManagement.ViewModel.Master
     {
         public SubjectViewModel()
         {
-            SubjectAcademicLevels = new List<DropDownViewModel>();
+            SubjectAcademicLevels = new List<int>();
         }
 
         public int Id { get; set; }
@@ -33,7 +33,7 @@ namespace SchoolManagement.ViewModel.Master
         public DateTime UpdatedOn { get; set; }
         public string UpdatedByName { get; set; }
         //public List<SubjectAcademicLevelViewModel> SubjectAcademicLevels { get; set; }
-        public List<DropDownViewModel> SubjectAcademicLevels { get; set; }
+        public List<int> SubjectAcademicLevels { get; set; }
     }
 }
 
