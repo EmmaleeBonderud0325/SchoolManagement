@@ -258,13 +258,14 @@
                         class="form-text text-danger"
                         *ngIf="
                           !saveUserForm.get('fullName').valid && 
-                          saveUserForm.get('fullName').touched
+                          saveUserForm.get('fullName').touched 
                           "
                           > 
 
                         Full Name is required</small
-
                         >
+                        
+                        
                     </div>
 
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -306,9 +307,9 @@
                           "
                           >
 
-                          Mobile number isrequired</small
-
+                          Mobile number is required</small
                           >
+                  
                     </div>
                     
                     <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
@@ -351,7 +352,6 @@
                           > 
 
                           Address is required</small
-
                         >
                     </div>
 
@@ -387,7 +387,7 @@
                           optionLabel="name" 
                           optionValue="id"
                           display="chip"
-                          [style]="{'width':'100%'}">
+                          [style]="{'width':'100%'}">  
                         </p-multiSelect>
                         <small 
                         class="form-text text-danger"
