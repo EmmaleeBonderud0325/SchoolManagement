@@ -96,8 +96,8 @@ export class EssayAnswerListComponent implements OnInit {
       }
       
 
-       //Get paginated Details
-       getQuestionList()
+  //Get paginated Details
+  getQuestionList()
    {
       this.loadingIndicator =true;
       this.EssayQuestionAnswerService.getQuestionList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.questionFilterId)

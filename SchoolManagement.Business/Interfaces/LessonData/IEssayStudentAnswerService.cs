@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
 using System.Collections.Generic;
@@ -19,5 +20,9 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         List<DropDownViewModel> GetAllStudents();
 
         List<DropDownViewModel> GetAllEssayQuestionAnswers();
+
+        PaginatedItemsViewModel<BasicEssayStudentAnswerViewModel> GetStudentEssayList(string searchText, int currentPage, int pageSize, int questionId, int studentId);
+
+       
     }
 }

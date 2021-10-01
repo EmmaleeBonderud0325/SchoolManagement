@@ -1,6 +1,6 @@
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
-import {​​​​​​​​ FormGroup, FormBuilder, Validators }​​​​​​​​ from'@angular/forms';
+import {​​​​​​​​ FormGroup, FormBuilder, Validators, FormControl }​​​​​​​​ from'@angular/forms';
 import {​​​​​​​​ DatatableComponent }​​​​​​​​ from'@swimlane/ngx-datatable';
 import {​​​​​​​​ Component, OnInit, ViewChild }​​​​​​​​ from'@angular/core';
 import {EssayStudentAnswerService} from './../../../services/essay-student-answer/essay-student-answer.service';
@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { EssayStudentAnswerModel } from 'src/app/models/essay-student-answer/essay.student.answer.model';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BasicEssayStudentAnswerModel } from 'src/app/models/essay-student-answer/basic.essay.student.answer.model';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 export class EssayStudentAnswerListComponent implements OnInit {
 
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
+ 
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   essayStudentAnswerForm:FormGroup;
@@ -33,6 +34,7 @@ export class EssayStudentAnswerListComponent implements OnInit {
   pageSize:number = 25;
   totalRecord:number=0;
 
+  data = new Array<BasicEssayStudentAnswerModel>();
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -42,10 +44,12 @@ export class EssayStudentAnswerListComponent implements OnInit {
     
 
     ngOnInit(): void {
-      this.getAll();
+      //this.getAll();
       this.getAllQuestions();
       this.getAllStudents();
       this.getAllEssayQuestionAnswers();
+      this.EssayStudentAnswerFilterForm = this.createFilterForm();
+
       }
     
     //create essay answer
@@ -67,29 +71,91 @@ export class EssayStudentAnswerListComponent implements OnInit {
         });
       }
 
+      
+         //User Filter data
+     createFilterForm():FormGroup{
+
+      return this.fb.group({
+
+     searchText: new FormControl(""),
+     questionId : new FormControl(0),
+    
+
+   })
+ }
       filterDatatable(event) {
         this.currentPage = 0;
         this.pageSize = 25;
         this.totalRecord = 0;
         const val = event.target.value.toLowerCase();
         this.spinner.show();
-        this.getAllQuestions();
-        this.getAllStudents();
+        this.getStudentEssayList();
+        
       }
       onQuestionFilterChanged(item: any) {
         this.currentPage = 0;
         this.pageSize = 25;
         this.totalRecord = 0;
         this.spinner.show();
-        this.getAllQuestions();
+        this.getStudentEssayList();
       }
       onStudentFilterChanged(item: any) {
         this.currentPage = 0;
         this.pageSize = 25;
         this.totalRecord = 0;
         this.spinner.show();
-        this.getAllStudents();
+        this.getStudentEssayList();
       }
+
+       //Get paginated Details
+    getStudentEssayList()
+  {
+     this.loadingIndicator =true;
+     this.EssayStudentAnswerService.getStudentEssayList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.questionFilterId,this.studentFilterId)
+     .subscribe(response=>{
+       this.data = response.data;
+
+       console.log("==============");
+       console.log(response);
+       
+       this.totalRecord = response.totalRecordCount;
+       this.spinner.hide();
+       this.loadingIndicator = false;
+     },erroe=>{
+       this.spinner.hide();
+       this.loadingIndicator = false;
+       this.toastr.error("Network error has been occured. Please try again.", "Error");
+     });
+  } 
+
+ 
+
+      //getters 
+      get questionFilterId()
+      {
+        return this.EssayStudentAnswerFilterForm.get("questionId").value;
+      }
+        //getters 
+        get studentFilterId()
+        {
+          return this.EssayStudentAnswerFilterForm.get("studentId").value;
+        }
+
+      get searchTextFilterId() {
+
+        return this.EssayStudentAnswerFilterForm.get("searchText").value;
+    
+      }  
+
+      setPage(pageInfo) {
+       this.spinner.show();
+       this.loadingIndicator = true;
+       this.currentPage = pageInfo.offset;
+       this.getStudentEssayList();
+     
+   
+     }
+
     
       //get all
       getAll(){
@@ -116,9 +182,11 @@ export class EssayStudentAnswerListComponent implements OnInit {
         { 
           this.questionNames = response;
           console.log(response);
+          this.getStudentEssayList();
           
         },error=>{
           this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.spinner.hide();
          });
     }
    
@@ -130,9 +198,11 @@ export class EssayStudentAnswerListComponent implements OnInit {
         { 
           this.studentNames = response;
           console.log(response);
+          this.getStudentEssayList();
           
         },error=>{
           this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.spinner.hide();
          });
     }
 

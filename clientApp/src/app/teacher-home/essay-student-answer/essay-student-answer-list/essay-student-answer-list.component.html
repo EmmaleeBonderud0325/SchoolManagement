@@ -28,23 +28,25 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-5 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-search-area">
-                            <div>
-                              <label>search</label>
+                      <div class="col-12 p-0">
+                        <div class="row">
+                          <div class = "row">
+                          <div class="col-4">
+                            <div class="form-group position-relative">
+                              <label>Search Text</label>
                               <i class="fas fa-search input-icons"></i>
-                                <input
-                                  type="text"
-                                  (keyup)="filterDatatable($event)"
-                                  formControlName="searchText"
-                                  class="form-control psl-5"
-                                  placeholder="Search"
-                                  name="searchText"
-                                  required=""/>
+                              <input
+                                type="text"
+                                (keyup)="filterDatatable($event)"
+                                formControlName="searchText"
+                                class="form-control psl-5"
+                                placeholder="Search by name"
+                                name="searchText"
+                                required=""
+                               />
                             </div>
-                          </div></div>
-                            <div class="col-3">
+                          </div>
+                            <div class="col-4">
                               <div class="form-group">
                                 <label> Questions </label>
                                 <select
@@ -61,7 +63,7 @@
                                 </select>
                               </div>
                             </div>
-                            <div class="col-3">
+                            <div class="col-4">
                               <div class="form-group">
                                 <label> Students </label>
                                 <select
@@ -82,15 +84,15 @@
                               <div class="ngxTableHeader">
                                 <div class="header-buttons-left">
                                   <div class="icon-button-dleftemo buttons">
-                                   <!--  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewEssayanswer(addEditRecord)' >
-                                    <i class="material-icons">add</i>
-                                    </button> -->
+                              
                                   </div>
                                 </div>
                                 <div class="header-buttons-left">
                                   <div class="icon-button-dleftemo buttons"></div>
                                 </div> 
-                              </div>                        
+                              </div>
+                            </div> 
+                          </div>                        
                             </div>
                           </div>
                         </form>
@@ -100,9 +102,23 @@
                   </div>
 
                  <!--Table-->
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-              columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-              [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+                 <ngx-datatable 
+                 #table 
+                 class="material"
+                 [rows]="data"
+                 [loadingIndicator]="loadingIndicator"
+                 columnMode="force"
+                 [headerHeight]="60"
+                 [footerHeight]="80"
+                 rowHeight="auto"
+                 [externalPaging]="true"
+                 [count]="totalRecord"
+                 [offset]="currentPage"
+                 [limit]="pageSize"
+                 [scrollbarH]="scrollBarHorizontal"
+                 [reorderable]="reorderable"
+                 (page)="setPage($event)"
+                 >
 
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>

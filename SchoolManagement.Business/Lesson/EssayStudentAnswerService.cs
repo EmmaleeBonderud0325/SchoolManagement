@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -75,7 +76,7 @@ namespace SchoolManagement.Business
         {
             var students = schoolDb.Students
             .Where(x => x.IsActive == true)
-            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName ) })
+            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
             .Distinct().ToList();
 
             return students;
@@ -101,11 +102,11 @@ namespace SchoolManagement.Business
 
                 var EssayStudentAnswers = schoolDb.EssayStudentAnswers.FirstOrDefault(x => x.QuestionId == vm.QuestionId);
 
-               
+
 
 
                 if (EssayStudentAnswers == null)
-                    
+
                 {
                     EssayStudentAnswers = new EssayStudentAnswer()
                     {
@@ -127,7 +128,7 @@ namespace SchoolManagement.Business
                 {
                     EssayStudentAnswers.TeacherComments = vm.TeacherComments;
                     EssayStudentAnswers.Marks = vm.Marks;
-                   
+
 
                     schoolDb.EssayStudentAnswers.Update(EssayStudentAnswers);
 
@@ -145,6 +146,62 @@ namespace SchoolManagement.Business
             }
             return response;
         }
-} 
+
+        public PaginatedItemsViewModel<BasicEssayStudentAnswerViewModel> GetStudentEssayList(string searchText, int currentPage, int pageSize, int questionId, int studentId)
+        {
+            t     int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicEssayStudentAnswerViewModel>();
+
+            var studentanswers = schoolDb.EssayStudentAnswers.OrderBy(u => u.QuestionId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                studentanswers = studentanswers.Where(x => x.Question.QuestionText.Contains(searchText)).OrderBy(u => u.QuestionId);
+            }
+
+            if (questionId > 0)
+            {
+                studentanswers = studentanswers.Where(x => x.QuestionId == questionId).OrderBy(u => u.QuestionId);
+            }
+
+            if (studentId > 0)
+            {
+                studentanswers = studentanswers.Where(x => x.StudentId == studentId).OrderBy(u => u.QuestionId);
+            }
+
+
+            totalRecordCount = studentanswers.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var questionList = studentanswers.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            questionList.ForEach(studentanswers =>
+            {
+                var vm = new BasicEssayStudentAnswerViewModel()
+                {
+                    QuestionId = studentanswers.QuestionId,
+                    QuestionName = studentanswers.Question.QuestionText,
+                    StudentId = studentanswers.StudentId,
+                    StudentName = studentanswers.Student.FullName,
+                    EssayQuestionAnswerId = studentanswers.EssayQuestionAnswerId,
+                    EssayQuestionAnswerName = studentanswers.EssayQuestionAnswer.AnswerText,
+                    AnswerText = studentanswers.AnswerText,
+                    TeacherComments = studentanswers.TeacherComments,
+                    Marks = studentanswers.Marks
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicEssayStudentAnswerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
+    }
 }
 

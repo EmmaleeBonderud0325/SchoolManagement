@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
  
 @Injectable()
-export class QuestionFilterModel
+export class EssayAnswerFilterModel
 {
     searchText:string;
     selectedQuestionId:number
