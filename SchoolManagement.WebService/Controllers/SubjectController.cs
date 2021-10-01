@@ -62,5 +62,6 @@ namespace SchoolManagement.WebService.Controllers
             var response = subjectService.GetSubjectList(searchText, currentPage, pageSize);
             return response;
         }
+       
     }
 }

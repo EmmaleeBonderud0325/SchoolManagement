@@ -17,6 +17,7 @@
               <div class="row">
                 <div class="col-lg-6">
                   <div class="row m-0">
+                    <form [formGroup]="headOfDepartmentFilterForm">
                     <div class="col-lg-3 p-0">
                       <div class="ngxTableHeader">
                         <div class="table-title">
@@ -33,28 +34,22 @@
                                 <i class="material-icons search-icon">search</i>
                             </label>
                             <input 
-                                placeholder="Search" 
+                                placeholder="Search by Grade" 
                                 type="text" 
+                                (keyup)="filterDatatable($event)"
+                                formControlName="searchText"
                                 class="browser-default search-field"
-                                aria-label="Search box">
+                                name="searchText"
+                                aria-label="Search box"
+                                required="">
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="col-lg-4 p-0">
-                      <div class="ngxTableHeader">
-                        <div class="header-buttons-left">
-                          <div class="icon-button-demo buttons">
-                            <button 
-                                class="btn btn-icon icon-left btn-primary rounded-button" 
-                                (click)='addNewHeadOfDepartment(addEditRecord)' >
-                                <i class="material-icons">add</i>
-                            </button>
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    </form>
+                      
+                    
+
                   </div>
                 </div>
               </div>
@@ -71,6 +66,22 @@
               [reorderable]="reorderable">  
               
               <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                <ng-template 
+                let-value="value"
+                let-row="row"
+                let-rowIndex="rowIndex"
+                sortable="false"
+                ngx-datatable-header-template
+                class="text-center"
+                >
+                <div class="icon-button-demo buttons">
+                  <button 
+                    class="btn btn-icon icon-left btn-primary rounded-button"
+                    (click)='addNewHeadOfDepartment(addEditRecord)'>
+                    <i class="material-icons">add</i>
+                  </button>
+                </div>
+              </ng-template>
                 <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                   <div class="buttons">
                   <span>
@@ -78,7 +89,7 @@
                    <!--  Head Of Department edit Button -->
                     <button class="btn btn-icon btn-sm btn-primary" 
                     (click)='updateHeadOfDepartment(row, rowIndex, addEditRecord)'>
-                    <i class="fas fa-pen"></i>
+                    <i class="far fa-edit"></i>
                     </button>
 
                     <!--Delete Head Of Department Button-->

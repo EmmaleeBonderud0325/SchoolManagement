@@ -3,11 +3,13 @@ import { SubjectModel } from './../../../models/subject/subject.model';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { SubjectService} from './../../../services/subject/subject.service';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BasicSubjectModel } from 'src/app/models/subject/basic.subject.model';
 
 
 @Component({
@@ -20,33 +22,45 @@ export class SubjectListComponent implements OnInit {
 
   
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
+  data = new Array<BasicSubjectModel>();
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
-  subjectForm:FormGroup;
   reorderable = true;
+
   subject:SubjectModel;
+
   subjectstreams:DropDownModel[] = [];
   subjectAcademicLevels:DropDownModel[]=[];
   subjectCategorys:DropDownModel[]=[];
   parentBasketSubjects:DropDownModel[]=[];
   subjectTypes:DropDownModel[]=[];
 
+  subjectFilterForm:FormGroup;
+  subjectForm:FormGroup;
+
+  currentPage: number = 0;
+  pageSize: number = 10;
+  totalRecord: number = 0;
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
     private subjectService:SubjectService,
     private dropDownService:DropdownService,
+    private spinner:NgxSpinnerService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-    this.getAll();
+   this.spinner.show();
+   this.subjectFilterForm=this.createSuvjectFilterForm();
+  // this.getAll()
     this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
     this.getAllSubjectCategorys();
     this.getAllParentBasketSubjects();
   }
+
   //getAll Subject
   getAll()
   {
@@ -60,6 +74,7 @@ export class SubjectListComponent implements OnInit {
         this.loadingIndicator=false;
     });
   }
+
   //get Subject Types DropDown Meta Data
   getSubjectTypes()
   {
@@ -67,10 +82,12 @@ export class SubjectListComponent implements OnInit {
     .subscribe(response=>
     {
       this.subjectTypes = response;
+      this.getSubjectList()
     },error=>{
         
     })
   }
+  
   //get Subject Stream Master Meta Data
   getAllSubjectStreams()
   {
@@ -114,6 +131,52 @@ export class SubjectListComponent implements OnInit {
       
     });
   }
+
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    this.getSubjectList();
+  }
+  //FIlter Master 
+  filterDatatable(event) {
+    this.currentPage = 0;
+    this.pageSize = 25;
+    this.totalRecord = 0;
+    const val = event.target.value.toLowerCase();
+    this.spinner.show();
+    this.getSubjectList();
+  }
+
+  getSubjectList(){
+    this.loadingIndicator = true;
+    this.subjectService.getSubjectList(this.searchFilterdId, this.currentPage + 1, this.pageSize)
+    .subscribe(response=>{
+      this.data = response.data;
+      this.totalRecord = response.totalRecordCount;
+      this.spinner.hide();
+      this.loadingIndicator = false;
+
+    },error=>{
+      this.spinner.hide();
+      this.loadingIndicator = false;
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    });
+  }
+
+  createSuvjectFilterForm():FormGroup{
+
+    return this.fb.group({
+      searchText:new FormControl(""),
+    })
+
+  }
+
+  get searchFilterdId(){
+    return this.subjectFilterForm.get("searchText").value;
+  }
+
+
   //save Subject Form 
   addNewSubject(content)
    {
@@ -206,21 +269,31 @@ export class SubjectListComponent implements OnInit {
     
     let selectedRoles = [];
 
-    this.subjectForm = this.fb.group({
-      id:[row.id], 
-      name: [row.name, [Validators.required]],
-      subjectstreamId: [row.subjectStreamId, [Validators.required]],
-      categorysId:[row.subjectCategory,[Validators.required]],
-      subjectCode:[row.subjectCode,[Validators.required]],
-      subjectType:[row.subjectType,[Validators.required]], 
-      subjectAcademicLevels:[row.subjectAcademicLevels,[Validators.required]],
-      parentBasketSubjectId:[row.parentBasketSubjectId],
-    });
+    
 
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
+    this.spinner.show();
+    this.subjectService.getSubjectbyId(row.id)
+        .subscribe(response=>{
+          this.spinner.hide();
+
+          this.subjectForm = this.fb.group({
+            id:[response.id], 
+            name: [response.name, [Validators.required]],
+            subjectstreamId: [response.subjectStreamId, [Validators.required]],
+            categorysId:[response.subjectCategory,[Validators.required]],
+            subjectCode:[response.subjectCode,[Validators.required]],
+            subjectType:[response.subjectType,[Validators.required]], 
+            subjectAcademicLevels:[response.subjectAcademicLevels,[Validators.required]],
+            parentBasketSubjectId:[response.parentBasketSubjectId],
+          });
+      
+          this.modalService.open(content, {
+            ariaLabelledBy: 'modal-basic-title',
+            size: 'lg',
+          });
+        },error=>{
+            this.spinner.hide();
+        });
   }
   //Suject Type Getter
   get subjectType()
