@@ -1,10 +1,11 @@
+import { BasicMCQQuestionAnswerModel } from './../../../models/mcq-question-answer/basic.mcqquestionanswer.model';
 import { McqQuestionAnswerService } from './../../../services/mcq-question-answer/mcq-question-answer.service';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { MCQQuestionAnswerModel } from './../../../models/mcq-question-answer/mcq-question-answer.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import  Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -18,9 +19,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 
 export class McqQuestionAnswerListComponent implements OnInit {
 
-  @ViewChild(DatatableComponent, { static: false }) table: 
-    DatatableComponent;
-    data = [];
+  @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
+    
     scrollBarHorizontal = window.innerWidth < 1200;
     loadingIndicator = false;
     reorderable = true;
@@ -32,18 +32,22 @@ export class McqQuestionAnswerListComponent implements OnInit {
     pageSize: number = 25;
     totalRecord: number = 0;
 
+    data = new Array<BasicMCQQuestionAnswerModel>();
+
 
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
-    private mcqQuestionAnswerService : McqQuestionAnswerService,
+    private McqQuestionAnswerService : McqQuestionAnswerService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
   ) { }
 
   ngOnInit(): void {
-    this.getAll();
+    //this.getAll();
     this.getAllQuestions();
+    //this.getQuestionList();
+    this.questionStudentAnswerFilterForm = this.createQuestionFilterForm();
   }
 
   onMcqQuestionAnswerFilterChanged(item: any) {
@@ -51,7 +55,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllQuestions();
+    this.getQuestionList();
   }
 
   filterDatatable(event) {
@@ -60,12 +64,55 @@ export class McqQuestionAnswerListComponent implements OnInit {
     this.totalRecord = 0;
     const val = event.target.value.toLowerCase();
     this.spinner.show();
-    this.getAllQuestions();
+    this.getQuestionList();
   }
+
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    this.getQuestionList();
+  }
+
+  getQuestionList()
+  {
+     this.loadingIndicator =true;
+     this.McqQuestionAnswerService.getQuestionList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.questionFilterId)
+        .subscribe(response=>{
+          this.data = response.data;
+          console.log(response);
+          console.log("===========================");
+          
+          this.totalRecord = response.totalRecordCount;
+          this.spinner.hide();
+          this.loadingIndicator = false;
+        },erroe=>{
+          this.spinner.hide();
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured. Please try again.", "Error");
+        });
+  }
+
+  createQuestionFilterForm(): FormGroup{
+    return new FormGroup({
+      searchText:new FormControl(""),
+      questionId:new FormControl(0),
+    });
+  }
+   //getters
+get questionFilterId(){
+  return this.questionStudentAnswerFilterForm.get("questionId").value
+}
+
+get searchTextFilterId() {
+  return this.questionStudentAnswerFilterForm.get("searchText").value;
+} 
+
+
 
   getAll(){
     this.loadingIndicator = true;
-    this.mcqQuestionAnswerService .getAll().subscribe(response => {
+    this.McqQuestionAnswerService .getAll().subscribe(response => {
       console.log("init")
       this.data=response;
       console.log(response);
@@ -79,13 +126,15 @@ export class McqQuestionAnswerListComponent implements OnInit {
   
 
  getAllQuestions(){
-     this.mcqQuestionAnswerService.getAllQuestions()
+     this.McqQuestionAnswerService.getAllQuestions()
     .subscribe(response=>
     { 
         this.questionNames = response;
-        console.log(response)           
+        console.log(response);
+        this.getQuestionList();           
 
       },error=>{
+        this.spinner.hide();
         this.toastr.error("Question is not generated. Please try again.","Error");
        }); 
   } 
@@ -131,7 +180,7 @@ export class McqQuestionAnswerListComponent implements OnInit {
   {
     console.log(this.mcqQuestionAnswerForm.value);
 
-    this.mcqQuestionAnswerService.saveMCQQuestionAnswer(this.mcqQuestionAnswerForm.value)
+    this.McqQuestionAnswerService.saveMCQQuestionAnswer(this.mcqQuestionAnswerForm.value)
       .subscribe(response=>{
         
         if(response.isSuccess)

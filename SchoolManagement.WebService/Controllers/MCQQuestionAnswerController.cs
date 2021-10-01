@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -48,6 +49,15 @@ namespace SchoolManagement.WebService.Controllers
         {
             var response = mcqQuestionAnswerService.GetAllQuestions();
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getQuestionList")]
+        public PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            var response = mcqQuestionAnswerService.GetQuestionList(searchText, currentPage, pageSize, questionId);
+
+            return response;
         }
     }
 }

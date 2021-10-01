@@ -26,7 +26,6 @@ export class QuestionListComponent implements OnInit {
     loadingIndicator = false;
     reorderable = true;
     questionForm: FormGroup;
-  
     questionFilterForm:FormGroup;
     lessonNames :DropDownModel[] = [];
     topicNames :DropDownModel[] = [];
@@ -186,6 +185,8 @@ export class QuestionListComponent implements OnInit {
           });
       }
 
+
+      
       createQuestionFilterForm(): FormGroup{
         return new FormGroup({
           searchText:new FormControl(""),

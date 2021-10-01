@@ -15,6 +15,6 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         List<MCQQuestionAnswerViewModel> GetMCQQuestionAnswers();
         List<DropDownViewModel> GetAllQuestions();
 
-        PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int LessonId);
+        PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId);
     }
 }

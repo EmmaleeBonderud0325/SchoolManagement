@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -111,5 +112,54 @@ namespace SchoolManagement.Business
 
             return questions;
         }
+
+        public PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+                int totalRecordCount = 0;
+                double totalPages = 0;
+                int totalPageCount = 0;
+
+                var vmu = new List<BasicMCQQuestionAnswerViewModel>();
+
+                var question = schoolDb.MCQQuestionAnswers.OrderBy(x => x.QuestionId);
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    question = question.Where(x => x.Question.QuestionText.Contains(searchText)).OrderBy(x => x.QuestionId);
+                }
+
+                if (questionId > 0)
+                {
+                    question = question.Where(x => x.QuestionId == questionId).OrderBy(x => x.QuestionId);
+                }
+
+
+                totalRecordCount = question.Count();
+                totalPages = (double)totalRecordCount / pageSize;
+                totalPageCount = (int)Math.Ceiling(totalPages);
+
+                var questionList = question.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            questionList.ForEach(question =>
+                {
+                    var vm = new BasicMCQQuestionAnswerViewModel()
+                    {
+                        Id = question.Id,
+                        QuestionId = question.QuestionId,
+                        QuestionName = question.Question.QuestionText,
+                        AnswerText = question.AnswerText,
+                        SequenceNo = question.SequenceNo,
+                        ModifiedDate = DateTime.UtcNow,
+                        CreatedOn = DateTime.UtcNow
+
+                    };
+                    vmu.Add(vm);
+                });
+
+                var container = new PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+                return container;
+            }
+        
     }
 }
