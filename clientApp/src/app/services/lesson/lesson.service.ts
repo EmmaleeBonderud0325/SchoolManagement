@@ -3,7 +3,7 @@ import { DropDownModel } from './../../models/common/drop-down.model';
 import { LessonModel } from './../../models/lesson/lesson.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ResponseModel } from '../../models/common/response.model';
-import {Observable } from 'rxjs';
+import {Observable, Subject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { id } from '@swimlane/ngx-datatable';
 import { LessonFilterModel } from 'src/app/models/lesson/lesson.filter.model';
@@ -16,15 +16,20 @@ import { LessonPaginatedItemsViewModel } from "src/app/models/lesson/lesson.pagi
 })
 export class LessonService {
  
-  constructor(private httpClient: HttpClient) { }
+  onLessonDetailAssigned:Subject<any>;
+
+  constructor(private httpClient: HttpClient) 
+  { 
+    this.onLessonDetailAssigned = new Subject();
+  }
 
   getAllLessonList(searchText:string, academicYearId:number, academicLevelId:number,classNameId:number,subjectId:number,currentPage: number, pageSize: number): Observable<LessonPaginatedItemsViewModel>{
     return this.httpClient
         .get<LessonPaginatedItemsViewModel>(environment.apiUrl +"LessonDesign/getLessonList",{
           params: new HttpParams()
             .set('searchText',searchText)
-            .set('academicLevelId',academicYearId.toString())
-            .set('academicYearId', academicLevelId.toString())
+            .set('academicLevelId',academicLevelId.toString())
+            .set('academicYearId', academicYearId.toString())
             .set('classNameId', classNameId.toString())
             .set('subjectId',subjectId.toString())
             .set('currentPage', currentPage.toString())

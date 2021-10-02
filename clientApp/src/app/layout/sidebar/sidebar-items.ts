@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
       },
       //lesson
       {
-        path: '/teacher-home/lesson',
+        path: '/teacher-home/lessons',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
         moduleName: 'teacher-home',
         iconType: '',

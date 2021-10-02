@@ -12,6 +12,7 @@ import { LessonModel } from 'src/app/models/lesson/lesson.model';
 import { LessonFilterModel } from 'src/app/models/lesson/lesson.filter.model';
 import Swal from 'sweetalert2';
 import { LessonService } from './../../../services/lesson/lesson.service';
+import { DropdownService } from 'src/app/services/drop-down/dropdown.service';
 
 
 @Component({
@@ -53,6 +54,7 @@ export class LessonListComponent implements OnInit {
     private fb:FormBuilder,
     private modalService:NgbModal,
     private lessonService:LessonService,
+    private dropDownService:DropdownService,
     private toastr:ToastrService, 
     private spinner: NgxSpinnerService,
     private router:Router,
@@ -66,6 +68,144 @@ export class LessonListComponent implements OnInit {
     this.getMasterData();
    // this.getAllLessonList();
   }
+
+     //add new lesson using form
+     createNewLesson(content)
+     {
+       this.lessonForm = this.fb.group({
+        id:[0],
+         name:['', [Validators.required]],
+         description:['', [Validators.required]],
+         academicLevelId:[null, [Validators.required]],
+         classNameId:[null, [Validators.required]],
+         academicYearId:[null, [Validators.required]],
+         subjectId:[null, [Validators.required]],
+         learningOutcome:['', [Validators.required]],
+         plannedDate:['', [Validators.required]],
+         
+     });
+  
+       this.modalService.open(content, {
+         ariaLabelledBy: 'modal-basic-title',
+         size: 'lg',
+       });
+    }
+  
+    createLessonFilterForm() : FormGroup{
+  
+      return new FormGroup({
+        searchText:new FormControl(""),
+        academicYearId:new FormControl(0),
+        academicLevelId:new FormControl(0),
+        classNameId:new FormControl(0),
+        subjectId:new FormControl(0)
+  
+      });
+    }
+
+      //get Master DropDown Meta Data
+  getMasterData() {
+    this.lessonService.getLessonMasterData()
+      .subscribe(response => {
+
+        this.academicYears = response.academicYears;
+        this.lessonFilterForm.get("academicYearId").setValue(response.currentYearId)
+        this.academicLevels = response.academicLevels;
+        let defaultItem = new DropDownModel();
+        defaultItem.id=0;
+        defaultItem.name="--All--";
+        this.academicLevels.unshift(defaultItem);
+
+        if(this.academicLevels.length>0)
+        {
+
+          this.lessonFilterForm.get("academicLevelId").setValue(response.academicLevels[0].id);
+          //this.subjects = response.subjects;
+          //this.classNames = response.classNames;
+          this.loadClasses();
+        }
+        else
+        {
+          this.spinner.hide();
+        }
+
+
+      }, error => {
+        this.spinner.hide();
+      });
+  }
+
+  loadClasses()
+  {
+    this.dropDownService.getClasese(this.academicYearFilterId,this.academicLevelFilterId)
+      .subscribe(response=>{
+          this.classNames = response;
+          let defaultItem = new DropDownModel();
+          defaultItem.id=0;
+          defaultItem.name="--All--";
+          this.classNames.unshift(defaultItem);
+
+          if(this.classNames.length>0)
+          {
+            this.lessonFilterForm.get("classNameId").setValue(this.classNames[0].id);
+            this.loadSubjects();
+          }
+          else
+          {
+            this.spinner.hide();
+          }
+
+      },error=>{
+        this.spinner.hide();
+      })
+  }
+
+  loadSubjects()
+  {
+    this.dropDownService.getSubjectsForSelectedClass(this.academicYearFilterId,this.academicLevelFilterId,this.classNameFilterId)
+    .subscribe(response=>{
+        this.subjects = response;
+        let defaultItem = new DropDownModel();
+        defaultItem.id=0;
+        defaultItem.name="--All--";
+        this.subjects.unshift(defaultItem);
+        if(this.subjects.length>0)
+        {
+          this.lessonFilterForm.get("subjectId").setValue(this.subjects[0].id);
+          this.getAllLessonList();
+        }
+        else
+        {
+          this.spinner.hide();
+        }
+
+    },error=>{
+      this.spinner.hide();
+    })
+  }
+
+    //getLessonList
+    getAllLessonList()
+    {
+      this.loadingIndicator = true;
+      this.lessonService.getAllLessonList(this.searchTextFilterData, this.academicYearFilterId,this.academicLevelFilterId,
+                                                 this.classNameFilterId,this.subjectFilterId, this.currentPage + 1,this.pageSize)
+        .subscribe(response=>{
+          console.log("Table Data");
+          console.log(response);
+          this.data = response.data;
+          this.totalRecord = response.totalRecordCount;
+          this.spinner.hide();
+          this.loadingIndicator = false;
+        },error=>{
+  
+          this.spinner.hide();
+          this.loadingIndicator = false;
+          this.toastr.error("Network error has been occured. Please try again.", "Error");
+        });
+    }
+
+
   setPage(pageInfo) {
     this.spinner.show();
     this.loadingIndicator = true;
@@ -86,21 +226,21 @@ export class LessonListComponent implements OnInit {
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllLessonList();
+    this.loadClasses();
   }
   onAcademicLevelFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllLessonList();
+    this.loadClasses();
   }
   onClassNameFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllLessonList();
+    this.loadSubjects();
   }
   onSubjectIdFilterChanged(item: any) {
     this.currentPage = 0;
@@ -109,70 +249,13 @@ export class LessonListComponent implements OnInit {
     this.spinner.show();
     this.getAllLessonList();
   }
-  //get Master DropDown Meta Data
-  getMasterData() {
-    this.lessonService.getLessonMasterData()
-      .subscribe(response => {
-        this.classNames = response.classNames;
-        this.academicYears = response.academicYears;
-        this.academicLevels = response.academicLevels;
-        this.subjects = response.subjects;
-        this.getAllLessonList();
 
-      }, error => {
-        this.spinner.hide();
-      });
-  }
-  //getLessonList
-  getAllLessonList()
-  {
-    this.loadingIndicator = true;
-    this.lessonService.getAllLessonList(this.searchTextFilterData, this.academicYearFilterId,this.academicLevelFilterId,
-                                               this.classNameFilterId,this.subjectFilterId, this.currentPage + 1,this.pageSize)
-      .subscribe(response=>{
-        console.log("Table Data");
-        console.log(response);
-        this.data = response.data;
-        this.totalRecord = response.totalRecordCount;
-        this.spinner.hide();
-        this.loadingIndicator = false;
-      },error=>{
 
-        this.spinner.hide();
-        this.loadingIndicator = false;
-        this.toastr.error("Network error has been occured. Please try again.", "Error");
-      });
-  }
-   //add new lesson using form
-  createNewLesson(content)
-   {
-     this.lessonForm = this.fb.group({
-      id:[0],
-       name:['', [Validators.required]],
-       description:['', [Validators.required]],
-       academicLevelId:[null, [Validators.required]],
-       classNameId:[null, [Validators.required]],
-       academicYearId:[null, [Validators.required]],
-       subjectId:[null, [Validators.required]],
-       learningOutcome:['', [Validators.required]],
-       plannedDate:['', [Validators.required]],
-       
-   });
- 
-     this.modalService.open(content, {
-       ariaLabelledBy: 'modal-basic-title',
-       size: 'lg',
-     });
-  }
   saveLesson()
   {
   
       this.spinner.show();
-      var lessonModel = this.lessonForm.getRawValue();
-      console.log("++++++++++++++++++++++++++++++++=");
-      
-      console.log(this.lessonForm.value);
-      
+      var lessonModel = this.lessonForm.getRawValue();      
       this.lessonService.saveLesson(lessonModel).subscribe(response=>{
         this.spinner.hide();
         if(response.isSuccess)
@@ -192,17 +275,7 @@ export class LessonListComponent implements OnInit {
   
 
   }
-  createLessonFilterForm() : FormGroup{
 
-    return new FormGroup({
-      searchText:new FormControl(""),
-      academicYearId:new FormControl(0),
-      academicLevelId:new FormControl(0),
-      classNameId:new FormControl(0),
-      subjectId:new FormControl(0)
-
-    });
-  }
   deleteLesson(row){
     
       Swal.fire({
@@ -232,63 +305,9 @@ export class LessonListComponent implements OnInit {
           }
        });   
   }
-  updateLesson(row:BasicLessonModel,rowIndex:number,content:any)
-  {
 
-    this.spinner.show();
-      this.lessonService.getLessonById(row.id)
-      .subscribe(response=>{
-        this.spinner.hide();
 
-        this.lessonForm = this.fb.group({
-     
-          name:[response.name, [Validators.required]],
-          description:[response.classNameId, [Validators.required]],
-          academicLevelId:[response.academicLevelId, [Validators.required]],
-          classNameId:[response.classNameId, [Validators.required]],
-          academicYearId:[response.academicYearId, [Validators.required]],
-          subjectId:[response.subjectId, [Validators.required]],
-          learningOutcome:[response.learningOutcome, [Validators.required]],
-          plannedDate:[response.plannedDate, [Validators.required]],
-          
-      });
-   
-       this.modalService.open(content, {
-         ariaLabelledBy: 'modal-basic-title',
-         size: 'lg',
-       });
-      },error=>{
-        this.spinner.hide();
-      });
-     
 
-  }
-
-  /* getAllLesson(){
-      this.loadingIndicator = true;
-      this.lessonService.getAllLesson(this.lessonFilterForm.getRawValue()).subscribe(response => {
-      this.data = response;
-      console.log(response);
-      
-      this.loadingIndicator = false;
-      }, error =>{
-     this.loadingIndicator = false;
-     this.toastr.error("Network error has been occured!, Please try again", "Error")
-      })  
-     }
- */
-  addNewLesson(content){
-
-    this.lessonForm = this.fb.group({
-      id:[0],
-      name:['',[Validators.required]],
-    })
-
-    this.modalService.open(content, {
-      ariaLabelledBy: 'modal-basic-title',
-      size: 'lg',
-    });
-  }
   //list genarate
   get searchTextFilterData() {
     return this.lessonFilterForm.get("searchText").value;
@@ -312,7 +331,7 @@ export class LessonListComponent implements OnInit {
   //Routes
   addNewLessonRoute()
   {
-    this.router.navigate(['/teacher-home/lesson/lesson-detail',0]);
+
     Swal.fire({
       title: 'Creating New Lesson',
       text: "Do you want to create new lesson",
@@ -338,7 +357,7 @@ export class LessonListComponent implements OnInit {
             }
             else
             {
-              this.router.navigate(['/teacher-lessons/lessons-in-design',response.id]);
+              this.router.navigate(['/teacher-home/lessons/lesson',response.id]);
             }
           },error=>{
             this.spinner.hide();
@@ -352,7 +371,10 @@ export class LessonListComponent implements OnInit {
     });
   }
  
-  
+  editLesson(item:BasicLessonModel)
+  {
+    this.router.navigate(['/teacher-home/lessons/lesson',item.id]);
+  }
 }
 
 

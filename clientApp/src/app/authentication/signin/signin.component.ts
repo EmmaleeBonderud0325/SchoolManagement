@@ -50,7 +50,7 @@ export class SigninComponent implements OnInit {
             if (res) {
               const token = this.authService.currentUserValue.token;
               if (token) {
-                this.router.navigate(['/teacher-home/lesson']);
+                this.router.navigate(['/teacher-home/lessons']);
               }
             } else {
               this.error = 'Invalid Login';

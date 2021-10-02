@@ -65,5 +65,15 @@ export class DropdownService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getExcelMasterData');
   }
+
+  getClasese(academicYearId:number,academicLevelId:number):Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getClasese/'+ academicYearId +'/'+academicLevelId);
+  }
+
+  getSubjectsForSelectedClass(academicYearId:number,academicLevelId:number,classNameId:number):Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getSubjectsForSelectedClass/'+ academicYearId +'/'+academicLevelId +"/"+classNameId);
+  }
   
 }

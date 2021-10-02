@@ -1,0 +1,126 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Lesson Content</h4>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Add Topic"
+            class="p-button-outlined p-button-success"
+            (click)="addNewTopic()"
+          ></button>
+        </div>
+      </div>
+      <div formArrayName="topics">
+        <div
+          class="row mb-2"
+          *ngFor="let lessonTopic of topics()?.controls; let topicIndex = index"
+        >
+          <div class="col-12" [formGroupName]="topicIndex">
+            <p-panel [toggleable]="true">
+              <ng-template pTemplate="header">
+                <input
+                  type="text"
+                  class="form-control"
+                  style="width: 60%"
+                  formControlName="name"
+                />
+              </ng-template>
+              <ng-template pTemplate="icons">
+                <!--                 <button
+                    pButton
+                    pRipple
+                    class="p-panel-header-icon p-link"
+                    icon="pi pi-save"
+                  ></button> -->
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-plus"
+                  (click)="addTopicContent(topicIndex)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-pencil"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-times"
+                ></button>
+              </ng-template>
+              <div formArrayName="topicContents">
+                <div
+                  *ngFor="
+                    let lecture of topicContents(topicIndex)?.controls;
+                    let topicContentIndex = index
+                  "
+                >
+                  <div
+                    style="margin-top: 10px"
+                    [formGroupName]="topicContentIndex"
+                  >
+                    <p-panel [toggleable]="true" class="mt-5">
+                      <ng-template pTemplate="header"> Lecture 1 </ng-template>
+                      <ng-template pTemplate="icons">
+                        <button
+                          pButton
+                          pRipple
+                          type="button"
+                          label="Add Content"
+                          class="p-button-outlined p-button-success"
+                        ></button>
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-save"
+                        ></button>
+
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-pencil"
+                        ></button>
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-times"
+                          (click)="
+                            removeTopicContent(topicIndex, topicContentIndex)
+                          "
+                        ></button>
+                      </ng-template>
+                      <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                        sed do eiusmod tempor incididunt ut labore et dolore
+                        magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu
+                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                        non proident, sunt in culpa qui officia deserunt mollit
+                        anim id est laborum.
+                      </p>
+                    </p-panel>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
