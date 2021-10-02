@@ -194,7 +194,7 @@ namespace SchoolManagement.Business
                     schoolDb.LessonAssignments.Add(LessonAssignments);
 
                     response.IsSuccess = true;
-                    response.Message = "Lesson Assignmnet   is Added Successfully";
+                    response.Message = "Lesson Assignmnet is Added Successfully";
 
                 }
                 else

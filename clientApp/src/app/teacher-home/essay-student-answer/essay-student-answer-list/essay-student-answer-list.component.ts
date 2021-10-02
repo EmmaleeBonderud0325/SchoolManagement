@@ -35,6 +35,7 @@ export class EssayStudentAnswerListComponent implements OnInit {
   totalRecord:number=0;
 
   data = new Array<BasicEssayStudentAnswerModel>();
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -79,9 +80,10 @@ export class EssayStudentAnswerListComponent implements OnInit {
 
      searchText: new FormControl(""),
      questionId : new FormControl(0),
+     studentId: new FormControl(0)
     
 
-   })
+   });
  }
       filterDatatable(event) {
         this.currentPage = 0;
@@ -183,6 +185,7 @@ export class EssayStudentAnswerListComponent implements OnInit {
           this.questionNames = response;
           console.log(response);
           this.getStudentEssayList();
+         
           
         },error=>{
           this.toastr.error("Network error has been occured. Please try again.","Error");

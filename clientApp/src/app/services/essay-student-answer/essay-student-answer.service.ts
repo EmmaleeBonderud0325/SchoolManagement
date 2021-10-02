@@ -47,7 +47,7 @@ export class EssayStudentAnswerService {
 
 
         getStudentEssayList(searchText: string, currentPage: number, pageSize: number, questionId:number,studentId:number):Observable<EssayStudentAnswerPaginatedItemsViewModel>{
-          return this.httpClient.get<EssayStudentAnswerPaginatedItemsViewModel>(environment.apiUrl + "EssayQuestionAnswer/getStudentEssayList",{
+          return this.httpClient.get<EssayStudentAnswerPaginatedItemsViewModel>(environment.apiUrl + "EssayStudentAnswer/getStudentEssayList",{
             params:new HttpParams()
               .set('searchText',searchText)
               .set('currentPage', currentPage.toString())

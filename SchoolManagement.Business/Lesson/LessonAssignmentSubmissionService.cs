@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -47,6 +48,57 @@ namespace SchoolManagement.Business
            .Distinct().ToList();
 
             return students;
+        }
+
+        public PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel> GetLessonAssignmentsList(string searchText, int currentPage, int pageSize, int lessonassignmentId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicLessonAssignmnetSubmissionViewModel>();
+
+            var lessonassignmentsubmissions = schoolDb.LessonAssignmentSubmissions.OrderBy(u => u.LessonAssignmentId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                lessonassignmentsubmissions = lessonassignmentsubmissions.Where(x => x.LessonAssignment.Name.Contains(searchText)).OrderBy(u => u.LessonAssignmentId);
+            }
+
+            if (lessonassignmentId > 0)
+            {
+                lessonassignmentsubmissions = lessonassignmentsubmissions.Where(x => x.LessonAssignmentId== lessonassignmentId).OrderBy(u => u.LessonAssignmentId);
+            }
+
+
+            totalRecordCount = lessonassignmentsubmissions.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonassignmentList = lessonassignmentsubmissions.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            lessonassignmentList.ForEach(lessonassignmentsubmissions =>
+            {
+                var vm = new BasicLessonAssignmnetSubmissionViewModel()
+                {
+                    Id = lessonassignmentsubmissions.Id,
+                    LessonAssignmentId = lessonassignmentsubmissions.LessonAssignmentId,
+                    LessonAssignmentName = lessonassignmentsubmissions.LessonAssignment.Name,
+                    StudentId = lessonassignmentsubmissions.StudentId,
+                    StudentName = lessonassignmentsubmissions.Student.User.FullName,
+                    SubmissionPath = lessonassignmentsubmissions.SubmissionPath,
+                    SubmissionDate = lessonassignmentsubmissions.SubmissionDate,
+                    Marks = lessonassignmentsubmissions.Marks,
+                    TeacherComments = lessonassignmentsubmissions.TeacherComments
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
         }
 
         /*public List<DropDownViewModel> GetAllStudents()

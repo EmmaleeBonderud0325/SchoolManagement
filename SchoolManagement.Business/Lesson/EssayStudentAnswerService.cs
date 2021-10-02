@@ -149,7 +149,7 @@ namespace SchoolManagement.Business
 
         public PaginatedItemsViewModel<BasicEssayStudentAnswerViewModel> GetStudentEssayList(string searchText, int currentPage, int pageSize, int questionId, int studentId)
         {
-            t     int totalRecordCount = 0;
+            int totalRecordCount = 0;
             double totalPages = 0;
             int totalPageCount = 0;
 
@@ -169,7 +169,7 @@ namespace SchoolManagement.Business
 
             if (studentId > 0)
             {
-                studentanswers = studentanswers.Where(x => x.StudentId == studentId).OrderBy(u => u.QuestionId);
+                studentanswers = studentanswers.Where(x => x.StudentId == studentId).OrderBy(u => u.StudentId);
             }
 
 

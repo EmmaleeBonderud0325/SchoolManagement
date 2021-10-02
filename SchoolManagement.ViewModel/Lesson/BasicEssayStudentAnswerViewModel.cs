@@ -19,4 +19,4 @@ namespace SchoolManagement.ViewModel.Lesson
         public decimal Marks { get; set; }
     }
 }
-}
+
