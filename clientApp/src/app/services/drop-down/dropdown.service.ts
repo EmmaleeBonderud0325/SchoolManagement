@@ -61,5 +61,9 @@ export class DropdownService {
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getAllTeachers');
   }
 
+  getExcelMasrerData():Observable<DropDownModel[]>{
+    return this.httpClient.
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getExcelMasterData');
+  }
   
 }
