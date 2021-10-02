@@ -649,7 +649,6 @@ namespace SchoolManagement.Business
             return response;
 
         }
-
-        
+       
     }
 }
