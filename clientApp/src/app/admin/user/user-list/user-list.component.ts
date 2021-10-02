@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import {ToastModule} from 'primeng/toast';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',

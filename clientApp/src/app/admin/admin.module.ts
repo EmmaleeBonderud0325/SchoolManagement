@@ -1,4 +1,4 @@
-import { MessageService } from 'primeng/api';
+
 import { MultiSelectModule } from 'primeng/multiselect';
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -11,13 +11,16 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ArchwizardModule } from 'angular-archwizard';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
-
+import {ToastModule} from 'primeng/toast';
+import { RippleModule } from 'primeng/ripple';
 
 
 
 @NgModule({
   declarations: [
-    ExcelUploadComponent
+    ExcelUploadComponent,
+   
+    
   ],
   imports: [
     CommonModule,
@@ -30,7 +33,9 @@ import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
     MultiSelectModule,
     formModule,
     ReactiveFormsModule,
-    MessageService
+    RippleModule,
+    ToastModule
+    
   ]
 })
 export class AdminModule { }
