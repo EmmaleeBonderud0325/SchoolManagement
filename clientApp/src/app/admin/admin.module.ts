@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { MultiSelectModule } from 'primeng/multiselect';
 
 import { AdminRoutingModule } from './admin-routing.module';
@@ -29,6 +30,7 @@ import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
     MultiSelectModule,
     formModule,
     ReactiveFormsModule,
+    MessageService
   ]
 })
 export class AdminModule { }

@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -20,6 +21,7 @@ import { ForgotComponent } from './forgot/forgot.component';
 import { Page500Component } from './page500/page500.component';
 import { Page404Component } from './page404/page404.component';
 import { ResetComponent } from './reset/reset.component';
+//import { MessageService } from 'primeng/api';
 
 const icons = {
   Facebook,
@@ -40,6 +42,7 @@ const icons = {
     ReactiveFormsModule,
     AuthenticationRoutingModule,
     FeatherModule.pick(icons),
+    //MessageService
   ],
 })
 export class AuthenticationModule {}

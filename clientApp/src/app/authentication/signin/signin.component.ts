@@ -1,22 +1,26 @@
+
 import { AuthService } from 'src/app/core/service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-signin',
   templateUrl: './signin.component.html',
   styleUrls: ['./signin.component.scss'],
+  providers: [MessageService]
 })
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
-  error = '';
+  error = 'Username and Password not valid !';
   hide = true;
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService
   ) {}
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -33,7 +37,9 @@ export class SigninComponent implements OnInit {
     this.error = '';
 
     if (this.loginForm.invalid) {
-      this.error = 'Username and Password not valid !';
+      //this.error = 'Username and Password not valid !';
+      this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+      
       
       return;
     } else {

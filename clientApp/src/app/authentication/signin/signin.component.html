@@ -4,7 +4,7 @@
          <div class="row no-gutters">
            <div class="col-md-5">
              <img 
-                src="assets/images/login_1.png" 
+                src="assets/images/login_logo.jpg" 
                 alt="login" 
                 class="login-card-img">
            </div>
@@ -13,11 +13,11 @@
                <div class="text-center">
                  <div class="brand-wrapper">
                    <img 
-                    src="assets/images/logo2.JPG" 
+                    src="assets/images/logo.png" 
                     alt="logo" 
                     class="logo">
                     <span 
-                    class="logo-name">
+                        class="logo-name">Sign In
                   </span>
                  </div>
                </div>
@@ -91,20 +91,12 @@
 
                    <div class="col-lg-10">
                      <div class="d-flex justify-content-between">
-                       <div class="form-group">
-                         <div class="form-check">
-                           <input class="form-check-input" type="checkbox" id="customCheck1"
-                             formControlName="termcondition">
-                           <label class="form-check-label" for="customCheck1">
-                             Remember me
-                           </label>
-                         </div>
-                       </div>
+                       
                        <p class="forgot-pass mb-0"><a routerLink="/authentication/forgot"
                            class="text-dark fw-bold">Forgot password ?</a></p>
                      </div>
                    </div>
-                   <div *ngIf="error" class="alert alert-danger mb-3 msl-3">{{error}}</div>
+                   <!-- <div *ngIf="error" class="alert alert-danger mb-3 msl-3">{{error}}</div> -->
                    <div class="col-lg-10 mb-0">
                      <button class="btn btn-primary auth-form-btn">Sign in</button>
                    </div>

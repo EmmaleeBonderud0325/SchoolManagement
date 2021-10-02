@@ -1,9 +1,10 @@
+import { MessageService } from 'primeng/api';
 import { BasicUserModel } from './../../../models/user/basic.user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
-import { ToastrService } from 'ngx-toastr';
+//import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../../services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
@@ -13,8 +14,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.sass'],
-  providers: [ToastrService],
+  styleUrls: ['./user-list.component.scss'],
+  //providers: [ToastrService],
+  providers: [MessageService]
 })
 export class UserListComponent implements OnInit {
 
@@ -41,7 +43,9 @@ export class UserListComponent implements OnInit {
     private modalService: NgbModal,
     private userService:UserService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService) { }
+   // private toastr: ToastrService
+    private toastr: MessageService
+   ) { }
 
   ngOnInit(): void {
     this.spinner.show();
@@ -60,14 +64,14 @@ export class UserListComponent implements OnInit {
           this.data = response.data;
           console.log("==============");
           console.log(response.data);
-          
+
           this.totalRecord = response.totalRecordCount;
           this.spinner.hide();
           this.loadingIndicator = false;
         },erroe=>{
           this.spinner.hide();
           this.loadingIndicator = false;
-          this.toastr.error("Network error has been occured. Please try again.", "Error");
+          this.toastr.add({severity:'success', summary: 'Success', detail: 'Message Content'});
         });
   }
 
@@ -183,16 +187,17 @@ export class UserListComponent implements OnInit {
 
             if(response.isSuccess)
             {
-              this.toastr.success(response.message,"Success");
+              //this.toastr.success(response.message,"Success");
+              this.toastr.add({severity:'success', summary: 'Success', detail: response.message});
               this.getUserList();
             }
             else
             {
-              this.toastr.error(response.message,"Error");
+              //this.toastr.error(response.message,"Error");
             }
       
           },error=>{
-            this.toastr.error("Network error has been occured. Please try again.","Error");
+            //this.toastr.error("Network error has been occured. Please try again.","Error");
           });
           swalWithBootstrapButtons.fire(
             'Deleted!',
@@ -224,7 +229,7 @@ export class UserListComponent implements OnInit {
       this.loadingIndicator = false;
      },error=>{
        this.loadingIndicator = false;
-       this.toastr.error("Network error has been occured. Please try again.","Error");
+      // this.toastr.error("Network error has been occured. Please try again.","Error");
      });
   } 
 
@@ -251,16 +256,16 @@ export class UserListComponent implements OnInit {
         if(response.isSuccess)
         {
             this.modalService.dismissAll();
-            this.toastr.success(response.message,"Success");
+           // this.toastr.success(response.message,"Success");
             this.getUserList();
         }
         else
         {
-            this.toastr.error(response.message,"Error");
+           // this.toastr.error(response.message,"Error");
         }
       },error=>{
         this.spinner.hide();
-            this.toastr.error("Network error has been occre.Please try again","Error");
+            //this.toastr.error("Network error has been occre.Please try again","Error");
       });
     
   }
@@ -303,4 +308,20 @@ export class UserListComponent implements OnInit {
   {
     return this.saveUserForm.get("id").value;
   }
+
+  showSticky() {
+    this.toastr.add({severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true});
+}
+
+onConfirm() {
+    this.toastr.clear('c');
+}
+
+onReject() {
+    this.toastr.clear('c');
+}
+
+clear() {
+    this.toastr.clear();
+}
 }
