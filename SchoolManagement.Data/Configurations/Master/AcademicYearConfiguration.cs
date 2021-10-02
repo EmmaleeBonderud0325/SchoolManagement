@@ -20,6 +20,8 @@ namespace SchoolManagement.Data.Configurations.Master
 
             builder.Property(x => x.Id).ValueGeneratedNever();
 
+            builder.Property(x => x.IsCurrentYear).HasDefaultValue(false);
+
             builder.HasOne<User>(x => x.CreatedBy)
                 .WithMany(u => u.CreatedAcademicYears)
                 .HasForeignKey(f => f.CreatedById)
