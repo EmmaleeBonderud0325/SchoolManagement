@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -136,6 +137,60 @@ namespace SchoolManagement.Business
              .Distinct().ToList();
 
             return teacher;
+        }
+
+        public PaginatedItemsViewModel<BasicMCQQuestionStudentAnswerViewModel> GetStudentList(string searchText, int currentPage, int pageSize, int studentId, int questionId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicMCQQuestionStudentAnswerViewModel>();
+
+            var student = schoolDb.MCQQuestionStudentAnswers.OrderBy(x => x.QuestionId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                student = student.Where(x => x.MCQQuestionAnswer.Question.QuestionText.Contains(searchText)).OrderBy(x => x.QuestionId);
+            }
+
+            if (studentId > 0)
+            {
+                student = student.Where(x => x.StudentId == studentId).OrderBy(x => x.StudentId);
+            }
+
+            if (questionId > 0)
+            {
+                student = student.Where(x => x.QuestionId == questionId).OrderBy(x => x.QuestionId);
+            }
+
+            totalRecordCount = student.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var studentList = student.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            studentList.ForEach(student =>
+            {
+                var vm = new BasicMCQQuestionStudentAnswerViewModel()
+                {
+                    QuestionId = student.QuestionId,
+                    QuestionName = student.MCQQuestionAnswer.Question.QuestionText,
+                    StudentId = student.StudentId,
+                    StudentName = student.StudentMCQQuestion.Student.User.FullName,
+                    MCQQuestionAnswerId = student.MCQQuestionAnswerId,
+                    MCQQuestionAnswerName = student.MCQQuestionAnswer.AnswerText,
+                    AnswerText = student.AnswerText,
+                    SequnceNo = student.SequnceNo,
+                    IsChecked = student.IsChecked,
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicMCQQuestionStudentAnswerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
         }
     }
 }

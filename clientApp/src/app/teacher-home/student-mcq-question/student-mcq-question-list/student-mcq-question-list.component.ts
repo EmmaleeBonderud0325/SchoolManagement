@@ -1,10 +1,11 @@
+import { BasicStudentMCQQuestionAnswerModel } from './../../../models/student-mcq-question-answer/basic.studentmcqquestionanswer.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { StudentMcqQuestionAnswerModel } from './../../../models/student-mcq-question-answer/student-mcq-question-answer';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal  from 'sweetalert2';
 import { StudentMcqQuestionAnswerService } from './../../../services/student-mcq-question-answer/student-mcq-question-answer.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -19,7 +20,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class StudentMcqQuestionListComponent implements OnInit {
 
   @ViewChild(DatatableComponent, { static: false }) table: DatatableComponent;
-  data = [];
+ 
   scrollBarHorizontal = window.innerWidth < 1200;
   loadingIndicator = false;
   reorderable = true;
@@ -33,6 +34,8 @@ export class StudentMcqQuestionListComponent implements OnInit {
   pageSize: number = 25;
   totalRecord: number = 0;
 
+  data = new Array<BasicStudentMCQQuestionAnswerModel>();
+
   constructor(
     private fb: FormBuilder,
     private modalService: NgbModal,
@@ -42,10 +45,12 @@ export class StudentMcqQuestionListComponent implements OnInit {
   ) { }
 g
   ngOnInit(): void {
-    this.getAll();
+    //this.getAll();
     this.getAllQuestions();
     this.getAllStudentNames();
     this.getAllStudentAnswerTexts();
+
+    this.studentMcqQuestionFilterForm = this.createStudentNameFilterForm();
   }
 
   onStudentMcqQuestionFilterChanged(item: any) {
@@ -53,7 +58,7 @@ g
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllStudentNames();
+    this.getStudentNameList();
   }
 
   filterDatatable(event) {
@@ -62,8 +67,51 @@ g
     this.totalRecord = 0;
     const val = event.target.value.toLowerCase();
     this.spinner.show();
-    this.getAllStudentNames();
+    this.getStudentNameList();
   }
+
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    this.getStudentNameList();
+  }
+
+  getStudentNameList()
+   {
+      this.loadingIndicator =true;
+      this.StudentMcqQuestionAnswerService.getStudentNameList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.studentNameFilterId)
+         .subscribe(response=>{
+           this.data = response.data;
+           console.log(response);
+           console.log("===========================");
+           
+           this.totalRecord = response.totalRecordCount;
+           this.spinner.hide();
+           this.loadingIndicator = false;
+         },erroe=>{
+           this.spinner.hide();
+           this.loadingIndicator = false;
+           this.toastr.error("Network error has been occured. Please try again.", "Error");
+         });
+   }
+
+   createStudentNameFilterForm(): FormGroup{
+    return new FormGroup({
+      searchText:new FormControl(""),
+      studentId:new FormControl(0),
+    });
+  }
+   //getters
+  get studentNameFilterId(){
+    return this.studentMcqQuestionFilterForm.get("studentId").value
+  }
+
+  get searchTextFilterId() {
+    return this.studentMcqQuestionFilterForm.get("searchText").value;
+  }
+
+
 
   getAll(){
     this.loadingIndicator = true;
@@ -106,9 +154,11 @@ g
         .subscribe(response=>
         { 
           this.studentNames = response;
-          console.log(response)           
+          console.log(response)     
+          this.getStudentNameList();      
 
         },error=>{
+          this.spinner.hide();
           this.toastr.error("Get Student Names error has been occured. Please try again.","Error");
          });
   } 

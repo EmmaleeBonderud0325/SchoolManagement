@@ -3,6 +3,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -128,6 +129,54 @@ namespace SchoolManagement.Business
                .Distinct().ToList();
 
             return studentanswertext;
+        }
+
+        public PaginatedItemsViewModel<BasicStudentMCQQuestionViewModel> GetStudentNameList(string searchText, int currentPage, int pageSize, int studentNameId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicStudentMCQQuestionViewModel>();
+
+            var student = schoolDb.StudentMCQQuestions.OrderBy(x => x.StudentId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                student = student.Where(x => x.Student.User.FullName.Contains(searchText)).OrderBy(x => x.StudentId);
+            }
+
+            if (studentNameId > 0)
+            {
+                student = student.Where(x => x.StudentId == studentNameId).OrderBy(x => x.StudentId);
+            }
+
+
+            totalRecordCount = student.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var studentNameList = student.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            studentNameList.ForEach(student =>
+            {
+                var vm = new BasicStudentMCQQuestionViewModel()
+                {
+                    QuestionId = student.QuestionId,
+                    QuestionName = student.Question.QuestionText,
+                    StudentId = student.StudentId,
+                    StudentName = student.Student.User.FullName,
+                    TeacherComments = student.TeacherComments,
+                    Marks = student.Marks,
+                    IsCorrectAnswer = student.IsCorrectAnswer
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicStudentMCQQuestionViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
         }
     }
 }

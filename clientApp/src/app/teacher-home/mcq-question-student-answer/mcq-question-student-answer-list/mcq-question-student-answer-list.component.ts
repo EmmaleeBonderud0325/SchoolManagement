@@ -4,7 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import Swal  from 'sweetalert2';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { McqQuestionStudentAnswerService } from './../../../services/mcq-question-student-answer/mcq-question-student-answer.service';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatatableComponent, id } from '@swimlane/ngx-datatable';
 import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -44,25 +44,27 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.getAll();
+    //this.getAll();
     this.getAllQuestion();
     this.getAllStudentName();
     this.getAllTeacherAnswer();
+
+    this.questionStudentAnswerFilterForm = this.createQuestionFilterForm();
   }
   onQuestionFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllQuestion();
-  }
+    this.getStudentList();
+  } 
 
   onStudentNameFilterChanged(item: any) {
     this.currentPage = 0;
     this.pageSize = 25;
     this.totalRecord = 0;
     this.spinner.show();
-    this.getAllStudentName();
+    this.getStudentList();
   }
 
   filterDatatable(event) {
@@ -71,8 +73,53 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
     this.totalRecord = 0;
     const val = event.target.value.toLowerCase();
     this.spinner.show();
-    this.getAllQuestion();
+    this.getStudentList();
   }
+  setPage(pageInfo) {
+    this.spinner.show();
+    this.loadingIndicator = true;
+    this.currentPage = pageInfo.offset;
+    this.getStudentList();
+  }
+
+  getStudentList()
+   {
+      this.loadingIndicator =true;
+      this.McqQuestionStudentAnswerService.getStudentList(this.searchTextFilterId, this.currentPage + 1, this.pageSize, this.studentFilterId, this.questionFilterId)
+         .subscribe(response=>{
+           this.data = response.data;
+           console.log(response);
+           console.log("===========================");
+           
+           this.totalRecord = response.totalRecordCount;
+           this.spinner.hide();
+           this.loadingIndicator = false;
+         },erroe=>{
+           this.spinner.hide();
+           this.loadingIndicator = false;
+           this.toastr.error("Network error has been occured. Please try again.", "Error");
+         });
+   }
+
+   createQuestionFilterForm(): FormGroup{
+    return new FormGroup({
+      searchText:new FormControl(""),
+      studentId:new FormControl(0),
+      questionId:new FormControl(0)
+    });
+  }
+   //getters
+get studentFilterId(){
+  return this.questionStudentAnswerFilterForm.get("studentId").value
+}
+get questionFilterId(){
+  return this.questionStudentAnswerFilterForm.get("questionId").value
+}
+
+get searchTextFilterId() {
+  return this.questionStudentAnswerFilterForm.get("searchText").value;
+} 
+
 
   //all dropdowns
   getAllQuestion(){
@@ -92,9 +139,11 @@ export class McqQuestionStudentAnswerListComponent implements OnInit {
       .subscribe(response=>
       { 
         this.studentNames = response;
-        console.log(response)           
+        console.log(response) ;
+        this.getStudentList();          
 
       },error=>{
+        this.spinner.hide();
         this.toastr.error("Network error has been occured. Please try again.","Error");
        });
   }
