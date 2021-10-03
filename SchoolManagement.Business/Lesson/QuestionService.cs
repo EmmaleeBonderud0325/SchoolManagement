@@ -3,12 +3,12 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SchoolManagement.Business
@@ -57,23 +57,31 @@ namespace SchoolManagement.Business
             var query = schoolDb.Questions.Where(u => u.IsActive == true);
             var QuestionList = query.ToList();
 
-            foreach (var Question in QuestionList) 
+            foreach (var item in QuestionList) 
             {
                 var vm = new QuestionViewModel
                 {
-                    Id = Question.Id,
-                    LessonId = Question.LessonId,
-                    TopicId = Question.TopicId,
-                    SequenceNo = Question.SequenceNo,
-                    QuestionText = Question.QuestionText,
-                    Marks = Question.Marks,
-                    //DifficultyLevel = Question.DifficultyLevel,
-                    //QuestionType = Question.QuestionType,
-                    IsActive = Question.IsActive,
-                    CreateOn = Question.CreateOn,
-                    CreatedById = Question.CreatedById,
-                    UpdateOn = Question.UpdateOn,
-                    UpdatedById = Question.UpdatedById
+                    Id = item.Id,
+                    LessonId = item.LessonId,
+                    LessonName = item.Lesson.Name,
+                    TopicId = item.TopicId,
+                    TopicName = item.Topic.Name,
+                    SequenceNo = item.SequenceNo,
+                    QuestionText = item.QuestionText,
+                    QuestionName = item.QuestionText,
+                    Marks = item.Marks,
+                    DifficultyLevel = item.DifficultyLevel,
+                    DifficultyLevelName = item.DifficultyLevel.ToString(),
+                    QuestionType = item.QuestionType,
+                    QuestionTypeName = item.QuestionType.ToString(),
+                    IsActive = item.IsActive,
+                    CreateOn = item.CreateOn,
+                    CreatedById = item.CreatedById,
+                    CreatedByName =item.CreatedBy.FullName,
+                    UpdateOn = item.UpdateOn,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
+
                 };
                 response.Add(vm);
             }
@@ -85,9 +93,10 @@ namespace SchoolManagement.Business
             var respone = new ResponseViewModel();
             try 
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
-                var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                //var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
+                var Questions = schoolDb.Questions.FirstOrDefault(x => x.Id == vm.Id);
+                
 
                 if (Questions == null) 
                 {
@@ -100,13 +109,13 @@ namespace SchoolManagement.Business
                         QuestionText = vm.QuestionText,
                         Marks = vm.Marks,
                         //DifficultyLevel = vm.DifficultyLevel,
-                        //QuestionType = vm.QuestionType,
-                        IsActive = vm.IsActive,
+                        QuestionType = vm.QuestionType,
+                        IsActive = true,
                         CreateOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = loggedInUser.Id,
                         UpdateOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
-                    };
+                        UpdatedById = loggedInUser.Id,
+                };
 
                     schoolDb.Questions.Add(Questions);
                     respone.IsSuccess = true;
@@ -119,13 +128,13 @@ namespace SchoolManagement.Business
                     Questions.Marks = vm.Marks;
                     //Questions.DifficultyLevel = vm.DifficultyLevel;
                     //Questions.QuestionType = vm.QuestionType;
-                    Questions.IsActive = vm.IsActive;
-                    Questions.CreateOn = vm.CreateOn;
-                    Questions.CreatedById = vm.CreatedById;
-                    Questions.UpdateOn = vm.UpdateOn;
-                    Questions.UpdatedById = vm.UpdatedById;
+                    Questions.IsActive = true;
+                    Questions.UpdateOn = DateTime.UtcNow;
+                    Questions.UpdatedById = loggedInUser.Id;
 
                     schoolDb.Questions.Update(Questions);
+                    respone.IsSuccess = true;
+                    respone.Message = " Question is Updated Successfull.";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -140,5 +149,88 @@ namespace SchoolManagement.Business
             return respone;
         }
 
+
+
+        public List<DropDownViewModel> GetAllLessonName()
+        {
+            var lesson = schoolDb.Lessons
+            .Where(x => x.IsActive == true)
+            .Select(le => new DropDownViewModel() { Id = le.Id, Name = string.Format("{0}", le.Name) })
+            .Distinct().ToList();
+
+            return lesson;
+        }
+
+
+        public List<DropDownViewModel> GetAllTopic()
+        {
+            var topic = schoolDb.Topics
+            .Where(x => x.IsActive == true)
+            .Select(t => new DropDownViewModel() { Id = t.Id, Name = string.Format("{0}", t.Name) })
+            .Distinct().ToList();
+
+            return topic;
+        }
+
+       PaginatedItemsViewModel<BasicQuestionViewModel> IQuestionService.GetLessonList(string searchText, int currentPage, int pageSize, int LessonId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicQuestionViewModel>();
+            
+            var question = schoolDb.Questions.OrderBy(x => x.LessonId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                 question = question.Where(x => x.Lesson.Name.Contains(searchText)).OrderBy(x => x.LessonId);
+            }
+
+            if (LessonId > 0)
+            {
+                question = question.Where(x => x.LessonId == LessonId).OrderBy(x => x.QuestionText);
+            }
+
+
+            totalRecordCount = question.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonList = question.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            lessonList.ForEach(question =>
+            {
+                var vm = new BasicQuestionViewModel()
+                {
+                    Id = question.Id,
+                    LessonId = question.LessonId,
+                    LessonName = question.Lesson.Name,
+                    TopicId = question.TopicId,
+                    TopicName = question.Topic.Name,
+                    SequenceNo = question.SequenceNo,
+                    QuestionText = question.QuestionText,
+                    QuestionName = question.QuestionText,
+                    Marks = question.Marks,
+                    QuestionTypeName = question.QuestionType.ToString(),
+                    IsActive = question.IsActive,
+                    CreateOn = question.CreateOn,
+                    CreatedById = question.CreatedById,
+                    CreatedByName = question.CreatedBy.FullName,
+                    UpdateOn = question.UpdateOn,
+                    UpdatedById = question.UpdatedById,
+                    UpdatedByName = question.UpdatedBy.FullName,
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicQuestionViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        } 
+
+
+       
     }
 }
