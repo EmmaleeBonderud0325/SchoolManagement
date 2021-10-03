@@ -1,3 +1,9 @@
+@media screen and (max-width: 960px) {
+    button {
+        width: 100%;
+        margin-bottom: .5rem;
+    }
+}
 
 :host ::ng-deep {
     .p-toast-message-custom {
@@ -10,4 +16,3 @@
         }
     }
 }
-   

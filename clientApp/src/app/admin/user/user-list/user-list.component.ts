@@ -1,4 +1,5 @@
 import { MessageService } from 'primeng/api';
+
 import { BasicUserModel } from './../../../models/user/basic.user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
@@ -10,12 +11,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {ToastModule} from 'primeng/toast';
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrls: ['./user-list.component.scss'],
-  //providers: [ToastrService],
   providers: [MessageService]
 })
 export class UserListComponent implements OnInit {
@@ -43,13 +42,12 @@ export class UserListComponent implements OnInit {
     private modalService: NgbModal,
     private userService:UserService,
     private spinner: NgxSpinnerService,
-   // private toastr: ToastrService
-    private toastr: MessageService
-   ) { }
+    private messageService: MessageService
+   ) {  }
 
   ngOnInit(): void {
     this.spinner.show();
-    //this.getAll();
+   
     this.userFilterForm = this.createFilterForm();
     this.getUserRoles();
     this.getUserMasterData();
@@ -71,7 +69,7 @@ export class UserListComponent implements OnInit {
         },erroe=>{
           this.spinner.hide();
           this.loadingIndicator = false;
-          this.toastr.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+          this.messageService.add({severity:'error', summary: 'Rrror', detail: 'NetWork Error hass been Occourred'});
         });
   }
 
@@ -140,6 +138,7 @@ export class UserListComponent implements OnInit {
       this.getUserList();
     },error=>{
       this.spinner.hide();
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network Error hass been Occourred'});
     })
 
 
@@ -187,17 +186,16 @@ export class UserListComponent implements OnInit {
 
             if(response.isSuccess)
             {
-              //this.toastr.success(response.message,"Success");
-              this.toastr.add({severity:'success', summary: 'Success', detail: response.message});
+              this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
               this.getUserList();
             }
             else
             {
-              //this.toastr.error(response.message,"Error");
+              this.messageService.add({severity:'error', summary: 'error', detail: response.message});
             }
       
           },error=>{
-            //this.toastr.error("Network error has been occured. Please try again.","Error");
+            this.messageService.add({severity:'error', summary: 'error', detail:"Network error has been occured. Please try again."});
           });
           swalWithBootstrapButtons.fire(
             'Deleted!',
@@ -205,7 +203,7 @@ export class UserListComponent implements OnInit {
             'success'
           );
         } else if (
-          /* Read more about handling dismissals below */
+         
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
@@ -257,11 +255,13 @@ export class UserListComponent implements OnInit {
         {
             this.modalService.dismissAll();
            // this.toastr.success(response.message,"Success");
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getUserList();
         }
         else
         {
            // this.toastr.error(response.message,"Error");
+           this.messageService.add({severity:'error', summary: 'Error', detail: response.message});
         }
       },error=>{
         this.spinner.hide();
@@ -309,19 +309,4 @@ export class UserListComponent implements OnInit {
     return this.saveUserForm.get("id").value;
   }
 
-  showSticky() {
-    this.toastr.add({severity:'info', summary: 'Sticky', detail: 'Message Content', sticky: true});
-}
-
-onConfirm() {
-    this.toastr.clear('c');
-}
-
-onReject() {
-    this.toastr.clear('c');
-}
-
-clear() {
-    this.toastr.clear();
-}
 }

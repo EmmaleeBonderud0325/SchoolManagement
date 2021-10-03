@@ -203,7 +203,7 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
-                    EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
+                    //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }

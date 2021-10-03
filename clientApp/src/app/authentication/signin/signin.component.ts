@@ -62,7 +62,8 @@ export class SigninComponent implements OnInit {
             }
           },
           (error) => {
-            this.error = error;
+            this.error = 'NetWork Error has been occurred';
+            this.messageService.add({severity:'error', summary: 'error', detail: this.error});
             this.submitted = false;
           }
         );
