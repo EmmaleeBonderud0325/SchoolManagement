@@ -97,10 +97,6 @@
                             class="form-control" 
                             formControlName="fullName" 
                             >
-                          <div 
-                            class="invalid-feedback">
-                                Please fill in the first name
-                          </div>
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>User Name</label>
@@ -109,9 +105,7 @@
                             class="form-control" 
                             formControlName="userName" 
                             >
-                          <div class="invalid-feedback">
-                            Please fill in the last name
-                          </div>
+                                  
                         </div>
                       </div>
                       <div class="row">
@@ -122,9 +116,6 @@
                             class="form-control" 
                             formControlName="email" 
                             >
-                          <div class="invalid-feedback">
-                            Please fill in the email
-                          </div>
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Phone</label>
@@ -160,7 +151,7 @@
                   <div class="card-header">
                     <h4>Edit Profile</h4>
                   </div>
-                  <form>
+                  <form [formGroup]="updatePasswrodForm">
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
