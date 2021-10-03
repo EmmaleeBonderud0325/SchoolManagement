@@ -13,7 +13,7 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'lesson',
+    path: 'lessons',
     loadChildren:() =>
           import('./lesson/lesson.module').then((m)=>m.LessonModule)
   },

@@ -9,20 +9,21 @@ export class LessonTopicModel
     name:string;
     sequenceNo:number;
     learningExperince:string;
-    topicContent:TopicContentModel[];
+    topicContents:TopicContentModel[];
 
     static asFormGroup(item:LessonTopicModel,isDisable:boolean,fb:FormBuilder): FormGroup
     {
         const fg = new FormGroup({
             id: new FormControl(item.id),
             name: new FormControl(item.name,[Validators.required]),
+            learningExperince:new FormControl(item.learningExperince),
             sequenceNo: new FormControl(item.sequenceNo),
-            topicContent:fb.array([])
+            topicContents:fb.array([])
         });
 
-        const cf = item.topicContent.map((value, index) => { return TopicContentModel.asFormGroup(value, isDisable) });
+        const cf = item.topicContents.map((value, index) => { return TopicContentModel.asFormGroup(value, isDisable) });
         const fArray = new FormArray(cf);
-        fg.setControl('topicContent', fArray);
+        fg.setControl('topicContents', fArray);
 
         if(isDisable)
         {

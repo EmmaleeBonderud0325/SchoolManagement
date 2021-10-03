@@ -37,11 +37,11 @@ namespace SchoolManagement.Business.Master
 
             try
             {   
-                var subject = schoolDb.HeadOfDepartment.FirstOrDefault(x => x.Id == id);
+                var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
                 
                 subject.IsActive = false;
 
-                schoolDb.HeadOfDepartment.Update(subject);
+                schoolDb.Subjects.Update(subject);
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
@@ -58,7 +58,7 @@ namespace SchoolManagement.Business.Master
         {
             var response = new List<SubjectViewModel>();
             
-            var query = schoolDb.HeadOfDepartment.Where(s => s.IsActive == true);
+            var query = schoolDb.Subjects.Where(s => s.IsActive == true);
             
             var SubjectList = query.ToList();
             
@@ -122,7 +122,7 @@ namespace SchoolManagement.Business.Master
             {
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var subject = schoolDb.HeadOfDepartment.FirstOrDefault(x => x.Id == vm.Id);
+                var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == vm.Id);
 
                 if(subject == null)
                 {
@@ -159,10 +159,10 @@ namespace SchoolManagement.Business.Master
 
 
 
-                    schoolDb.HeadOfDepartment.Add(subject);
+                    schoolDb.Subjects.Add(subject);
                     await schoolDb.SaveChangesAsync();
 
-                    var insetedId = schoolDb.HeadOfDepartment.Max(x =>x.Id);
+                    var insetedId = schoolDb.Subjects.Max(x =>x.Id);
 
                     subject.SubjectAcademicLevels = new HashSet<SubjectAcademicLevel>();
 
@@ -211,7 +211,7 @@ namespace SchoolManagement.Business.Master
                         subject.SubjectAcademicLevels.Add(subjectAccodemicLevel);
                     }
 
-                    schoolDb.HeadOfDepartment.Update(subject);
+                    schoolDb.Subjects.Update(subject);
 
                     response.IsSuccess = true;
                     response.Message = SubjectServiceConstants.SUBJECT_UPDATE_SUCCESS_MESSAGE;
@@ -229,7 +229,7 @@ namespace SchoolManagement.Business.Master
         {
             var response = new SubjectViewModel();
 
-            var subject = schoolDb.HeadOfDepartment.FirstOrDefault(x => x.Id == id);
+            var subject = schoolDb.Subjects.FirstOrDefault(x => x.Id == id);
 
             response.Id = subject.Id;
             response.Name = subject.Name;
@@ -273,7 +273,7 @@ namespace SchoolManagement.Business.Master
 
             var vmu = new List<BasicSubjectViewModel>();
 
-            var subjects = schoolDb.HeadOfDepartment.Where(x => x.IsActive == true).OrderBy(s => s.Name );
+            var subjects = schoolDb.Subjects.Where(x => x.IsActive == true).OrderBy(s => s.Name );
 
             if (!string.IsNullOrEmpty(searchText))
             {
@@ -335,7 +335,7 @@ namespace SchoolManagement.Business.Master
 
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
-            var quary = schoolDb.HeadOfDepartment.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
+            var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
            
             if (quary == null)
             {

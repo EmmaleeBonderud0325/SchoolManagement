@@ -61,7 +61,7 @@ namespace SchoolManagement.Business
 
                 var vm = new LessonViewModel
                 {
-                    
+
 
                 };
 
@@ -86,15 +86,15 @@ namespace SchoolManagement.Business
                     lesson = new Lesson()
                     {
                         Id = vm.Id,
-                        Name = vm.Name,
-                        Description = vm.Description,
+                        Name = vm.LessonDetail.Name,
+                        Description = vm.LessonDetail.Description,
                         OwnerId = loggedInUser.Id,
-                        AcademicLevelId = vm.AcademicLevelId,
-                        ClassNameId = vm.ClassNameId,
-                        AcademicYearId = vm.AcademicYearId,
-                        SubjectId = vm.SubjectId,
-                        LearningOutcome = vm.LearningOutcome,
-                        PlannedDate = vm.PlannedDate,
+                        AcademicLevelId = vm.LessonDetail.AcademicLevelId,
+                        ClassNameId = vm.LessonDetail.ClassNameId,
+                        AcademicYearId = vm.LessonDetail.AcademicYearId,
+                        SubjectId = vm.LessonDetail.SubjectId,
+                        LearningOutcome = vm.LessonDetail.LearningOutcome,
+                        PlannedDate = vm.LessonDetail.PlannedDate,
                         CompletedDate = DateTime.UtcNow,
                         VersionNo = 1,
                         Status = LessonStatus.Design,
@@ -113,15 +113,15 @@ namespace SchoolManagement.Business
                 }
                 else
                 {
-                    lesson.Name = vm.Name;
-                    lesson.Description = vm.Description;
-                    lesson.AcademicLevelId = vm.AcademicLevelId;
-                    lesson.ClassNameId = vm.ClassNameId;
-                    lesson.AcademicYearId = vm.AcademicYearId;
-                    lesson.SubjectId = vm.SubjectId;
-                    lesson.PlannedDate = vm.PlannedDate;
-                    lesson.LearningOutcome = vm.LearningOutcome;
-                    lesson.PlannedDate = vm.PlannedDate;
+                    lesson.Name = vm.LessonDetail.Name;
+                    lesson.Description = vm.LessonDetail.Description;
+                    lesson.AcademicLevelId = vm.LessonDetail.AcademicLevelId;
+                    lesson.ClassNameId = vm.LessonDetail.ClassNameId;
+                    lesson.AcademicYearId = vm.LessonDetail.AcademicYearId;
+                    lesson.SubjectId = vm.LessonDetail.SubjectId;
+                    lesson.PlannedDate = vm.LessonDetail.PlannedDate;
+                    lesson.LearningOutcome = vm.LessonDetail.LearningOutcome;
+                    lesson.PlannedDate = vm.LessonDetail.PlannedDate;
                     lesson.UpdatedOn = DateTime.UtcNow;
                     lesson.UpdatedById = loggedInUser.Id;
 
@@ -213,10 +213,11 @@ namespace SchoolManagement.Business
         {
             var response = new LessonMasterDataViewModel();
 
-            response.AcademicLevels = schoolDb.AcademicLevels.OrderBy(x => x.Id).Select(a => new DropDownViewModel() { Id = a.Id, Name = a.Name }).ToList();
-            response.ClassNames = schoolDb.ClassNames.OrderBy(x => x.Name).Select(c => new DropDownViewModel() { Id = c.Id, Name = c.Name }).ToList();
             response.AcademicYears = schoolDb.AcademicYears.OrderBy(x => x.Id).Select(ay => new DropDownViewModel() { Id = ay.Id, Name = ay.Id.ToString() }).ToList();
-            response.Subjects = schoolDb.HeadOfDepartment.OrderBy(x => x.Id).Select(s => new DropDownViewModel() { Id = s.Id, Name = s.Name }).ToList();
+
+            response.AcademicLevels = schoolDb.AcademicLevels.Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name }).ToList();
+
+            response.CurrentYearId = schoolDb.AcademicYears.FirstOrDefault(x => x.IsCurrentYear == true).Id;
 
             return response;
         }
@@ -269,15 +270,28 @@ namespace SchoolManagement.Business
             {
                 var vm = new BasicLessonViewModel()
                 {
-                    Id =item.Id,
+                    Id = item.Id,
                     LessonName = item.Name,
-                    Description = item.Description,
-                    AcademicLevelId = item.Class.AcademicLevel.Name,
-                    ClassName = item.Class.Name,
-                    AcademicYearId = item.AcademicYearId,
-                    SubjectName = item.SubjectAcedemicLevel.Subject.Name
-                    
+                    Description = item.Description
+
                 };
+
+                if (item.AcademicYearId.HasValue)
+                {
+                    vm.AcademicYearId = item.AcademicYearId.Value;
+                }
+
+                if (item.ClassNameId.HasValue)
+                {
+                    vm.ClassName = item.Class.Name;
+                }
+
+                if (item.SubjectId.HasValue)
+                {
+                    vm.SubjectName = item.SubjectAcedemicLevel.Subject.Name;
+                }
+
+
                 vml.Add(vm);
             }
 
@@ -293,14 +307,49 @@ namespace SchoolManagement.Business
             var lesson = schoolDb.Lessons.FirstOrDefault(u => u.Id == id);
 
             response.Id = lesson.Id;
-            response.Name = lesson.Name;
-            response.AcademicLevelId = lesson.AcademicLevelId;
-            response.ClassNameId = lesson.ClassNameId;
-            response.AcademicYearId = lesson.AcademicYearId;
-            response.SubjectId = lesson.SubjectId;
-            response.LearningOutcome = lesson.LearningOutcome;
-            response.Description = lesson.Description;
-            response.PlannedDate = lesson.PlannedDate;
+            response.LessonDetail.Name = lesson.Name;
+            response.LessonDetail.AcademicLevelId = lesson.AcademicLevelId.HasValue ? lesson.AcademicLevelId.Value : 0;
+            response.LessonDetail.ClassNameId = lesson.ClassNameId.HasValue ? lesson.ClassNameId.Value : 0;
+            response.LessonDetail.AcademicYearId = lesson.AcademicYearId.HasValue ? lesson.AcademicYearId.Value : 0;
+            response.LessonDetail.SubjectId = lesson.SubjectId.HasValue ? lesson.SubjectId.Value : 0;
+            response.LessonDetail.LearningOutcome = lesson.LearningOutcome;
+            response.LessonDetail.Description = lesson.Description;
+            response.LessonDetail.PlannedDate = lesson.PlannedDate;
+
+            lesson.Topics.ToList().ForEach(t =>
+            {
+                var topic = new TopicViewModel()
+                {
+                    Id = t.Id,
+                    LessonId = t.LessonId,
+                    Name = t.Name,
+                    SequenceNo = t.SequenceNo,
+                    LearningExperience = t.LearningExperience,
+                    IsActive = t.IsActive,
+                    CreatedOn = t.CreatedOn,
+                    ModifiedOn = t.ModifiedOn
+                };
+
+                t.TopicContents.ToList().ForEach(tc =>
+                {
+                    var topicContent = new TopicContentViewModel()
+                    {
+                        Id = tc.Id,
+                        TopicId = tc.TopicId,
+                        Introduction = tc.Introduction,
+                        ContentType = tc.ContentType,
+                        Content = tc.Content,
+                        CreatedOn = tc.CreatedOn,
+                        UpdatedOn = tc.UpdatedOn
+                    };
+
+                    topic.TopicContents.Add(topicContent);
+
+                });
+
+                response.Topics.Add(topic);
+
+            });
 
             return response;
 
@@ -309,25 +358,39 @@ namespace SchoolManagement.Business
 
         }
 
-        public Task<ResponseViewModel> CreateNewLesson(string userName)
+        public async Task<LessonViewModel> CreateNewLesson(string userName)
         {
             var loggedInUser = currentUserService.GetUserByUsername(userName);
-            var response = new ResponseViewModel(); 
-           /* var lesson = new Lesson()
+
+            var totalLessonCount = schoolDb.Lessons.Where(x => x.OwnerId == loggedInUser.Id && x.IsActive == true).Count();
+
+            var lesson = new Lesson()
             {
                 OwnerId = loggedInUser.Id,
+                Name = $"Lesson {totalLessonCount + 1}",
                 CreatedOn = DateTime.UtcNow,
                 CreatedById = loggedInUser.Id,
                 UpdatedOn = DateTime.UtcNow,
                 UpdatedById = loggedInUser.Id,
                 Status = LessonStatus.Design,
-                IsActive = true
-            };*/
+                IsActive = true,
+                AcademicYearId = schoolDb.AcademicYears.Select(x => x.Id).Max(),
+                VersionNo = 1
+            };
 
-           // schoolDb.Add(lesson);
-            // await schoolDb.SaveChangesAsync();
+            schoolDb.Add(lesson);
+            await schoolDb.SaveChangesAsync();
 
-            return null;
+            var response = new LessonViewModel()
+            {
+                Id = lesson.Id,
+            };
+
+            response.LessonDetail.Name = lesson.Name;
+            response.LessonDetail.Status = lesson.Status;
+
+
+            return response;
 
         }
     }

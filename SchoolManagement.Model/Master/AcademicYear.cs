@@ -11,6 +11,7 @@ namespace SchoolManagement.Model
     {
         public int Id { get; set; }
         public bool IsActive { get; set; }
+        public bool IsCurrentYear { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedById { get; set; }
         public DateTime UpdatedOn { get; set; }
