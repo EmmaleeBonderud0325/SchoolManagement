@@ -9,5 +9,6 @@ export class LessonMasterDataModel
     classNames :DropDownModel[];
     academicYears :DropDownModel[];
     subjects :DropDownModel[];
+    currentYearId:number;
 
 }

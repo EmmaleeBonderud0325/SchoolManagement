@@ -9,6 +9,11 @@ namespace SchoolManagement.ViewModel.Lesson
 {
      public class TopicViewModel
     {
+        public TopicViewModel()
+        {
+            TopicContents = new List<TopicContentViewModel>();
+        }
+
         public int Id { get; set; }
         public int LessonId { get; set; }
         public DropDownViewModel Lesson { get; set; }
@@ -18,5 +23,7 @@ namespace SchoolManagement.ViewModel.Lesson
         public bool IsActive { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
+
+        public List<TopicContentViewModel> TopicContents { get; set; }
     }
 }

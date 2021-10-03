@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -31,6 +33,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
+        
         public async Task<ActionResult> Post([FromBody] QuestionViewModel vm)
         {
             var userName = identityService.GetUserName();
@@ -45,5 +48,32 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
 
         }
+
+
+        [HttpGet]
+        [Route("getAllLessonName")]
+        public IActionResult GetAllLessonName()
+        {
+            var response = questionService.GetAllLessonName();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllTopic")]
+        public IActionResult GetAllTopic()
+        {
+            var response = questionService.GetAllTopic();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicQuestionViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int lessonId)
+        {
+            var response = questionService.GetLessonList(searchText, currentPage, pageSize, lessonId);
+
+            return response;
+        }
+
     }
 }

@@ -46,7 +46,7 @@ namespace SchoolManagement.Data.Data
 
             else if (tenantSchool == null && !optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-JTSNI0P\SQLEXPRESS01;Database=SchoolManagement;User Id=dt;Password=1qaz2wsx@;");
+                optionsBuilder.UseSqlServer(@"Server=LAPTOP-JE21CP1B\SQLEXPRESS;Database=SchoolManagement;User Id=av;Password=1qaz2wsx@;");
 
 
             }
@@ -121,7 +121,7 @@ namespace SchoolManagement.Data.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<StudentClass> StudentClasses { get; set; }
         public DbSet<StudentClassSubject> StudentClassSubjects { get; set; }
-        public DbSet<Subject> HeadOfDepartment { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
         public DbSet<SubjectStream> SubjectStreams { get; set; }
         public DbSet<SubjectAcademicLevel> SubjectAcademicLevels { get; set; }
         public DbSet<SubjectTeacher> SubjectTeachers { get; set; }

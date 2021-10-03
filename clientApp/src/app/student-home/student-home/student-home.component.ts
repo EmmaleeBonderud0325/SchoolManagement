@@ -10,7 +10,7 @@ import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 export class StudentHomeComponent implements OnInit {
   showNavigationArrows = false;
   showNavigationIndicators = false;
-  images = [1, 2, 3].map((n) => `assets/images/carousel/${n}.jpg`);
+  images = [1, 2, 3].map((n) => 'assets/images/SHImage/${n}.jpg');
   
   constructor(config: NgbCarouselConfig) {
     config.showNavigationArrows = true;

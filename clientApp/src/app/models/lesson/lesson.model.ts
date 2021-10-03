@@ -1,17 +1,11 @@
 import { Injectable } from '@angular/core';
+import { LessonDetailModel } from "../lesson/lesson.detail.model";
+import { LessonTopicModel } from './lesson.topic.model';
 
 export class LessonModel
 {
     id:number;
-    name:string;
-    description:string;
-
-    academicLevelId:number;
-    classNameId:number;
-    academicYearId:number;
-    subjectId:number;
-    learningOutcome:string;
-    plannedDate:Date;
-    //completedDate:Date 
-        
+    lessonDetail:LessonDetailModel
+    topics:LessonTopicModel[]; 
+     
 }

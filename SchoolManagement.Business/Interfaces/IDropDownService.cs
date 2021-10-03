@@ -26,5 +26,8 @@ namespace SchoolManagement.Business.Interfaces
         List<DropDownViewModel> GetAllTeachers();
 
         List<DropDownViewModel> GetExcelMasterData();
+
+        List<DropDownViewModel> GetClasese(int academicYearId, int academicLevelId);
+        List<DropDownViewModel> GetSubjectsForSelectedClass(int academicYearId, int academicLevelId, int classNameId);
     }
 }

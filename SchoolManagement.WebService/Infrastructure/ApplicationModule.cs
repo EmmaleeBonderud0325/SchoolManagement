@@ -143,6 +143,10 @@ namespace SchoolManagement.WebService.Infrastructure
             .As<IExcelMasterDataService>()
             .InstancePerLifetimeScope();
 
+            builder.RegisterType<ReportService>()
+           .As<IReportService>()
+           .InstancePerLifetimeScope();
+
 
 
 

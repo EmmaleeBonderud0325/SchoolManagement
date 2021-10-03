@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -116,6 +117,25 @@ namespace SchoolManagement.WebService.Controllers
             var response = dropDownService.GetExcelMasterData();
 
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getClasese/{academicYearId}/{academicLevelId}")]
+        public List<DropDownViewModel> GetClasese(int academicYearId, int academicLevelId)
+        {
+            var response = dropDownService.GetClasese(academicYearId, academicLevelId);
+
+            return response;
+        }
+
+
+        [HttpGet]
+        [Route("getSubjectsForSelectedClass/{academicYearId}/{academicLevelId}/{classNameId}")]
+        public List<DropDownViewModel> GetSubjectsForSelectedClass(int academicYearId, int academicLevelId, int classNameId)
+        {
+            var response = dropDownService.GetSubjectsForSelectedClass(academicYearId, academicLevelId, classNameId);
+
+            return response;
         }
 
 
