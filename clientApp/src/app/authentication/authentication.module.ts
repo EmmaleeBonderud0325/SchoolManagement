@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -43,6 +44,7 @@ const icons = {
     AuthenticationRoutingModule,
     FeatherModule.pick(icons),
     //MessageService
+    ToastModule
   ],
 })
 export class AuthenticationModule {}

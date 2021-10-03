@@ -14,7 +14,7 @@ export class SigninComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   returnUrl: string;
-  error = 'Username and Password not valid !';
+  error = '';
   hide = true;
   constructor(
     private formBuilder: FormBuilder,
@@ -34,11 +34,11 @@ export class SigninComponent implements OnInit {
   }
   onSubmit() {
     this.submitted = true;
-    this.error = '';
+    this.error = 'School Domain,Username and Password not valid !';
 
     if (this.loginForm.invalid) {
       //this.error = 'Username and Password not valid !';
-      this.messageService.add({severity:'success', summary: 'Success', detail: 'Message Content'});
+      this.messageService.add({severity:'warn', summary: 'warn', detail: this.error});
       
       
       return;
@@ -52,8 +52,13 @@ export class SigninComponent implements OnInit {
               if (token) {
                 this.router.navigate(['/teacher-home/lessons']);
               }
+              else{
+                this.error = 'Invalid Login';
+                this.messageService.add({severity:'error', summary: 'error', detail: this.error});
+              }
             } else {
-              this.error = 'Invalid Login';
+              this.error = 'NetWork Error has been occurred';
+              this.messageService.add({severity:'error', summary: 'error', detail: this.error});
             }
           },
           (error) => {
