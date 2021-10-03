@@ -9,6 +9,8 @@ import { id } from '@swimlane/ngx-datatable';
 import { LessonFilterModel } from 'src/app/models/lesson/lesson.filter.model';
 import { LessonMasterDataModel } from "src/app/models/lesson/lesson.masterdata.model";
 import { LessonPaginatedItemsViewModel } from "src/app/models/lesson/lesson.paginated.items";
+import { LessonTopicModel } from 'src/app/models/lesson/lesson.topic.model';
+import { TopicContentModel } from 'src/app/models/lesson/topic.content';
 ;
 
 @Injectable({
@@ -62,6 +64,18 @@ export class LessonService {
    getLessonById(id:number): Observable<LessonModel>{
     return this.httpClient.get<LessonModel>
         (environment.apiUrl + 'LessonDesign/getLessonById/'+ id);
+  }
+
+  saveTopic(vm :LessonTopicModel): Observable <LessonTopicModel>{
+    return this.httpClient
+      .post<LessonTopicModel>(environment.apiUrl + 'LessonDesign/saveTopic', vm);
+ 
+  }
+
+  saveTopicContent(vm :TopicContentModel): Observable <TopicContentModel>{
+    return this.httpClient
+      .post<TopicContentModel>(environment.apiUrl + 'LessonDesign/saveTopicContent', vm);
+ 
   }
   
 }
