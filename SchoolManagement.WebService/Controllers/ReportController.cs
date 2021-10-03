@@ -27,6 +27,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [RequestSizeLimit(long.MaxValue)]
         [Route("downloadUserList")]
         public FileStreamResult DownloadUserList()
         {
