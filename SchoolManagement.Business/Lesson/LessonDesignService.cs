@@ -143,7 +143,7 @@ namespace SchoolManagement.Business
             return response;
 
         }
-        public async Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName)
+        public async Task<TopicViewModel> SaveTopic(TopicViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
 
@@ -160,6 +160,7 @@ namespace SchoolManagement.Business
                         Id = vm.Id,
                         LessonId = vm.LessonId,
                         SequenceNo = vm.SequenceNo,
+                        Name = vm.Name,
                         LearningExperience = vm.LearningExperience,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
@@ -173,16 +174,60 @@ namespace SchoolManagement.Business
                 }
                 else
                 {
+                    topic.Name = vm.Name;
+                    topic.LearningExperience = vm.LearningExperience;
+                    topic.ModifiedOn = DateTime.UtcNow;
 
+                    schoolDb.Topics.Update(topic);
                 }
+
+
+                await schoolDb.SaveChangesAsync();
+                vm.Id = topic.Id;
             }
             catch (Exception ex)
             {
-                response.IsSuccess = false;
-                response.Message = ex.ToString();
+
             }
+
+            return vm;
+        }
+
+        public async Task<TopicContentViewModel> SaveTopicContent(TopicContentViewModel vm, string userName)
+        {
+            var topicContent = schoolDb.TopicContents.FirstOrDefault(x => x.Id == vm.Id);
+
+            if (topicContent == null)
+            {
+                topicContent = new TopicContent()
+                {
+                    TopicId = vm.TopicId,
+                    ContentType = TopicContentType.Text,
+                    Introduction = vm.Introduction,
+                    UpdatedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
+                };
+
+                schoolDb.TopicContents.Add(topicContent);
+            }
+            else
+            {
+                topicContent.Introduction = vm.Introduction;
+                if (vm.ContentType == TopicContentType.Text)
+                {
+                    topicContent.Content = vm.Content;
+                }
+                topicContent.ContentType = vm.ContentType;
+                topicContent.UpdatedOn = DateTime.UtcNow;
+
+                schoolDb.Update(topicContent);
+            }
+
             await schoolDb.SaveChangesAsync();
-            return response;
+
+            vm.Id = topicContent.Id;
+
+            return vm;
         }
         public async Task<ResponseViewModel> DeleteLesson(int id)
         {
@@ -336,6 +381,7 @@ namespace SchoolManagement.Business
                     {
                         Id = tc.Id,
                         TopicId = tc.TopicId,
+                        Name = tc.Name,
                         Introduction = tc.Introduction,
                         ContentType = tc.ContentType,
                         Content = tc.Content,

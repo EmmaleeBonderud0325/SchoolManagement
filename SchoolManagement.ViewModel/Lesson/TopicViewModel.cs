@@ -1,4 +1,4 @@
-﻿using SchoolManagement.ViewModel.Common;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +24,8 @@ namespace SchoolManagement.ViewModel.Lesson
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
 
-        public List<TopicContentViewModel> TopicContents { get; set; }
+    public bool Editable { get; set; }
+
+    public List<TopicContentViewModel> TopicContents { get; set; }
     }
 }
