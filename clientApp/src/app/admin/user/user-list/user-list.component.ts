@@ -254,18 +254,16 @@ export class UserListComponent implements OnInit {
         if(response.isSuccess)
         {
             this.modalService.dismissAll();
-           // this.toastr.success(response.message,"Success");
             this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getUserList();
         }
         else
         {
-           // this.toastr.error(response.message,"Error");
            this.messageService.add({severity:'error', summary: 'Error', detail: response.message});
         }
       },error=>{
         this.spinner.hide();
-            //this.toastr.error("Network error has been occre.Please try again","Error");
+            this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occre.Please try again'});
       });
     
   }
