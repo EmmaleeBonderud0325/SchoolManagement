@@ -58,7 +58,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        [Route("getLessonList")]
+        [Route("getLessonAssignmentsList")]
         public PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel> GetLessonAssignmentsList(string searchText, int currentPage, int pageSize, int lessonassignmentId)
         {
             var response = lessonassignmentsubmissionService.GetLessonAssignmentsList(searchText, currentPage, pageSize, lessonassignmentId);
