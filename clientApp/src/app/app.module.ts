@@ -35,7 +35,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './core/guard/auth.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { NgModule } from '@angular/core';
+
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

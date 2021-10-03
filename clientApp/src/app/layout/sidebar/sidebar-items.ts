@@ -80,6 +80,32 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible: true
       },
+      {
+        path: '/teacher-home/lesson-assignment',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT',
+        moduleName: ' lesson-assignment ',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/teacher-home/lesson-assignment-submission',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT-SUBMISSION-LIST',
+        moduleName: ' lesson-assignment-submission ',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
 
       //question
       {
