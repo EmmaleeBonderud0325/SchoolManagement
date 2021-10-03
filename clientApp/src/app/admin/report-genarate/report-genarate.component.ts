@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { DropDownModel } from './../../models/common/drop-down.model';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReportGenarateComponent implements OnInit {
 
-  constructor() { }
+  reportsTypes:DropDownModel[]=[];
+
+  constructor(
+    private spinner:NgxSpinnerService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  excelTypeOnChanged(item:any)
+  {
+
+  }
+  
 }
