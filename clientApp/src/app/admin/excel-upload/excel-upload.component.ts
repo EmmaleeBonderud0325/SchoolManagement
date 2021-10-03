@@ -1,3 +1,4 @@
+import { DropdownService } from 'src/app/services/drop-down/dropdown.service';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import Swal from 'sweetalert2';
 import { Upload } from './../../models/common/upload';
@@ -15,17 +16,22 @@ export class ExcelUploadComponent implements OnInit {
 
   excelTypes:DropDownModel[]=[];
 
-  constructor(private studentService:StudentService ,private spinner:NgxSpinnerService) { }
+  constructor(
+    private studentService:StudentService,
+    private spinner:NgxSpinnerService,
+    private dropDownServie:DropdownService,
+    ) { }
 
 
 
-  fileTypes:any[]= [
+  /*fileTypes:any[]= [
     {id:1,name:"Student Excel"},
     {id:2,name:"Management Level User Excel"}
-  ];
+  ];*/
   selectedExcelFileTypeId=1;
 
   ngOnInit(): void {
+    this.getExcelMasrerData();
   }
 
   excelTypeOnChanged(item:any)
@@ -72,6 +78,12 @@ export class ExcelUploadComponent implements OnInit {
           });
 
     }    
+  }
+
+  getExcelMasrerData(){
+      this.dropDownServie.getExcelMasrerData().subscribe(response=>{
+         this.excelTypes = response;
+      })
   }
 
 }

@@ -90,7 +90,7 @@ namespace SchoolManagement.Business.Master
                     SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     IsActive = subject.IsActive,
-                    SubjectAcademicLevels = subjectAcademicLevel,
+                    //SubjectAcademicLevels = subjectAcademicLevel,
                     CreatedByName = subject.CreatedBy.FullName,
                     CreatedOn = subject.CreatedOn,
                     UpdatedByName = subject.UpdatedBy.FullName,
@@ -171,7 +171,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAcademicLevel = new SubjectAcademicLevel()
                         {
                             SubjectId = insetedId,
-                            AcademicLevelId=unit.Id,
+                            AcademicLevelId=unit,
                         };
 
                         subject.SubjectAcademicLevels.Add(subjectAcademicLevel);
@@ -205,7 +205,7 @@ namespace SchoolManagement.Business.Master
                         var subjectAccodemicLevel = new SubjectAcademicLevel()
                         {
                             SubjectId = vm.Id,
-                            AcademicLevelId= item.Id,
+                            AcademicLevelId= item,
                         };
 
                         subject.SubjectAcademicLevels.Add(subjectAccodemicLevel);
@@ -258,12 +258,13 @@ namespace SchoolManagement.Business.Master
 
             foreach (var item in subjectAcademicLevels)
             {
-                response.SubjectAcademicLevels.Add(new DropDownViewModel() { Id = item.AcademicLevelId, Name = item.AcademicLevel.Name, });
+                response.SubjectAcademicLevels.Add(item.AcademicLevelId);
             }
 
             return response;
         }
 
+ 
         public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
         {
             int totalRecordCount = 0;
@@ -272,7 +273,7 @@ namespace SchoolManagement.Business.Master
 
             var vmu = new List<BasicSubjectViewModel>();
 
-            var subjects = schoolDb.Subjects.Where(x => x.IsActive == true).OrderBy(s => s.Name);
+            var subjects = schoolDb.Subjects.Where(x => x.IsActive == true).OrderBy(s => s.Name );
 
             if (!string.IsNullOrEmpty(searchText))
             {
@@ -284,22 +285,46 @@ namespace SchoolManagement.Business.Master
             totalPageCount = (int)Math.Ceiling(totalPages);
 
             var subjectList = subjects.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+            
+            SubjectType subjectType;
+            var subjectAcademicLevel = new List<DropDownViewModel>();
+
 
             subjectList.ForEach(subject =>
             {
+                
+                if (subject.IsBuscketSubject == false && subject.IsParentBasketSubject == false)
+                {
+                    subjectType = SubjectType.NormalSubject;
+                }
+                else if (subject.IsParentBasketSubject == true)
+                {
+                    subjectType = SubjectType.ParentBasketSubject;
+                }
+                else
+                {
+                    subjectType = SubjectType.BasketSubject;
+                }
+
+
                 var vm = new BasicSubjectViewModel()
                 {
                     Id = subject.Id,
                     Name = subject.Name,
                     SubjectCode = subject.SubjectCode,
+                    SubjectCategory = subject.SubjectCategory,
+                    ParentBasketSubjectId = subject.ParentBasketSubjectId,
                     SubjectCategoryName = subject.SubjectCategory.ToString(),
                     ParentBasketSubjectName = GetParentBasketSubjectName(subject.ParentBasketSubjectId),
+                    SubjectStreamId = subject.SubjectStreamId,
                     SubjectStreamName = subject.SubjectStream.Name,
                     CreatedByName = subject.CreatedBy.FullName,
                     CreatedOn = subject.CreatedOn,
                     UpdatedByName = subject.UpdatedBy.FullName,
                     UpdatedOn = subject.UpdatedOn,
-                };
+                    SubjectType = subjectType,
+                   
+                 };
                 vmu.Add(vm);
             });
 

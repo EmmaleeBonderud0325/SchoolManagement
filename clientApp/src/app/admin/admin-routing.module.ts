@@ -1,3 +1,4 @@
+import { ReportGenarateComponent } from './report-genarate/report-genarate.component';
 import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -128,7 +129,10 @@ const routes: Routes = [
     path:'excel-upload',
     component:ExcelUploadComponent
   },
-
+  {
+    path:'report-genarate',
+    component:ReportGenarateComponent
+  },
   {
     path: '',
     redirectTo: 'example',
