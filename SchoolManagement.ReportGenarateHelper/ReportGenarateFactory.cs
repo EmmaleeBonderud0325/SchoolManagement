@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using SchoolManagement.Data.Data;
+using SchoolManagement.ReportGenarateHelper.ReportGenarate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,21 +11,18 @@ namespace SchoolManagement.ReportGenarateHelper
 {
     public class ReportGenarateFactory
     {
-        //public BaseReportGenarateHelper GenarateMasterDataReportr(Dictionary<string, string> helpParams, SchoolManagementContext schoolDb, IConfiguration config)
-        //{
-        //    switch (helpParams["FileType"])
-        //    {
-        //        case "User":
-        //            {
-        //                return new UserExcelMasterDataHelper(helpParams, schoolDb, config);
-        //            }
-        //        case "Student":
-        //            {
-        //                return new StudentExcelMasterDataHelper(helpParams, schoolDb, config);
-        //            }
-        //    }
+        public BaseReportGenarator GetReportGenarator(Dictionary<string, string> reportParams, SchoolManagementContext schoolDb, IConfiguration config)
+        {
+            switch (reportParams["reportType"])
+            {
+                case "User":
+                    {
+                        return new UserReportGenarateHelper(reportParams, schoolDb, config);
+                    }
+               
+            }
 
-        //    throw new Exception("Unable to find matching excel uploader");
-        //}
+            throw new Exception("Unable to find matching excel uploader");
+        }
     }
 }
