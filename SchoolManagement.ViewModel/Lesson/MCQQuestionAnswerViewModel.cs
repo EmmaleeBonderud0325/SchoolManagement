@@ -10,6 +10,7 @@ namespace SchoolManagement.ViewModel.Lesson
     {
         public int Id { get; set; }
         public int QuestionId { get; set; }
+        public string QuestionName { get; set; }
         public string AnswerText { get; set; } 
         public int SequenceNo { get; set; }
         public bool IsCorrectAnswer { get; set; }
