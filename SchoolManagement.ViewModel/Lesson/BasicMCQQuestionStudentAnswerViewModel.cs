@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SchoolManagement.ViewModel.Lesson
+{
+    public class BasicMCQQuestionStudentAnswerViewModel
+    {
+        public int QuestionId { get; set; }
+        public string QuestionName { get; set; }
+        public int StudentId { get; set; }
+        public string StudentName { get; set; }
+        public int MCQQuestionAnswerId { get; set; }
+        public string MCQQuestionAnswerName { get; set; }
+        public string AnswerText { get; set; }
+        public int SequnceNo { get; set; }
+        public bool IsChecked { get; set; }
+    }
+}

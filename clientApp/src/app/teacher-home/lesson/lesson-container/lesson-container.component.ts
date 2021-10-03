@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-lesson-container',
   templateUrl: './lesson-container.component.html',
-  styleUrls: ['./lesson-container.component.sass']
+  styleUrls: ['./lesson-container.component.scss']
 })
 export class LessonContainerComponent implements OnInit {
 
@@ -31,20 +31,20 @@ export class LessonContainerComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.lessonForm = this.createLessonForm();
     this.primengConfig.ripple = true;
     this.menuItems = [
-      {name: 'Lesson Details', code: 'NY',id: 1},
-      {name: 'Lesson Content', code: 'PRS',id: 5}
+      {name: 'Lesson Details',id: 1},
+      {name: 'Lesson Content',id: 2}
   ];
 
   this.selectedMenu=this.menuItems[0];
 
   this.activateRoute.params.subscribe(params => {
     this.lessonId = +params.id;
-    this.spinner.show();
-    //this.getLesson();
-
+    this.getLesson();
   });
+
   }
 
 
@@ -53,15 +53,19 @@ export class LessonContainerComponent implements OnInit {
    
         id: new FormControl(0),
         lessonDetail: this.fb.group({
-        lessonId:new FormControl(0),
-        name:new FormControl(""),
-        lessonIntroduction: new FormControl(""),
-        academicYearId: new FormControl(null,[Validators.required]),
-        lessonStatus:new FormControl(null,[Validators.required]),
-        assignedClasses:new FormControl([]),
+          lessonId: new FormControl(0,[Validators.required]),
+          name:new FormControl("",[Validators.required]),
+          description:new FormControl("",[Validators.required]),
+          ownerId:new FormControl(0),
+          academicYearId: new FormControl(null,[Validators.required]),
+          academicLevelId: new FormControl(null,[Validators.required]),
+          classNameId:new FormControl(null,[Validators.required]),
+          subjectId:new FormControl(null,[Validators.required]),
+          learningOutCome:new FormControl(''),
+          plannedDate:new FormControl(null,[Validators.required]),
       }),
      
-      lessonTopics: this.fb.array([]),
+      topics: this.fb.array([]),
       
     });
   }
@@ -69,6 +73,8 @@ export class LessonContainerComponent implements OnInit {
 
   menuClicked(menu:LessonMenu)
   {
+    console.log(menu);
+    
     this.selectedMenu=menu;
   }
 
@@ -78,46 +84,25 @@ export class LessonContainerComponent implements OnInit {
       .subscribe(response=>{
         this.spinner.hide();
         this.lesson = response;
-/*         this.lessonForm = new FormGroup({
-   
-          id: new FormControl(response.id),
-          lessonDetail: this.fb.group({
-            name:new FormControl(response.lessonDetail.name),
-            lessonIntroduction: new FormControl(response.lessonDetail.lessonIntroduction),
-            duration: new FormControl(response.lessonDetail.duration),
-            competencyLevel: new FormControl(response.lessonDetail.competencyLevel,[Validators.required]),
-            teachingProcess: new FormControl(response.lessonDetail.teachingProcess,[Validators.required]),
-            academicYearId: new FormControl(response.lessonDetail.academicYearId,[Validators.required]),
-            gradeId: new FormControl(response.lessonDetail.gradeId,[Validators.required]),
-            subjectId: new FormControl(response.lessonDetail.subjectId,[Validators.required]),
-            lessonStatus:new FormControl(response.lessonDetail.lessonStatus,[Validators.required]),
-            teacherAids:new FormControl(response.lessonDetail.teacherAids),
-            assignedClasses:new FormControl(response.lessonDetail.assignedClasses),
-          }),
-          lessonPrerequisites: this.fb.array([]),
-          lessonOutcomes: this.fb.array([]),
-          lessonTopics: this.fb.array([]),
-          lessonUnitTests: this.fb.array([])
-        }); */
 
-       /* this.lessonForm.get("id").setValue(response.id);
+
+        this.lessonForm.get("id").setValue(response.id);
         this.lessonForm.get("lessonDetail.lessonId").setValue(response.lessonDetail.lessonId);
         this.lessonForm.get("lessonDetail.name").setValue(response.lessonDetail.name);
-        this.lessonForm.get("lessonDetail.lessonIntroduction").setValue(response.lessonDetail.lessonIntroduction);
+        this.lessonForm.get("lessonDetail.description").setValue(response.lessonDetail.description);
         this.lessonForm.get("lessonDetail.academicYearId").setValue(response.lessonDetail.academicYearId);
         this.lessonForm.get("lessonDetail.academicYearId").disable();
-        this.lessonForm.get("lessonDetail.gradeId").setValue(response.lessonDetail.gradeId);
-
+        this.lessonForm.get("lessonDetail.academicLevelId").setValue(response.lessonDetail.academicLevelId);
         this.lessonForm.get("lessonDetail.subjectId").setValue(response.lessonDetail.subjectId);
-        this.lessonForm.get("lessonDetail.lessonStatus").setValue(response.lessonDetail.lessonStatus);
+        this.lessonForm.get("lessonDetail.learningOutCome").setValue(response.lessonDetail.learningOutCome);
+        this.lessonForm.get("lessonDetail.plannedDate").setValue(response.lessonDetail.plannedDate);
 
-        const lessonTopicsform = response.lessonTopics.map((value, index) => { return LessonTopicModel.asFormGroup(value, this.isDisable,this.fb) });
+        const lessonTopicsform = response.topics.map((value, index) => { return LessonTopicModel.asFormGroup(value, this.isDisable,this.fb) });
         const lessonTopicsformArray = new FormArray(lessonTopicsform);
-        this.lessonForm.setControl('lessonTopics', lessonTopicsformArray);
+        this.lessonForm.setControl('topics', lessonTopicsformArray);
 
-       
-
-        this.lessonService.onLessonValueAssigned.next(true);*/
+      
+      this.lessonService.onLessonDetailAssigned.next(true);
 
 
       },error=>{
@@ -133,6 +118,5 @@ export class LessonContainerComponent implements OnInit {
 }
 interface LessonMenu {
   name: string,
-  code: string,
   id:number
 }

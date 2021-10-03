@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel.Common;
+﻿using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveMCQQuestionAnswer(MCQQuestionAnswerViewModel vm, string userName);
         List<MCQQuestionAnswerViewModel> GetMCQQuestionAnswers();
+        List<DropDownViewModel> GetAllQuestions();
+
+        PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId);
     }
 }

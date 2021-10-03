@@ -49,7 +49,7 @@ namespace SchoolManagement.Business
 
         public List<DropDownViewModel> GetAllParentBasketSubjects()
         {
-            return schoolDb.HeadOfDepartment
+            return schoolDb.Subjects
                  .Where(x => x.IsActive == true && x.IsParentBasketSubject == true)
                  .Select(al => new DropDownViewModel() { Id = al.Id, Name = al.Name })
                  .ToList();
@@ -129,6 +129,23 @@ namespace SchoolManagement.Business
             return response;
           
         }
-       
+        public List<DropDownViewModel> GetClasese(int academicYearId, int academicLevelId)
+        {
+            var response = schoolDb.Classes
+             .Where(x => x.AcademicYearId == academicYearId && x.AcademicLevelId == academicLevelId)
+             .Select(x => new DropDownViewModel() { Id = x.ClassNameId, Name = x.ClassName.Name }).ToList();
+
+            return response;
+        }
+
+        public List<DropDownViewModel> GetSubjectsForSelectedClass(int academicYearId, int academicLevelId, int classNameId)
+        {
+            var response = schoolDb.ClassSubjectTeachers
+              .Where(x => x.IsActive == true && x.AcademicYearId == academicYearId && x.AcademicLevelId == academicLevelId && x.ClassNameId == classNameId)
+              .Select(s => new DropDownViewModel() { Id = s.SubjectId, Name = s.Subject.Name }).ToList();
+
+            return response;
+        }
+
     }
 }

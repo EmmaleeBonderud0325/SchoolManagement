@@ -23,6 +23,9 @@
         "LESSON-ASSIGNMENT-SUBMISSION-LIST":"Lesson Assignment Submission",
        "LESSON-ASSIGNMENT":"Lesson Assignment"
       
+        "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Teacher Answer",
+        "TEACHER_MCQ_QUESTION_STUDENT_ANSWER": "MCQ Question Student Answer",
+        "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Student Comments"
       }
     },
     "ADMIN": {
@@ -39,6 +42,7 @@
         "SUBJECT_TEACHERS": "Subject Teachers",
         "HEAD_Of_DEPARTMENT":"Head Of Department",
         "EXCEL_UPLOAD":"Excel Upload",
+        "REPORT_GENARATE":"Report-Genarate",
         "EXAMPLE": "Example"
       }
     }

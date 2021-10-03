@@ -1,8 +1,10 @@
 import { QuestionListComponent } from './question/question-list/question-list.component';
-//import { LessonsComponent } from './lessons/lessons.component';
-//import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
+/* import { LessonsComponent } from './lessons/lessons.component';
+import { LessonDetailComponent } from './lesson-detail/lesson-detail.component'; */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+
+
 const routes: Routes = [
   {
     path: '',
@@ -10,12 +12,13 @@ const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'lesson',
+    path: 'lessons',
     loadChildren:() =>
           import('./lesson/lesson.module').then((m)=>m.LessonModule)
   },
 
 
+  //question 
   {
     path: '',
     redirectTo: 'question',
@@ -28,6 +31,7 @@ const routes: Routes = [
   },
 
 
+  //mcq-question-answer
   {
     path: '',
     redirectTo: 'mcq-question-answer',
@@ -38,57 +42,33 @@ const routes: Routes = [
     loadChildren:() =>
           import('./mcq-question-answer/mcq-question-answer.module').then((m)=>m.McqQuestionAnswerModule)
   },
+
+
+  //mcq-question-student-answer
   {
     path: '',
-    redirectTo: 'essay-answer',
+    redirectTo: 'mcq-question-student-answer',
     pathMatch: 'full',
   },
   {
-    path: 'essay-answer',
+    path: 'mcq-question-student-answer',
     loadChildren:() =>
-          import('./essay-answer/essay-answer.module').then((m)=>m.EssayAnswerModule)
+          import('./mcq-question-student-answer/mcq-question-student-answer.module').then((m)=>m.McqQuestionStudentAnswerModule)
   },
 
+  //student-mcq-question
   {
     path: '',
-    redirectTo: 'essay-student-answer',
+    redirectTo: 'student-mcq-question',
     pathMatch: 'full',
   },
   {
-    path: 'essay-student-answer',
+    path: 'student-mcq-question',
     loadChildren:() =>
-          import('./essay-student-answer/essay-student-answer.module').then((m)=>m.EssayStudentAnswerModule)
-  },
-
-
-  {
-    path: '',
-    redirectTo: 'lesson-assignment',
-    pathMatch: 'full',
+          import('./student-mcq-question/student-mcq-question.module').then((m)=>m.StudentMcqQuestionModule)
   },
   
-  {
-    path: 'lesson-assignment',
-    loadChildren:() =>
-          import('./lesson-assignment/lesson-assignment.module').then((m)=>m.LessonAssignmentModule)
-  }, 
-
   
-  {
-    path: '',
-    redirectTo: 'lesson-assignment-submission',
-    pathMatch: 'full',
-  },
-  
-  {
-    path: 'lesson-assignment-submission',
-    loadChildren:() =>
-          import('./lesson-assignment-submission/lesson-assignment-submission.module').then((m)=>m.LessonAssignmentSubmissionModule)
-  }, 
-
- 
-
-
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

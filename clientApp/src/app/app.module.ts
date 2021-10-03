@@ -1,4 +1,6 @@
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import {ButtonModule} from 'primeng/button';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
@@ -66,6 +68,7 @@ export function createTranslateLoader(http: HttpClient): any {
     ReactiveFormsModule,
     PerfectScrollbarModule,
     NgxDatatableModule,
+    ButtonModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

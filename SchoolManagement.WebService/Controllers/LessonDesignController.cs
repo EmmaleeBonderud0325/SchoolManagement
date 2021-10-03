@@ -94,7 +94,15 @@ namespace SchoolManagement.WebService.Controllers
 
             return Ok(response);
         }
+        [HttpPost]
+        [Route("createNewLesson")]
+        public async Task<LessonViewModel> CreateNewLesson()
+        {
+            var userName = identityService.GetUserName();
+            var response = await lessonDesignService.CreateNewLesson(userName);
 
+            return response;
+        }
 
     }   
 }

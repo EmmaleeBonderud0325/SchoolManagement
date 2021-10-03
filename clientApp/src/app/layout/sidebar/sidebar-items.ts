@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
       },
       //lesson
       {
-        path: '/teacher-home/lesson',
+        path: '/teacher-home/lessons',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
         moduleName: 'lessons',
         iconType: '',
@@ -80,7 +80,6 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible: true
       },
-    
 
       //question
       {
@@ -109,14 +108,15 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true,
+        isVisible:true
       },
 
 
+      // mcq-question-student-answer
       {
-        path: '/teacher-home/lesson-assignment-submission',
-        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT-SUBMISSION-LIST',
-        moduleName: 'lesson-assignment-submission',
+        path: '/teacher-home/mcq-question-student-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_STUDENT_ANSWER',
+        moduleName: 'mcq-question-student-answer',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -124,13 +124,14 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true,
+        isVisible:true
       },
 
+      // student-mcq-question-answer
       {
-        path: '/teacher-home/lesson-assignment',
-        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT',
-        moduleName: 'lesson-assignment',
+        path: '/teacher-home/student-mcq-question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_STUDENT_MCQ_QUESTION_ANSWER',
+        moduleName: 'student-mcq-question',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -138,11 +139,10 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-        isVisible:true,
+        isVisible:true
       },
+    ],
     
-     
-    ], 
   },
   {
     path: '',
@@ -290,7 +290,20 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/admin/excel-upload',
         title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
-        moduleName: 'head-of-department',
+        moduleName: 'excel-upload',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/report-genarate',
+        title: 'MENUITEMS.ADMIN.LIST.REPORT_GENARATE',
+        moduleName: 'report-genarate',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -300,7 +313,6 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible: true
       }
-      
 
       
     ],
