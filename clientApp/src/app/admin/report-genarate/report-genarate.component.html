@@ -1,1 +1,77 @@
-<p>report-genarate works!</p>
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Admin</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/admin/teacher"> <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Excel Upload</li>
+    </ul>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h4>Master Data Upload</h4>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group row">
+                    <label for="inputReportType" class="col-sm-4 col-form-label"
+                      >Select Report Name</label
+                    >
+                    <div class="col-sm-8">
+                      <select
+                        for="inputReportType"
+                        class="form-select form-control"
+                        [(ngModel)]="selectedExcelFileTypeId"
+                        (change)="reportTypeOnChanged($event.target.value)"
+                      >
+                        <option
+                          [ngValue]="item.id"
+                          *ngFor="let item of reportsTypes"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group row">
+                    <div class="col-sm-12">
+                      <button
+                        class="btn btn-icon icon-left btn-primary"
+                        (click)="fileInput.click()"
+                      >
+                        <i class="far fa-upload"></i> Genarate Report
+                        <input
+                          #fileInput
+                          type="file"
+                          class="form-control"
+                          multiple
+                          name="documents"
+                          (change)="onFileChange($event)"
+                          style="display: none"
+                        />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="form-group col-md-2"></div>
+              </div>
+              <div class="row">
+                <p-progressBar
+                  [value]="precentage?.progress"
+                  *ngIf="progressBarVisible"
+                ></p-progressBar>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

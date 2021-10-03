@@ -16,6 +16,8 @@ namespace SchoolManagement.ReportGenarateHelper.ReportGenarate.Common
         AcademicLevelSubject = 6,
         AcademicYearAndClasses = 7,
         HeadOfDeparment = 8,
-        SubjectTeacher = 9
+        SubjectTeacher = 9,
+        McqStudentMarks = 10,
+        EassyStudentMarks = 11,
     }
 }
