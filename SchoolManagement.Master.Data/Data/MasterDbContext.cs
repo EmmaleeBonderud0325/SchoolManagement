@@ -22,11 +22,8 @@ namespace SchoolManagement.Master.Data.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-                // optionsBuilder.UseSqlServer(@"Server=itp2021.database.windows.net;Database=SchoolMaster;User Id=itp;Password=Pass@123Q1qaz;");
-                optionsBuilder.UseSqlServer(@"Server=DESKTOP-55J91AG\SQLEXPRESS;;Database=SchoolMaster;User Id=hp;Password=1qaz2wsx@;");
-                //optionsBuilder.UseSqlServer(@"Server=DESKTOP-55J91AG\SQLEXPRESS;Database=SchoolManagement;User Id=hp;Password=1qaz2wsx@;");
-
+            {     
+                optionsBuilder.UseSqlServer(@"Server=itp-2021.database.windows.net;Database=SchoolMaster;User Id=itp;Password=Pass@1231qaz;");
             }
         }
 

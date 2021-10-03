@@ -34,7 +34,6 @@ export class UserProfileComponent implements OnInit {
     //this.getLoggedInUser();
     this.getuserDetails();
     this.spinner.hide();
-    this.updateProfileForm
   }
 
  getLoggedInUser(){
@@ -58,19 +57,27 @@ export class UserProfileComponent implements OnInit {
   
   }
 
-  /*createUpdateForm(currentUser:UserMasterModel){
-    this.updateProfileForm = this.formBuilder.group({
+  createUpdateForm(currentUser:UserMasterModel){
 
-      fullName:[currentUser.fullName],
-      email:[currentUser.email],
-      mobileNumber:[currentUser.mobileNumber],
-      userName:[currentUser.userName],
-      address:[currentUser.address],
-        
-    });
-  }*/
+    this.userService.getUserDetails().subscribe(response=>{
+      this.currentUser = response;
+      console.log(response);
 
-  /*createUpdateForm(currentUser:UserMasterModel):FormGroup{
+      this.updateProfileForm = this.formBuilder.group({
+
+        fullName:[response.fullName],
+        email:[response.email],
+        mobileNumber:[response.mobileNumber],
+        userName:[response.userName],
+        address:[response.address],
+          
+      });
+      
+    })
+    
+  }
+
+ /* createUpdateForm(currentUser:UserMasterModel):FormGroup{
 
     currentUser: this.formBuilder.group({
 
@@ -84,8 +91,18 @@ export class UserProfileComponent implements OnInit {
     })
   }*/
 
+  /*createUpdateForm():FormGroup{
+    
+      return this.formBuilder.group({
+        fullName: new FormControl(),
+        email: new FormControl(""),
+        mobileNumber: new FormControl(""),
+        userName: new FormControl(""),
+        address: new FormControl(""),
+      })
+  }*/
+ 
 
-  
 
   
 
