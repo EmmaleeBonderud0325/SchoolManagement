@@ -42,7 +42,7 @@ export const ROUTES: RouteInfo[] = [
       },
       //lesson
       {
-        path: '/teacher-home/lesson',
+        path: '/teacher-home/lessons',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
         moduleName: 'teacher-home',
         iconType: '',
@@ -264,7 +264,20 @@ export const ROUTES: RouteInfo[] = [
       {
         path: '/admin/excel-upload',
         title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
-        moduleName: 'head-of-department',
+        moduleName: 'excel-upload',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/report-genarate',
+        title: 'MENUITEMS.ADMIN.LIST.REPORT_GENARATE',
+        moduleName: 'report-genarate',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -274,7 +287,6 @@ export const ROUTES: RouteInfo[] = [
         submenu: [],
         isVisible: true
       }
-      
 
       
     ],

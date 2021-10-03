@@ -4,29 +4,22 @@ import { LessonListComponent } from './lesson-list/lesson-list.component';
 import { LessonDetailComponent } from './lesson-detail/lesson-detail.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LessonContentComponent } from './lesson-content/lesson-content.component';
+import { LessonContainerComponent } from './lesson-container/lesson-container.component';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'lessons',
+    redirectTo: 'lesson',
     pathMatch: 'full',
   },
   {
-    path: 'lessons',
+    path: 'lesson',
     component:LessonListComponent,
   },
   {
-    path: 'lesson-detail',
-    component:LessonDetailComponent,
-  },
-   {
-    path: 'lesson-detail/:id',
-    component:LessonDetailComponent,
-  }, 
-  {
-    path: 'lesson-content',
-    component:LessonContentComponent,
-  },
+    path: 'lesson/:id',
+    component:LessonContainerComponent,
+  }
 ]
 
 

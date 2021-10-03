@@ -1,422 +1,462 @@
 <section class="main-content">
-  <ul class="breadcrumb breadcrumb-style ">
+  <ul class="breadcrumb breadcrumb-style">
     <li class="breadcrumb-item">
       <h5 class="page-title m-b-0">Teacher Home</h5>
     </li>
     <li class="breadcrumb-item bcrumb-1">
-      <a routerLink="/dashboard/main">
-        <i class="fas fa-home font-17"></i></a>
+      <a routerLink="/dashboard/main"> <i class="fas fa-home font-17"></i></a>
     </li>
     <li class="breadcrumb-item">Lesson List</li>
   </ul>
   <div class="section-body">
-
-      <div class="row clearfix">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div class="card">
-              <div class="p-10">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="row m-0">
-                      <form 
-                        [formGroup]="lessonFilterForm">
-                        <div class="col-12 p-0">
-                          <div class="ngxTableHeader">
-                            <div class="table-title">
-                              <h2><strong>Lessons</strong></h2>
-                            </div>
+    <div class="row clearfix">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="p-10">
+            <div class="row">
+              <div class="col-12">
+                <div class="row m-0">
+                  <form [formGroup]="lessonFilterForm">
+                    <div class="col-12 p-0">
+                      <div class="ngxTableHeader">
+                        <div class="table-title">
+                          <h2><strong>Lessons</strong></h2>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12 p-0">
+                      <div class="row">
+                        <div
+                          class="
+                            col-lg-4 col-md-4 col-sm-12 col-xs-12
+                            ps-3
+                            pe-3
+                            pt-3
+                          "
+                        >
+                          <div class="form-group position-relative">
+                            <label>Search Text</label>
+                            <i class="fas fa-search input-icons"></i>
+                            <input
+                              type="text"
+                              (keyup)="filterDatatable($event)"
+                              formControlName="searchText"
+                              class="form-control psl-5"
+                              placeholder="Search by name"
+                              name="searchText"
+                              required=""
+                            />
                           </div>
                         </div>
-                        <div class="col-12 p-0">
-                          <div class="row">
-                            <div class="col-4">
-                              <div class="form-group position-relative">
-                                <label>Search Text</label>
-                                <i class="fas fa-search input-icons"></i>
-                                <input
-                                  type="text"
-                                  (keyup)="filterDatatable($event)"
-                                  formControlName="searchText"
-                                  class="form-control psl-5"
-                                  placeholder="Search by name"
-                                  name="searchText"
-                                  required=""
-                                />
-                              </div>
-                            </div>
-    
-                            <div class="col-3">
-                              <div class="form-group">
-                                <label>Academic Year</label>
-                                <select
-                                  class="form-select form-control"
-                                  formControlName="academicYearId"
-                                  (change) ="onAcademicYearFilterChanged($event.target.value)"
-                                >
-                                  <option
-                                    *ngFor="let item of academicYears"
-                                    [value]="item.id"
-                                  >
-                                    {{ item.name }}
 
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-3">
-                              <div class="form-group">
-                                <label>Academic Level</label>
-                                <select
-                                  class="form-select form-control"
-                                  formControlName="academicLevelId"
-                                  (change) ="onAcademicLevelFilterChanged($event.target.value)"
-                                  
-                                >
-                                  <option
-                                    *ngFor="let item of academicLevels"
-                                    [value]="item.id"
-                                  >
-                                    {{ item.name }}
-
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="col-3">
-                              <div class="form-group">
-                                <label>Class Names</label>
-                                <select
-                                  class="form-select form-control"
-                                  formControlName="classNameId"
-                                  (change) ="onClassNameFilterChanged($event.target.value)"
-                                >
-                                  <option
-                                    *ngFor="let item of classNames"
-                                    [value]="item.id"
-                                  >
-                                    {{ item.name }}
-
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-
-                            <div class="col-3">
-                              <div class="form-group">
-                                <label>Subject</label>
-                                <select
-                                  class="form-select form-control"
-                                  formControlName="subjectId"
-                                  (change) ="onSubjectIdFilterChanged($event.target.value)"
-                                >
-                                  <option
-                                    *ngFor="let item of subjects"
-                                    [value]="item.id"
-                                  >
-                                    {{ item.name }}
-
-                                  </option>
-                                </select>
-                              </div>
-                            </div>
-
-
-
+                        <div
+                          class="
+                            col-lg-2 col-md-2 col-sm-12 col-xs-12
+                            ps-3
+                            pe-3
+                            pt-3
+                          "
+                        >
+                          <div class="form-group">
+                            <label>Academic Year</label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="academicYearId"
+                              (change)="
+                                onAcademicYearFilterChanged($event.target.value)
+                              "
+                            >
+                              <option
+                                *ngFor="let item of academicYears"
+                                [value]="item.id"
+                              >
+                                {{ item.name }}
+                              </option>
+                            </select>
                           </div>
                         </div>
-                      </form>
+                        <div
+                          class="
+                            col-lg-2 col-md-2 col-sm-12 col-xs-12
+                            ps-3
+                            pe-3
+                            pt-3
+                          "
+                        >
+                          <div class="form-group">
+                            <label>Academic Level</label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="academicLevelId"
+                              (change)="
+                                onAcademicLevelFilterChanged(
+                                  $event.target.value
+                                )
+                              "
+                            >
+                              <option
+                                *ngFor="let item of academicLevels"
+                                [value]="item.id"
+                              >
+                                {{ item.name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                        <div
+                          class="
+                            col-lg-2 col-md-2 col-sm-12 col-xs-12
+                            ps-3
+                            pe-3
+                            pt-3
+                          "
+                        >
+                          <div class="form-group">
+                            <label>Class Names</label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="classNameId"
+                              (change)="
+                                onClassNameFilterChanged($event.target.value)
+                              "
+                            >
+                              <option
+                                *ngFor="let item of classNames"
+                                [value]="item.id"
+                              >
+                                {{ item.name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <div
+                          class="
+                            col-lg-2 col-md-2 col-sm-12 col-xs-12
+                            ps-3
+                            pe-3
+                            pt-3
+                          "
+                        >
+                          <div class="form-group">
+                            <label>Subject</label>
+                            <select
+                              class="form-select form-control"
+                              formControlName="subjectId"
+                              (change)="
+                                onSubjectIdFilterChanged($event.target.value)
+                              "
+                            >
+                              <option
+                                *ngFor="let item of subjects"
+                                [value]="item.id"
+                              >
+                                {{ item.name }}
+                              </option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <ngx-datatable
+              #table
+              class="material"
+              [rows]="data"
+              [loadingIndicator]="loadingIndicator"
+              columnMode="force"
+              [headerHeight]="60"
+              [footerHeight]="80"
+              rowHeight="auto"
+              [externalPaging]="true"
+              [count]="totalRecord"
+              [offset]="currentPage"
+              [limit]="pageSize"
+              [scrollbarH]="scrollBarHorizontal"
+              [reorderable]="reorderable"
+              (page)="setPage($event)"
+            >
+              <ngx-datatable-column [width]="150" name="" [sortable]="false">
+                <ng-template
+                  let-value="value"
+                  let-row="row"
+                  let-rowIndex="rowIndex"
+                  sortable="false"
+                  ngx-datatable-header-template
+                  class="text-center"
+                >
+                  <span>
+                    <button
+                      class="btn btn-icon icon-left btn-primary rounded-button"
+                      (click)="addNewLessonRoute()"
+                    >
+                      <i class="material-icons">add</i>
+                    </button>
+                  </span>
+                </ng-template>
+                <ng-template
+                  let-value="value"
+                  let-row="row"
+                  let-rowIndex="rowIndex"
+                  ngx-datatable-cell-template
+                  class="text-center"
+                >
+                  <span>
+                    <button
+                      class="btn btn-icon btn-sm btn-primary ms-1"
+                      (click)="editLesson(row)"
+                    >
+                      <i class="fas fa-pen"></i>
+                    </button>
+                    <button
+                      class="btn btn-icon btn-sm btn-danger ms-1"
+                      (click)="deleteLesson(row)"
+                    >
+                      <i class="fas fa-trash-alt"></i>
+                    </button>
+                  </span>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="100" name="Lesson Name">
+                <ng-template
+                  let-row="row"
+                  let-value="value"
+                  let-i="index"
+                  ngx-datatable-cell-template
+                >
+                  <div class="name-col-style">
+                    <div>{{ row.lessonName }}</div>
+                  </div>
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="100" name="Description">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.description }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="150" name="Academic Level">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.academicLevelId }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="150" name="Class Name">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.className }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="150" name="Academic Year">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.academicYearId }}
+                </ng-template>
+              </ngx-datatable-column>
+
+              <ngx-datatable-column [width]="150" name="Subject">
+                <ng-template let-row="row" ngx-datatable-cell-template>
+                  {{ row.subjectName }}
+                </ng-template>
+              </ngx-datatable-column>
+            </ngx-datatable>
+
+            <!-- Edit Record Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        {{ selectedRowData?.name }}
+                      </div>
                     </div>
                   </div>
-                </div>
-                
-                <ngx-datatable
-                  #table
-                  class="material"
-                  [rows]="data"
-                  [loadingIndicator]="loadingIndicator"
-                  columnMode="force"
-                  [headerHeight]="60"
-                  [footerHeight]="80"
-                  rowHeight="auto"
-                  [externalPaging]="true"
-                  [count]="totalRecord"
-                  [offset]="currentPage"
-                  [limit]="pageSize"
-                  [scrollbarH]="scrollBarHorizontal"
-                  [reorderable]="reorderable"
-                  (page)="setPage($event)"
-
+                </h4>
+                <button
+                  type="button"
+                  class="close"
+                  aria-label="Close"
+                  (click)="modal.dismiss('Cross click')"
                 >
-                  <ngx-datatable-column [width]="150" name="" [sortable]="false">
-                    <ng-template
-                      let-value="value"
-                      let-row="row"
-                      let-rowIndex="rowIndex"
-                      sortable="false"
-                      ngx-datatable-header-template
-                      class="text-center"
-                    >
-                    <span>
-                      <button
-                        class="btn btn-icon icon-left btn-primary rounded-button"
-                        (click)='addNewLessonRoute()'
+                  <span aria-hidden="true"
+                    ><i class="material-icons">close</i></span
+                  >
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="lessonForm" (ngSubmit)="saveLesson()">
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label> Name <span class="text-danger">*</span></label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Lesson Name"
+                        formControlName="name"
+                        required
+                      />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('name').valid &&
+                          lessonForm.get('name').touched
+                        "
                       >
-                        <i class="material-icons">add</i>
-                      </button>
-                    </span>
-                    </ng-template>
-                    <ng-template
-                      let-value="value"
-                      let-row="row"
-                      let-rowIndex="rowIndex"
-                      ngx-datatable-cell-template
-                      class="text-center"
-                    >
-                    <span>
-                      <button
-                        class="btn btn-icon btn-sm btn-primary ms-1"
-                        (click)="updateLesson(row, rowIndex, addEditRecord)"
+                        Lesson name is required</small
                       >
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button 
-                        class="btn btn-icon btn-sm btn-danger ms-1"
-                        (click)="deleteLesson(row)"
+                    </div>
 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>
+                        Description <span class="text-danger">*</span></label
                       >
-                        <i class="fas fa-trash-alt"></i>
-                      </button>
-                    </span>
-                    </ng-template>
-                  </ngx-datatable-column>
-    
-                  <ngx-datatable-column [width]="100" name="Lesson Name">
-                    <ng-template
-                      let-row="row"
-                      let-value="value"
-                      let-i="index"
-                      ngx-datatable-cell-template
-                    >               
-                      <div class="name-col-style">
-                        <div>{{row.lessonName}}</div>
-                                     
-                      </div>
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column [width]="100" name="Description">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.description}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column [width]="150" name="Academic Level">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.academicLevelId}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column [width]="150" name="Class Name">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.className}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column [width]="150" name="Academic Year">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{ row.academicYearId}}
-                    </ng-template>
-                  </ngx-datatable-column>
-
-                  <ngx-datatable-column [width]="150" name="Subject">
-                    <ng-template let-row="row" ngx-datatable-cell-template>
-                      {{row.subjectName}}
-                    </ng-template>
-                  </ngx-datatable-column>
-                </ngx-datatable>
-    
-                <!-- Edit Record Modal Window -->
-                <ng-template #addEditRecord let-modal>
-                  <div class="modal-header editRowModal">
-                    <h4 class="modal-title" id="modal-basic-title">
-                      <div class="table-modal-header">
-                        <div class="modal-about">
-                          <div class="fw-bold p-t-10 font-17">
-                            {{ selectedRowData?.name }}
-                          </div>
-                        </div>
-                      </div>
-                    </h4>
-                    <button
-                      type="button"
-                      class="close"
-                      aria-label="Close"
-                      (click)="modal.dismiss('Cross click')"
-                    >
-                      <span aria-hidden="true"
-                        ><i class="material-icons">close</i></span
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Lesson Description"
+                        formControlName="description"
+                        required
+                      />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('description').valid &&
+                          lessonForm.get('description').touched
+                        "
                       >
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                    <form 
-                      [formGroup]="lessonForm" 
-                      (ngSubmit)="saveLesson()"
-
+                        Description is required</small
                       >
-    
-                      <div class="row">
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label
+                        >Academic Year <span class="text-danger">*</span></label
+                      >
+                      <select
+                        class="form-select form-control"
+                        formControlName="academicYearId"
+                      >
+                        <option
+                          [ngValue]="item.id"
+                          *ngFor="let item of academicYears"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('academicYearId').valid &&
+                          lessonForm.get('academicYearId').touched
+                        "
+                      >
+                        Academic year is required</small
+                      >
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label
+                        >Academic Level
+                        <span class="text-danger">*</span></label
+                      >
+                      <select
+                        class="form-select form-control"
+                        formControlName="academicLevelId"
+                      >
+                        <option
+                          [ngValue]="item.id"
+                          *ngFor="let item of academicLevels"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('academicLevelId').valid &&
+                          lessonForm.get('academicLevelId').touched
+                        "
+                      >
+                        Academic Level is required</small
+                      >
+                    </div>
 
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label> Name <span class="text-danger">*</span></label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Lesson Name"
-                            formControlName="name"
-                            required
-                          />
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('name').valid &&
-                              lessonForm.get('name').touched
-                            "
-                          >
-                            Lesson name is required</small
-                          >
-                        </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label
+                        >Class Name <span class="text-danger">*</span></label
+                      >
+                      <select
+                        class="form-select form-control"
+                        formControlName="classNameId"
+                      >
+                        <option
+                          [ngValue]="item.id"
+                          *ngFor="let item of classNames"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('classNameId').valid &&
+                          lessonForm.get('classNameId').touched
+                        "
+                      >
+                        Class name is required</small
+                      >
+                    </div>
 
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label> Description <span class="text-danger">*</span></label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            placeholder="Lesson Description"
-                            formControlName="description"
-                            required
-                          />
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('description').valid &&
-                              lessonForm.get('description').touched
-                            "
-                          >
-                           Description is required</small
-                          >
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label
-                            >Academic Year <span class="text-danger">*</span></label
-                          >
-                          <select
-                            class="form-select form-control"
-                            formControlName="academicYearId"
-                          >
-                            <option
-                              [ngValue]="item.id"
-                              *ngFor="let item of academicYears"
-                            >
-                              {{ item.name }}
-                            </option>
-                          </select>
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('academicYearId').valid &&
-                              lessonForm.get('academicYearId').touched
-                            "
-                          >
-                            Academic year is required</small
-                          >
-                        </div>
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Academic Level <span class="text-danger">*</span></label>
-                          <select
-                            class="form-select form-control"
-                            formControlName="academicLevelId"
-                          >
-                            <option [ngValue]="item.id" *ngFor="let item of academicLevels">
-                              {{ item.name }}
-                            </option>
-                          </select>
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('academicLevelId').valid &&
-                              lessonForm.get('academicLevelId').touched
-                            "
-                          >
-                            Academic Level is required</small
-                          >
-                        </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Subjects <span class="text-danger">*</span></label>
+                      <select
+                        class="form-select form-control"
+                        formControlName="subjectId"
+                      >
+                        <option
+                          [ngValue]="item.id"
+                          *ngFor="let item of subjects"
+                        >
+                          {{ item.name }}
+                        </option>
+                      </select>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('subjectId').valid &&
+                          lessonForm.get('subjectId').touched
+                        "
+                      >
+                        Subjects name is required</small
+                      >
+                    </div>
 
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Class Name <span class="text-danger">*</span></label>
-                          <select
-                            class="form-select form-control"
-                            formControlName="classNameId"
-                          >
-                            <option [ngValue]="item.id" *ngFor="let item of classNames">
-                              {{ item.name }}
-                            </option>
-                          </select>
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('classNameId').valid &&
-                              lessonForm.get('classNameId').touched
-                            "
-                          >
-                            Class name is required</small
-                          >
-                        </div>
-                        
-    
-                        
-    
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Subjects <span class="text-danger">*</span></label>
-                          <select
-                            class="form-select form-control"
-                            formControlName="subjectId"
-                          >
-                            <option [ngValue]="item.id" *ngFor="let item of subjects">
-                              {{ item.name }}
-                            </option>
-                          </select>
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('subjectId').valid &&
-                              lessonForm.get('subjectId').touched
-                            "
-                          >
-                          Subjects name is required</small
-                          >
-                        </div>
-
-                        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label> Learning Out Comes <span class="text-danger">*</span></label>
-                          <textarea
-                            type="text"
-                            class="form-control"
-                            placeholder=""
-                            formControlName="learningOutcome"
-                            required
-                          ></textarea>
-                          <small
-                            class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('learningOutcome').valid &&
-                              lessonForm.get('learningOutcome').touched
-                            "
-                          >
-                            Lesson out is required</small
-                          >
-                        </div>
-                        <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                    <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>
+                        Learning Out Comes
+                        <span class="text-danger">*</span></label
+                      >
+                      <textarea
+                        type="text"
+                        class="form-control"
+                        placeholder=""
+                        formControlName="learningOutcome"
+                        required
+                      ></textarea>
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('learningOutcome').valid &&
+                          lessonForm.get('learningOutcome').touched
+                        "
+                      >
+                        Lesson out is required</small
+                      >
+                    </div>
+                    <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                          
                             <label for="date">Planned Date</label>
                             <p-calendar
@@ -437,56 +477,53 @@
                             Planned Date is required</small
                           >
                         </div> -->
-                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                          <label>Planned Date <span class="text-danger">*</span></label>
-                          <input 
-                              type="date" 
-                              class="form-control" 
-                              formControlName="plannedDate"
-                              required>
-                          <small class="form-text text-danger"
-                            *ngIf="
-                              !lessonForm.get('plannedDate').valid && 
-                              lessonForm.get('plannedDate').touched
-                              "
-                            > 
-                            Planned Date is required</small
-                            >
-                        </div>
-
-    
-                      </div>
-    
-
-    
-                      <div class="modal-footer">
-                        <div class="row">
-                          <div></div>
-                        </div>
-                        <button
-                          type="submit"
-                          class="btn btn-primary"
-                          [disabled]="
-                            !lessonForm.valid
-                          "
-                        >
-                          Save Lesson
-                        </button>
-                        <button
-                          type="button"
-                          class="btn btn-light"
-                          (click)="modal.close()"
-                        >
-                          Close
-                        </button>
-                      </div>
-                    </form>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label
+                        >Planned Date <span class="text-danger">*</span></label
+                      >
+                      <input
+                        type="date"
+                        class="form-control"
+                        formControlName="plannedDate"
+                        required
+                      />
+                      <small
+                        class="form-text text-danger"
+                        *ngIf="
+                          !lessonForm.get('plannedDate').valid &&
+                          lessonForm.get('plannedDate').touched
+                        "
+                      >
+                        Planned Date is required</small
+                      >
+                    </div>
                   </div>
-                </ng-template>
+
+                  <div class="modal-footer">
+                    <div class="row">
+                      <div></div>
+                    </div>
+                    <button
+                      type="submit"
+                      class="btn btn-primary"
+                      [disabled]="!lessonForm.valid"
+                    >
+                      Save Lesson
+                    </button>
+                    <button
+                      type="button"
+                      class="btn btn-light"
+                      (click)="modal.close()"
+                    >
+                      Close
+                    </button>
+                  </div>
+                </form>
               </div>
-            </div>
+            </ng-template>
           </div>
         </div>
-
+      </div>
+    </div>
   </div>
 </section>

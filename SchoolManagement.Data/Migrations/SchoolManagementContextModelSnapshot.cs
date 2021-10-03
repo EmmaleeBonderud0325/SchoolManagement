@@ -16,7 +16,7 @@ namespace SchoolManagement.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.8")
+                .HasAnnotation("ProductVersion", "5.0.10")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("SchoolManagement.Model.AcademicLevel", b =>
@@ -71,6 +71,11 @@ namespace SchoolManagement.Data.Migrations
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
+
+                    b.Property<bool>("IsCurrentYear")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<int>("UpdatedById")
                         .HasColumnType("int");
@@ -386,16 +391,16 @@ namespace SchoolManagement.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AcademicLevelId")
+                    b.Property<int?>("AcademicLevelId")
                         .HasColumnType("int");
 
-                    b.Property<int>("AcademicYearId")
+                    b.Property<int?>("AcademicYearId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ClassNameId")
+                    b.Property<int?>("ClassNameId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("CompletedDate")
+                    b.Property<DateTime?>("CompletedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("CreatedById")
@@ -419,13 +424,13 @@ namespace SchoolManagement.Data.Migrations
                     b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PlannedDate")
+                    b.Property<DateTime?>("PlannedDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
-                    b.Property<int>("SubjectId")
+                    b.Property<int?>("SubjectId")
                         .HasColumnType("int");
 
                     b.Property<int>("UpdatedById")
@@ -1222,7 +1227,7 @@ namespace SchoolManagement.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(7484),
+                            CreatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 130, DateTimeKind.Utc).AddTicks(9524),
                             Email = "avdunusinghe@gmail.com",
                             FullName = "SuperAdmin",
                             IsActive = true,
@@ -1231,13 +1236,13 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0703375581",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(8149),
+                            UpdatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 131, DateTimeKind.Utc).AddTicks(183),
                             Username = "avdunusinghe@gmail.com"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(9372),
+                            CreatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 131, DateTimeKind.Utc).AddTicks(2195),
                             Email = "admin@gmail.com",
                             FullName = "Admin",
                             IsActive = true,
@@ -1246,7 +1251,7 @@ namespace SchoolManagement.Data.Migrations
                             MobileNo = "0112487086",
                             Password = "HGnySkxIrdSxVCdICLWgVQxx",
                             ProfileImage = (byte)0,
-                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 65, DateTimeKind.Utc).AddTicks(9377),
+                            UpdatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 131, DateTimeKind.Utc).AddTicks(2200),
                             Username = "admin@gmail.com"
                         });
                 });
@@ -1292,20 +1297,20 @@ namespace SchoolManagement.Data.Migrations
                             UserId = 1,
                             RoleId = 1,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(7260),
+                            CreatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 158, DateTimeKind.Utc).AddTicks(994),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(7582)
+                            UpdatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 158, DateTimeKind.Utc).AddTicks(1828)
                         },
                         new
                         {
                             UserId = 2,
                             RoleId = 2,
                             CreatedById = 1,
-                            CreatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(8791),
+                            CreatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 158, DateTimeKind.Utc).AddTicks(5653),
                             IsActive = true,
                             UpdatedById = 1,
-                            UpdatedOn = new DateTime(2021, 9, 12, 6, 10, 32, 76, DateTimeKind.Utc).AddTicks(8793)
+                            UpdatedOn = new DateTime(2021, 10, 2, 12, 1, 6, 158, DateTimeKind.Utc).AddTicks(5658)
                         });
                 });
 
@@ -1607,14 +1612,12 @@ namespace SchoolManagement.Data.Migrations
                     b.HasOne("SchoolManagement.Model.SubjectAcademicLevel", "SubjectAcedemicLevel")
                         .WithMany("Lessons")
                         .HasForeignKey("SubjectId", "AcademicLevelId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("SchoolManagement.Model.Class", "Class")
                         .WithMany("Lessons")
                         .HasForeignKey("ClassNameId", "AcademicLevelId", "AcademicYearId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Class");
 
