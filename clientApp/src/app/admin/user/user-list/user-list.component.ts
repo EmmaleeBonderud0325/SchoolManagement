@@ -5,7 +5,6 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
-//import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../../services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';

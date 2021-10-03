@@ -11,12 +11,14 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ExcelUploadComponent } from './excel-upload/excel-upload.component';
 import { RippleModule } from 'primeng/ripple';
+import { ReportGenarateComponent } from './report-genarate/report-genarate.component';
 
 
 
 @NgModule({
   declarations: [
     ExcelUploadComponent,
+    ReportGenarateComponent,
    
     
   ],
