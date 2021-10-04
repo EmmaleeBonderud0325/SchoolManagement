@@ -1,3 +1,4 @@
+import { DropdownService } from './../../services/drop-down/dropdown.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReportService } from './../../services/report/report.service';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -17,10 +18,14 @@ export class ReportGenarateComponent implements OnInit {
 
   constructor(
     private spinner:NgxSpinnerService,
-    private reportService:ReportService
+    private reportService:ReportService,
+    private dropDownService:DropdownService
   ) { }
 
   ngOnInit(): void {
+    this.spinner.show();
+    this.reportForm = this.createReportForm();
+    this.getReportMasterrData();
   }
 
   excelTypeOnChanged(item:any)
@@ -31,6 +36,15 @@ export class ReportGenarateComponent implements OnInit {
   onSelectedReportChanged(item:any)
   {
 
+  }
+
+  getReportMasterrData()
+  {
+      this.dropDownService.getReportMasterrData().subscribe(response=>{
+        this.reportsTypes = response;
+      },error=>{
+        this.spinner.hide();
+      })
   }
 
   downloadPercentage:number=0;
