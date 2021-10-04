@@ -1,6 +1,9 @@
+import { FormGroup, FormControl } from '@angular/forms';
+import { ReportService } from './../../services/report/report.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { Component, OnInit } from '@angular/core';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-report-genarate',
@@ -10,9 +13,11 @@ import { Component, OnInit } from '@angular/core';
 export class ReportGenarateComponent implements OnInit {
 
   reportsTypes:DropDownModel[]=[];
+  reportForm:FormGroup
 
   constructor(
-    private spinner:NgxSpinnerService
+    private spinner:NgxSpinnerService,
+    private reportService:ReportService
   ) { }
 
   ngOnInit(): void {
@@ -22,5 +27,66 @@ export class ReportGenarateComponent implements OnInit {
   {
 
   }
-  
+
+  onSelectedReportChanged(item:any)
+  {
+
+  }
+
+  downloadPercentage:number=0;
+  isDownloading:boolean;
+  generateReport()
+  {
+    this.isDownloading = true;
+    this.spinner.show();
+
+    this.reportService.downloadUserList(this.reportForm.value).subscribe((response:HttpResponse<Blob>)=>{
+      if(response.type === HttpEventType.Response)
+      {
+        if(response.status == 204)
+        {
+          this.isDownloading = false;
+          this.downloadPercentage = 0;
+          this.spinner.hide();
+        }
+        else
+        {
+          let contentDisposition = response.headers.get('content-disposition');
+          const objectUrl:string=URL.createObjectURL(response.body);
+          const a:HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+
+          a.href = objectUrl;
+          a.download = this.parseFilenameFromContentDisposition(contentDisposition);
+          document.body.appendChild(a);
+          a.click();
+
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+          this.isDownloading=false;
+          this.downloadPercentage=0;
+          this.spinner.hide();
+
+
+        }
+      }
+    },error=>{
+        this.spinner.hide();
+        this.isDownloading=false;
+        this.downloadPercentage=0;
+    });
+  }
+
+
+  parseFilenameFromContentDisposition(contentDisposition) {
+    if (!contentDisposition) return null;
+    let matches = /filename="(.*?)"/g.exec(contentDisposition);
+
+    return matches && matches.length > 1 ? matches[1] : null;
+  }
+
+  createReportForm():FormGroup{
+    return new FormGroup({
+      selectedReportId:new FormControl(0)
+    })
+  }
 }

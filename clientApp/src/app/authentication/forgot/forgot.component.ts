@@ -33,13 +33,13 @@ export class ForgotComponent implements OnInit {
   }
 
   onSubmit() {
-
+    console.log("Called")
     this.submitted = true;
-    this.error = 'School Domain,Username and Password not valid !';
+    this.error = 'Email Not Valid';
 
     if (this.sendEmailForm.invalid) {
       //this.error = 'Username and Password not valid !';
-      this.messageService.add({severity:'warn', summary: 'warn', detail: this.error});
+      this.messageService.add({severity:'warn', summary: 'Warring', detail: this.error});
       return;
     }
     else

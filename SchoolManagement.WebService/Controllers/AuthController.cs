@@ -33,7 +33,7 @@ namespace SchoolManagement.WebService.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("forgotPassword")]
-        public IActionResult ForgotPassword([FromBody] ForgotPasswordViewModel vm)
+        public IActionResult ForgotPassword(ForgotPasswordViewModel vm)
         {
             var response =  authService.ForgotPassword(vm);
 
