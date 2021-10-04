@@ -21,8 +21,6 @@ export class UserProfileComponent implements OnInit {
   user:UserModel;
 
   updateProfileForm:FormGroup;
-  data=[];
-
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -36,19 +34,10 @@ export class UserProfileComponent implements OnInit {
     this.spinner.hide();
   }
 
- getLoggedInUser(){
-    this.spinner.show();
-    this.authService.currentUser.subscribe(user=>{
-      this.loggedInUserName=user.username;
-      console.log("LoggedInUser");
-      
-     console.log(user.username);
-      
-    })
-  }
+ 
 
   getuserDetails(){
-
+    this.spinner.show();
     this.userService.getUserDetails().subscribe(response=>{
       this.currentUser = response;
       console.log(response);

@@ -29,6 +29,15 @@ namespace SchoolManagement.WebService.Controllers
 
             return Ok(response);
         }
-       
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("forgotPassword")]
+        public IActionResult ForgotPassword([FromBody] ForgotPasswordViewModel vm)
+        {
+            var response =  authService.ForgotPassword(vm);
+
+            return Ok(response);
+        }
     }
 }

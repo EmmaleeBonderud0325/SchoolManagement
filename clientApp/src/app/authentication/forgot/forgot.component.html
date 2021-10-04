@@ -9,13 +9,26 @@
             </div>
             <div class="card-body">
               <p class="text-muted">We will send a link to reset your password</p>
-              <form method="POST">
+              <form 
+                class="validate-form" 
+                [formGroup]="sendEmailForm"
+                (ngSubmit)="onSubmit()"
+                >
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    name="email" 
+                    tabindex="1" 
+                    formControlName="email"
+                    required 
+                    >
                 </div>
                 <div class="form-group">
-                  <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
+                  <button 
+                    class="btn btn-primary btn-lg btn-block" 
+                    >
                     Forgot Password
                   </button>
                 </div>
