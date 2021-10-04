@@ -20,11 +20,13 @@ export class ReportGenarateComponent implements OnInit {
     private spinner:NgxSpinnerService,
     private reportService:ReportService,
     private dropDownService:DropdownService
-  ) { }
+  ) 
+  {
+    this.reportForm = this.createReportForm();
+  }
 
   ngOnInit(): void {
-    this.spinner.show();
-    this.reportForm = this.createReportForm();
+    
     this.getReportMasterrData();
   }
 
@@ -41,6 +43,7 @@ export class ReportGenarateComponent implements OnInit {
   getReportMasterrData()
   {
       this.dropDownService.getReportMasterrData().subscribe(response=>{
+        this.spinner.show();
         this.reportsTypes = response;
       },error=>{
         this.spinner.hide();
@@ -54,7 +57,7 @@ export class ReportGenarateComponent implements OnInit {
     this.isDownloading = true;
     this.spinner.show();
 
-    this.reportService.downloadUserList(this.reportForm.value).subscribe((response:HttpResponse<Blob>)=>{
+    this.reportService.downloadUserList().subscribe((response:HttpResponse<Blob>)=>{
       if(response.type === HttpEventType.Response)
       {
         if(response.status == 204)
