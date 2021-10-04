@@ -1,3 +1,4 @@
+import { ReportTypeModel } from './../../models/report/report.type.model';
 import { DropdownService } from './../../services/drop-down/dropdown.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReportService } from './../../services/report/report.service';
@@ -15,7 +16,7 @@ export class ReportGenarateComponent implements OnInit {
 
   reportsTypes:DropDownModel[]=[];
   reportForm:FormGroup
-
+  reportTypeId:ReportTypeModel;
   constructor(
     private spinner:NgxSpinnerService,
     private reportService:ReportService,
@@ -45,6 +46,7 @@ export class ReportGenarateComponent implements OnInit {
       this.dropDownService.getReportMasterrData().subscribe(response=>{
         this.spinner.show();
         this.reportsTypes = response;
+        this.spinner.hide();
       },error=>{
         this.spinner.hide();
       })
@@ -57,7 +59,7 @@ export class ReportGenarateComponent implements OnInit {
     this.isDownloading = true;
     this.spinner.show();
 
-    this.reportService.downloadUserList().subscribe((response:HttpResponse<Blob>)=>{
+    this.reportService.downloadUserList(this.reportForm.value).subscribe((response:HttpResponse<Blob>)=>{
       if(response.type === HttpEventType.Response)
       {
         if(response.status == 204)

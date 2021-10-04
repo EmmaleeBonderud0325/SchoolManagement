@@ -11,9 +11,9 @@ export class ReportService {
 
   constructor(private httpClient: HttpClient) { }
 
-  downloadUserList(reportTypeId:ReportTypeModel): Observable<any> {
+  downloadUserList(vm:ReportTypeModel): Observable<any> {
     return this.httpClient.post<any>
-    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',reportTypeId,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',vm,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
   }
 
   /*downloadUserList(path: string): Observable<any> {

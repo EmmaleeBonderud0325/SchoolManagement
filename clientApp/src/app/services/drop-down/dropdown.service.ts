@@ -78,6 +78,6 @@ export class DropdownService {
 
   getReportMasterrData():Observable<DropDownModel[]>{
     return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getReportMasterrData');
+      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getReportMasterData');
   }
 }
