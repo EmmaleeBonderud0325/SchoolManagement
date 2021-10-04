@@ -10,8 +10,6 @@
       </li>   
       <li class="breadcrumb-item">Home page</li>
     </ul>
-
-  
     <div class="section-body">
       <div class="row">
         <div class="col-12 col-md-12 col-lg-12">
@@ -20,7 +18,10 @@
               <ngb-carousel *ngIf="images">
                 <ng-template ngbSlide>
                   <div class="picsum-img-wrapper">
-                    <img [src]="images[0]" alt="Random first slide" class="carousel-img-size">
+                    <img 
+                      [src]="images[0]"
+                      alt="Random first slide" 
+                      class="carousel-img-size">
                   </div>
                   <div class="carousel-caption">
                     <h3>First slide label</h3>

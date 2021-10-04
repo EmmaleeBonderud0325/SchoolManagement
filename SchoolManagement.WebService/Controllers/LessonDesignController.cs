@@ -48,13 +48,24 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult> Post([FromBody] TopicViewModel vm)
-        //{
-        //    var userName = identityService.GetUserName();
-        //    var response = await lessonDesignService.SaveTopic(vm, userName);
-        //    return Ok(response);
-        //}
+        [HttpPost]
+        [Route("saveTopic")]
+        public async Task<ActionResult> SaveTopic([FromBody] TopicViewModel vm)
+        {
+            var userName = identityService.GetUserName();
+            var response = await lessonDesignService.SaveTopic(vm, userName);
+            return Ok(response);
+        }
+
+
+        [HttpPost]
+        [Route("saveTopicContent")]
+        public async Task<ActionResult> SaveTopicContent(TopicContentViewModel vm)
+        {
+            var userName = identityService.GetUserName();
+            var response = await lessonDesignService.SaveTopicContent(vm, userName);
+            return Ok(response);
+        }
 
 
         [HttpDelete("{Id}")]
@@ -88,13 +99,21 @@ namespace SchoolManagement.WebService.Controllers
 
         [HttpGet]
         [Route("getLessonById/{id}")]
-        public ActionResult  GetLessonById(int id)
+        public ActionResult GetLessonById(int id)
         {
             var response = lessonDesignService.GetLessonById(id);
 
             return Ok(response);
         }
+        [HttpPost]
+        [Route("createNewLesson")]
+        public async Task<LessonViewModel> CreateNewLesson()
+        {
+            var userName = identityService.GetUserName();
+            var response = await lessonDesignService.CreateNewLesson(userName);
 
+            return response;
+        }
 
     }   
 }

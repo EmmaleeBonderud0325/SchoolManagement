@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { UserMasterModel } from './../models/user/user.master';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { UserModel } from './../models/user/user.model';
@@ -8,7 +8,7 @@ import { AuthService } from './../core/service/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { throwIfAlreadyLoaded } from '../core/guard/module-import.guard';
 import { ThumbsDown } from 'angular-feather/icons';
-
+import {ButtonModule} from 'primeng/button';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
@@ -36,8 +36,6 @@ export class UserProfileComponent implements OnInit {
     this.spinner.hide();
   }
 
-
-
  getLoggedInUser(){
     this.spinner.show();
     this.authService.currentUser.subscribe(user=>{
@@ -59,18 +57,52 @@ export class UserProfileComponent implements OnInit {
   
   }
 
-  createUpdateForm(currentUser:UserMasterModel)
-  {
-    this.updateProfileForm = this.formBuilder.group({
+  createUpdateForm(currentUser:UserMasterModel){
+
+    this.userService.getUserDetails().subscribe(response=>{
+      this.currentUser = response;
+      console.log(response);
+
+      this.updateProfileForm = this.formBuilder.group({
+
+        fullName:[response.fullName],
+        email:[response.email],
+        mobileNumber:[response.mobileNumber],
+        userName:[response.userName],
+        address:[response.address],
+          
+      });
+      
+    })
+    
+  }
+
+ /* createUpdateForm(currentUser:UserMasterModel):FormGroup{
+
+    currentUser: this.formBuilder.group({
 
       fullName:[currentUser.fullName],
       email:[currentUser.email],
       mobileNumber:[currentUser.mobileNumber],
       userName:[currentUser.userName],
       address:[currentUser.address],
-        
-    });
-  }
+     
+
+    })
+  }*/
+
+  /*createUpdateForm():FormGroup{
+    
+      return this.formBuilder.group({
+        fullName: new FormControl(),
+        email: new FormControl(""),
+        mobileNumber: new FormControl(""),
+        userName: new FormControl(""),
+        address: new FormControl(""),
+      })
+  }*/
+ 
+
 
   
 

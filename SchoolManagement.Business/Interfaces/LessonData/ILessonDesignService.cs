@@ -13,14 +13,15 @@ namespace SchoolManagement.Business.Interfaces.LessonData
     {
         Task<ResponseViewModel> SaveLesson(LessonViewModel vm, string userName);
         List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters, string userName);
-        Task<ResponseViewModel> SaveTopic(TopicViewModel vm, string userName);
+        Task<TopicViewModel> SaveTopic(TopicViewModel vm, string userName);
+        Task<TopicContentViewModel> SaveTopicContent(TopicContentViewModel vm, string userName);
         Task<ResponseViewModel> DeleteLesson(int id);
         LessonMasterDataViewModel GetLessonMasterData();
         PaginatedItemsViewModel<BasicLessonViewModel> GetLessonList(string searchText, int academicYearId, int academicLevelId,
                                                                      int currentPage, int classNameId, int subjectId, int pageSize, string userName);
 
         LessonViewModel GetLessonById(int id);
-        Task<ResponseViewModel> CreateNewLesson(string userName);
+        Task<LessonViewModel> CreateNewLesson(string userName);
 
 
     }

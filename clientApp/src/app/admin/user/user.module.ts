@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,6 +23,7 @@ import {MultiSelectModule} from 'primeng/multiselect';
     ReactiveFormsModule,
     NgxDatatableModule,
     ToastrModule.forRoot(),
+    ToastModule
   ]
 })
 export class UserModule { }

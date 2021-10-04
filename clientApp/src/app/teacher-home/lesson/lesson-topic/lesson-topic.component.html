@@ -1,0 +1,193 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Lesson Content</h4>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button
+            pButton
+            pRipple
+            type="button"
+            label="Add Topic"
+            class="p-button-outlined p-button-success"
+            (click)="addNewTopic()"
+          ></button>
+        </div>
+      </div>
+      <div formArrayName="topics">
+        <div
+          class="row mb-2"
+          *ngFor="let lessonTopic of topics()?.controls; let topicIndex = index"
+        >
+          <div class="col-12" [formGroupName]="topicIndex">
+            <p-panel [toggleable]="true">
+              <ng-template pTemplate="header">
+                <label *ngIf="!lessonTopic.get('editable').value">
+                  {{ lessonTopic.get("name").value }}
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  style="width: 60%"
+                  formControlName="name"
+                  *ngIf="lessonTopic.get('editable').value"
+                />
+              </ng-template>
+              <ng-template pTemplate="icons">
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-plus"
+                  (click)="addTopicContent(topicIndex)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-save"
+                  *ngIf="lessonTopic.get('editable').value"
+                  (click)="saveLessonTopicHeader(lessonTopic)"
+                ></button>
+
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-pencil"
+                  *ngIf="!lessonTopic.get('editable').value"
+                  (click)="editLessonTopic(lessonTopic)"
+                ></button>
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
+                  icon="pi pi-times"
+                ></button>
+              </ng-template>
+              <div formArrayName="topicContents">
+                <div
+                  *ngFor="
+                    let lecture of topicContents(topicIndex)?.controls;
+                    let topicContentIndex = index
+                  "
+                >
+                  <div
+                    style="margin-top: 10px"
+                    [formGroupName]="topicContentIndex"
+                  >
+                    <p-panel [toggleable]="true" class="mt-5">
+                      <ng-template pTemplate="header">
+                        <label *ngIf="!lecture.get('editable').value">
+                          {{ lecture.get("name").value }}
+                        </label>
+
+                        <input
+                          type="text"
+                          class="form-control"
+                          style="width: 60%"
+                          formControlName="name"
+                          *ngIf="lecture.get('editable').value"
+                        />
+                      </ng-template>
+                      <ng-template pTemplate="icons">
+                        <button
+                          pButton
+                          pRipple
+                          type="button"
+                          label="Add Content"
+                          class="p-button-outlined p-button-success"
+                          (click)="showContentTypeSelector()"
+                        ></button>
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-save"
+                          *ngIf="lecture.get('editable').value"
+                          (click)="saveLecture(lecture)"
+                        ></button>
+
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-pencil"
+                          *ngIf="!lecture.get('editable').value"
+                          (click)="editLecture(lecture)"
+                        ></button>
+                        <button
+                          pButton
+                          pRipple
+                          class="p-panel-header-icon p-link"
+                          icon="pi pi-times"
+                          (click)="
+                            removeTopicContent(topicIndex, topicContentIndex)
+                          "
+                        ></button>
+                      </ng-template>
+                      <p></p>
+                    </p-panel>
+                  </div>
+                </div>
+              </div>
+            </p-panel>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<p-dialog
+  header="Select Topic content type here"
+  [(visible)]="displayContentTypeSelector"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2"></div>
+      <div class="col-md-auto">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-check"
+          class="p-button-rounded m-4"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-bookmark"
+          class="p-button-rounded p-button-secondary m-4"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-search"
+          class="p-button-rounded p-button-success m-4"
+        ></button>
+      </div>
+      <div class="col col-lg-2"></div>
+    </div>
+  </div>
+
+  <!--   <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayBasic = false"
+      label="Yes"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="displayBasic = false"
+      label="No"
+    ></p-button>
+  </ng-template> -->
+</p-dialog>

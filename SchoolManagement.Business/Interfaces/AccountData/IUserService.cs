@@ -24,5 +24,6 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         Task<MasterDataUploadResponse> UploadClassStudents(FileContainerViewModel container, string userName);
         List<MasterDataFileValidateResult> ValidateExcelFileContents(string fileSavePath);
         Task<ResponseViewModel> UpdateUserMasterData(UserMasterViewModel vm, string userName);
+        //Task<ResponseViewModel> UploadProfilePicture(string userName);
     }
 }

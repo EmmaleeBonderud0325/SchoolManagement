@@ -1,20 +1,20 @@
+import { MessageService } from 'primeng/api';
+
 import { BasicUserModel } from './../../../models/user/basic.user.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { UserModel } from './../../../models/user/user.model';
-import { ToastrService } from 'ngx-toastr';
 import { UserService } from './../../../services/user/user.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
-  styleUrls: ['./user-list.component.sass'],
-  providers: [ToastrService],
+  styleUrls: ['./user-list.component.scss'],
+  providers: [MessageService]
 })
 export class UserListComponent implements OnInit {
 
@@ -41,11 +41,12 @@ export class UserListComponent implements OnInit {
     private modalService: NgbModal,
     private userService:UserService,
     private spinner: NgxSpinnerService,
-    private toastr: ToastrService) { }
+    private messageService: MessageService
+   ) {  }
 
   ngOnInit(): void {
     this.spinner.show();
-    //this.getAll();
+   
     this.userFilterForm = this.createFilterForm();
     this.getUserRoles();
     this.getUserMasterData();
@@ -60,14 +61,14 @@ export class UserListComponent implements OnInit {
           this.data = response.data;
           console.log("==============");
           console.log(response.data);
-          
+
           this.totalRecord = response.totalRecordCount;
           this.spinner.hide();
           this.loadingIndicator = false;
         },erroe=>{
           this.spinner.hide();
           this.loadingIndicator = false;
-          this.toastr.error("Network error has been occured. Please try again.", "Error");
+          this.messageService.add({severity:'error', summary: 'Rrror', detail: 'NetWork Error hass been Occourred'});
         });
   }
 
@@ -136,6 +137,7 @@ export class UserListComponent implements OnInit {
       this.getUserList();
     },error=>{
       this.spinner.hide();
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network Error hass been Occourred'});
     })
 
 
@@ -183,16 +185,16 @@ export class UserListComponent implements OnInit {
 
             if(response.isSuccess)
             {
-              this.toastr.success(response.message,"Success");
+              this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
               this.getUserList();
             }
             else
             {
-              this.toastr.error(response.message,"Error");
+              this.messageService.add({severity:'error', summary: 'error', detail: response.message});
             }
       
           },error=>{
-            this.toastr.error("Network error has been occured. Please try again.","Error");
+            this.messageService.add({severity:'error', summary: 'error', detail:"Network error has been occured. Please try again."});
           });
           swalWithBootstrapButtons.fire(
             'Deleted!',
@@ -200,7 +202,7 @@ export class UserListComponent implements OnInit {
             'success'
           );
         } else if (
-          /* Read more about handling dismissals below */
+         
           result.dismiss === Swal.DismissReason.cancel
         ) {
           swalWithBootstrapButtons.fire(
@@ -224,7 +226,7 @@ export class UserListComponent implements OnInit {
       this.loadingIndicator = false;
      },error=>{
        this.loadingIndicator = false;
-       this.toastr.error("Network error has been occured. Please try again.","Error");
+      // this.toastr.error("Network error has been occured. Please try again.","Error");
      });
   } 
 
@@ -251,16 +253,16 @@ export class UserListComponent implements OnInit {
         if(response.isSuccess)
         {
             this.modalService.dismissAll();
-            this.toastr.success(response.message,"Success");
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getUserList();
         }
         else
         {
-            this.toastr.error(response.message,"Error");
+           this.messageService.add({severity:'error', summary: 'Error', detail: response.message});
         }
       },error=>{
         this.spinner.hide();
-            this.toastr.error("Network error has been occre.Please try again","Error");
+            this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occre.Please try again'});
       });
     
   }
@@ -278,7 +280,8 @@ export class UserListComponent implements OnInit {
           id:[row.id],
           fullName:[response.fullName, [Validators.required]],
           email:[response.email, [Validators.required]],
-          mobileNo:[response.mobileNo, [Validators.required]],
+          mobileNo:[response.mobileNo, [Validators.required,Validators.pattern("^[0-9]*$"),
+          Validators.minLength(10), Validators.maxLength(10)]],
           userName:[response.username, [Validators.required]],
           address:[response.address, [Validators.required]],
           password:[''],
@@ -302,4 +305,5 @@ export class UserListComponent implements OnInit {
   {
     return this.saveUserForm.get("id").value;
   }
+
 }

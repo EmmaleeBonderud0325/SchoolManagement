@@ -16,13 +16,25 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import {ListboxModule} from 'primeng/listbox';
 import { ButtonModule } from 'primeng/button';
 import { LessonContainerComponent } from './lesson-container/lesson-container.component';
+import { LessonTopicComponent } from './lesson-topic/lesson-topic.component';
+import { LessonTopicContentComponent } from './lesson-topic-content/lesson-topic-content.component';
+import { EditorModule } from 'primeng/editor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import { PanelModule } from 'primeng/panel';
+import { MenuModule } from 'primeng/menu';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {RippleModule} from 'primeng/ripple';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
     LessonDetailComponent,
     LessonListComponent,
     LessonContentComponent,
-    LessonContainerComponent
+    LessonContainerComponent,
+    LessonTopicComponent,
+    LessonTopicContentComponent
   ],
   imports: [
     CommonModule,
@@ -38,6 +50,13 @@ import { LessonContainerComponent } from './lesson-container/lesson-container.co
     ListboxModule,
     ButtonModule,
     CKEditorModule,
+    EditorModule,
+    NgbModule,
+    PanelModule,
+    MenuModule,
+    ProgressSpinnerModule,
+    DialogModule,
+    RippleModule,
     NgxDatatableModule,
     ToastrModule.forRoot(),
   ]
