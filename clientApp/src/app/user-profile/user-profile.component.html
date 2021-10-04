@@ -151,15 +151,19 @@
                   <div class="card-header">
                     <h4>Edit Profile</h4>
                   </div>
-                  <form [formGroup]="updatePasswrodForm">
+                  <form 
+                    [formGroup]="updatePasswrodForm"
+                    class="validate-form" 
+                    (ngSubmit)="onSubmit()"
+                    >
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Current Password</label>
                           <input 
-                            type="text" 
+                            type="password" 
                             class="form-control" 
-                            value=""
+                            formControlName="currentPassword" 
                             >
                           <div 
                             class="invalid-feedback">
@@ -171,9 +175,9 @@
                         <div class="form-group col-md-6 col-12">
                           <label>New Password</label>
                           <input 
-                            type="email"
+                            type="password"
                             class="form-control" 
-                            value=""
+                            formControlName="newPassword" 
                             >
                           <div class="invalid-feedback">
                             Please fill in the email
@@ -186,9 +190,9 @@
                         <div class="form-group col-md-6 col-12">
                           <label>Confirm Password</label>
                           <input 
-                            type="text" 
+                            type="password" 
                             class="form-control" 
-                            value=""
+                            formControlName="confirmPassword" 
                             >
                           <div class="invalid-feedback">
                             Please fill in the last name

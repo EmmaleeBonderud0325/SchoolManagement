@@ -1,3 +1,4 @@
+import { ReportTypeModel } from './../../models/report/report.type.model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,13 +11,16 @@ export class ReportService {
 
   constructor(private httpClient: HttpClient) { }
 
+  downloadUserList(vm:ReportTypeModel): Observable<any> {
+    return this.httpClient.post<any>
+    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',vm,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
 
-
-  downloadUserList(path: string): Observable<any> {
+  /*downloadUserList(path: string): Observable<any> {
     return this.httpClient.post(`${environment.apiUrl}/accountVerification/downloadFile`, { path: path }, {
         observe: 'response',
         responseType: 'blob'
     });
-}
+}*/
 }
 

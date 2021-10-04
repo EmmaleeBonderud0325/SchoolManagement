@@ -138,6 +138,15 @@ namespace SchoolManagement.WebService.Controllers
             return response;
         }
 
+        [HttpGet]
+        [Route("getReportMasterData")]
+        public IActionResult GetReportMasterData()
+        {
+            var response = dropDownService.GetReportMasterData();
+
+            return Ok(response);
+        }
+
 
     }
 
