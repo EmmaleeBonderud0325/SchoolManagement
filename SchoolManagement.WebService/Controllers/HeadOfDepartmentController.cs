@@ -19,7 +19,7 @@ namespace SchoolManagement.WebService.Controllers
         private readonly IHeadOfDepartmentService HeadOfDepartmentService;
         private readonly IIdentityService identityService;
 
-        public HeadOfDepartmentController(IHeadOfDepartmentService HeadOfDepartmentService , IIdentityService identityService)
+        public HeadOfDepartmentController(IHeadOfDepartmentService HeadOfDepartmentService, IIdentityService identityService)
         {
             this.HeadOfDepartmentService = HeadOfDepartmentService;
             this.identityService = identityService;
@@ -84,6 +84,7 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+        
         [HttpGet]
         [Route("getHeadOfDepartmentList")]
         public PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel> GetHeadOfDepartmentList(string searchText, int currentPage, int pageSize)

@@ -23,6 +23,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { PanelModule } from 'primeng/panel';
 import { MenuModule } from 'primeng/menu';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
+import {RippleModule} from 'primeng/ripple';
+import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { MenuModule } from 'primeng/menu';
     NgbModule,
     PanelModule,
     MenuModule,
+    ProgressSpinnerModule,
+    DialogModule,
+    RippleModule,
     NgxDatatableModule,
     ToastrModule.forRoot(),
   ]

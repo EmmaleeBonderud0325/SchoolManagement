@@ -24,20 +24,18 @@
           <div class="col-12" [formGroupName]="topicIndex">
             <p-panel [toggleable]="true">
               <ng-template pTemplate="header">
+                <label *ngIf="!lessonTopic.get('editable').value">
+                  {{ lessonTopic.get("name").value }}
+                </label>
                 <input
                   type="text"
                   class="form-control"
                   style="width: 60%"
                   formControlName="name"
+                  *ngIf="lessonTopic.get('editable').value"
                 />
               </ng-template>
               <ng-template pTemplate="icons">
-                <!--                 <button
-                    pButton
-                    pRipple
-                    class="p-panel-header-icon p-link"
-                    icon="pi pi-save"
-                  ></button> -->
                 <button
                   pButton
                   pRipple
@@ -49,7 +47,18 @@
                   pButton
                   pRipple
                   class="p-panel-header-icon p-link"
+                  icon="pi pi-save"
+                  *ngIf="lessonTopic.get('editable').value"
+                  (click)="saveLessonTopicHeader(lessonTopic)"
+                ></button>
+
+                <button
+                  pButton
+                  pRipple
+                  class="p-panel-header-icon p-link"
                   icon="pi pi-pencil"
+                  *ngIf="!lessonTopic.get('editable').value"
+                  (click)="editLessonTopic(lessonTopic)"
                 ></button>
                 <button
                   pButton
@@ -70,7 +79,19 @@
                     [formGroupName]="topicContentIndex"
                   >
                     <p-panel [toggleable]="true" class="mt-5">
-                      <ng-template pTemplate="header"> Lecture 1 </ng-template>
+                      <ng-template pTemplate="header">
+                        <label *ngIf="!lecture.get('editable').value">
+                          {{ lecture.get("name").value }}
+                        </label>
+
+                        <input
+                          type="text"
+                          class="form-control"
+                          style="width: 60%"
+                          formControlName="name"
+                          *ngIf="lecture.get('editable').value"
+                        />
+                      </ng-template>
                       <ng-template pTemplate="icons">
                         <button
                           pButton
@@ -78,12 +99,15 @@
                           type="button"
                           label="Add Content"
                           class="p-button-outlined p-button-success"
+                          (click)="showContentTypeSelector()"
                         ></button>
                         <button
                           pButton
                           pRipple
                           class="p-panel-header-icon p-link"
                           icon="pi pi-save"
+                          *ngIf="lecture.get('editable').value"
+                          (click)="saveLecture(lecture)"
                         ></button>
 
                         <button
@@ -91,6 +115,8 @@
                           pRipple
                           class="p-panel-header-icon p-link"
                           icon="pi pi-pencil"
+                          *ngIf="!lecture.get('editable').value"
+                          (click)="editLecture(lecture)"
                         ></button>
                         <button
                           pButton
@@ -102,17 +128,7 @@
                           "
                         ></button>
                       </ng-template>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore
-                        magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum.
-                      </p>
+                      <p></p>
                     </p-panel>
                   </div>
                 </div>
@@ -124,3 +140,54 @@
     </form>
   </div>
 </div>
+
+<p-dialog
+  header="Select Topic content type here"
+  [(visible)]="displayContentTypeSelector"
+  [style]="{ width: '50vw' }"
+  [baseZIndex]="10000"
+>
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col col-lg-2"></div>
+      <div class="col-md-auto">
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-check"
+          class="p-button-rounded m-4"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-bookmark"
+          class="p-button-rounded p-button-secondary m-4"
+        ></button>
+        <button
+          pButton
+          pRipple
+          type="button"
+          icon="pi pi-search"
+          class="p-button-rounded p-button-success m-4"
+        ></button>
+      </div>
+      <div class="col col-lg-2"></div>
+    </div>
+  </div>
+
+  <!--   <ng-template pTemplate="footer">
+    <p-button
+      icon="pi pi-check"
+      (click)="displayBasic = false"
+      label="Yes"
+      styleClass="p-button-text"
+    ></p-button>
+    <p-button
+      icon="pi pi-times"
+      (click)="displayBasic = false"
+      label="No"
+    ></p-button>
+  </ng-template> -->
+</p-dialog>
