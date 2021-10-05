@@ -1,3 +1,4 @@
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { MessageService } from 'primeng/api';
 
 import { BasicUserModel } from './../../../models/user/basic.user.model';
@@ -304,6 +305,51 @@ export class UserListComponent implements OnInit {
   get id()
   {
     return this.saveUserForm.get("id").value;
+  }
+
+
+  //file Grnarate method
+  generateReport()
+  {
+    this.spinner.show();
+
+    this.userService.downloadUserListReport().subscribe((response:HttpResponse<Blob>)=>{
+      if(response.type === HttpEventType.Response)
+      {
+        if(response.status == 204)
+        {
+          this.spinner.hide();
+        }
+        else
+        {
+          let contentDisposition = response.headers.get('content-disposition');
+          const objectUrl:string=URL.createObjectURL(response.body);
+          const a:HTMLAnchorElement = document.createElement('a') as HTMLAnchorElement;
+
+          a.href = objectUrl;
+          a.download = this.parseFilenameFromContentDisposition(contentDisposition);
+          document.body.appendChild(a);
+          a.click();
+
+          document.body.removeChild(a);
+          URL.revokeObjectURL(objectUrl);
+         
+          this.spinner.hide();
+          
+        }
+      }
+    },error=>{
+        this.spinner.hide();
+        
+    });
+  }
+
+
+  parseFilenameFromContentDisposition(contentDisposition) {
+    if (!contentDisposition) return null;
+    let matches = /filename="(.*?)"/g.exec(contentDisposition);
+
+    return matches && matches.length > 1 ? matches[1] : null;
   }
 
 }

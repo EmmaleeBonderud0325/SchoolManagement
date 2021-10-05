@@ -79,5 +79,11 @@ export class UserService {
       post<ResponseModel>
         (environment.apiUrl+ 'User/updateUserMasterData', vm);
   }
- 
+  
+  downloadUserListReport(): Observable<any> {
+    return this.httpClient.post<any>
+    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+  }
+
+  
 }

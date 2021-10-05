@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Data.Data;
@@ -19,7 +21,7 @@ using System.Threading.Tasks;
 
 namespace SchoolManagement.Business
 {
-    public class UserService: IUserService
+    public class UserService : IUserService
     {
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
@@ -43,7 +45,7 @@ namespace SchoolManagement.Business
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == id);
 
                 user.IsActive = false;
- 
+
                 schoolDb.Users.Update(user);
                 await schoolDb.SaveChangesAsync();
 
@@ -98,7 +100,7 @@ namespace SchoolManagement.Business
         }
         public List<UserViewModel> GetAllUsersByRole()
         {
-            var response =  new List<UserViewModel>();
+            var response = new List<UserViewModel>();
 
             var query = schoolDb.Users.Where(u => u.IsActive == true);
 
@@ -109,7 +111,7 @@ namespace SchoolManagement.Business
 
             var userList = query.ToList();
 
-            foreach(var user in userList)
+            foreach (var user in userList)
             {
                 var uvm = new UserViewModel
                 {
@@ -119,9 +121,9 @@ namespace SchoolManagement.Business
                     Address = user.Address,
                     Email = user.Email,
                     MobileNo = user.MobileNo,
-                    CreatedByName = user.CreatedById.HasValue? user.CreatedBy.FullName:string.Empty,
+                    CreatedByName = user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
                     CreatedOn = user.CreatedOn,
-                    UpdatedByName = user.UpdatedById.HasValue? user.UpdatedBy.FullName:string.Empty,
+                    UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
                     UpdatedOn = user.UpdatedOn,
 
                 };
@@ -143,15 +145,15 @@ namespace SchoolManagement.Business
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 
                 var user = schoolDb.Users.FirstOrDefault(x => x.Id == vm.Id);
-              
+
                 var getUserRoles = schoolDb.Roles.FirstOrDefault(x => x.IsActive == true);
-             
+
 
                 if (user == null)
                 {
                     var exisistingUserName = schoolDb.Users.FirstOrDefault(u => u.Username.Trim().ToUpper() == vm.Username.Trim().ToUpper());
 
-                    if(exisistingUserName != null)
+                    if (exisistingUserName != null)
                     {
                         response.IsSuccess = false;
                         response.Message = UserServiceConstants.EXISTING_USERNAME_ALLREADY_TAKEN_EXCEPTION_MESSAGE;
@@ -289,7 +291,7 @@ namespace SchoolManagement.Business
 
             if (roleId > 0)
             {
-                users = users.Where(x=> x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
+                users = users.Where(x => x.UserRoles.Any(x => x.RoleId == roleId)).OrderBy(x => x.FullName);
             }
 
 
@@ -309,7 +311,7 @@ namespace SchoolManagement.Business
                     MobileNo = user.MobileNo,
                     Username = user.Username,
                     Address = user.Address,
-                    CreatedByName= user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
+                    CreatedByName = user.CreatedById.HasValue ? user.CreatedBy.FullName : string.Empty,
                     CreatedOn = user.CreatedOn,
                     UpdatedByName = user.UpdatedById.HasValue ? user.UpdatedBy.FullName : string.Empty,
                     UpdatedOn = user.UpdatedOn,
@@ -350,7 +352,7 @@ namespace SchoolManagement.Business
                     upLoadedFiles.Add(filePath, item.FileName);
                 }
 
-                foreach(var item in upLoadedFiles)
+                foreach (var item in upLoadedFiles)
                 {
                     studentExcelContainer = new StudentExcelContainer();
 
@@ -368,16 +370,16 @@ namespace SchoolManagement.Business
                         }
                         else
                         {
-                            foreach(var student in studentExcelContainer.Students)
+                            foreach (var student in studentExcelContainer.Students)
                             {
                                 var studentRecord = schoolDb.Users.FirstOrDefault(x => x.Username.Trim().ToLower() == student.Username.Trim().ToLower());
-                                if(studentRecord == null)
+                                if (studentRecord == null)
                                 {
                                     studentRecord = new User()
                                     {
                                         FullName = studentRecord.FullName,
                                         Address = studentRecord.Address,
-                                        
+
                                     };
 
                                     studentRecord.UserRoles = new HashSet<UserRole>();
@@ -391,7 +393,7 @@ namespace SchoolManagement.Business
                                         UpdatedOn = DateTime.UtcNow
                                     });
 
-                                  //  studentRecord. = new HashSet<StudentClass>();
+                                    //  studentRecord. = new HashSet<StudentClass>();
                                 }
                             }
                         }
@@ -403,7 +405,8 @@ namespace SchoolManagement.Business
                     }
                 }
 
-            }catch(Exception e)
+            }
+            catch (Exception e)
             {
 
             }
@@ -589,11 +592,11 @@ namespace SchoolManagement.Business
                                     if (!string.IsNullOrEmpty(gender))
                                     {
 
-                                       // user.Gender = gender;
+                                        // user.Gender = gender;
                                     }
                                     else
                                     {
-                                        response.Add(new MasterDataFileValidateResult() 
+                                        response.Add(new MasterDataFileValidateResult()
                                         { ValidateMessage = "Gender can not be empty in row " + row.ToString() + ".", IsSuccess = false });
                                     }
                                 }
@@ -610,7 +613,8 @@ namespace SchoolManagement.Business
 
 
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -639,7 +643,7 @@ namespace SchoolManagement.Business
 
                 await schoolDb.SaveChangesAsync();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
                 response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE;
@@ -650,6 +654,137 @@ namespace SchoolManagement.Business
 
         }
 
-        
+        public DownloadFileModel downloadUserListReport()
+        {
+            var userListReport = new UserListReport();
+
+            byte[] abytes = userListReport.PrepareReport(GetAllUsersByRole());
+
+            var response = new DownloadFileModel();
+
+            response.FileData = abytes;
+            response.FileType = "application/pdf";
+
+
+            return response;
+        }
     }
+
+
+
+    public class UserListReport
+    {
+        #region Declaration
+        int _totalColumn = 3;
+        Document _document;
+        Font _fontStyle;
+        iTextSharp.text.pdf.PdfPTable _pdfPTable = new PdfPTable(3);
+        iTextSharp.text.pdf.PdfPCell _pdfPCell;
+        MemoryStream _memoryStream = new MemoryStream();
+        List<UserViewModel> _user = new List<UserViewModel>();
+        #endregion
+
+        public byte[] PrepareReport(List<UserViewModel> response)
+        {
+            _user = response;
+
+            #region
+            _document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+            _document.SetPageSize(PageSize.A4);
+            _document.SetMargins(20f, 20f, 20f, 20f);
+            _pdfPTable.WidthPercentage = 100;
+            _pdfPTable.HorizontalAlignment = Element.ALIGN_LEFT;
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 8f, 1);
+
+            iTextSharp.text.pdf.PdfWriter.GetInstance(_document, _memoryStream);
+            _document.Open();
+            _pdfPTable.SetWidths(new float[] { 20f, 150f, 100f });
+            #endregion
+
+            this.ReportHeader();
+            this.ReportBody();
+            _pdfPTable.HeaderRows = 2;
+            _document.Add(_pdfPTable);
+            _document.Close();
+            return _memoryStream.ToArray();
+
+        }
+
+        private void ReportHeader()
+        {
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("User List Report", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 9f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("User List", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+        }
+
+        private void ReportBody()
+        {
+            #region Table header
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("User Name", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+
+
+            _pdfPCell = new PdfPCell(new Phrase("Email", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+
+            _pdfPCell = new PdfPCell(new Phrase("Mobile Number", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+            #endregion
+
+            #region Table Body
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 0);
+            foreach (UserViewModel vm in _user)
+            {
+                _pdfPCell = new PdfPCell(new Phrase(vm.FullName.ToString(), _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.Email, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.MobileNo.ToString(), _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+                _pdfPTable.CompleteRow();
+            }
+            #endregion
+
+        }
+    }
+
 }
+   
