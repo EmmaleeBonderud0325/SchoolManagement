@@ -63,7 +63,7 @@
                 <div class="form-group">
                   <label for="email">New Password</label>
                   <input 
-                    type="password" 
+                    type="text" 
                     class="form-control"               
                     formControlName="password"
                     [ngClass]="{'is-invalid': submited && f.password.errors && f.password.touched}"
@@ -92,7 +92,7 @@
                 <div class="form-group">
                   <label for="email">Confirm password</label>
                   <input 
-                    type="password" 
+                    type="text" 
                     class="form-control" 
                     formControlName="confirmPassword"
                     [ngClass]="{'is-invalid': submited && f.confirmPassword.errors && f.confirmPassword.touched}"

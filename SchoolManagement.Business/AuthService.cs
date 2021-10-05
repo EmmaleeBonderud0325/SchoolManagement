@@ -172,8 +172,9 @@ namespace SchoolManagement.Business
 
                 }
                 else
-                {   
-                  resetPasswordClient.Password = CustomPasswordHasher.GenerateHash(vm.NewPassword);
+                {
+                    resetPasswordClient.Password = CustomPasswordHasher.GenerateHash(vm.NewPassword);
+                    resetPasswordClient.UpdatedOn = DateTime.UtcNow;
 
                   schoolDb.Users.Update(resetPasswordClient);
 

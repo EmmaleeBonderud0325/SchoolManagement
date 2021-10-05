@@ -99,6 +99,12 @@ export class ClassListComponent implements OnInit {
         this.allTeachers = response.allTeachers;
         this.currentAcadmicYearId = response.currentAcademicYear;
 
+        let defaultItem = new DropDownModel();
+        defaultItem.id=0;
+        defaultItem.name="--All--";
+        this.academicLevels.unshift(defaultItem);
+
+
         this.filterForm.get("academicYearId").setValue(this.currentAcadmicYearId);
         this.filterForm.get("academicYearId").disable();
         this.filterForm.get("academicLevelId").setValue(this.academicLevels[0].id);
