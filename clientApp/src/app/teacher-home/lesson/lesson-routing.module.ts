@@ -6,6 +6,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { LessonContentComponent } from './lesson-content/lesson-content.component';
 import { LessonContainerComponent } from './lesson-container/lesson-container.component';
 
+
+
 const routes: Routes = [
   {
     path: '',

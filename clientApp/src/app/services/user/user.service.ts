@@ -1,4 +1,3 @@
-import { ForgotPasswordModel } from './../../models/user/forgot.password.model';
 import { UserMasterDataModel } from './../../models/user/user.master.data';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from './../../models/common/response.model';
@@ -9,6 +8,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserPaginatedItemViewModel } from "src/app/models/user/user.paginated.item.model";
 import { UserMasterModel } from "src/app/models/user/user.master";
+import { upload, Upload } from 'src/app/models/common/upload';
 
 @Injectable({
   providedIn: 'root'
@@ -77,12 +77,17 @@ export class UserService {
   UpdateUserMasterData(vm:UserMasterModel):Observable<ResponseModel>{
     return this.httpClient.
       post<ResponseModel>
-        (environment.apiUrl+ 'User/updateUserMasterData', vm);
+        (environment.apiUrl+ + 'User/updateUserMasterData', vm);
   }
   
   downloadUserListReport(): Observable<any> {
     return this.httpClient.get<any>
     (environment.apiUrl +'User/downloadUserList');
+  }
+
+
+  uploadUserImage(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'User/uploadUserImage', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
   }
 
   

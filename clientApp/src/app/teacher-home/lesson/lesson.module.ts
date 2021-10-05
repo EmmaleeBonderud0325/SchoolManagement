@@ -27,6 +27,11 @@ import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import {RippleModule} from 'primeng/ripple';
 import {DialogModule} from 'primeng/dialog';
 
+import {VgCoreModule} from '@videogular/ngx-videogular/core';
+import {VgControlsModule} from '@videogular/ngx-videogular/controls';
+import {VgOverlayPlayModule} from '@videogular/ngx-videogular/overlay-play';
+import {VgBufferingModule} from '@videogular/ngx-videogular/buffering';
+
 @NgModule({
   declarations: [
     LessonDetailComponent,
@@ -58,6 +63,10 @@ import {DialogModule} from 'primeng/dialog';
     DialogModule,
     RippleModule,
     NgxDatatableModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule,
     ToastrModule.forRoot(),
   ]
 })
