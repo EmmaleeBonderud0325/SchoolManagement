@@ -30,8 +30,7 @@ export class AuthService {
     return this.httpClient.post<any>(environment.apiUrl + 'Auth/login', loginModel)
     .pipe(
       map((user) => {
-        // store user details and jwt token in local storage to keep user logged in between page refreshes
-        // console.log(JSON.stringify(user));
+       
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
@@ -50,6 +49,6 @@ export class AuthService {
    forgotPassword(vm:ForgotPasswordModel):Observable<ResponseModel>{
     return this.httpClient.
       post<ResponseModel>
-        (environment.apiUrl+ + 'Auth/forgotPassword', vm);
+        (environment.apiUrl+ 'Auth/forgotPassword', vm);
   }
 }

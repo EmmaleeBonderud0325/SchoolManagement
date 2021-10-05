@@ -25,6 +25,7 @@ export class ForgotComponent implements OnInit {
 
   ngOnInit(): void {
     this.sendEmailForm = this.formBuilder.group({
+      schoolDomain:['', Validators.required],
       email:['', Validators.required]
     });
   }

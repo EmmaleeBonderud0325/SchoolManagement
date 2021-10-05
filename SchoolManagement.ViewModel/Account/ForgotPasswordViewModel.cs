@@ -8,6 +8,7 @@ namespace SchoolManagement.ViewModel.Account
 {
     public class ForgotPasswordViewModel
     {
+        public string SchoolDomain { get; set; }
         public string Email { get; set; }
     }
 }

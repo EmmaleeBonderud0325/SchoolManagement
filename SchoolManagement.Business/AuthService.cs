@@ -111,14 +111,21 @@ namespace SchoolManagement.Business
 
             try
             {
+                var school = masterDb.Schools.FirstOrDefault(t => t.SchoolDomain.ToUpper().Trim() == vm.SchoolDomain.ToUpper().Trim());
                 var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
 
                 if (exsitingEmail == null)
                 {
                     response.IsSuccess = false;
-                    response.Message = "Email Not Found";
+                    response.Message = "Email Not Found,,Please Try Again";
 
                     return response;
+                }
+                else if(school == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "School Domain Not Found,Please Try Again";
+
                 }
                 else
                 {
