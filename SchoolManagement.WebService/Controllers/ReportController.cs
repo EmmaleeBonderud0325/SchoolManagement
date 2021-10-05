@@ -27,7 +27,7 @@ namespace SchoolManagement.WebService.Controllers
             this.identityService = identityService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [RequestSizeLimit(long.MaxValue)]
         [Route("downloadUserList")]
         public FileStreamResult DownloadUserList(ReportTypeViewModel vm)
