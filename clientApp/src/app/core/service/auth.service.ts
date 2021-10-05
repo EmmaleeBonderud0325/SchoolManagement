@@ -1,3 +1,4 @@
+import { ResetPasswordModel } from './../../models/auth/reset.password.model';
 import { ResponseModel } from './../../models/common/response.model';
 import { ForgotPasswordModel } from './../../models/user/forgot.password.model';
 import { LoginModel } from './../../models/auth/login.model';
@@ -50,5 +51,11 @@ export class AuthService {
     return this.httpClient.
       post<ResponseModel>
         (environment.apiUrl+ 'Auth/forgotPassword', vm);
+  }
+  //ResetPassword
+  resetPassword(vm:ResetPasswordModel):Observable<ResponseModel>{
+    return this.httpClient.
+      post<ResponseModel>
+        (environment.apiUrl+ 'Auth/resetPassword', vm);
   }
 }

@@ -42,6 +42,25 @@ export class ResetComponent implements OnInit {
     {
       return;
     }
+    else
+    {
+      this.authService.resetPassword(this.chanagePasswordForm.value)
+      .subscribe(response=>{
+        if(response.isSuccess)
+        {
+          this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
+        }
+        else
+        {
+          this.messageService.add({severity:'error', summary: 'error', detail: response.message});
+        }
+      },error=>{
+        this.messageService.add({severity:'error', summary: 'error', detail:"Network error has been occured. Please try again."});
+      });
+      
+    }
   }
+
+ 
 
 }
