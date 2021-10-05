@@ -6,6 +6,7 @@ using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -102,6 +103,42 @@ namespace SchoolManagement.Business
             return response;
 
            
+        }
+
+        public ResponseViewModel ForgotPassword(ForgotPasswordViewModel vm)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                if (exsitingEmail == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Email Not Found";
+
+                    return response;
+                }
+                else
+                {
+                    string routeLink = "http://localhost:4200/#/authentication/reset";
+                    EmailHelper.SendForgotPasswordEmailLink(vm.Email, routeLink);
+                    response.IsSuccess = true;
+                    response.Message = "Link has been Send Successfully";
+
+                    return response;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error hass been Occurrred, Please Try again";
+            }
+
+            return response;
         }
     }
 }

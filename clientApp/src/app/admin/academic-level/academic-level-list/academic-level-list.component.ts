@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { AcademicLevelModel } from './../../../models/academic-level/acdemic.level.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { AcademicLevelService } from './../../../services/academic-level/academic-level.service';
@@ -11,8 +12,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-academic-level-list',
   templateUrl: './academic-level-list.component.html',
-  styleUrls: ['./academic-level-list.component.sass'],
-  providers: [ToastrService],
+  styleUrls: ['./academic-level-list.component.scss'],
+  providers: [MessageService]
 })
 export class AcademicLevelListComponent implements OnInit {
 
@@ -29,7 +30,7 @@ export class AcademicLevelListComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private academicLevelService:AcademicLevelService,
-    private toastr: ToastrService) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getAll();
@@ -43,7 +44,8 @@ export class AcademicLevelListComponent implements OnInit {
       { 
         this.levelHeads = response;
       },error=>{
-        this.toastr.error("Network error has been occured. Please try again.","Error");
+        //this.toastr.error("Network error has been occured. Please try again.","Error");
+        this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
        });
   }
   getAll()
@@ -56,7 +58,7 @@ export class AcademicLevelListComponent implements OnInit {
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
     });
   }
 
@@ -86,16 +88,17 @@ export class AcademicLevelListComponent implements OnInit {
         if(response.isSuccess)
         {
           this.modalService.dismissAll();
-          this.toastr.success(response.message,"Success");
+          //this.toastr.success(response.message,"Success");
+          this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
           this.getAll();
         }
         else
         {
-          this.toastr.error(response.message,"Error");
+          this.messageService.add({severity:'error', summary: 'error', detail: response.message});
         }
 
     },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
     });
 
   }
@@ -106,7 +109,7 @@ export class AcademicLevelListComponent implements OnInit {
       this.data = [...this.data];
       form.reset();
       this.modalService.dismissAll();
-      this.addRecordSuccess();
+      
     }
 
 
@@ -142,16 +145,16 @@ export class AcademicLevelListComponent implements OnInit {
 
           if(response.isSuccess)
           {
-            this.toastr.success(response.message,"Success");
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getAll();
           }
           else
           {
-            this.toastr.error(response.message,"Error");
+            this.messageService.add({severity:'error', summary: 'error', detail: response.message});
           }
     
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
         });
       }
     });
@@ -160,7 +163,5 @@ export class AcademicLevelListComponent implements OnInit {
 
   
 
-    addRecordSuccess() {
-      this.toastr.success('Acedemic Level Add Successfully', '');
-    }
+  
 }

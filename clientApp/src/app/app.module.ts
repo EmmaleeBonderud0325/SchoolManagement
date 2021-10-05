@@ -2,10 +2,8 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {ButtonModule} from 'primeng/button';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,6 +37,7 @@ import { AuthGuard } from './core/guard/auth.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 
 
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
   wheelPropagation: false,
@@ -65,6 +64,7 @@ export function createTranslateLoader(http: HttpClient): any {
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgxDatatableModule,
     ReactiveFormsModule,
     PerfectScrollbarModule,
     NgxDatatableModule,

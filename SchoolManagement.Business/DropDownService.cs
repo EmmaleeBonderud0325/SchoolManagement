@@ -4,6 +4,7 @@ using SchoolManagement.Data.Data;
 using SchoolManagement.ExcelHelper;
 using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
+using SchoolManagement.ReportGenarateHelper.ReportGenarate.Common;
 using SchoolManagement.Util;
 using SchoolManagement.ViewModel.Common;
 using System;
@@ -147,5 +148,13 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        public List<DropDownViewModel> GetReportMasterData()
+        {
+            var response = Enum.GetValues(typeof(ReportGenarateTypes)).Cast<ExcelUploadType>()
+                .Select(x => new DropDownViewModel() { Id = (int)x, Name = x.ToString() })
+                .ToList();
+
+            return response;
+        }
     }
 }

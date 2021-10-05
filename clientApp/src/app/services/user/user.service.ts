@@ -1,3 +1,4 @@
+import { ForgotPasswordModel } from './../../models/user/forgot.password.model';
 import { UserMasterDataModel } from './../../models/user/user.master.data';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { ResponseModel } from './../../models/common/response.model';
@@ -76,6 +77,13 @@ export class UserService {
   UpdateUserMasterData(vm:UserMasterModel):Observable<ResponseModel>{
     return this.httpClient.
       post<ResponseModel>
-        (environment.apiUrl+ + 'User/updateUserMasterData', vm);
+        (environment.apiUrl+ 'User/updateUserMasterData', vm);
   }
+  
+  downloadUserListReport(): Observable<any> {
+    return this.httpClient.get<any>
+    (environment.apiUrl +'User/downloadUserList');
+  }
+
+  
 }

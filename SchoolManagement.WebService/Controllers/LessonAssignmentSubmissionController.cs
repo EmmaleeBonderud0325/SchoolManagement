@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System.Threading.Tasks;
@@ -34,6 +35,35 @@ namespace SchoolManagement.WebService.Controllers
         {
             var response = lessonassignmentsubmissionService.GetLessonAssignmentSubmissions();
             return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllStudents")]
+        public IActionResult GetAllStudents()
+        {
+            var response = lessonassignmentsubmissionService.GetAllStudents();
+
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllLessonAssignments")]
+        public IActionResult GetAllLessonAssignments()
+        {
+            var response = lessonassignmentsubmissionService.GetAllLessonAssignments();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getLessonAssignmentsList")]
+        public PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel> GetLessonAssignmentsList(string searchText, int currentPage, int pageSize, int lessonassignmentId)
+        {
+            var response = lessonassignmentsubmissionService.GetLessonAssignmentsList(searchText, currentPage, pageSize, lessonassignmentId);
+
+            return response;
         }
 
     }

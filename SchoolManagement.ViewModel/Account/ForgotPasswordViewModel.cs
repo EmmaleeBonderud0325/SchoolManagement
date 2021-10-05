@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SchoolManagement.Util
+namespace SchoolManagement.ViewModel.Account
 {
-    class ReportGenarateHelper
+    public class ForgotPasswordViewModel
     {
+        public string Email { get; set; }
     }
 }

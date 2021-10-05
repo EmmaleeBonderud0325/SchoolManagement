@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -28,7 +29,7 @@ namespace SchoolManagement.Business
             this.config = config;
             this.currentUserService = currentUserService;
         }
-
+        //Get All EssayQuestionAnswers
         public List<EssayQuestionAnswerViewModel> GetAllEssayQuestionAnswers()
         { 
             var response = new List<EssayQuestionAnswerViewModel>();
@@ -42,16 +43,17 @@ namespace SchoolManagement.Business
 
             var EssayQuestionAnswerList = query.ToList();
 
-            foreach (var essayquestionanswer in EssayQuestionAnswerList)
+            foreach (var item in EssayQuestionAnswerList)
             {
                 var vm = new EssayQuestionAnswerViewModel
                 {
 
-                    Id = essayquestionanswer.Id,
-                    QuestionId = essayquestionanswer.QuestionId,
-                    AnswerText = essayquestionanswer.AnswerText,
-                    ModifiedOn = essayquestionanswer.ModifiedOn,
-                    CreatedOn = essayquestionanswer.CreatedOn
+                    Id = item.Id,
+                    QuestionId = item.QuestionId,
+                    QuestionName = item.Question.QuestionText,
+                    AnswerText = item.AnswerText,
+                    ModifiedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
                 };
 
                 response.Add(vm);
@@ -60,6 +62,8 @@ namespace SchoolManagement.Business
             return response;
         }
 
+
+        //Save
         public async Task<ResponseViewModel> SaveEssayQuestionAnswer(EssayQuestionAnswerViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -92,10 +96,12 @@ namespace SchoolManagement.Business
                 else
                 {
                     EssayQuestionAnswers.AnswerText = vm.AnswerText;
-                    EssayQuestionAnswers.ModifiedOn = vm.ModifiedOn;
-                    EssayQuestionAnswers.CreatedOn = vm.CreatedOn;
+                    EssayQuestionAnswers.ModifiedOn = DateTime.UtcNow;
 
                     schoolDb.EssayQuestionAnswers.Update(EssayQuestionAnswers);
+
+                    response.IsSuccess = true;
+                    response.Message = "Essay Answer is Successfully Updated.";
                 }
 
                 await schoolDb.SaveChangesAsync();
@@ -109,5 +115,86 @@ namespace SchoolManagement.Business
             return response;
         }
 
+        //Delete
+        public async Task<ResponseViewModel> DeleteEssayAnswer(int essayAnswerid)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var essayanswers = schoolDb.EssayQuestionAnswers.FirstOrDefault(x => x.Id == essayAnswerid);
+
+                schoolDb.EssayQuestionAnswers.Update(essayanswers);
+                await schoolDb.SaveChangesAsync();
+
+                response.IsSuccess = true;
+                response.Message = "Essay Answer is successfully deleted.";
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = ex.ToString();
+            }
+
+            return response;
+        }
+
+        public List<DropDownViewModel> GetAllQuestions()
+        {
+            var questions = schoolDb.Questions
+           .Where(x => x.IsActive == true)
+           .Select(qe => new DropDownViewModel() { Id = qe.Id, Name = string.Format("{0}", qe.QuestionText) })
+           .Distinct().ToList();
+
+            return questions;
+        }
+        //question list 
+        public PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicEssayQuestionAnswerViewModel>();
+
+            var essayquestions = schoolDb.EssayQuestionAnswers.OrderBy(u => u.Id);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                essayquestions = essayquestions.Where(x => x.Question.QuestionText.Contains(searchText)).OrderBy(u => u.Id);
+            }
+
+            if (questionId > 0)
+            {
+                essayquestions = essayquestions.Where(x => x.QuestionId == questionId).OrderBy(u => u.Id);
+            }
+
+
+            totalRecordCount = essayquestions.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var questionList = essayquestions.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            questionList.ForEach(essayquestions =>
+            {
+                var vm = new BasicEssayQuestionAnswerViewModel()
+                {
+                    Id = essayquestions.Id,
+                    QuestionId = essayquestions.QuestionId,
+                    QuestionName = essayquestions.Question.QuestionText,
+                    AnswerText = essayquestions.AnswerText,
+                    ModifiedOn = DateTime.UtcNow,
+                    CreatedOn = DateTime.UtcNow
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
     }
 }
