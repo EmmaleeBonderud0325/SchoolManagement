@@ -6,7 +6,7 @@ import {confirmedPasswordValidator} from './password-confirmed.validator';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
-  styleUrls: ['./reset.component.sass'],
+  styleUrls: ['./reset.component.scss'],
   providers: [MessageService]
 })
 export class ResetComponent implements OnInit {
