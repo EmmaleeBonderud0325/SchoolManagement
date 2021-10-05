@@ -80,6 +80,7 @@ export class SubjectTeacherListComponent implements OnInit {
         this.academicYears = response.academicYears;
         this.academicLevels = response.academicLevels;
         this.currentAcadmicYearId = response.currentAcademicYear;
+       
         this.filterForm.get("selectedAcademicYearId").setValue(this.currentAcadmicYearId);
         this.filterForm.get("selectedAcademicYearId").disable();
         this.filterForm.get("selectedAcademicLevelId").setValue(this.academicLevels[0].id);

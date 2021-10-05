@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
+using SchoolManagement.Model;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Account;
@@ -111,14 +112,21 @@ namespace SchoolManagement.Business
 
             try
             {
+                var school = masterDb.Schools.FirstOrDefault(t => t.SchoolDomain.ToUpper().Trim() == vm.SchoolDomain.ToUpper().Trim());
                 var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
 
                 if (exsitingEmail == null)
                 {
                     response.IsSuccess = false;
-                    response.Message = "Email Not Found";
+                    response.Message = "Email Not Found,Please Try Again";
 
                     return response;
+                }
+                else if(school == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "School Domain Not Found,Please Try Again";
+
                 }
                 else
                 {
@@ -138,6 +146,51 @@ namespace SchoolManagement.Business
                 response.Message = "Error hass been Occurrred, Please Try again";
             }
 
+            return response;
+        }
+
+        public ResponseViewModel ResetPassword(ResetPasswordViewModel vm)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var school = masterDb.Schools.FirstOrDefault(t => t.SchoolDomain.ToUpper().Trim() == vm.SchoolDomain.ToUpper().Trim());
+                var resetPasswordClient = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                if (resetPasswordClient == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Email Not Found,Please Try Again";
+
+                    return response;
+                }
+                else if (school == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "School Domain Not Found,Please Try Again";
+
+                }
+                else
+                {
+                    resetPasswordClient.Password = CustomPasswordHasher.GenerateHash(vm.NewPassword);
+                    resetPasswordClient.UpdatedOn = DateTime.UtcNow;
+
+                  schoolDb.Users.Update(resetPasswordClient);
+
+                  response.IsSuccess = true;
+                  response.Message = "Password Reset has been  Successfully";
+
+                  return response;
+                }
+
+                schoolDb.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = true;
+                response.Message = "Error Has been occured Try again";
+            }
             return response;
         }
     }

@@ -12,5 +12,6 @@ namespace SchoolManagement.Business.Interfaces
     {
         UserTokenViewModel Login (LoginViewModel model);
         ResponseViewModel ForgotPassword(ForgotPasswordViewModel vm);
+        ResponseViewModel ResetPassword(ResetPasswordViewModel vm);
     }
 }

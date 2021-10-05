@@ -208,7 +208,7 @@ namespace SchoolManagement.Business
 
                     schoolDb.Users.Add(user);
                    
-                    //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
+                    EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -740,7 +740,7 @@ namespace SchoolManagement.Business
         {
             #region Table header
             _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
-            _pdfPCell = new PdfPCell(new Phrase("User Name", _fontStyle));
+            _pdfPCell = new PdfPCell(new Phrase("Full Name", _fontStyle));
             _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
             _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
             _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
@@ -777,7 +777,7 @@ namespace SchoolManagement.Business
                 _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
                 _pdfPTable.AddCell(_pdfPCell);
 
-                _pdfPCell = new PdfPCell(new Phrase(vm.MobileNo.ToString(), _fontStyle));
+                _pdfPCell = new PdfPCell(new Phrase(vm.MobileNo, _fontStyle));
                 _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
                 _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
                 _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
