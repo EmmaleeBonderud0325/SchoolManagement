@@ -98,6 +98,7 @@ export class SubjectListComponent implements OnInit {
         
        });
   }
+ 
   //get Academic Levels DropDown Meta Data
   getAllAcademicLevels()
   {

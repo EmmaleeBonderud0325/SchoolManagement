@@ -29,6 +29,7 @@ namespace SchoolManagement.Business.Master
       this.currentUserService = currentUserService;
     }
 
+    //get all subject teachers 
     public SubjectTeacherMasterDataViewModel GetSubjectTeacherMasterData()
     {
       var response = new SubjectTeacherMasterDataViewModel();
@@ -40,7 +41,8 @@ namespace SchoolManagement.Business.Master
 
       return response;
     }
-
+    
+    // get all subject from select academiclevel  
     public List<DropDownViewModel> GetSubjectsForSelectedAcademicLevel(int academicLevelId)
     {
       var response = new List<DropDownViewModel>();
@@ -49,7 +51,8 @@ namespace SchoolManagement.Business.Master
 
       return response;
     }
-
+       
+    //searching and get all Subject Teachers
     public List<SubjectTeachersViewModel> GetAllSubjectTeachers(SubjectTeacherFilter filter)
     {
       var vms = new List<SubjectTeachersViewModel>();
