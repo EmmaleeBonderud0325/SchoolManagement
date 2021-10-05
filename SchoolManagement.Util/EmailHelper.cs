@@ -16,12 +16,13 @@ namespace SchoolManagement.Util
         }
         public static void SendRegisterted(string registeredCustomerEmail,string userName, string password)
         {
-            var schoolEmail = "theeventprojectg259@gmail.com";
+            var schoolEmail = "sliititpscmc@gmail.com";
             var passowrd = "1qaz2wsx@";
 
             MailMessage message = new MailMessage(schoolEmail,registeredCustomerEmail);
 
-            string mailBody = "User Name :-" + userName +" " + "Password:-" + password;
+            string mailBody = "User Name :-" + userName +" " + "Password:-" + password + Environment.NewLine + "Please Don't Reply(Auto genarated Email_SMTP Server)"+ Environment.NewLine
+                + "Deparment of Computer Science and Software Engineering -  SLIIT(ITP2021_B06_G04(SMCS))" + Environment.NewLine+ "_RESTful API Debugging_ASP.net core";
 
             message.Subject = "Registerted Successfull";
 
