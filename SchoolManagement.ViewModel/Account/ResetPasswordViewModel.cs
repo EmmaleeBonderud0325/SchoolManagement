@@ -11,6 +11,6 @@ namespace SchoolManagement.ViewModel.Account
         public string SchoolDomain { get; set; }
         public string Email { get; set; }
         public string NewPassword { get; set; }
-        public string COnfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }
     }
 }
