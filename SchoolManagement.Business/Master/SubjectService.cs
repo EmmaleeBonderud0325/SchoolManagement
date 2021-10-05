@@ -54,6 +54,7 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+    
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
@@ -115,6 +116,7 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -225,6 +227,7 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+
         public SubjectViewModel GetSubjectbyId(int id)
         {
             var response = new SubjectViewModel();
@@ -346,8 +349,7 @@ namespace SchoolManagement.Business.Master
                 return quary.Name;
             }      
         }
-
-       
+      
     }
 }
                 
