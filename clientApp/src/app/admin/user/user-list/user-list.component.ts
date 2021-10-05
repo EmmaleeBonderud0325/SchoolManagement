@@ -314,7 +314,7 @@ export class UserListComponent implements OnInit {
     this.spinner.show();
 
     this.userService.downloadUserListReport().subscribe((response:HttpResponse<Blob>)=>{
-      if(response.type === HttpEventType.Response)
+      /*if(response.type === HttpEventType.Response)
       {
         if(response.status == 204)
         {
@@ -337,7 +337,7 @@ export class UserListComponent implements OnInit {
           this.spinner.hide();
           
         }
-      }
+      }*/
     },error=>{
         this.spinner.hide();
         

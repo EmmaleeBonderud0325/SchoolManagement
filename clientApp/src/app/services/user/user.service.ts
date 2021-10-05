@@ -81,8 +81,8 @@ export class UserService {
   }
   
   downloadUserListReport(): Observable<any> {
-    return this.httpClient.post<any>
-    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+    return this.httpClient.get<any>
+    (environment.apiUrl +'User/downloadUserList');
   }
 
   
