@@ -25,6 +25,15 @@
                     formControlName="schoolDomain"
                     required 
                     >
+                    <small 
+                      class="form-text text-danger"
+                      *ngIf="
+                        !sendEmailForm.get('schoolDomain').valid && 
+                         sendEmailForm.get('schoolDomain').touched
+                         "
+                      > 
+                         School Domain is required</small
+                      >
                 </div>
 
                 <div class="form-group">
@@ -36,6 +45,15 @@
                     tabindex="1" 
                     formControlName="email"
                     required 
+                    >
+                    <small 
+                    class="form-text text-danger"
+                    *ngIf="
+                      !sendEmailForm.get('email').valid && 
+                        sendEmailForm.get('email').touched
+                       "
+                    > 
+                       Email is required</small
                     >
                 </div>
                 <div class="form-group">
