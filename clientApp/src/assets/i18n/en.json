@@ -17,6 +17,10 @@
         "STUDENT-HOME": "Student Home",
         "TEACHER_LESSONS": "My Lessons",
         "TEACHER_QUESTION": "Question",
+        "ESSAY_QUESTION_ANSWER_LIST":"Essay Question Answers",
+        "ESSAY_STUDENT_LIST":"Essay Student Answers",
+        "LESSON-ASSIGNMENT-SUBMISSION-LIST":"Lesson Assignment Submission",
+       "LESSON-ASSIGNMENT":"Lesson Assignment",
         "TEACHER_MCQ_QUESTION_ANSWER": "MCQ Question Teacher Answer",
         "TEACHER_MCQ_QUESTION_STUDENT_ANSWER": "MCQ Question Student Answer",
         "TEACHER_STUDENT_MCQ_QUESTION_ANSWER": "Student Comments"
