@@ -24,16 +24,18 @@ namespace SchoolManagement.Business
     public class UserService : IUserService
     {
         private readonly SchoolManagementContext schoolDb;
+        private readonly MasterDbContext masterDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
 
         private StudentExcelContainer studentExcelContainer;
 
-        public UserService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService)
         {
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
+            this.masterDb = masterDb;
 
             studentExcelContainer = new StudentExcelContainer();
         }
@@ -205,6 +207,7 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
+                   
                     //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;

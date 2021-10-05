@@ -69,7 +69,7 @@ export class UserListComponent implements OnInit {
         },erroe=>{
           this.spinner.hide();
           this.loadingIndicator = false;
-          this.messageService.add({severity:'error', summary: 'Rrror', detail: 'NetWork Error hass been Occourred'});
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
         });
   }
 
