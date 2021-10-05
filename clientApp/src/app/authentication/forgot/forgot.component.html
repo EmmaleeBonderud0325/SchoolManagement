@@ -16,6 +16,27 @@
                 (ngSubmit)="onSubmit()"
                 >
                 <div class="form-group">
+                  <label for="email">School Domain</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    name="email" 
+                    tabindex="1" 
+                    formControlName="schoolDomain"
+                    required 
+                    >
+                    <small 
+                      class="form-text text-danger"
+                      *ngIf="
+                        !sendEmailForm.get('schoolDomain').valid && 
+                         sendEmailForm.get('schoolDomain').touched
+                         "
+                      > 
+                         School Domain is required</small
+                      >
+                </div>
+
+                <div class="form-group">
                   <label for="email">Email</label>
                   <input 
                     type="text" 
@@ -24,6 +45,15 @@
                     tabindex="1" 
                     formControlName="email"
                     required 
+                    >
+                    <small 
+                    class="form-text text-danger"
+                    *ngIf="
+                      !sendEmailForm.get('email').valid && 
+                        sendEmailForm.get('email').touched
+                       "
+                    > 
+                       Email is required</small
                     >
                 </div>
                 <div class="form-group">
