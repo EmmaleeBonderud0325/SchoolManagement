@@ -38,6 +38,7 @@
     "@swimlane/ngx-charts": "^18.0.1",
     "@swimlane/ngx-datatable": "^19.0.0",
     "@types/d3-shape": "^2.0.0",
+    "@videogular/ngx-videogular": "4.1.0",
     "acorn": "^8.2.4",
     "angular-archwizard": "^6.1.0",
     "angular-feather": "^6.1.0",

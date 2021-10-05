@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.AccountData;
@@ -110,17 +110,40 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-        /*[HttpPost, DisableRequestSizeLimit]
-        [Route("updateUserMasterData")]
-        public async Task<ResponseViewModel> UploadProfilePicture()
-        {
-            var userName = identityService.GetUserName();
-            var response = await userService.UploadProfilePicture(userName);
+    [HttpPost]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("uploadUserImage")]
+    public async Task<IActionResult> UploadUserImage()
+    {
+      var userName = identityService.GetUserName();
 
-            return response;
-        }*/
+      var container = new FileContainerViewModel();
 
-        [HttpGet]
+      var request = await Request.ReadFormAsync();
+
+      //container.Id = int.Parse(request["id"]);
+
+      foreach (var file in request.Files)
+      {
+        container.Files.Add(file);
+      }
+
+      var response = await userService.UploadUserImage(container, userName);
+
+      return Ok(response);
+    }
+
+    /*[HttpPost, DisableRequestSizeLimit]
+    [Route("updateUserMasterData")]
+    public async Task<ResponseViewModel> UploadProfilePicture()
+    {
+        var userName = identityService.GetUserName();
+        var response = await userService.UploadProfilePicture(userName);
+
+        return response;
+    }*/
+
+    [HttpGet]
         [RequestSizeLimit(long.MaxValue)]
         [Route("downloadUserList")]
         public FileStreamResult downloadUserListReport()

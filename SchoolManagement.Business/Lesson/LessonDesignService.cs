@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
+using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -9,6 +11,7 @@ using SchoolManagement.ViewModel.Lesson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,12 +22,14 @@ namespace SchoolManagement.Business
         private readonly SchoolManagementContext schoolDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
+    private readonly IAzureBlobService azureBlobService;
 
-        public LessonDesignService(SchoolManagementContext schoolDb, IConfiguration config, ICurrentUserService currentUserService)
+        public LessonDesignService(SchoolManagementContext schoolDb, IConfiguration config, IAzureBlobService azureBlobService, ICurrentUserService currentUserService)
         {
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
+      this.azureBlobService = azureBlobService;
         }
         public List<LessonViewModel> GetAllLessons(LessonFilterViewModel filters, string userName)
         {
@@ -201,6 +206,7 @@ namespace SchoolManagement.Business
             {
                 topicContent = new TopicContent()
                 {
+                    Name =vm.Name,
                     TopicId = vm.TopicId,
                     ContentType = TopicContentType.Text,
                     Introduction = vm.Introduction,
@@ -212,8 +218,9 @@ namespace SchoolManagement.Business
             }
             else
             {
+                topicContent.Name = vm.Name;
                 topicContent.Introduction = vm.Introduction;
-                if (vm.ContentType == TopicContentType.Text)
+                if (vm.ContentType == TopicContentType.Text || vm.ContentType==TopicContentType.YoutubeVideo)
                 {
                     topicContent.Content = vm.Content;
                 }
@@ -439,5 +446,31 @@ namespace SchoolManagement.Business
             return response;
 
         }
+
+    public async Task<TopicContentViewModel> UploadTopicContentFile(TopicContentViewModel vm, IFormFile file, string userName)
+    {
+      try
+      {
+        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        string fileURL = await azureBlobService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
+
+        var record = schoolDb.TopicContents.FirstOrDefault(x => x.Id == vm.Id);
+        record.Content = fileURL;
+        record.ContentType = vm.ContentType;
+
+        schoolDb.TopicContents.Update(record);
+
+        await schoolDb.SaveChangesAsync();
+
+        vm.Content = fileURL;
+      }
+      catch(Exception ex)
+      {
+        //Log error 
+      }
+
+
+      return vm;
     }
+  }
 }

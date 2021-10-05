@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Data.Data;
@@ -178,13 +178,15 @@ namespace SchoolManagement.Business
 
                   schoolDb.Users.Update(resetPasswordClient);
 
-                  response.IsSuccess = true;
+          schoolDb.SaveChangesAsync();
+
+          response.IsSuccess = true;
                   response.Message = "Password Reset has been  Successfully";
 
                   return response;
                 }
 
-                schoolDb.SaveChangesAsync();
+
             }
             catch(Exception ex)
             {

@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.Model;
 using SchoolManagement.ViewModel;
+using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -115,5 +117,38 @@ namespace SchoolManagement.WebService.Controllers
             return response;
         }
 
-    }   
+    //[Authorize(Roles = AuthorizedRoles.Admin)]
+    [HttpPost]
+    [RequestSizeLimit(long.MaxValue)]
+    [Route("uploadLessonFile")]
+    public async Task<IActionResult> UploadLessonFile()
+    {
+      var userName = identityService.GetUserName();
+
+      var container = new FileContainerViewModel();
+
+      var request = await Request.ReadFormAsync();
+
+      var id = int.Parse(request["id"]);
+      var topicId = int.Parse(request["topicId"]);
+      var contentType = int.Parse(request["contentType"]);
+
+      foreach (var file in request.Files)
+      {
+        container.Files.Add(file);
+      }
+
+      var topic = new TopicContentViewModel()
+      {
+        Id = id,
+        TopicId = topicId,
+        ContentType = (TopicContentType)contentType
+      };
+
+      var response = await lessonDesignService.UploadTopicContentFile(topic,request.Files.FirstOrDefault(), userName);
+
+      return Ok(response);
+    }
+
+  }   
 }

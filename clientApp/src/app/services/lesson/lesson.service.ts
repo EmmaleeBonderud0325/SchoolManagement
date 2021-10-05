@@ -11,6 +11,7 @@ import { LessonMasterDataModel } from "src/app/models/lesson/lesson.masterdata.m
 import { LessonPaginatedItemsViewModel } from "src/app/models/lesson/lesson.paginated.items";
 import { LessonTopicModel } from 'src/app/models/lesson/lesson.topic.model';
 import { TopicContentModel } from 'src/app/models/lesson/topic.content';
+import { upload, Upload } from 'src/app/models/common/upload';
 ;
 
 @Injectable({
@@ -19,10 +20,12 @@ import { TopicContentModel } from 'src/app/models/lesson/topic.content';
 export class LessonService {
  
   onLessonDetailAssigned:Subject<any>;
+  onTopicContentTypeSelected:Subject<number>;
 
   constructor(private httpClient: HttpClient) 
   { 
     this.onLessonDetailAssigned = new Subject();
+    this.onTopicContentTypeSelected = new Subject();
   }
 
   getAllLessonList(searchText:string, academicYearId:number, academicLevelId:number,classNameId:number,subjectId:number,currentPage: number, pageSize: number): Observable<LessonPaginatedItemsViewModel>{
@@ -76,6 +79,10 @@ export class LessonService {
     return this.httpClient
       .post<TopicContentModel>(environment.apiUrl + 'LessonDesign/saveTopicContent', vm);
  
+  }
+
+  uploadLessonFile(data: FormData): Observable<Upload> {
+    return this.httpClient.post(environment.apiUrl + 'LessonDesign/uploadLessonFile', data,{reportProgress: true,observe: 'events'}).pipe(upload());;
   }
   
 }

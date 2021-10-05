@@ -11,6 +11,7 @@ export class UserModel
     username:string;
     mobileNo:string;
     password:string;
+    profileImage:string
     isActive:boolean;
     roles:number[];
     createdOn:Date;

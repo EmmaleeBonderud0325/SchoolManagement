@@ -1,4 +1,5 @@
-﻿using SchoolManagement.ViewModel;
+using Microsoft.AspNetCore.Http;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -23,7 +24,8 @@ namespace SchoolManagement.Business.Interfaces.LessonData
         LessonViewModel GetLessonById(int id);
         Task<LessonViewModel> CreateNewLesson(string userName);
 
+      Task<TopicContentViewModel> UploadTopicContentFile(TopicContentViewModel vm, IFormFile file, string userName);
 
-    }
+  }
 
 }
