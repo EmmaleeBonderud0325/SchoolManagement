@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    ToastModule,
     ToastrModule.forRoot(),
   ]
 })

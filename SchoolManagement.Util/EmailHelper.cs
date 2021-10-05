@@ -55,5 +55,46 @@ namespace SchoolManagement.Util
 
 
         }
+
+        public static void SendForgotPasswordEmailLink(string userEmail, string routLink)
+        {
+
+            var schoolEmail = "theeventprojectg259@gmail.com";
+            var passowrd = "1qaz2wsx@";
+
+            MailMessage message = new MailMessage(schoolEmail, userEmail);
+
+            string mailBody = "Get Link:-" + routLink;
+
+            message.Subject = "School Management Reset Password";
+
+            message.Body = mailBody;
+
+            message.BodyEncoding = Encoding.UTF8;
+
+            message.IsBodyHtml = true;
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+
+            System.Net.NetworkCredential networkCredential = new
+
+            System.Net.NetworkCredential(schoolEmail, passowrd);
+
+            client.EnableSsl = true;
+
+            client.UseDefaultCredentials = false;
+
+            client.Credentials = networkCredential;
+
+            try
+            {
+                client.Send(message);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+        }
     }
 }

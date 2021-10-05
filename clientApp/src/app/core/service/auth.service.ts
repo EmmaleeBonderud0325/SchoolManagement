@@ -1,3 +1,5 @@
+import { ResponseModel } from './../../models/common/response.model';
+import { ForgotPasswordModel } from './../../models/user/forgot.password.model';
 import { LoginModel } from './../../models/auth/login.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -42,5 +44,12 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     return of({ success: false });
+  }
+
+   //forgotPassword
+   forgotPassword(vm:ForgotPasswordModel):Observable<ResponseModel>{
+    return this.httpClient.
+      post<ResponseModel>
+        (environment.apiUrl+ + 'Auth/forgotPassword', vm);
   }
 }
