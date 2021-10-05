@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SchoolManagement.ViewModel;
 
 namespace SchoolManagement.WebService.Controllers
 {
@@ -33,11 +34,20 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+      [HttpGet]
+        [Route("getLessonList")]
+        public PaginatedItemsViewModel<BasicLessonAssignmentViewModel> GetLessonList(string searchText, int currentPage, int pageSize, int lessonId)
+        {
+            var response = lessonassignmentService.GetLessonList(searchText, currentPage, pageSize, lessonId);
+
+            return response;
+        }
+
         [HttpGet]
 
         public ActionResult GetLessonAssignments()
         {
-            var response = lessonassignmentService.GetLessonAssignments();
+            var response = lessonassignmentService.GetLessonAssignments(); ;
             return Ok(response);
         }
 
@@ -46,6 +56,15 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Delete(int Id)
         {
             var response = await lessonassignmentService.DeleteLessonAssignment( Id);
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllLessons")]
+        public IActionResult GetAllLessons()
+        {
+            var response = lessonassignmentService.GetAllLessons();
             return Ok(response);
         }
     }

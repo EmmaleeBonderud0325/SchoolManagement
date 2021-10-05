@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -32,6 +33,16 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var response = await essayquestionanswerService.DeleteEssayAnswer(id);
+            return Ok(response);
+        }
+
+
         [HttpGet]
 
         public ActionResult GetAllEssayQuestionAnswer()
@@ -40,7 +51,23 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
-    }   
+        [HttpGet]
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var response = essayquestionanswerService.GetAllQuestions();
 
+            return Ok(response);
+        }
 
+        [HttpGet]
+        [Route("getQuestionList")]
+        public PaginatedItemsViewModel<BasicEssayQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            var response = essayquestionanswerService.GetQuestionList(searchText, currentPage, pageSize, questionId);
+
+            return response;
+        }
+
+    }
 }

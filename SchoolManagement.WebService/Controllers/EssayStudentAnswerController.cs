@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.LessonData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System.Threading.Tasks;
@@ -36,5 +37,42 @@ namespace SchoolManagement.WebService.Controllers
             return Ok(response);
         }
 
+
+        [HttpGet]
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var response = essaystudentanswerService.GetAllQuestions();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllStudents")]
+        public IActionResult GetAllStudents()
+        {
+            var response = essaystudentanswerService.GetAllStudents();
+
+            return Ok(response);
+        }
+
+
+        [HttpGet]
+        [Route("getAllEssayQuestionAnswers")]
+        public IActionResult GetAllEssayQuestionAnswers()
+        {
+            var response = essaystudentanswerService.GetAllEssayQuestionAnswers();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getStudentEssayList")]
+        public PaginatedItemsViewModel<BasicEssayStudentAnswerViewModel> GetStudentEssayList(string searchText, int currentPage, int pageSize, int questionId, int studentId)
+        {
+            var response = essaystudentanswerService.GetStudentEssayList(searchText, currentPage, pageSize, questionId,studentId);
+
+            return response;
+        }
     }
 }
