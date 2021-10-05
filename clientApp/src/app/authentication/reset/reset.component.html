@@ -10,7 +10,7 @@
             <div class="card-body">
               <p class="text-muted">Enter Your New Password</p>
               <form
-                class="validate-form" 
+              
                 [formGroup]="chanagePasswordForm"
                 (ngSubmit)="onSubmit()"
                 >
@@ -19,20 +19,33 @@
                   <input 
                     type="text" 
                     class="form-control" 
-                    name="email" 
                     tabindex="1" 
                     formControlName="schoolDomain"
-                    required 
+                    [ngClass]="{'is-invalid': submited && f.schoolDomain.errors && f.schoolDomain.touched}" 
+                  >
+                  <div 
+                    *ngIf="submited && f.schoolDomain.errors" 
+                    class="invalid-feedback"
                     >
-                    <small 
-                      class="form-text text-danger"
-                      *ngIf="
-                        !chanagePasswordForm.get('schoolDomain').valid && 
-                        chanagePasswordForm.get('schoolDomain').touched
-                         "
-                      > 
-                         School Domain is required</small
-                      >
+                  <div 
+                    *ngIf="f.schoolDomain.errors.required">
+                      School Domain is required
+                  </div>
+                </div>
+                   
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input 
+                    type="text" 
+                    class="form-control"           
+                    tabindex="1" 
+                    formControlName="email"
+                    [ngClass]="{'is-invalid': submited && f.email.errors && f.email.touched}"
+                     
+                    >
+                   
                 </div>
 
                 <div class="form-group">
@@ -41,20 +54,12 @@
                     type="password" 
                     class="form-control" 
                     name="email" 
-                    tabindex="1" 
+                    tabindex="1"                    
                     formControlName="password"
-                    required 
+                    [ngClass]="{'is-invalid': submited && f.password.errors && f.password.touched}"
+                     
                     >
-                    <small 
-                    class="form-text text-danger"
-                    *ngIf="
-                      !chanagePasswordForm.get('password').valid && 
-                      chanagePasswordForm.get('password').touched
-                       "
-                    > 
-                      New Password is required</small
-                    >
-                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                   
                 </div>
 
                 <div class="form-group">
@@ -65,25 +70,10 @@
                     name="email" 
                     tabindex="1" 
                     formControlName="confirmPassword"
-                    required 
+                    [ngClass]="{'is-invalid': submited && f.confirmPassword.errors && f.confirmPassword.touched}"
+                     
                     >
-                    <small 
-                    class="form-text text-danger"
-                    *ngIf="
-                      !chanagePasswordForm.get('confirmPassword').valid && 
-                      chanagePasswordForm.get('confirmPassword').touched
-                       "
-                    > 
-                      Confirm Password is required</small
-                    >
-                    <small 
-                    class="form-text text-danger"
-                    *ngIf="
-                        f.confirmPassword.errors.confirmedPasswordValidator
-                        "
-                        >
-                        Password and Confirm Password not matched</small
-                    >
+                    
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">

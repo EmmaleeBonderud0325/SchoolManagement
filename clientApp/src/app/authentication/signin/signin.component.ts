@@ -12,10 +12,15 @@ import { MessageService } from 'primeng/api';
 })
 export class SigninComponent implements OnInit {
   loginForm: FormGroup;
+
   submitted = false;
+
   returnUrl: string;
+
   error = '';
+
   hide = true;
+  
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
