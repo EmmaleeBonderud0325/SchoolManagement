@@ -12,12 +12,12 @@ export class ReportService {
   constructor(private httpClient: HttpClient) { }
 
   downloadUserList(vm:ReportTypeModel): Observable<any> {
-    return this.httpClient.post<any>
-    (environment.apiUrl +'Report/downloadClassAttendanceForAllSubjects',vm,{headers:{'filedownload':''}, observe: 'events',reportProgress:true });
+    return this.httpClient.get<any>
+    (environment.apiUrl +'User/downloadUserList');
   }
 
-  /*downloadUserList(path: string): Observable<any> {
-    return this.httpClient.post(`${environment.apiUrl}/accountVerification/downloadFile`, { path: path }, {
+/*downloadUserList(): Observable<any> {
+    return this.httpClient.post(`${environment.apiUrl}/aUser/downloadUserList`, {  }, {
         observe: 'response',
         responseType: 'blob'
     });

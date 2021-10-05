@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { AcademicYearModel } from './../../../models/academic-Year/academic.Year.model';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { AcademicYearService } from './../../../services/academic-Year/academic-Year.service';
@@ -11,8 +12,8 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-academic-year-list',
   templateUrl: './academic-year-list.component.html',
-  styleUrls: ['./academic-year-list.component.sass'],
-  providers: [ToastrService],
+  styleUrls: ['./academic-year-list.component.scss'],
+  providers: [MessageService]
 })
 export class AcademicYearListComponent implements OnInit {
 
@@ -29,7 +30,7 @@ export class AcademicYearListComponent implements OnInit {
     private fb: FormBuilder,
     private modalService: NgbModal,
     private academicYearService:AcademicYearService,
-    private toastr: ToastrService) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -46,7 +47,7 @@ export class AcademicYearListComponent implements OnInit {
         this.loadingIndicator=false;
     },error=>{
       this.loadingIndicator=false;
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
     });
   }
 
@@ -77,16 +78,16 @@ export class AcademicYearListComponent implements OnInit {
         if(response.isSuccess)
         {
           this.modalService.dismissAll();
-          this.toastr.success(response.message,"Success");
+          this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
           this.getAll();
         }
         else
         {
-          this.toastr.error(response.message,"Error");
+          this.messageService.add({severity:'error', summary: 'error', detail: response.message});
         }
 
     },error=>{
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
     });
 
   }
@@ -97,7 +98,7 @@ export class AcademicYearListComponent implements OnInit {
       this.data = [...this.data];
       form.reset();
       this.modalService.dismissAll();
-      this.addRecordSuccess();
+     
     }
 
 
@@ -135,22 +136,19 @@ export class AcademicYearListComponent implements OnInit {
 
           if(response.isSuccess)
           {
-            this.toastr.success(response.message,"Success");
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getAll();
           }
           else
           {
-            this.toastr.error(response.message,"Error");
+            this.messageService.add({severity:'error', summary: 'error', detail: response.message});
           }
     
         },error=>{
-          this.toastr.error("Network error has been occured. Please try again.","Error");
+          this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
         });
       }
     });
   }
 
-    addRecordSuccess() {
-      this.toastr.success('Academic Year Added Successfully', '');
-    }
 }

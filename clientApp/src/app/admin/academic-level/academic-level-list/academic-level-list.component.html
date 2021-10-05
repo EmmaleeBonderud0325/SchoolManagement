@@ -1,4 +1,5 @@
 <section class="main-content">
+  <p-toast></p-toast>
     <ul class="breadcrumb breadcrumb-style ">
       <li class="breadcrumb-item">
         <h5 class="page-title m-b-0">Admin</h5>
@@ -38,11 +39,7 @@
                     <div class="col-lg-4 p-0">
                       <div class="ngxTableHeader">
                         <div class="header-buttons-left">
-                          <div class="icon-button-demo buttons">
-                            <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addEditRecord)' >
-                              <i class="material-icons">add</i>
-                            </button>
-                          </div>
+                         
                         </div>
                       </div>
                     </div>
@@ -60,6 +57,47 @@
                 [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" 
                 [reorderable]="reorderable">
+
+                <ngx-datatable-column [width]="80" name="" sortable="false">
+                  <ng-template  
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center">
+                    <div class="icon-button-demo buttons">
+                      <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewAcademicLevel(addEditRecord)' >
+                        <i class="material-icons">add</i>
+                      </button>
+                    </div>
+                  </ng-template>
+                  
+                  <ng-template 
+                      let-value="value" 
+                      let-row="row" 
+                      let-rowIndex="rowIndex" 
+                      ngx-datatable-cell-template>
+                      
+                    <div class="buttons">
+                      <span>
+                        <!--Academic Level edit Button-->
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='editRow(row, rowIndex, addEditRecord)'>
+                          <i class="fas fa-pen"></i>
+                        </button>
+                        <!--Delete Academic Level Button-->
+                        <button 
+                          class="btn btn-icon btn-sm btn-danger"
+                          (click)='deleteAcademicLevel(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button>
+                      </span>
+                    </div>
+                    
+                  </ng-template>
+                </ngx-datatable-column>
 
                 <!--Academic Level Name Column-->
                 <ngx-datatable-column name="Name" [width]="100">
@@ -110,24 +148,7 @@
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <!--Academic Level edit Button-->
-                      <button 
-                        class="btn btn-tbl-edit h-auto" 
-                        (click)='editRow(row, rowIndex, addEditRecord)'>
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <!--Delete Academic Level Button-->
-                      <button 
-                        class="btn btn-tbl-delete h-auto"
-                        (click)='deleteAcademicLevel(row)'>
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
-                  </ng-template>
-                </ngx-datatable-column>
+               
               </ngx-datatable>
               
               <!-- Add Record Modal Window -->
