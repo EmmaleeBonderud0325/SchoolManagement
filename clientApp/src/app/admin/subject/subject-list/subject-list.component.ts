@@ -53,7 +53,7 @@ export class SubjectListComponent implements OnInit {
   ngOnInit(): void {
    this.spinner.show();
    this.subjectFilterForm=this.createSuvjectFilterForm();
-  // this.getAll()
+    this.getAll()
     this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
@@ -209,7 +209,7 @@ export class SubjectListComponent implements OnInit {
         {
           this.modalService.dismissAll();
           this.toastr.success(response.message,"Success");
-          this.getAll();
+          this.getSubjectList();
         }
         else
         {
