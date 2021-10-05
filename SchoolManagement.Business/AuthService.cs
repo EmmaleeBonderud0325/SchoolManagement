@@ -117,7 +117,7 @@ namespace SchoolManagement.Business
                 if (exsitingEmail == null)
                 {
                     response.IsSuccess = false;
-                    response.Message = "Email Not Found,,Please Try Again";
+                    response.Message = "Email Not Found,Please Try Again";
 
                     return response;
                 }

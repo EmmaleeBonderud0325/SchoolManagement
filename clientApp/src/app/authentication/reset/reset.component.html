@@ -10,7 +10,6 @@
             <div class="card-body">
               <p class="text-muted">Enter Your New Password</p>
               <form
-              
                 [formGroup]="chanagePasswordForm"
                 (ngSubmit)="onSubmit()"
                 >
@@ -19,7 +18,6 @@
                   <input 
                     type="text" 
                     class="form-control" 
-                    tabindex="1" 
                     formControlName="schoolDomain"
                     [ngClass]="{'is-invalid': submited && f.schoolDomain.errors && f.schoolDomain.touched}" 
                   >
@@ -27,12 +25,14 @@
                     *ngIf="submited && f.schoolDomain.errors" 
                     class="invalid-feedback"
                     >
-                  <div 
-                    *ngIf="f.schoolDomain.errors.required">
-                      School Domain is required
-                  </div>
-                </div>
-                   
+                      <div 
+                        *ngIf="
+                          f.schoolDomain.errors.required
+                          "
+                        >
+                        School Domain is required
+                      </div>
+                  </div>  
                 </div>
 
                 <div class="form-group">
@@ -40,11 +40,22 @@
                   <input 
                     type="text" 
                     class="form-control"           
-                    tabindex="1" 
                     formControlName="email"
                     [ngClass]="{'is-invalid': submited && f.email.errors && f.email.touched}"
                      
+                  >
+                  <div 
+                    *ngIf="submited && f.email.errors" 
+                    class="invalid-feedback"
                     >
+                      <div 
+                        *ngIf="
+                          f.email.errors.required
+                         "
+                        >
+                        Email is required
+                      </div>
+                  </div>  
                    
                 </div>
 
@@ -52,14 +63,29 @@
                   <label for="email">New Password</label>
                   <input 
                     type="password" 
-                    class="form-control" 
-                    name="email" 
-                    tabindex="1"                    
+                    class="form-control"               
                     formControlName="password"
                     [ngClass]="{'is-invalid': submited && f.password.errors && f.password.touched}"
                      
+                  >
+                  <div 
+                    *ngIf="submited &&f.password.errors" 
+                    class="invalid-feedback"
                     >
-                   
+                      <div 
+                        *ngIf="
+                          f.password.errors.required
+                          ">
+                          Password is required
+                      </div>
+                      <div 
+                        *ngIf="
+                          f.password.errors.minlength
+                          ">
+                        Password must be at least 6 characters
+                      </div>
+                  </div>
+                  
                 </div>
 
                 <div class="form-group">
@@ -67,12 +93,26 @@
                   <input 
                     type="password" 
                     class="form-control" 
-                    name="email" 
-                    tabindex="1" 
                     formControlName="confirmPassword"
                     [ngClass]="{'is-invalid': submited && f.confirmPassword.errors && f.confirmPassword.touched}"
                      
-                    >
+                  >
+                  <div 
+                    *ngIf="submited && f.confirmPassword.errors" 
+                    class="invalid-feedback">
+                      <div 
+                        *ngIf="
+                          f.confirmPassword.errors.required
+                          ">
+                           Confirm Password is required
+                      </div>
+                      <div 
+                        *ngIf="
+                        f.confirmPassword.errors.confirmedPasswordValidator
+                        ">
+                        Password and Confirm Password not matched
+                      </div>
+                  </div>
                     
                 </div>
                 <div class="form-group">
