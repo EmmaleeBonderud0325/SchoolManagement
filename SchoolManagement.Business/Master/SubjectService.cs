@@ -221,7 +221,7 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = SubjectServiceConstants.SUBJECT_SAVE_UPDATE_EXCEPTION_MESSAGE;
             }
             return response;
         }
