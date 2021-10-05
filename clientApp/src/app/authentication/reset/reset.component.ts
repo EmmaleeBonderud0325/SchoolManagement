@@ -2,7 +2,7 @@ import { MessageService } from 'primeng/api';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-
+import {confirmedPasswordValidator} from './password-confirmed.validator';
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
@@ -22,8 +22,10 @@ export class ResetComponent implements OnInit {
   ngOnInit(): void {
     this.chanagePasswordForm = this.formBuilder.group({
       schoolDomain:['', Validators.required],
-      password:['', Validators.required],
+      password:['', Validators.required, Validators.minLength(6)],
       confirmPassword:['', Validators.required]
+    },{
+      validator:confirmedPasswordValidator('password', 'confirmPassword')
     });
   }
 

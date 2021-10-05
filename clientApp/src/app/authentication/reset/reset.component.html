@@ -54,6 +54,7 @@
                     > 
                       New Password is required</small
                     >
+                    <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
                 </div>
 
                 <div class="form-group">
@@ -74,6 +75,14 @@
                        "
                     > 
                       Confirm Password is required</small
+                    >
+                    <small 
+                    class="form-text text-danger"
+                    *ngIf="
+                        f.confirmPassword.errors.confirmedPasswordValidator
+                        "
+                        >
+                        Password and Confirm Password not matched</small
                     >
                 </div>
                 <div class="form-group">
