@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { DropDownModel } from './../../../models/common/drop-down.model';
 import { DatatableComponent } from '@swimlane/ngx-datatable';
 import { Component, OnInit, ViewChild } from '@angular/core';
@@ -13,8 +14,8 @@ import { BasicHeadOfDepartmentModel } from 'src/app/models/head-of-department/ba
 @Component({
   selector: 'app-head-of-department-list',
   templateUrl: './head-of-department-list.component.html',
-  styleUrls: ['./head-of-department-list.component.sass'],
-  providers: [ToastrService],
+  styleUrls: ['./head-of-department-list.component.scss'],
+  providers: [MessageService],
 })
 export class HeadOfDepartmentListComponent implements OnInit {
 
@@ -41,7 +42,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
     private modalService: NgbModal,
     private headOfDepartmentService:HeadOfDepartmentService,
     private spinner:NgxSpinnerService,
-    private toastr: ToastrService) { }
+    private messageService: MessageService) { }
 
   ngOnInit(): void {
     //this.spinner.show();
@@ -84,7 +85,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
     },error=>{
       this.spinner.hide();
       this.loadingIndicator = false;
-      this.toastr.error("Network error has been occured. Please try again.","Error");
+      this.messageService.add({severity:'error', summary: 'Error', detail: 'Network error has been occured. Please try again.'});
     });
   }
 
@@ -181,12 +182,12 @@ export class HeadOfDepartmentListComponent implements OnInit {
         if(response.isSuccess)
         {
           this.modalService.dismissAll();
-          this.toastr.success(response.message,"Success");
+          this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
           this.getAll();
         }
         else
         {
-          this.toastr.error(response.message,"Error");
+          this.messageService.add({severity:'error', summary: 'error', detail: response.message});
         }
 
     },error=>{
@@ -228,12 +229,12 @@ export class HeadOfDepartmentListComponent implements OnInit {
 
           if(response.isSuccess)
           {
-            this.toastr.success(response.message,"Success");
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
             this.getAll();
           }
           else
           {
-            this.toastr.error(response.message,"Error");
+            this.messageService.add({severity:'error', summary: 'error', detail: response.message});
           }
     
         },error=>{

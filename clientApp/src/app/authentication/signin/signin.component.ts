@@ -37,7 +37,7 @@ export class SigninComponent implements OnInit {
     this.error = 'School Domain,Username and Password not valid !';
 
     if (this.loginForm.invalid) {
-      //this.error = 'Username and Password not valid !';
+     
       this.messageService.add({severity:'warn', summary: 'warn', detail: this.error});
       
       
@@ -47,16 +47,20 @@ export class SigninComponent implements OnInit {
         .login(this.loginForm.value)
         .subscribe(
           (res) => {
-            if (res) {
+            if (res) 
+            {
               const token = this.authService.currentUserValue.token;
-              if (token) {
+              if (token) 
+              {
                 this.router.navigate(['/teacher-home/lessons']);
               }
-              else{
+              else
+              {
                 this.error = 'Invalid Login';
                 this.messageService.add({severity:'error', summary: 'error', detail: this.error});
               }
-            } else {
+            } else 
+            {
               this.error = 'NetWork Error has been occurred';
               this.messageService.add({severity:'error', summary: 'error', detail: this.error});
             }

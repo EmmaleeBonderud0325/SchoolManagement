@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AcademicYearRoutingModule } from './academic-year-routing.module';
@@ -20,6 +21,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    ToastModule,
     ToastrModule.forRoot(),
   ]
 })

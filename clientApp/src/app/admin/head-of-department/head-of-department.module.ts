@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeadOfDepartmentListComponent } from './head-of-department-list/head-of-department-list.component';
@@ -21,6 +22,7 @@ import { ToastrModule } from 'ngx-toastr';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
+    ToastModule,
     ToastrModule.forRoot()
   ]
 })

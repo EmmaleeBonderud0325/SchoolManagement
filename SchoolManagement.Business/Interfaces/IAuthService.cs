@@ -1,4 +1,5 @@
 ﻿using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,6 @@ namespace SchoolManagement.Business.Interfaces
     public interface IAuthService 
     {
         UserTokenViewModel Login (LoginViewModel model);
+        ResponseViewModel ForgotPassword(ForgotPasswordViewModel vm);
     }
 }
