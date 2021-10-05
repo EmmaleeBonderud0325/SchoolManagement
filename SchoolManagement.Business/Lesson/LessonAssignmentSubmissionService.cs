@@ -4,6 +4,7 @@ using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Common;
 using SchoolManagement.ViewModel.Lesson;
 using System;
@@ -29,26 +30,110 @@ namespace SchoolManagement.Business
             this.currentUserService = currentUserService;
         }
 
+        public List<DropDownViewModel> GetAllLessonAssignments()
+        {
+            var assignments = schoolDb.LessonAssignments
+            .Where(x => x.IsActive == true)
+            .Select(la => new DropDownViewModel() { Id = la.Id, Name = string.Format("{0}", la.Name) })
+            .Distinct().ToList();
+
+            return assignments;
+        }
+
+        public List<DropDownViewModel> GetAllStudents()
+        {
+            var students = schoolDb.Students
+           .Where(x => x.IsActive == true)
+           .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
+           .Distinct().ToList();
+
+            return students;
+        }
+
+        public PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel> GetLessonAssignmentsList(string searchText, int currentPage, int pageSize, int lessonassignmentId)
+        {
+            int totalRecordCount = 0;
+            double totalPages = 0;
+            int totalPageCount = 0;
+
+            var vmu = new List<BasicLessonAssignmnetSubmissionViewModel>();
+
+            var lessonassignmentsubmissions = schoolDb.LessonAssignmentSubmissions.OrderBy(u => u.LessonAssignmentId);
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                lessonassignmentsubmissions = lessonassignmentsubmissions.Where(x => x.LessonAssignment.Name.Contains(searchText)).OrderBy(u => u.LessonAssignmentId);
+            }
+
+            if (lessonassignmentId > 0)
+            {
+                lessonassignmentsubmissions = lessonassignmentsubmissions.Where(x => x.LessonAssignmentId== lessonassignmentId).OrderBy(u => u.LessonAssignmentId);
+            }
+
+
+            totalRecordCount = lessonassignmentsubmissions.Count();
+            totalPages = (double)totalRecordCount / pageSize;
+            totalPageCount = (int)Math.Ceiling(totalPages);
+
+            var lessonassignmentList = lessonassignmentsubmissions.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+
+            lessonassignmentList.ForEach(lessonassignmentsubmissions =>
+            {
+                var vm = new BasicLessonAssignmnetSubmissionViewModel()
+                {
+                    Id = lessonassignmentsubmissions.Id,
+                    LessonAssignmentId = lessonassignmentsubmissions.LessonAssignmentId,
+                    LessonAssignmentName = lessonassignmentsubmissions.LessonAssignment.Name,
+                    StudentId = lessonassignmentsubmissions.StudentId,
+                    StudentName = lessonassignmentsubmissions.Student.User.FullName,
+                    SubmissionPath = lessonassignmentsubmissions.SubmissionPath,
+                    SubmissionDate = lessonassignmentsubmissions.SubmissionDate,
+                    Marks = lessonassignmentsubmissions.Marks,
+                    TeacherComments = lessonassignmentsubmissions.TeacherComments
+
+
+                };
+                vmu.Add(vm);
+            });
+
+            var container = new PaginatedItemsViewModel<BasicLessonAssignmnetSubmissionViewModel>(currentPage, pageSize, totalPageCount, totalRecordCount, vmu);
+
+            return container;
+        }
+
+        /*public List<DropDownViewModel> GetAllStudents()
+        {
+            var students = schoolDb.Students
+            .Where(x => x.IsActive == true)
+            .Select(st => new DropDownViewModel() { Id = st.Id, Name = string.Format("{0}", st.User.FullName) })
+            .Distinct().ToList();
+
+            return students;
+        }
+        */
+
 
         public List<LessonAssignmentSubmissionViewModel> GetLessonAssignmentSubmissions()
         {
             var response = new List<LessonAssignmentSubmissionViewModel>();
 
-            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.StudentId != null);
+            var query = schoolDb.LessonAssignmentSubmissions.Where(u => u.Id != null);
 
             var LessonAssignmentSubmissionList = query.ToList();
 
-            foreach (var lessonassignmentsubmission in LessonAssignmentSubmissionList)
+            foreach (var item in LessonAssignmentSubmissionList)
             {
                 var vm = new LessonAssignmentSubmissionViewModel
                 {
-                    Id = lessonassignmentsubmission.Id,
-                    LessonAssignmentId = lessonassignmentsubmission.LessonAssignmentId,
-                    StudentId = lessonassignmentsubmission.StudentId,
-                    SubmissionPath = lessonassignmentsubmission.SubmissionPath,
-                    SubmissionDate = lessonassignmentsubmission.SubmissionDate,
-                    Marks = lessonassignmentsubmission.Marks,
-                    TeacherComments = lessonassignmentsubmission.TeacherComments
+                    Id = item.Id,
+                    LessonAssignmentId = item.LessonAssignmentId,
+                    LessonAssignmentName = item.LessonAssignment.Name,
+                    StudentId = item.StudentId,
+                    StudentName = item.Student.User.FullName,
+                    SubmissionPath = item.SubmissionPath,
+                    SubmissionDate = item.SubmissionDate,
+                    Marks = item.Marks,
+                    TeacherComments = item.TeacherComments
                 };
 
                 response.Add(vm);
@@ -93,14 +178,18 @@ namespace SchoolManagement.Business
                 }
                 else
                 {
-                    LessonAssignmentSubmissions.SubmissionPath = vm.SubmissionPath;
-                    LessonAssignmentSubmissions.SubmissionDate = vm.SubmissionDate;
+                   // LessonAssignmentSubmissions.SubmissionPath = vm.SubmissionPath;
+                   // LessonAssignmentSubmissions.SubmissionDate = vm.SubmissionDate;
                     LessonAssignmentSubmissions.Marks = vm.Marks;
                     LessonAssignmentSubmissions.TeacherComments= vm.TeacherComments;
                     
 
 
                     schoolDb.LessonAssignmentSubmissions.Update(LessonAssignmentSubmissions);
+
+                    response.IsSuccess = true;
+                    response.Message = " Lesson Assignment Submission Successfully Updated.";
+
                 }
 
                 await schoolDb.SaveChangesAsync();

@@ -10,7 +10,9 @@ namespace SchoolManagement.ViewModel.Lesson
     {
         public int Id { get; set; }
         public int LessonAssignmentId { get; set; }
+        public string  LessonAssignmentName { get; set; }
         public int StudentId { get; set; }
+        public string  StudentName { get; set; }
         public string SubmissionPath { get; set; }
         public DateTime SubmissionDate { get; set; }
         public decimal Marks { get; set; }
