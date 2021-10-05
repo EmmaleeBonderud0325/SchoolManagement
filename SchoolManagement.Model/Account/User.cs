@@ -15,7 +15,7 @@ namespace SchoolManagement.Model
         public string Username { get; set; }
         public string Password { get; set; }
         public DateTime LastLoginDate { get; set; }
-        public byte ProfileImage { get; set; }
+        public string ProfileImage { get; set; }
         public string Address { get; set; }
         public int LoginSessionId { get; set; }
         public bool IsActive { get; set; }

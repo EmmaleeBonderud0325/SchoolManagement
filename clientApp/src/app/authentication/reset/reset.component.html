@@ -1,4 +1,5 @@
 <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+  <p-toast></p-toast>
   <div class="container">
     <div class="auth-card">
       <div class="row">
@@ -9,24 +10,111 @@
             </div>
             <div class="card-body">
               <p class="text-muted">Enter Your New Password</p>
-              <form method="POST">
+              <form
+                [formGroup]="chanagePasswordForm"
+                (ngSubmit)="onSubmit()"
+                >
+                <div class="form-group">
+                  <label for="email">School Domain</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="schoolDomain"
+                    [ngClass]="{'is-invalid': submited && f.schoolDomain.errors && f.schoolDomain.touched}" 
+                  >
+                  <div 
+                    *ngIf="submited && f.schoolDomain.errors" 
+                    class="invalid-feedback"
+                    >
+                      <div 
+                        *ngIf="
+                          f.schoolDomain.errors.required
+                          "
+                        >
+                        School Domain is required
+                      </div>
+                  </div>  
+                </div>
+
                 <div class="form-group">
                   <label for="email">Email</label>
-                  <input id="email" type="email" class="form-control" name="email" tabindex="1" required autofocus>
+                  <input 
+                    type="text" 
+                    class="form-control"           
+                    formControlName="email"
+                    [ngClass]="{'is-invalid': submited && f.email.errors && f.email.touched}"
+                     
+                  >
+                  <div 
+                    *ngIf="submited && f.email.errors" 
+                    class="invalid-feedback"
+                    >
+                      <div 
+                        *ngIf="
+                          f.email.errors.required
+                         "
+                        >
+                        Email is required
+                      </div>
+                  </div>  
+                   
                 </div>
+
                 <div class="form-group">
-                  <label for="password">New Password</label>
-                  <input id="password" type="password" class="form-control pwstrength" data-indicator="pwindicator"
-                    name="password" tabindex="2" required>
-                  <div id="pwindicator" class="pwindicator">
-                    <div class="bar"></div>
-                    <div class="label"></div>
+                  <label for="email">New Password</label>
+                  <input 
+                    type="text" 
+                    class="form-control"               
+                    formControlName="password"
+                    [ngClass]="{'is-invalid': submited && f.password.errors && f.password.touched}"
+                     
+                  >
+                  <div 
+                    *ngIf="submited &&f.password.errors" 
+                    class="invalid-feedback"
+                    >
+                      <div 
+                        *ngIf="
+                          f.password.errors.required
+                          ">
+                          Password is required
+                      </div>
+                      <div 
+                        *ngIf="
+                          f.password.errors.minlength
+                          ">
+                        Password must be at least 6 characters
+                      </div>
                   </div>
+                  
                 </div>
+
                 <div class="form-group">
-                  <label for="password-confirm">Confirm Password</label>
-                  <input id="password-confirm" type="password" class="form-control" name="confirm-password" tabindex="2"
-                    required>
+                  <label for="email">Confirm password</label>
+                  <input 
+                    type="text" 
+                    class="form-control" 
+                    formControlName="confirmPassword"
+                    [ngClass]="{'is-invalid': submited && f.confirmPassword.errors && f.confirmPassword.touched}"
+                     
+                  >
+                  <div 
+                    *ngIf="submited && f.confirmPassword.errors" 
+                    class="invalid-feedback">
+                      <div 
+                        *ngIf="
+                          f.confirmPassword.errors.required
+                          ">
+                           Confirm Password is required
+                      </div>
+                      <div 
+                        *ngIf="
+                        f.confirmPassword.errors.confirmedPasswordValidator
+                        ">
+                        Password and Confirm Password not matched
+                      </div>
+                  </div>
+                    
                 </div>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
