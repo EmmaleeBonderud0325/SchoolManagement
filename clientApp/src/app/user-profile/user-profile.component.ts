@@ -1,3 +1,4 @@
+import { MessageService } from 'primeng/api';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { UserMasterModel } from './../models/user/user.master';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -14,7 +15,8 @@ import { Upload } from '../models/common/upload';
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.sass']
+  styleUrls: ['./user-profile.component.scss'],
+  providers: [MessageService]
 })
 export class UserProfileComponent implements OnInit {
   active;
@@ -31,7 +33,8 @@ export class UserProfileComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private userService: UserService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private messageService: MessageService
   ) { 
 
     this.updateProfileForm = this.createNewProfile();
@@ -150,7 +153,24 @@ export class UserProfileComponent implements OnInit {
   }
  
 
+    updateUserProfile(currentUser:UserMasterModel)
+    {
+      this.userService.UpdateUserMasterData(this.updateProfileForm.value).subscribe(response=>{
 
+        this.spinner.hide();
+        if(response.isSuccess)
+        {
+           
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
+            this.getuserDetails();
+        }
+        else
+        {
+           this.messageService.add({severity:'error', summary: 'Error', detail: response.message});
+        }
+            
+      })
+    }
   
 
 }

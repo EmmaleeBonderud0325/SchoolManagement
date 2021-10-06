@@ -84,7 +84,7 @@ namespace SchoolManagement.Business
             {
                 var loggedInUser = currentUserService.GetUserByUsername(userName);
 
-                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.Id);
+                var lesson = schoolDb.Lessons.FirstOrDefault(x => x.Id == vm.LessonDetail.LessonId);
 
                 if (lesson == null)
                 {
@@ -359,6 +359,7 @@ namespace SchoolManagement.Business
             var lesson = schoolDb.Lessons.FirstOrDefault(u => u.Id == id);
 
             response.Id = lesson.Id;
+            response.LessonDetail.LessonId = lesson.Id;
             response.LessonDetail.Name = lesson.Name;
             response.LessonDetail.AcademicLevelId = lesson.AcademicLevelId.HasValue ? lesson.AcademicLevelId.Value : 0;
             response.LessonDetail.ClassNameId = lesson.ClassNameId.HasValue ? lesson.ClassNameId.Value : 0;

@@ -1,3 +1,4 @@
+import { LessonDetailModel } from './../../models/lesson/lesson.detail.model';
 import { environment } from 'src/environments/environment';
 import { DropDownModel } from './../../models/common/drop-down.model';
 import { LessonModel } from './../../models/lesson/lesson.model';
