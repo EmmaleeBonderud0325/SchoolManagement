@@ -15,7 +15,18 @@
         <li class="sidebar-user-panel">
           <div class="user-panel">
             <div class=" image">
-              <img src="assets/images/users/admin.png" class="img-circle user-img-circle" alt="User Image" />
+              <img
+                *ngIf="!loggedInUser?.profileImage"
+                alt="image"
+                src="assets/images/users/user-1.png"
+                class="user-img-radious-style collapse-btn"
+              />
+              <img
+                *ngIf="loggedInUser?.profileImage"
+                alt="image"
+                [src]="currentUser?.profileImage"
+                class="author-box-center"
+              />
             </div>
           </div>
           <div class="profile-usertitle">

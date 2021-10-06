@@ -133,15 +133,6 @@ namespace SchoolManagement.WebService.Controllers
       return Ok(response);
     }
 
-    /*[HttpPost, DisableRequestSizeLimit]
-    [Route("updateUserMasterData")]
-    public async Task<ResponseViewModel> UploadProfilePicture()
-    {
-        var userName = identityService.GetUserName();
-        var response = await userService.UploadProfilePicture(userName);
-
-        return response;
-    }*/
 
     [HttpGet]
         [RequestSizeLimit(long.MaxValue)]

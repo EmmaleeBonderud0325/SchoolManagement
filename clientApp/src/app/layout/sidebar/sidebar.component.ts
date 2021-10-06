@@ -1,3 +1,5 @@
+import { UserMasterModel } from './../../models/user/user.master';
+import { UserService } from './../../services/user/user.service';
 import { User } from './../../core/models/user';
 import { Router, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
@@ -33,12 +35,14 @@ export class SidebarComponent implements OnInit, OnDestroy {
   routerObj = null;
   currentRoute: string;
   currentUser:User;
+  loggedInUser:UserMasterModel;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
     public elementRef: ElementRef,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router
   ) {
     this.routerObj = this.router.events.subscribe((event) => {
@@ -97,6 +101,7 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
   }
   ngOnInit() {
+    this.getuserDetails()
     if (this.authService.currentUserValue) {
       this.sidebarItems = ROUTES.filter((sidebarItem) => 
       {
@@ -174,5 +179,16 @@ export class SidebarComponent implements OnInit, OnDestroy {
     }
 
     return false;
+  }
+
+  getuserDetails(){
+
+    this.userService.getUserDetails().subscribe(response=>{
+      this.loggedInUser = response;
+
+     
+      
+    })
+  
   }
 }
