@@ -7,6 +7,7 @@ using SchoolManagement.ViewModel.Master.Subject;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -62,6 +63,16 @@ namespace SchoolManagement.WebService.Controllers
             var response = subjectService.GetSubjectList(searchText, currentPage, pageSize);
             return response;
         }
-       
+
+        [HttpGet]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("downloadSubjectList")]
+        public FileStreamResult downloadSubjectListReport()
+        {
+            var response = subjectService.downloadSubjectListReport();
+
+            return File(new MemoryStream(response.FileData), "application/pdf", response.FileName);
+        }
+
     }
 }

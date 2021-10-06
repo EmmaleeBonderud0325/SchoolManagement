@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BasicSubjectModel } from 'src/app/models/subject/basic.subject.model';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -314,6 +315,28 @@ export class SubjectListComponent implements OnInit {
   {
     return this.subjectForm.get("subjectType").value;
   }
+
+   //file Grnarate method
+  
+   generateReport()
+   {
+     this.spinner.show();
+ 
+     this.subjectService.downloadSubjectListReport().subscribe((response:HttpResponse<Blob>)=>{
+      
+     },error=>{
+         this.spinner.hide();
+         
+     });
+   }
+ 
+ 
+   parseFilenameFromContentDisposition(contentDisposition) {
+     if (!contentDisposition) return null;
+     let matches = /filename="(.*?)"/g.exec(contentDisposition);
+ 
+     return matches && matches.length > 1 ? matches[1] : null;
+   }
   
 }
 
