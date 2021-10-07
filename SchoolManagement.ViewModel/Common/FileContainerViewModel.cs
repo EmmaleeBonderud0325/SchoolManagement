@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,9 @@ namespace SchoolManagement.ViewModel.Common
             Files = new List<IFormFile>();
         }
         public List<IFormFile> Files { get; set; }
-        
-        
-    }
+
+        public int Id { get; set; }
+
+
+  }
 }

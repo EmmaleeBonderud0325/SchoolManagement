@@ -11,6 +11,8 @@ export class LessonTopicModel
     learningExperince:string;
     topicContents:TopicContentModel[];
 
+    editable:boolean=false;
+
     static asFormGroup(item:LessonTopicModel,isDisable:boolean,fb:FormBuilder): FormGroup
     {
         const fg = new FormGroup({
@@ -18,6 +20,7 @@ export class LessonTopicModel
             name: new FormControl(item.name,[Validators.required]),
             learningExperince:new FormControl(item.learningExperince),
             sequenceNo: new FormControl(item.sequenceNo),
+            editable:new FormControl(item.editable),
             topicContents:fb.array([])
         });
 

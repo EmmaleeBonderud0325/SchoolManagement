@@ -28,6 +28,18 @@
 
     <li ngbDropdown><a ngbDropdownToggle data-toggle="dropdown"
         class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+        <!-- <img
+                *ngIf="!loggedInUser?.profileImage"
+                alt="image"
+                src="assets/images/users/user-1.png"
+                class="user-img-radious-style collapse-btn"
+              />
+              <img
+                *ngIf="loggedInUser?.profileImage"
+                alt="image"
+                [src]="currentUser?.profileImage"
+                class="user-img-radious-style collapse-btn"
+              /> -->
         <img alt="image" src="assets/images/users/admin.png" class="user-img-radious-style collapse-btn"> <span
           class="d-sm-none d-lg-inline-block"></span></a>
       <div ngbDropdownMenu class="dropdown-menu dropdown-menu-right header-dropdown pullDown">
@@ -48,3 +60,15 @@
     </li>
   </ul>
 </nav>
+ <!-- <img
+                *ngIf="!loggedInUser?.profileImage"
+                alt="image"
+                src="assets/images/users/user-1.png"
+                class="user-img-radious-style collapse-btn"
+              />
+              <img
+                *ngIf="loggedInUser?.profileImage"
+                alt="image"
+                [src]="currentUser?.profileImage"
+                class="author-box-center"
+              /> -->

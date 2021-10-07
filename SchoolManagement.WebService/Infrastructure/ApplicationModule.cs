@@ -1,4 +1,4 @@
-﻿using Autofac;
+using Autofac;
 using Microsoft.AspNetCore.Http;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces;
@@ -147,13 +147,15 @@ namespace SchoolManagement.WebService.Infrastructure
            .As<IReportService>()
            .InstancePerLifetimeScope();
 
+            builder.RegisterType<AzureBlobService>()
+              .As<IAzureBlobService>()
+              .InstancePerLifetimeScope();
 
 
 
 
 
-
-        }
+    }
     }
 
    

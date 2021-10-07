@@ -1,13 +1,13 @@
 <section class="main-content">
-  <ul class="breadcrumb breadcrumb-style ">
+  <p-toast></p-toast>
+  <ul class="breadcrumb breadcrumb-style">
     <li class="breadcrumb-item">
       <h5 class="page-title m-b-0">Profile</h5>
     </li>
     <li class="breadcrumb-item bcrumb-1">
-      <a routerLink="/dashboard/main">
-        <i class="fas fa-home font-17"></i></a>
+      <a routerLink="/dashboard/main"> <i class="fas fa-home font-17"></i></a>
     </li>
-    <li class="breadcrumb-item">{{currentUser.fullName}}</li>
+    <li class="breadcrumb-item">{{ currentUser?.fullName }}</li>
     <li class="breadcrumb-item">Profile</li>
   </ul>
   <div class="section-body">
@@ -16,15 +16,44 @@
         <div class="card author-box">
           <div class="card-body">
             <div class="author-box-center">
-              <img alt="image" src="assets/images/users/user-1.png" class="rounded-circle author-box-picture">
-              <button pButton pRipple type="button" label="Change Profile" class="p-button-rounded p-button-info"></button>
+              <img
+                *ngIf="!currentUser?.profileImage"
+                alt="image"
+                src="assets/images/users/user-1.png"
+                class="rounded-circle author-box-picture"
+              />
+              <img
+                *ngIf="currentUser?.profileImage"
+                alt="image"
+                [src]="currentUser?.profileImage"
+                class="rounded-circle author-box-picture"
+              />
+              <button
+                pButton
+                pRipple
+                type="button"
+                label="Change Profile"
+                (click)="fileInput.click()"
+                class="p-button-rounded p-button-info"
+              >
+                <input
+                  #fileInput
+                  type="file"
+                  class="form-control"
+                  accept="{{ accept }}"
+                  name="documents"
+                  (change)="onFileChange($event)"
+                  style="display: none"
+                />
+              </button>
               <div class="clearfix"></div>
               <div class="author-box-name">
-                <a href="#" onClick="return false;">{{currentUser.fullName}}</a>
+                <a href="#" onClick="return false;">{{
+                  currentUser?.fullName
+                }}</a>
               </div>
               <div class="author-box-job"></div>
             </div>
-            
           </div>
         </div>
         <div class="card">
@@ -34,43 +63,33 @@
           <div class="card-body">
             <div class="py-4">
               <p class="clearfix">
-                <span class="float-start">
-                  Full Name
-                </span>
+                <span class="float-start"> Full Name </span>
                 <span class="float-end text-muted">
-                  {{currentUser.fullName}}
+                  {{ currentUser?.fullName }}
                 </span>
               </p>
               <p class="clearfix">
-                <span class="float-start">
-                  User Name
-                </span>
+                <span class="float-start"> User Name </span>
                 <span class="float-end text-muted">
-                  {{currentUser.userName}}
+                  {{ currentUser?.userName }}
                 </span>
               </p>
               <p class="clearfix">
-                <span class="float-start">
-                  Email
-                </span>
+                <span class="float-start"> Email </span>
                 <span class="float-end text-muted">
-                  {{currentUser.email}}
+                  {{ currentUser?.email }}
                 </span>
               </p>
               <p class="clearfix">
-                <span class="float-start">
-                  Mobile Number
-                </span>
+                <span class="float-start"> Mobile Number </span>
                 <span class="float-end text-muted">
-                  {{currentUser.mobileNumber}}
+                  {{ currentUser?.mobileNumber }}
                 </span>
               </p>
               <p class="clearfix">
-                <span class="float-start">
-                  Address
-                </span>
+                <span class="float-start"> Address </span>
                 <span class="float-end text-muted">
-                  {{currentUser.address}}
+                  {{ currentUser?.address }}
                 </span>
               </p>
             </div>
@@ -92,57 +111,53 @@
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>First Name</label>
-                          <input 
-                            type="text" 
-                            class="form-control" 
-                            formControlName="fullName" 
-                            >
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="fullName"
+                          />
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>User Name</label>
-                          <input 
-                            type="text" 
-                            class="form-control" 
-                            formControlName="userName" 
-                            >
-                                  
+                          <input
+                            type="text"
+                            class="form-control"
+                            formControlName="userName"
+                          />
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Email</label>
-                          <input 
+                          <input
                             type="email"
-                            class="form-control" 
-                            formControlName="email" 
-                            >
+                            class="form-control"
+                            formControlName="email"
+                          />
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Phone</label>
-                          <input 
-                            type="tel" 
-                            class="form-control" 
-                            formControlName="mobileNumber" 
-                            >
+                          <input
+                            type="tel"
+                            class="form-control"
+                            formControlName="mobileNumber"
+                          />
                         </div>
                         <div class="form-group col-md-6 col-12">
                           <label>Address</label>
-                          <input 
-                            type="tel" 
-                            class="form-control" 
-                            formControlName="address" 
-                            >
+                          <input
+                            type="tel"
+                            class="form-control"
+                            formControlName="address"
+                          />
                         </div>
                       </div>
 
                       <div class="card-footer">
-                        <button class="btn btn-success">Update Account</button>
+                        <button class="btn btn-success" (click)="updateUserProfile()">Update Account</button>
                       </div>
-                  
                     </div>
-                    
                   </form>
-                 
                 </ng-template>
               </li>
               <li [ngbNavItem]="2">
@@ -151,55 +166,36 @@
                   <div class="card-header">
                     <h4>Edit Profile</h4>
                   </div>
-                  <form 
-                    [formGroup]="updatePasswrodForm"
-                    class="validate-form" 
-                    (ngSubmit)="onSubmit()"
-                    >
+                  <form [formGroup]="updatePasswrodForm">
                     <div class="card-body">
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Current Password</label>
-                          <input 
-                            type="password" 
-                            class="form-control" 
-                            formControlName="currentPassword" 
-                            >
-                          <div 
-                            class="invalid-feedback">
-                                Please fill in the first name
+                          <input type="text" class="form-control" value="" />
+                          <div class="invalid-feedback">
+                            Please fill in the first name
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>New Password</label>
-                          <input 
-                            type="password"
-                            class="form-control" 
-                            formControlName="newPassword" 
-                            >
+                          <input type="email" class="form-control" value="" />
                           <div class="invalid-feedback">
                             Please fill in the email
                           </div>
                         </div>
-                      
                       </div>
 
                       <div class="row">
                         <div class="form-group col-md-6 col-12">
                           <label>Confirm Password</label>
-                          <input 
-                            type="password" 
-                            class="form-control" 
-                            formControlName="confirmPassword" 
-                            >
+                          <input type="text" class="form-control" value="" />
                           <div class="invalid-feedback">
                             Please fill in the last name
                           </div>
                         </div>
                       </div>
-                  
                     </div>
                     <div class="card-footer">
                       <button class="btn btn-success">Submit</button>

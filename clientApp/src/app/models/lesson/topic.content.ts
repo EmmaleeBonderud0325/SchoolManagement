@@ -10,6 +10,8 @@ export class TopicContentModel
     contentType:string;
     content:string;
 
+    editable:boolean=false;
+
     static asFormGroup(item:TopicContentModel,isDisable:boolean): FormGroup
     {
         const formGroup = new FormGroup({
@@ -19,6 +21,7 @@ export class TopicContentModel
             introduction:new FormControl(item.introduction,[Validators.required]),
             contentType: new FormControl(item.contentType),
             content: new FormControl(item.content),
+            editable:new FormControl(item.editable)
         });
 
         if(isDisable)
