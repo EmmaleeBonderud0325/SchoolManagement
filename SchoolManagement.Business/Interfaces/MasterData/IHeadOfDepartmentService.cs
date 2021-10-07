@@ -20,5 +20,6 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         List<DropDownViewModel> GetAllSubjects();
         List<DropDownViewModel> GetAllTeachers();
         PaginatedItemsViewModel<BasicHeadOfDepartmentViewModel> GetHeadOfDepartmentList(string searchText, int currentPage, int pageSize);
+        public DownloadFileModel downloadHeadOfDepartmentListReport();
     }
 }

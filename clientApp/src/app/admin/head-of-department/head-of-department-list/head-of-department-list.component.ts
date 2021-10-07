@@ -10,6 +10,7 @@ import { HeadOfDepartmentService } from './../../../services/head-of-department/
 import { HeadOfDepartmentModel } from 'src/app/models/head-of-department/head.of.department.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BasicHeadOfDepartmentModel } from 'src/app/models/head-of-department/basic.head.of.department.model';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-head-of-department-list',
@@ -73,6 +74,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
     this.getHeadOfDepartmentList();
   }
 
+  //retrieve to search
   getHeadOfDepartmentList(){
     this.loadingIndicator = true;
     this.headOfDepartmentService.getHeadOfDepartmentList(this.searchFilterdId, this.currentPage + 1, this.pageSize)
@@ -100,9 +102,10 @@ export class HeadOfDepartmentListComponent implements OnInit {
   get searchFilterdId(){
     return this.headOfDepartmentFilterForm.get("searchText").value;
   }
-
   //search end
 
+
+  //Drop down list
   getAllAcademicYears()
   {
     this.headOfDepartmentService.getAllAcademicYears()
@@ -140,6 +143,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
        });
   }
 
+  //get all head of department rows
   getAll()
   {
     this.loadingIndicator=true;
@@ -154,7 +158,9 @@ export class HeadOfDepartmentListComponent implements OnInit {
         });
   }
 
+  //Insert statrs
 
+  //insert form modal and form validations
   addNewHeadOfDepartment(content) {
 
     this.headOfDepartmentFrom = this.fb.group({
@@ -172,6 +178,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
 
   }
 
+  //insert method
   saveHeadOfDepartment(){   
     
     console.log(this.headOfDepartmentFrom.value);
@@ -195,6 +202,7 @@ export class HeadOfDepartmentListComponent implements OnInit {
 
   }
 
+  //update method
   updateHeadOfDepartment(row:HeadOfDepartmentModel, rowIndex:number, content:any) {
 
     console.log(row);
@@ -212,6 +220,8 @@ export class HeadOfDepartmentListComponent implements OnInit {
       size: 'lg',
     });
   }
+
+    //Insert ends
 
     //delete Head Of Department
   deleteHeadOfDepartment(row) {
@@ -243,6 +253,26 @@ export class HeadOfDepartmentListComponent implements OnInit {
     });
   }
   
+  //file Generate method
+  generateReport()
+  {
+    this.spinner.show();
+
+    this.headOfDepartmentService.downloadHeadOdDepartmentListReport().subscribe((response:HttpResponse<Blob>)=>{
+      
+    },error=>{
+        this.spinner.hide();
+        
+    });
+  }
+
+
+  parseFilenameFromContentDisposition(contentDisposition) {
+    if (!contentDisposition) return null;
+    let matches = /filename="(.*?)"/g.exec(contentDisposition);
+
+    return matches && matches.length > 1 ? matches[1] : null;
+  }
     
 
 }
