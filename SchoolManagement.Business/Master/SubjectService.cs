@@ -373,7 +373,7 @@ namespace SchoolManagement.Business.Master
 
 }
 
-
+    //genarete report
     public class SubjectListReport
     {
         #region Declaration
