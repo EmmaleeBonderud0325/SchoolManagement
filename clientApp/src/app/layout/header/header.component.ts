@@ -1,3 +1,5 @@
+import { UserMasterModel } from './../../models/user/user.master';
+import { UserService } from './../../services/user/user.service';
 import { RightSidebarService } from 'src/app/core/service/rightsidebar.service';
 import { AuthService } from 'src/app/core/service/auth.service';
 import { DOCUMENT } from '@angular/common';
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   langStoreValue: string;
   defaultFlag: string;
   isOpenSidebar: boolean;
+  loggedInUser:UserMasterModel;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -34,6 +37,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     private rightSidebarService: RightSidebarService,
     private configService: ConfigService,
     private authService: AuthService,
+    private userService: UserService,
     private router: Router,
     public languageService: LanguageService
   ) {}
@@ -46,7 +50,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.config = this.configService.configData;
-
+    this.getuserDetails()
     this.langStoreValue = localStorage.getItem('lang');
     const val = this.listLang.filter((x) => x.lang === this.langStoreValue);
     this.countryName = val.map((element) => element.text);
@@ -168,5 +172,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
         this.router.navigate(['/authentication/signin']);
       }
     });
+  }
+
+  getuserDetails(){
+
+    this.userService.getUserDetails().subscribe(response=>{
+      this.loggedInUser = response;
+
+     
+      
+    })
+  
   }
 }
