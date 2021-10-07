@@ -1,4 +1,4 @@
-﻿using SchoolManagement.Model;
+using SchoolManagement.Model;
 using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
@@ -25,7 +25,8 @@ namespace SchoolManagement.Business.Interfaces.AccountData
         List<MasterDataFileValidateResult> ValidateExcelFileContents(string fileSavePath);
         Task<ResponseViewModel> UpdateUserMasterData(UserMasterViewModel vm, string userName);
         DownloadFileModel downloadUserListReport();
-        //Task<ResponseViewModel> UploadProfilePicture(string userName);
+        Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container, string userName);
+    //Task<ResponseViewModel> UploadProfilePicture(string userName);
 
-    }
+  }
 }

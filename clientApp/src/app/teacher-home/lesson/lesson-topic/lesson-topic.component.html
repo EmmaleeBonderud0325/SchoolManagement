@@ -99,7 +99,7 @@
                           type="button"
                           label="Add Content"
                           class="p-button-outlined p-button-success"
-                          (click)="showContentTypeSelector()"
+                          (click)="showContentTypeSelector(lecture)"
                         ></button>
                         <button
                           pButton
@@ -128,7 +128,173 @@
                           "
                         ></button>
                       </ng-template>
-                      <p></p>
+                      <div class="container">
+                        <div class="row">
+                          <div
+                            class="col-12"
+                            *ngIf="lecture.get('contentType').value == 1"
+                          >
+                            <div class="row">
+                              <div class="col-12">
+                                <p-editor
+                                  formControlName="content"
+                                  [style]="{ height: '320px' }"
+                                ></p-editor>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12">
+                                <button
+                                  class="btn btn-primary m-2"
+                                  (click)="saveLecture(lecture)"
+                                >
+                                  Save
+                                </button>
+                                <button class="btn btn-danger m-2">
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-12"
+                            *ngIf="lecture.get('contentType').value == 2"
+                          >
+                            <div
+                              class="row"
+                              *ngIf="lecture.get('content').value"
+                            >
+                              <div class="col-12">
+                                <vg-player>
+                                  <video
+                                    [vgMedia]="media"
+                                    #media
+                                    id="singleVideo"
+                                    preload="auto"
+                                    controls
+                                  >
+                                    <source
+                                      [src]="lecture.get('content').value"
+                                      type="video/mp4"
+                                    />
+                                  </video>
+                                </vg-player>
+                              </div>
+                            </div>
+
+                            <div class="row">
+                              <div class="col-12">
+                                <button
+                                  class="btn btn-primary m-2"
+                                  (click)="saveLecture(lecture)"
+                                >
+                                  Save
+                                </button>
+                                <button class="btn btn-danger m-2">
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+
+                            <div
+                              class="row"
+                              *ngIf="!lecture.get('content').value"
+                            >
+                              <div class="col-12">
+                                <div class="form-group">
+                                  <label
+                                    for="video"
+                                    *ngIf="!lecture.get('content').value"
+                                    >Upload Video</label
+                                  >
+                                  <label
+                                    for="video"
+                                    *ngIf="lecture.get('content').value"
+                                    >Preview Video</label
+                                  >
+                                  <div class="row" id="video">
+                                    <div class="col-11">
+                                      <input
+                                        *ngIf="!lecture.get('content').value"
+                                        type="url"
+                                        formControlName="content"
+                                        class="form-control"
+                                      />
+                                    </div>
+                                    <div class="col-1">
+                                      <button
+                                        class="
+                                          btn btn-success btn-icon
+                                          icon-left
+                                        "
+                                        (click)="fileInput.click()"
+                                      >
+                                        <i class="far fa-upload"></i> Upload
+                                        <input
+                                          #fileInput
+                                          type="file"
+                                          class="form-control"
+                                          accept="{{ accept }}"
+                                          name="documents"
+                                          (change)="
+                                            onFileChange($event, lecture)
+                                          "
+                                          style="display: none"
+                                        />
+                                      </button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-12"
+                            *ngIf="lecture.get('contentType').value == 3"
+                          >
+                            <div class="row">
+                              <div class="col-12"></div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12"></div>
+                            </div>
+                          </div>
+
+                          <div
+                            class="col-12"
+                            *ngIf="lecture.get('contentType').value == 4"
+                          >
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="form-group">
+                                  <label>Youtube URL</label>
+                                  <input
+                                    type="url"
+                                    formControlName="content"
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-12">
+                                <button
+                                  class="btn btn-primary m-2"
+                                  (click)="saveLecture(lecture)"
+                                >
+                                  Save
+                                </button>
+
+                                <button class="btn btn-danger m-2">
+                                  Delete
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </p-panel>
                   </div>
                 </div>
@@ -142,9 +308,9 @@
 </div>
 
 <p-dialog
-  header="Select Topic content type here"
+  header="Select Content Type"
   [(visible)]="displayContentTypeSelector"
-  [style]="{ width: '50vw' }"
+  [style]="{ width: '30vw' }"
   [baseZIndex]="10000"
 >
   <div class="container">
@@ -155,23 +321,45 @@
           pButton
           pRipple
           type="button"
-          icon="pi pi-check"
-          class="p-button-rounded m-4"
+          icon="fas fa-font"
+          class="p-button-rounded m-2"
+          placement="bottom"
+          ngbTooltip="Rich Text"
+          (click)="setContentType(1)"
         ></button>
+
         <button
           pButton
           pRipple
           type="button"
-          icon="pi pi-bookmark"
-          class="p-button-rounded p-button-secondary m-4"
+          icon="fas fa-video"
+          class="p-button-rounded m-2"
+          placement="bottom"
+          ngbTooltip="Video"
+          (click)="setContentType(2)"
         ></button>
+
         <button
           pButton
           pRipple
           type="button"
-          icon="pi pi-search"
-          class="p-button-rounded p-button-success m-4"
+          icon="fas fa-audio-description"
+          class="p-button-rounded m-2"
+          placement="bottom"
+          ngbTooltip="Audio"
+          (click)="setContentType(3)"
         ></button>
+
+        <!--         <button
+          pButton
+          pRipple
+          type="button"
+          icon="fab fa-youtube"
+          class="p-button-rounded m-2"
+          placement="bottom"
+          ngbTooltip="Youtube Link"
+          (click)="setContentType(4)"
+        ></button> -->
       </div>
       <div class="col col-lg-2"></div>
     </div>

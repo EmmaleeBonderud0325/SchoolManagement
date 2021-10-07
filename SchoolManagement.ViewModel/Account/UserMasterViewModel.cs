@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +13,6 @@ namespace SchoolManagement.ViewModel.Account
         public string Email { get; set; }
         public string Address { get; set; }
         public string MobileNumber { get; set; }
-        public byte ProfileImage { get; set; }
+        public string ProfileImage { get; set; }
     }
 }

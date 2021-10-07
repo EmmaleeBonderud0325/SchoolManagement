@@ -35,6 +35,7 @@ import {
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthGuard } from './core/guard/auth.guard';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -68,6 +69,7 @@ export function createTranslateLoader(http: HttpClient): any {
     ReactiveFormsModule,
     PerfectScrollbarModule,
     NgxDatatableModule,
+    ToastModule,
     ButtonModule,
     TranslateModule.forRoot({
       loader: {
