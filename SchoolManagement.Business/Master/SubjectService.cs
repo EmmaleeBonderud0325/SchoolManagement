@@ -14,6 +14,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Linq;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace SchoolManagement.Business.Master
 {
@@ -54,6 +58,7 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+    
         public List<SubjectViewModel> GetAllSubjects()
         {
             var response = new List<SubjectViewModel>();
@@ -115,6 +120,7 @@ namespace SchoolManagement.Business.Master
             }
             return response;
         }
+
         public async Task<ResponseViewModel> SaveSubject(SubjectViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -221,10 +227,11 @@ namespace SchoolManagement.Business.Master
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = SubjectServiceConstants.SUBJECT_SAVE_UPDATE_EXCEPTION_MESSAGE;
             }
             return response;
         }
+
         public SubjectViewModel GetSubjectbyId(int id)
         {
             var response = new SubjectViewModel();
@@ -333,6 +340,7 @@ namespace SchoolManagement.Business.Master
             return container;
         }
 
+
         private string GetParentBasketSubjectName(int? ParentBasketSubjectId)
         {
             var quary = schoolDb.Subjects.FirstOrDefault(pbs => pbs.Id == ParentBasketSubjectId);
@@ -347,20 +355,152 @@ namespace SchoolManagement.Business.Master
             }      
         }
 
-       
+        public DownloadFileModel downloadSubjectListReport()
+        {
+            var subjectListReport = new SubjectListReport();
+
+            byte[] abytes = subjectListReport.PrepareReport(GetAllSubjects());
+
+            var response = new DownloadFileModel();
+
+            response.FileData = abytes;
+            response.FileType = "application/pdf";
+
+
+            return response;
+        }
     }
+
 }
-                
-                 
+
+    //genarete report
+    public class SubjectListReport
+    {
+        #region Declaration
+        int _totalColumn = 3;
+        Document _document;
+        Font _fontStyle;
+        iTextSharp.text.pdf.PdfPTable _pdfPTable = new PdfPTable(3);
+        iTextSharp.text.pdf.PdfPCell _pdfPCell;
+        MemoryStream _memoryStream = new MemoryStream();
+        List<SubjectViewModel> _subject = new List<SubjectViewModel>();
+        #endregion
+
+        public byte[] PrepareReport(List<SubjectViewModel> response)
+        {
+            _subject = response;
+
+            #region
+            _document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+            _document.SetPageSize(PageSize.A4);
+            _document.SetMargins(20f, 20f, 20f, 20f);
+            _pdfPTable.WidthPercentage = 100;
+            _pdfPTable.HorizontalAlignment = Element.ALIGN_LEFT;
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 8f, 1);
+
+            iTextSharp.text.pdf.PdfWriter.GetInstance(_document, _memoryStream);
+            _document.Open();
+            _pdfPTable.SetWidths(new float[] { 100f, 50f, 150f });
+            #endregion
+
+            this.ReportHeader();
+            this.ReportBody();
+            _pdfPTable.HeaderRows = 2;
+            _document.Add(_pdfPTable);
+            _document.Close();
+            return _memoryStream.ToArray();
+
+        }
+
+        private void ReportHeader()
+        {
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("Subject List Report", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 9f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("Subject List", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+        }
+
+        private void ReportBody()
+        {
+            #region Table header
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("Subject Name", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+
+
+            _pdfPCell = new PdfPCell(new Phrase("Subject Code", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+
+            _pdfPCell = new PdfPCell(new Phrase("Subject Catagery", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+
+            #endregion
+
+            #region Table Body
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 0);
+            foreach (SubjectViewModel vm in _subject)
+            {
+                _pdfPCell = new PdfPCell(new Phrase(vm.Name.ToString(), _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.SubjectCode, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.SubjectCategoryName, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+                _pdfPTable.CompleteRow();
+
+            }
+            #endregion
+
+        }
+    }
 
 
 
 
-                    
 
 
 
 
-            
-                
+
+
+
+
+
+
 

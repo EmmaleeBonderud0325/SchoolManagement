@@ -17,6 +17,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
         Task<ResponseViewModel> DeleteSubject(int id);
         public SubjectViewModel GetSubjectbyId(int id);
         PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize);
+        public DownloadFileModel downloadSubjectListReport();
 
     }
 }
