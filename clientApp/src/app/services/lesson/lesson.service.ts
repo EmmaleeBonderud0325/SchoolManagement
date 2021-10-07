@@ -55,7 +55,7 @@ export class LessonService {
 
   saveLesson(vm :LessonModel): Observable <ResponseModel>{
     return this.httpClient
-      .post<ResponseModel>(environment.apiUrl + 'LessonDesign', vm);
+      .post<ResponseModel>(environment.apiUrl + 'LessonDesign/saveLesson', vm);
  
   }
 

@@ -35,7 +35,10 @@ namespace SchoolManagement.WebService.Controllers
             var response = lessonDesignService.GetAllLessons(filters, userName);
             return Ok(response);
         }
+
         [HttpPost]
+        
+        [Route("saveLesson")]
         public async Task<ActionResult> Post([FromBody] LessonViewModel vm)
         {
             var userName = identityService.GetUserName();
