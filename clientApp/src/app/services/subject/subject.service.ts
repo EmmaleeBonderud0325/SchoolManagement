@@ -41,4 +41,9 @@ export class SubjectService {
         .set('pageSize', pageSize.toString())
       });
   }
+
+  downloadSubjectListReport(): Observable<any> {
+    return this.httpClient.get<any>
+    (environment.apiUrl +'Subject/downloadSubjectList');
+  }
 }

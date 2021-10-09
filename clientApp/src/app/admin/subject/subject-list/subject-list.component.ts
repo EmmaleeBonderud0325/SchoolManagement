@@ -10,6 +10,7 @@ import { ToastrService } from 'ngx-toastr';
 import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BasicSubjectModel } from 'src/app/models/subject/basic.subject.model';
+import { HttpResponse } from '@angular/common/http';
 
 
 @Component({
@@ -51,9 +52,8 @@ export class SubjectListComponent implements OnInit {
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
-   this.spinner.show();
-   this.subjectFilterForm=this.createSuvjectFilterForm();
-  // this.getAll()
+    this.spinner.show();
+    this.subjectFilterForm=this.createSuvjectFilterForm();
     this.getSubjectTypes()
     this.getAllSubjectStreams();
     this.getAllAcademicLevels();
@@ -99,6 +99,7 @@ export class SubjectListComponent implements OnInit {
         
        });
   }
+ 
   //get Academic Levels DropDown Meta Data
   getAllAcademicLevels()
   {
@@ -110,7 +111,8 @@ export class SubjectListComponent implements OnInit {
       
       });
   }
-   //get Subject Categorys DropDown Meta Data
+  
+  //get Subject Categorys DropDown Meta Data
   getAllSubjectCategorys()
   {
     this.dropDownService.getAllSubjectCategorys()
@@ -121,6 +123,7 @@ export class SubjectListComponent implements OnInit {
       this.toastr.error("Network error has been occured. Please try again.","Error");
     });
   }
+
   //get All Parent Basket Subjects DropDown Meta Data
   getAllParentBasketSubjects()
   {
@@ -132,12 +135,16 @@ export class SubjectListComponent implements OnInit {
     });
   }
 
+   // search Function
+
+   //set page
   setPage(pageInfo) {
     this.spinner.show();
     this.loadingIndicator = true;
     this.currentPage = pageInfo.offset;
     this.getSubjectList();
   }
+
   //FIlter Master 
   filterDatatable(event) {
     this.currentPage = 0;
@@ -148,6 +155,7 @@ export class SubjectListComponent implements OnInit {
     this.getSubjectList();
   }
 
+  //get search Subject list
   getSubjectList(){
     this.loadingIndicator = true;
     this.subjectService.getSubjectList(this.searchFilterdId, this.currentPage + 1, this.pageSize)
@@ -171,10 +179,13 @@ export class SubjectListComponent implements OnInit {
     })
 
   }
-
+  
+  //get search Text
   get searchFilterdId(){
     return this.subjectFilterForm.get("searchText").value;
   }
+
+  //Search End
 
 
   //save Subject Form 
@@ -199,6 +210,7 @@ export class SubjectListComponent implements OnInit {
     });
 
   }
+
   //Save Subject 
   saveSubject()
   {   
@@ -209,7 +221,8 @@ export class SubjectListComponent implements OnInit {
         {
           this.modalService.dismissAll();
           this.toastr.success(response.message,"Success");
-          this.getAll();
+          this.getSubjectList();
+          this.getAllParentBasketSubjects();
         }
         else
         {
@@ -261,6 +274,7 @@ export class SubjectListComponent implements OnInit {
       }
     });
   }
+
   //update Subject
   updateSubject(row:SubjectModel, rowIndex:number, content:any) 
   {
@@ -295,11 +309,34 @@ export class SubjectListComponent implements OnInit {
             this.spinner.hide();
         });
   }
+ 
   //Suject Type Getter
   get subjectType()
   {
     return this.subjectForm.get("subjectType").value;
   }
+
+   //file Grnarate method
+  
+   generateReport()
+   {
+     this.spinner.show();
+ 
+     this.subjectService.downloadSubjectListReport().subscribe((response:HttpResponse<Blob>)=>{
+      
+     },error=>{
+         this.spinner.hide();
+         
+     });
+   }
+ 
+ 
+   parseFilenameFromContentDisposition(contentDisposition) {
+     if (!contentDisposition) return null;
+     let matches = /filename="(.*?)"/g.exec(contentDisposition);
+ 
+     return matches && matches.length > 1 ? matches[1] : null;
+   }
   
 }
 

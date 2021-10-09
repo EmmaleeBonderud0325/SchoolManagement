@@ -15,6 +15,10 @@ using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Master.Academic;
+using System.IO;
+using System.Linq;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace SchoolManagement.Business.Master
 {
@@ -69,6 +73,7 @@ namespace SchoolManagement.Business.Master
             return response;
         }
 
+        // save and edit head of department
         public async Task<ResponseViewModel> SaveHeadOfDepartment(HeadOfDepartmentViewModel vm, string userName)
         {
             var response = new ResponseViewModel();
@@ -89,7 +94,7 @@ namespace SchoolManagement.Business.Master
                         AcademicYearId = vm.AcademicYearId,
                         TeacherId = vm.TeacherId,
                         IsActive = true,
-                        CreateOn = vm.CreateOn,
+                        CreateOn = DateTime.UtcNow,
                         CreatedById = currentuser.Id,
                         UpdateOn = DateTime.UtcNow,
                         UpdatedById = currentuser.Id,
@@ -199,12 +204,12 @@ namespace SchoolManagement.Business.Master
 
         }
 
-
+        //Drop down
         public List<DropDownViewModel> GetAllAcademicYears()
         {
             var academicYears = schoolDb.AcademicYears
                 .Where(x => x.IsActive == true)
-                .Select(ay => new DropDownViewModel() { Id = ay.Id })
+                .Select(ay => new DropDownViewModel() { Id = ay .Id })
                 .Distinct().ToList();
 
             return academicYears;
@@ -262,6 +267,139 @@ namespace SchoolManagement.Business.Master
             }
         }
 
-       
+        //Generate Report method
+        public DownloadFileModel downloadHeadOfDepartmentListReport()
+        {
+            var headofDepartmentListReport = new HeadOfDepartmentListReport();
+
+            byte[] abytes = headofDepartmentListReport.PrepareReport(GetAllHeadOfDepartment());
+
+            var response = new DownloadFileModel();
+
+            response.FileData = abytes;
+            response.FileType = "application/pdf";
+
+
+            return response;
+        }
+
+    }
+
+    //generate reports class
+    public class HeadOfDepartmentListReport
+    {
+        #region Declaration
+        int _totalColumn = 3;
+        Document _document;
+        Font _fontStyle;
+        iTextSharp.text.pdf.PdfPTable _pdfPTable = new PdfPTable(3);
+        iTextSharp.text.pdf.PdfPCell _pdfPCell;
+        MemoryStream _memoryStream = new MemoryStream();
+        List<HeadOfDepartmentViewModel> _headOfDepartment = new List<HeadOfDepartmentViewModel>();
+        #endregion
+
+        public byte[] PrepareReport(List<HeadOfDepartmentViewModel> response)
+        {
+            _headOfDepartment = response;
+
+            #region
+            _document = new Document(PageSize.A4, 0f, 0f, 0f, 0f);
+            _document.SetPageSize(PageSize.A4);
+            _document.SetMargins(20f, 20f, 20f, 20f);
+            _pdfPTable.WidthPercentage = 100;
+            _pdfPTable.HorizontalAlignment = Element.ALIGN_LEFT;
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 8f, 1);
+
+            iTextSharp.text.pdf.PdfWriter.GetInstance(_document, _memoryStream);
+            _document.Open();
+            _pdfPTable.SetWidths(new float[] { 75f, 75f, 120f });
+            #endregion
+
+            this.ReportHeader();
+            this.ReportBody();
+            _pdfPTable.HeaderRows = 2;
+            _document.Add(_pdfPTable);
+            _document.Close();
+            return _memoryStream.ToArray();
+
+        }
+
+        private void ReportHeader()
+        {
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("Head Of Department List Report", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 9f, 1);
+            _pdfPCell = new PdfPCell(new Phrase("Head Of Department List", _fontStyle));
+            _pdfPCell.Colspan = _totalColumn;
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.Border = 0;
+            _pdfPCell.BackgroundColor = BaseColor.WHITE;
+            _pdfPCell.ExtraParagraphSpace = 0;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+        }
+
+        private void ReportBody()
+        {
+            #region Table header
+           
+            _pdfPCell = new PdfPCell(new Phrase("Academic Level", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+
+            _pdfPCell = new PdfPCell(new Phrase("Subject Name", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+            
+            _pdfPCell = new PdfPCell(new Phrase("Teachers' Name", _fontStyle));
+            _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+            _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+            _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+            _pdfPTable.AddCell(_pdfPCell);
+            _pdfPTable.CompleteRow();
+            #endregion
+
+            #region Table Body
+            _fontStyle = FontFactory.GetFont("TimesNewRoman", 11f, 0);
+            foreach (HeadOfDepartmentViewModel vm in _headOfDepartment)
+            {
+
+                
+                _pdfPCell = new PdfPCell(new Phrase(vm.AcademicLevelName, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.SubjectName, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+                
+
+                _pdfPCell = new PdfPCell(new Phrase(vm.TeacherName, _fontStyle));
+                _pdfPCell.HorizontalAlignment = Element.ALIGN_CENTER;
+                _pdfPCell.VerticalAlignment = Element.ALIGN_MIDDLE;
+                _pdfPCell.BackgroundColor = BaseColor.LIGHT_GRAY;
+                _pdfPTable.AddCell(_pdfPCell);
+                _pdfPTable.CompleteRow();
+            }
+            #endregion
+
+        }
     }
 }

@@ -1,3 +1,4 @@
+import { LessonDetailModel } from './../../../models/lesson/lesson.detail.model';
 import { LessonTopicModel } from './../../../models/lesson/lesson.topic.model';
 import { LessonService } from './../../../services/lesson/lesson.service';
 import { PrimeNGConfig } from 'primeng/api';
@@ -48,6 +49,8 @@ export class LessonContainerComponent implements OnInit {
   }
 
 
+
+
   createLessonForm():FormGroup {
     return new FormGroup({
    
@@ -85,7 +88,7 @@ export class LessonContainerComponent implements OnInit {
         this.spinner.hide();
         this.lesson = response;
 
-
+        console.log(response.lessonDetail.lessonId);
         this.lessonForm.get("id").setValue(response.id);
         this.lessonForm.get("lessonDetail.lessonId").setValue(response.lessonDetail.lessonId);
         this.lessonForm.get("lessonDetail.name").setValue(response.lessonDetail.name);
@@ -101,6 +104,10 @@ export class LessonContainerComponent implements OnInit {
         const lessonTopicsformArray = new FormArray(lessonTopicsform);
         this.lessonForm.setControl('topics', lessonTopicsformArray);
 
+  
+        
+
+
       
       this.lessonService.onLessonDetailAssigned.next(true);
 
@@ -114,6 +121,15 @@ export class LessonContainerComponent implements OnInit {
   {
     return  this.lessonForm.get("lessonDetail.name").value;
   }
+
+  get id()
+  {
+    return  this.lessonForm.get("lessonDetail.lessonId").value;
+  }
+
+  
+    
+    
 
 }
 interface LessonMenu {

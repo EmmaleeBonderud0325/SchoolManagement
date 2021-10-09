@@ -9,6 +9,7 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -28,6 +29,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MultiSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule 
   ]
 })
 export class StudentHomeModule { }

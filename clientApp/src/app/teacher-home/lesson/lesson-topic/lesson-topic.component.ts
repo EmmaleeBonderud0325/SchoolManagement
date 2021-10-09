@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, FormGroupDirective, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { MenuItem, MessageService } from 'primeng/api';
+import { EMPTY, Observable } from 'rxjs';
+import { Upload } from 'src/app/models/common/upload';
 import { LessonService } from 'src/app/services/lesson/lesson.service';
 
 @Component({
@@ -13,6 +15,7 @@ export class LessonTopicComponent implements OnInit {
 
   form!: FormGroup;
   displayContentTypeSelector:boolean=false;
+  selectedLecture:FormGroup;
 
 
   constructor(private rootFormGroup: FormGroupDirective,
@@ -127,8 +130,65 @@ removeTopicContent(topicIndex:number,topicContentIndex:number) {
       });
   }
 
-  showContentTypeSelector()
+  showContentTypeSelector(item:FormGroup)
   {
+    this.selectedLecture = item;
     this.displayContentTypeSelector = true;
+  }
+
+  setContentType(contentType:number)
+  {
+    this.displayContentTypeSelector = false;
+    this.selectedLecture.get("contentType").setValue(contentType);
+  }
+
+  @Input() accept = 'video/*';
+  fileName: string = '';
+  upload$: Observable<Upload> = EMPTY;
+  precentage:any;
+  onFileChange(event: any,item:FormGroup)
+  {
+    let fi = event.srcElement;
+    const formData = new FormData();
+    formData.set("id",item.get("id").value.toString());
+    formData.set("topicId",item.get("topicId").value.toString());
+    formData.set("contentType",item.get("contentType").value.toString());
+
+    console.log(formData);
+    
+    
+    if(fi.files.length>0)
+    {
+        //this._fuseProgressBarService.show();
+        for (let index = 0; index < fi.files.length; index++) {
+          
+          formData.append('file', fi.files[index], fi.files[index].name);
+        }
+        this.lessonService.uploadLessonFile(formData).subscribe(res=>
+          {
+            this.precentage =res;
+            console.log(res);
+            
+            if(res.state=="DONE")
+            {
+              //item.isUploading=false;
+              //this._fuseProgressBarService.hide();
+              //this.loadList();
+            }
+            //progress
+          },error=>{
+            //this._fuseProgressBarService.hide();
+            //item.isUploading=false;
+
+
+          });
+/*         this._quotationService.uploadQuotationFiles(formData)
+          .subscribe(response=>{
+ 
+          },error=>{
+            console.log("Error occured");
+            
+          }); */
+    } 
   }
 }

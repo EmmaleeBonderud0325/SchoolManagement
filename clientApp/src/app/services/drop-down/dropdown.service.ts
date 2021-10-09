@@ -75,9 +75,5 @@ export class DropdownService {
     return this.httpClient.
       get<DropDownModel[]>(environment.apiUrl + 'DropDown/getSubjectsForSelectedClass/'+ academicYearId +'/'+academicLevelId +"/"+classNameId);
   }
-
-  getReportMasterrData():Observable<DropDownModel[]>{
-    return this.httpClient.
-      get<DropDownModel[]>(environment.apiUrl + 'DropDown/getReportMasterData');
-  }
+  
 }

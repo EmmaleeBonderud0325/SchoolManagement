@@ -106,6 +106,8 @@ export class SubjectTeacherListComponent implements OnInit {
       })
   }
 
+  //get all and search function
+
   //get Class
   getAll() {
     this.loadingIndicator = true;

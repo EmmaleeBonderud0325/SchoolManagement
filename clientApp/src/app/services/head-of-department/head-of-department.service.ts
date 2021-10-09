@@ -63,5 +63,11 @@ export class HeadOfDepartmentService {
         .set('currentPage', currentPage.toString())
         .set('pageSize', pageSize.toString())
       });
+      
+      }
+
+      downloadHeadOdDepartmentListReport(): Observable<any> {
+        return this.httpClient.get<any>
+        (environment.apiUrl +'HeadOfDepartment/downloadheadOfDepartmentList');
   }
 }

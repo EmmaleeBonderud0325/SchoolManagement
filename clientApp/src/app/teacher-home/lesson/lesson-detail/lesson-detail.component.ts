@@ -1,9 +1,13 @@
+import { id } from '@swimlane/ngx-datatable';
+import { ToastrService } from 'ngx-toastr';
+import { BasicLessonModel } from './../../../models/lesson/basic.class.model';
+import { LessonModel } from 'src/app/models/lesson/lesson.model';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DropdownService } from './../../../services/drop-down/dropdown.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroupDirective, FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroupDirective, FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { PrimeNGConfig } from 'primeng/api';
 import { DropDownModel } from 'src/app/models/common/drop-down.model';
 import { LessonService } from 'src/app/services/lesson/lesson.service';
@@ -11,7 +15,8 @@ import { LessonService } from 'src/app/services/lesson/lesson.service';
 @Component({
   selector: 'lesson-detail',
   templateUrl: './lesson-detail.component.html',
-  styles: ['::ng-deep .p-calendar .p-inputtext {flex: 0 0 auto;width: 100%;margin-top: -11px;    margin-left: -16px;margin-right: -16px;}']
+  styles: ['::ng-deep .p-calendar .p-inputtext {flex: 0 0 auto;width: 100%;margin-top: -11px;    margin-left: -16px;margin-right: -16px;}'],
+  providers: [ToastrService],
 })
 export class LessonDetailComponent implements OnInit {
 
@@ -22,6 +27,7 @@ export class LessonDetailComponent implements OnInit {
   academicYears:DropDownModel[]=[];
   subjects:DropDownModel[]=[];
   classNames:DropDownModel[]=[];
+  lessonId:number=0;
 
   isDisable:boolean=false;
 
@@ -33,6 +39,8 @@ export class LessonDetailComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
+    private toastr: ToastrService,
+    public activateRoute: ActivatedRoute,
     private spinner: NgxSpinnerService) {
 
       this.lessonService.onLessonDetailAssigned.subscribe(response=>{
@@ -46,13 +54,23 @@ export class LessonDetailComponent implements OnInit {
     this.basicLessonForm = this.rootFormGroup.control.get(this.formGroupName) as FormGroup;
     this.spinner.show();
     this.loadMasterData();
+
+    this.activateRoute.params.subscribe(params => {
+      this.lessonId = +params.id;
+
+      console.log(params.id);
+     
+    });
   }
+
 
   loadMasterData()
   {
       this.lessonService.getLessonMasterData().subscribe(response=>{
           this.academicYears = response.academicYears;
           this.academicLevels= response.academicLevels;
+          this.classNames = this.classNames
+          this.subjects = response.subjects;
 
           if(this.academicLevelFilterId && this.academicLevelFilterId>0)
           {
@@ -67,6 +85,7 @@ export class LessonDetailComponent implements OnInit {
           this.spinner.hide();
       });
   }
+
 
   loadClasses()
   {
@@ -117,6 +136,35 @@ export class LessonDetailComponent implements OnInit {
   {
 
   }
+
+
+ 
+  saveLesson()
+  {
+    this.spinner.show();
+    console.log(this.basicLessonForm.value);
+    
+    this.lessonService.saveLesson(this.basicLessonForm.value).subscribe(response=>{
+        this.spinner.hide();
+
+        if(response.isSuccess)
+        {
+           
+           // this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
+           this.toastr.success(response.message,"Success");
+           
+        }
+        else
+        {
+           //this.messageService.add({severity:'error', summary: 'Error', detail: response.message});
+           this.toastr.error(response.message,"Error");
+        }
+    },error=>{
+      this.toastr.error("Network error has been occured. Please try again.","Error");
+    })
+  }
+
+  
 
   get academicYearFilterId()
   {

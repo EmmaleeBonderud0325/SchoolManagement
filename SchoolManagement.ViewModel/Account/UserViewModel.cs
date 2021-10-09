@@ -1,4 +1,4 @@
-﻿using SchoolManagement.Model;
+using SchoolManagement.Model;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
@@ -21,7 +21,9 @@ namespace SchoolManagement.ViewModel.Account
         public string Username { get; set; }
         public string Password { get; set; }
         public string Address { get; set; }
-        public bool IsActive { get; set; }
+
+    public string ProfileImage { get; set; }
+    public bool IsActive { get; set; }
         public List<int> Roles { get; set; }
 
         public DateTime CreatedOn { get; set; }

@@ -23,6 +23,7 @@ namespace SchoolManagement.ViewModel.Lesson
 
     public class LessonDetailViewModel
     {
+        public int LessonId { get; set; }
         public string Name { get; set; }
         public LessonStatus Status { get; set; }
         public string Description { get; set; }

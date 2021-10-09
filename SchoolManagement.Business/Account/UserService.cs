@@ -1,7 +1,8 @@
-﻿using iTextSharp.text;
+using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
+using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Business.Interfaces.AccountData;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
@@ -16,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,15 +29,16 @@ namespace SchoolManagement.Business
         private readonly MasterDbContext masterDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
+    private readonly IAzureBlobService azureBlobService;
+    private StudentExcelContainer studentExcelContainer;
 
-        private StudentExcelContainer studentExcelContainer;
-
-        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService)
+        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService, IAzureBlobService azureBlobService)
         {
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
             this.masterDb = masterDb;
+      this.azureBlobService = azureBlobService;
 
             studentExcelContainer = new StudentExcelContainer();
         }
@@ -76,6 +79,7 @@ namespace SchoolManagement.Business
             response.Email = user.Email;
             response.MobileNo = user.MobileNo;
             response.IsActive = user.IsActive;
+            response.ProfileImage = user.ProfileImage;
 
             var assignedRoles = user.UserRoles.Where(x => x.IsActive == true);
 
@@ -97,8 +101,9 @@ namespace SchoolManagement.Business
             user.Address = loggedInUser.Address;
             user.Email = loggedInUser.Email;
             user.MobileNumber = loggedInUser.MobileNo;
+            user.ProfileImage = loggedInUser.ProfileImage;
 
-            return user;
+      return user;
         }
         public List<UserViewModel> GetAllUsersByRole()
         {
@@ -208,7 +213,7 @@ namespace SchoolManagement.Business
 
                     schoolDb.Users.Add(user);
                    
-                    EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
+                    //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
@@ -671,7 +676,39 @@ namespace SchoolManagement.Business
 
             return response;
         }
+
+    public  async Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container, string userName)
+    {
+      var response = new ResponseViewModel();
+      try
+      {
+        var file = container.Files.FirstOrDefault();
+        var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+        string fileURL = await azureBlobService.UploadAsync(file.OpenReadStream(), fileName, file.ContentType);
+
+        var loggedInUser = currentUserService.GetUserByUsername(userName);
+
+        loggedInUser.ProfileImage = fileURL;
+
+        schoolDb.Users.Update(loggedInUser);
+
+        await schoolDb.SaveChangesAsync();
+
+        response.IsSuccess = true;
+        response.Message = "user image has been updated";
+      }
+      catch (Exception ex)
+      {
+        //Log error
+
+        response.IsSuccess = false;
+        response.Message = "Error has been occerd";
+      }
+
+
+      return response;
     }
+  }
 
 
 
@@ -790,4 +827,3 @@ namespace SchoolManagement.Business
     }
 
 }
-   
