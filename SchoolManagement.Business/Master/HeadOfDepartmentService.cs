@@ -94,7 +94,7 @@ namespace SchoolManagement.Business.Master
                         AcademicYearId = vm.AcademicYearId,
                         TeacherId = vm.TeacherId,
                         IsActive = true,
-                        CreateOn = vm.CreateOn,
+                        CreateOn = DateTime.UtcNow,
                         CreatedById = currentuser.Id,
                         UpdateOn = DateTime.UtcNow,
                         UpdatedById = currentuser.Id,
