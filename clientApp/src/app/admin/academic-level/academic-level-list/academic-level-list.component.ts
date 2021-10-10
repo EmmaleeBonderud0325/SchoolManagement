@@ -104,13 +104,6 @@ export class AcademicLevelListComponent implements OnInit {
   }
 
 
-    onAddRowSave(form: FormGroup) {
-      this.data.push(form.value);
-      this.data = [...this.data];
-      form.reset();
-      this.modalService.dismissAll();
-      
-    }
 
 
   editRow(row:AcademicLevelModel, rowIndex:number, content:any) {
@@ -120,7 +113,7 @@ export class AcademicLevelListComponent implements OnInit {
     this.academicLevelFrom = this.fb.group({
       id:[row.id],
       name: [row.name, [Validators.required]],
-      levelHeadId: [row.levelHeadName, [Validators.required]],
+      levelHeadId: [row.levelHeadId, [Validators.required]],
     });
 
     this.modalService.open(content, {
@@ -160,7 +153,10 @@ export class AcademicLevelListComponent implements OnInit {
     });
   }
   
-
+  get academicLevelId()
+  {
+    return this.academicLevelFrom.get('id').value;
+  }
   
 
   

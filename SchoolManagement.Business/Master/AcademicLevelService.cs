@@ -77,6 +77,7 @@ namespace SchoolManagement.Business.Master
                         Name = vm.Name,
                         LevelHeadId = vm.LevelHeadId,
                         IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
                         CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = currentuser.Id,

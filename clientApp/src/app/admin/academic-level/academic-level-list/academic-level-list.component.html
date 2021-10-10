@@ -158,7 +158,13 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new Academic Level</div>
+                        <div *ngIf='academicLevelId == 0'>
+                          Add new Academic Level
+                        </div>
+                        <div *ngIf='academicLevelId != 0'>
+                          Update Academic Level
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </h4>
@@ -203,6 +209,7 @@
                         <label>Level Head<span class="text-danger">*</span></label>
                         <select 
                           class="form-select form-control" 
+                          optionValue="id"
                           formControlName="levelHeadId">
                           <option 
                             *ngFor="let item of levelHeads"

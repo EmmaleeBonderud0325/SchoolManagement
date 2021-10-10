@@ -337,6 +337,12 @@ export class SubjectListComponent implements OnInit {
  
      return matches && matches.length > 1 ? matches[1] : null;
    }
+
+   //getters
+   get subjectId()
+   {
+     return this.subjectForm.get('id').value;
+   }
   
 }
 
