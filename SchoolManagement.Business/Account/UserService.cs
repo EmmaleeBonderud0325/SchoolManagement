@@ -661,7 +661,6 @@ namespace SchoolManagement.Business
             return response;
 
         }
-
         public DownloadFileModel downloadUserListReport()
         {
             var userListReport = new UserListReport();
@@ -676,8 +675,7 @@ namespace SchoolManagement.Business
 
             return response;
         }
-
-    public  async Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container, string userName)
+        public  async Task<ResponseViewModel> UploadUserImage(FileContainerViewModel container, string userName)
     {
       var response = new ResponseViewModel();
       try

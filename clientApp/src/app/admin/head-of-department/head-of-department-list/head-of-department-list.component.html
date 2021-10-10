@@ -22,7 +22,7 @@
                     <div class="col-lg-3 p-0">
                       <div class="ngxTableHeader">
                         <div class="table-title">
-                          <h2><strong>Head Of Deparment</strong></h2>
+                          <h2><strong>Head Of Department</strong></h2>
                         </div>
                       </div>
                     </div>
@@ -64,8 +64,7 @@
                         </div>
                       </div>
                     </div>
-                      
-                    
+
 
                   </div>
                 </div>
@@ -186,7 +185,13 @@
                     <div class="table-modal-header">
                       <div class="modal-about">
                         <div class="fw-bold p-t-10 font-17">
-                          Add New Head Of Deparment</div>
+                          <div *ngIf='hodId == 0'>
+                            Add New Head Of Deparment
+                          </div>
+                          <div *ngIf='hodId != 0'>
+                            Update Head Of Deparment
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </h4>

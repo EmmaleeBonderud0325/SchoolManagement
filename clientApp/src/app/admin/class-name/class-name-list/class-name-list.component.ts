@@ -90,7 +90,7 @@ export class ClassNameListComponent implements OnInit {
     this.data = [...this.data];
     form.reset();
     this.modalService.dismissAll();
-    this.addRecordSuccess();
+    
   }
 
   //Update class name
@@ -140,8 +140,9 @@ export class ClassNameListComponent implements OnInit {
     });
   }
 
-  //Success save message
-  addRecordSuccess() {
-    this.toastr.success('ClassName Add Successfully', '');
+  get classNameId()
+  {
+    return this.saveClassNameForm.get('id').value;
   }
+  
 }

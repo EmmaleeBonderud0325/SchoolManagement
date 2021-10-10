@@ -256,17 +256,12 @@ deleteLessonAssignment(row) {
       });
     }
    
-      onAddRowSave(form: FormGroup) {
-        this.data.push(form.value);
-        this.data = [...this.data];
-        form.reset();
-        this.modalService.dismissAll();
-        this.addRecordSuccess();
-      }
+     get id()
+     {
+       return this.lessonAssignmentForm.get('id').value;
+     }
      
       
 
-      addRecordSuccess() {
-        this.toastr.success('SUCCESS', '');
-      } 
+      
     }

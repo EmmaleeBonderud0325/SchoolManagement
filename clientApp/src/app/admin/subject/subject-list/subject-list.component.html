@@ -201,7 +201,13 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new subject</div>
+                        <div *ngIf='subjectId == 0'>
+                          Add new subject
+                        </div>
+                        <div *ngIf='subjectId != 0'>
+                          Update subject
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </h4>

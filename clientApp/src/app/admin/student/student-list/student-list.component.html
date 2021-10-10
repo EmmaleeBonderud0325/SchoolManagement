@@ -38,11 +38,7 @@
                           <div class="col-lg-4 p-0">
                             <div class="ngxTableHeader">
                               <div class="header-buttons-left">
-                                <div class="icon-button-demo buttons">
-                                  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewStudent(addEditRecord)'>
-                                    <i class="material-icons">add</i>
-                                  </button>
-                                </div>
+                               
                               </div>
                             </div>
                           </div>
@@ -54,7 +50,22 @@
                 columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
                 [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
 				
-                  <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ngx-datatable-column [width]="100" name="" sortable="false">
+                    <ng-template
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center">
+
+                    <div class="icon-button-demo buttons">
+                      <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='addNewStudent(addEditRecord)'>
+                        <i class="material-icons">add</i>
+                      </button>
+                    </div>
+                    
+                    </ng-template>
                     <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
                       <div class="buttons">
                         <span>

@@ -274,5 +274,9 @@ export class HeadOfDepartmentListComponent implements OnInit {
     return matches && matches.length > 1 ? matches[1] : null;
   }
     
-
+  //getters
+  get hodId()
+  {
+    return this.headOfDepartmentFrom.get('id').value;
+  }
 }
