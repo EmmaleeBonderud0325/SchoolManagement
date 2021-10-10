@@ -248,5 +248,10 @@ export class QuestionListComponent implements OnInit {
         });
       }
     
+
+      get id()
+      {
+        return this.questionForm.get('id').value;
+      }
 }
  

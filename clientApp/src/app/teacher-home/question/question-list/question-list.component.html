@@ -215,7 +215,13 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Add new MCQ Question</div>
+                        <div *ngIf="id==0">
+                          Add new Question
+                        </div>
+                        <div *ngIf="id!=0">
+                          Update Question
+                        </div>
+                       </div>
                     </div>
                   </div>
                 </h4>
