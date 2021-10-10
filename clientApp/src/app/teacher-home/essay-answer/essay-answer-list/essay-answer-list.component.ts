@@ -253,4 +253,9 @@ saveEssayQuestionAnswer(){
     });
   }
 
+  get id()
+  {
+    return this.essayAnswerForm.get('id').value;
+  }
+
 }

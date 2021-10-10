@@ -167,7 +167,14 @@
                 <div class="table-modal-header">
                   <div class="modal-about">
                     <div class="fw-bold p-t-10 font-17">
-                      Add new MCQ Question Answer</div>
+                      <div *ngIf='id==0'>
+                        Add new MCQ Question Answer
+                      </div>
+
+                      <div *ngIf='id!=0'>
+                        Update MCQ Question Answer
+                      </div>
+                     </div>
                   </div>
                 </div>
               </h4>
