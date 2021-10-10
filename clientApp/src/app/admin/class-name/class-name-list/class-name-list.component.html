@@ -130,7 +130,13 @@
                       <div class="table-modal-header">
                         <div class="modal-about">
                           <div class="fw-bold p-t-10 font-17">
-                             Add New Class Name</div>
+                            <div *ngIf='classNameId==0'>
+                              Add New Class Name
+                            </div>
+                            <div *ngIf='classNameId!=0'>
+                              Update CLass Name
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </h4>

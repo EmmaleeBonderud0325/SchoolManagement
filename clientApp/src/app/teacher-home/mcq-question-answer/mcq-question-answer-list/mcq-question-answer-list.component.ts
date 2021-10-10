@@ -198,4 +198,10 @@ get searchTextFilterId() {
             this.toastr.error("Save functions error has been occre.Please try again","Error");
       });
     }
+
+
+    get id()
+    {
+      return this.mcqQuestionAnswerForm.get('id').value;
+    }
 }

@@ -198,7 +198,13 @@
                   <div class="table-modal-header">
                     <div class="modal-about">
                       <div class="fw-bold p-t-10 font-17">
-                        Insert Lesson Assignment</div>
+                        <div *ngIf='id==0'>
+                          Insert Lesson Assignment
+                        </div>
+                        <div *ngIf='id!=0'>
+                          Update Lesson Assignment
+                        </div>
+                       </div>
                     </div>
                   </div>
                 </h4>
