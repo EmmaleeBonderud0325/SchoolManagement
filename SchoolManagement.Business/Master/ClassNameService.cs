@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 
 namespace SchoolManagement.Business.Master
 {
@@ -37,18 +38,20 @@ namespace SchoolManagement.Business.Master
 
             var ClassNameList = query.ToList();
 
-            foreach (var classname in ClassNameList)
+            foreach (var item in ClassNameList)
             {
                 var vm = new ClassNameViewModel
                 {
-                    Id = classname.Id,
-                    Name = classname.Name,
-                    Description = classname.Description,
-                    IsActive = classname.IsActive,
-                    CreatedOn = classname.CreatedOn,
-                    CreatedById = classname.CreatedById,
-                    UpdatedOn = classname.UpdatedOn,
-                    UpdatedById = classname.UpdatedById,
+                    Id = item.Id,
+                    Name = item.Name,
+                    Description = item.Description,
+                    IsActive = item.IsActive,
+                    CreatedOn = item.CreatedOn,
+                    CreatedById = item.CreatedById,
+                    CreatedByName = item.CreatedBy.FullName,
+                    UpdatedOn = item.UpdatedOn,
+                    UpdatedById = item.UpdatedById,
+                    UpdatedByName = item.UpdatedBy.FullName,
                 };
 
                 response.Add(vm);
@@ -63,9 +66,9 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var currentuser = schoolDb.Users.FirstOrDefault(x => x.Username.ToUpper() == userName.ToUpper());
+                var currentuser = currentUserService.GetUserByUsername(userName);
 
-                var className = schoolDb.ClassNames.FirstOrDefault(x => x.Id == vm.Id);
+                var className = schoolDb.ClassNames.FirstOrDefault(cn => cn.Id == vm.Id);
 
                 if (className == null)
                 {
@@ -76,15 +79,15 @@ namespace SchoolManagement.Business.Master
                         Description = vm.Description,
                         IsActive = true,
                         CreatedOn = DateTime.UtcNow,
-                        CreatedById = vm.CreatedById,
+                        CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = vm.UpdatedById
+                        UpdatedById = currentuser.Id,
                     };
 
                     schoolDb.ClassNames.Add(className);
 
                     response.IsSuccess = true;
-                    response.Message = "Class Name Added Successfull.";
+                    response.Message = ClassNameServiceConstants.NEW_CLASS_NAME_SAVE_SUCCESS_MESSAGE;
                 }
                 else
                 {
@@ -92,17 +95,21 @@ namespace SchoolManagement.Business.Master
                     className.Description = vm.Description;
                     className.IsActive = true;
                     className.UpdatedOn = DateTime.UtcNow;
-                    className.UpdatedById = vm.UpdatedById;
+                    className.UpdatedById = currentuser.Id;
 
                     schoolDb.ClassNames.Update(className);
+
+                    response.IsSuccess = true;
+                    response.Message = ClassNameServiceConstants.EXISTING_CLASS_NAME_SAVE_SUCCESS_MESSAGE;
                 }
 
                 await schoolDb.SaveChangesAsync();
+
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassNameServiceConstants.CLASS_NAME_SAVE_EXCEPTION_MESSAGE;
             }
 
             return response;
@@ -114,7 +121,7 @@ namespace SchoolManagement.Business.Master
 
             try
             {
-                var className = schoolDb.ClassNames.FirstOrDefault(x => x.Id == id);
+                var className = schoolDb.ClassNames.FirstOrDefault(cn => cn.Id == id);
 
                 className.IsActive = false;
 
@@ -122,12 +129,12 @@ namespace SchoolManagement.Business.Master
                 await schoolDb.SaveChangesAsync();
 
                 response.IsSuccess = true;
-                response.Message = "ClassName Deleted Successfull.";
+                response.Message = ClassNameServiceConstants.CLASS_NAME_DELETE_SUCCESS_MESSAGE;
             }
             catch (Exception ex)
             {
                 response.IsSuccess = false;
-                response.Message = ex.ToString();
+                response.Message = ClassNameServiceConstants.CLASS_NAME_DELETE_EXCEPTION_MESSAGE;
             }
 
             return response;

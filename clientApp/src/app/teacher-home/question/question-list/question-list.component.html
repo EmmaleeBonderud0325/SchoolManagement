@@ -1,0 +1,352 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Question</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>
+      <li class="breadcrumb-item">Question List</li>
+    </ul>
+    <div class="section-body">
+      <div class="row clearfix">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          <div class="card">
+            <div class="p-10">
+              <div class="row">
+                <div class="col-12">
+                  <div class="row m-0">
+                    <form 
+                      [formGroup]="questionFilterForm">
+                      <div class="col-lg-12-0">
+                        <div class="ngxTableHeader">
+                          <div class="table-title">
+                            <h2><strong>Question Level</strong></h2>
+                          </div>
+                        </div>
+                      </div>
+
+
+                      <div class="col-12 p-0">
+                        <div class="row">
+                          <div class="row">
+                            <div class="col-4">
+                              <div class="form-group position-relative">
+                                <label>Search Text</label>
+                                <i class="fas fa-search input-icons"></i>
+                                <input
+                                  type="text"
+                                  (keyup)="filterDatatable($event)"
+                                  formControlName="searchText"
+                                  class="form-control psl-5"
+                                  placeholder="Search by name"
+                                  name="searchText"
+                                  required=""
+                                />
+                              </div>
+                            </div>
+                        
+  
+                          <div class="col-4">
+                            <div class="form-group">
+                              <label> Lessons </label>
+                              <select
+                                class="form-select form-control"
+                                formControlName="lessonId"
+                                (change)="onQuestionFilterChanged($event.target.value)"
+                              >
+                                <option
+                                  *ngFor="let item of lessonNames"
+                                  [value]="item.id"
+                                >
+                                  {{ item.name }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+            
+                          <div class="col-lg-6">
+                            <div class="ngxTableHeader">
+                              <div class="header-buttons-left">
+                                <div class="icon-button-dleftemo buttons">
+                                  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewQuestion(addEditRecord)' >
+                                  <i class="material-icons">add</i>
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div class="header-buttons-left">
+                                <div class="icon-button-dleftemo buttons"></div>
+                              
+
+                            </div>
+                          </div>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <ngx-datatable 
+                #table 
+                class="material"
+                [rows]="data"
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force"
+                [headerHeight]="60"
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
+                > 
+
+               <!-- <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
+                  columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
+                  [count]="totalRecord" [offset]="currentPage" 
+                  [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable"(page)="setPage($event)">  -->
+
+                  <ngx-datatable-column [width]="05" name="Actions" sortable="false">
+                    <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                      <div class="buttons">
+                        <span>
+                          <button 
+                            class="btn btn-icon btn-sm btn-primary" 
+                            (click)='editRow(row, rowIndex, addEditRecord)'>
+                            <i class="fas fa-edit"></i>
+                          </button>
+  
+                          <button 
+                            class="btn btn-icon btn-sm btn-danger" 
+                            (click)='deleteQuestion(row)'>
+                            <i class="far fa-trash-alt"></i>
+                          </button>
+                        </span>
+                      </div>                    
+                    </ng-template>
+                  </ngx-datatable-column>
+
+                
+  
+                <!--Lesson ID-->
+                <ngx-datatable-column name="Lesson Name" [width]="10">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.lessonName}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Topic ID-->
+                <ngx-datatable-column name="TopicId" [width]="10">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.topicName}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Sequence Number-->
+                <ngx-datatable-column name="Seq No" [width]="01">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.sequenceNo}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Question Text-->
+                <ngx-datatable-column name="QuestionText" [width]="70">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.questionText}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Question marks-->
+                <ngx-datatable-column name="Marks" [width]="0.1">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.marks}}
+                  </ng-template>
+                </ngx-datatable-column>
+   
+                <!--Question Type-->
+                <ngx-datatable-column name="QuestionType" [width]="05">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.questionTypeName}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!-- Create on date-->
+                <ngx-datatable-column name="CreateOn" [width]="20">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Question Creator ID-->
+                <ngx-datatable-column name="Created By Name" [width]="50">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Question updated date-->
+                <ngx-datatable-column name="UpdateOn" [width]="30">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updateOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+                <!--Question Updater ID-->
+                <ngx-datatable-column name="Updated By Name" [width]="50">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+  
+              </ngx-datatable>
+  
+              <!-- Add Record Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        <div *ngIf="id==0">
+                          Add new Question
+                        </div>
+                        <div *ngIf="id!=0">
+                          Update Question
+                        </div>
+                       </div>
+                    </div>
+                  </div>
+                </h4>
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                  <span aria-hidden="true"><i class="material-icons">close</i></span>
+                </button>
+              </div>
+
+              <!-- New question add form-->
+              <div class="modal-body">
+                <form 
+                  class="register-form" 
+                  [formGroup]="questionForm">
+                  
+                  <!-- this is a row one -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>lessonName<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="lessonId" 
+                          required>
+                          <option *ngFor="let item of lessonNames" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Topic Name<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="topicId" required>
+                          <option *ngFor="let item of topicNames" [ngValue]="item.id">{{item.name}}</option>
+                        </select>
+
+                        <!-- <select class="form-select form-control" [formGroup]="form" [(ngModel)]="cause.id" [name]="name">
+                          <option *ngFor="let c of causes" [value]="c.text">{{c.text}}</option>
+                          </select> -->
+                      </div>
+                    </div>
+                   
+                  </div>
+                  
+                  <!-- this is a row two -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label> Sequence No <span class="text-danger">*</span></label>
+                      <input 
+                          type="number" 
+                          class="form-control" 
+                          placeholder="Sequence No" 
+                          formControlName="sequenceNo"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!questionForm.get('sequenceNo').valid && questionForm.get('sequenceNo').touched">
+                        Sequnce No is  required</small>
+                    </div>
+  
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label> Marks <span class="text-danger">*</span></label>
+                        <input 
+                          type="number" 
+                          class="form-control" 
+                          placeholder="Marks" 
+                          formControlName="marks"
+                          required>
+                        <small class="form-text text-danger"
+                          *ngIf="!questionForm.get('marks').valid && questionForm.get('marks').touched"> 
+                          Mark is  required
+                        </small>
+                      </div>
+                    </div> 
+                  </div>  
+                  
+                  <!-- this is a row three -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" >
+                      <label> Question Text <span class="text-danger">*</span></label>
+                      <input 
+                          type="textarea" 
+                          class="form-control" 
+                          placeholder="Question Text" 
+                          formControlName="questionText"
+                          style="width: 39vw"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!questionForm.get('questionText').valid && questionForm.get('questionText').touched">
+                        Question Text is  required
+                      </small>
+                    </div>
+                  </div>
+
+                  <!-- this is a row five - radio button 02 -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label> Question Type <span class="text-danger">*</span></label><br><br>
+                        <input 
+                          type="radio" 
+                          [value]=1 
+                          name="questionType" 
+                          checked
+                          required > MCQ <br>
+                        <input 
+                          type="radio" 
+                          [value]=2 
+                          name="questionType"> ESSAY
+                    </div>
+                  </div>
+
+  
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" (click)="saveQuestion()" [disabled]="!questionForm.valid">Save</button>
+                    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                  </div>
+
+                </form>
+              </div>
+
+
+    
+            </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

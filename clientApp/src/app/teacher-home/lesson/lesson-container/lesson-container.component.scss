@@ -1,0 +1,19 @@
+:host {
+  ::ng-deep .p-listbox .p-listbox-list .p-listbox-item {
+    margin-top: 0px;
+    margin-bottom: 3px;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding: 0.5rem 1.5rem;
+    border: 0 none;
+    color: #212529;
+    transition: box-shadow 0.15s;
+    border-radius: 5px;
+  }
+}
+
+:host {
+  ::ng-deep .p-listbox .p-listbox-list {
+    padding: 0.5rem 3px;
+  }
+}

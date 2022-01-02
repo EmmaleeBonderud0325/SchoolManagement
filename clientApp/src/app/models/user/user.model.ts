@@ -1,4 +1,4 @@
-import { RoleModel } from './role.model';
+import { CheckBoxModel } from './../common/check-box-model';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -11,6 +11,13 @@ export class UserModel
     username:string;
     mobileNo:string;
     password:string;
+    profileImage:string
     isActive:boolean;
-    roles:RoleModel[];
+    roles:number[];
+    createdOn:Date;
+    createdById:number; 
+    createdByName:string; 
+    updatedOn:Date;
+    updatedByName:string;
+    updatedById:number;
 }

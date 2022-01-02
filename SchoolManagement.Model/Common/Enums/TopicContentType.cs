@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,8 @@ namespace SchoolManagement.Model
     public enum TopicContentType
     {
         Text=1,
-        YoutubeVideo=2,
+        Video=2,
+        Audio=3,
+        YoutubeVideo=4,
     }
 }

@@ -29,6 +29,25 @@ namespace SchoolManagement.WebService.Controllers
 
             return Ok(response);
         }
-       
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("forgotPassword")]
+        public IActionResult ForgotPassword(ForgotPasswordViewModel vm)
+        {
+            var response =  authService.ForgotPassword(vm);
+
+            return Ok(response);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("resetPassword")]
+        public IActionResult ResetPassword(ResetPasswordViewModel vm)
+        {
+            var response = authService.ResetPassword(vm);
+
+            return Ok(response);
+        }
     }
 }

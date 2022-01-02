@@ -24,17 +24,17 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetClassNames()
+        public ActionResult Get()
         {
             var response = classNameService.GetClassNames();
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ClassNameViewModel vm)
+        public async Task<ActionResult> Post([FromBody] ClassNameViewModel classNameVM)
         {
             var userName = identityService.GetUserName();
-            var response = await classNameService.SavaClassName(vm, userName);
+            var response = await classNameService.SavaClassName(classNameVM, userName);
             return Ok(response);
         }
 

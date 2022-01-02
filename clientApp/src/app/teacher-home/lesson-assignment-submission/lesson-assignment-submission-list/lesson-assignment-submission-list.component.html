@@ -1,0 +1,303 @@
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+        <li class="breadcrumb-item">
+          <h5 class="page-title m-b-0">Lesson Assignment Submission</h5>
+        </li>
+        <li class="breadcrumb-item bcrumb-1">
+          <a routerLink="/dashboard/main">
+            <i class="fas fa-home font-17"></i></a>
+        </li>
+        <li class="breadcrumb-item"> Lesson Assignment Submission List</li>
+    </ul>
+        <div class="section-body">
+            <div class="row clearfix">
+              <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="card">
+                  <div class="p-10">
+                    <div class="row">
+                      <div class="col-lg-6">
+                        <div class="row m-0">
+
+                          <form 
+                          [formGroup]="LessonAssignmentSubmissionFilterForm">
+                        <div class="col-lg-5 -0">
+                          <div class="ngxTableHeader">
+                            <div class="table-title">
+                              <h2><strong>Lesson Assignment Submission</strong></h2>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12 p-0">
+                          <div class="row">
+                            <div class = "row">
+                            <div class="col-4">
+                              <div class="form-group position-relative">
+                                <label>Search Text</label>
+                                <i class="fas fa-search input-icons"></i>
+                                <input
+                                  type="text"
+                                  (keyup)="filterDatatable($event)"
+                                  formControlName="searchText"
+                                  class="form-control psl-5"
+                                  placeholder="Search by name"
+                                  name="searchText"
+                                  required=""
+                                 />
+                              </div>
+                            </div>
+                              <div class="col-3">
+                                <div class="form-group">
+                                  <label> Lessons </label>
+                                  <select
+                                    class="form-select form-control"
+                                    formControlName="lessonassignmentId"
+                                    (change) ="onLessonAssignmentFilterChanged($event.target.value)"
+                                  >
+                                    <option
+                                      *ngFor="let item of lessonAssignmentNames"
+                                      [value]="item.id"
+                                    >
+                                      {{ item.name }}
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                             
+                              <div class="col-lg-4 p-0">
+                                <div class="ngxTableHeader">
+                                  <div class="header-buttons-left">
+                                    <div class="icon-button-dleftemo buttons">
+                                     <!--  <button class="btn btn-icon icon-left btn-primary rounded-button" (click)='createNewEssayanswer(addEditRecord)' >
+                                      <i class="material-icons">add</i>
+                                      </button> -->
+                                    </div>
+                                  </div>
+                                  <div class="header-buttons-left">
+                                    <div class="icon-button-dleftemo buttons"></div>
+                                  </div> 
+                                </div>                        
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+  
+                   <!--Table-->
+                   <ngx-datatable 
+                   #table 
+                   class="material"
+                   [rows]="data"
+                   [loadingIndicator]="loadingIndicator"
+                   columnMode="force"
+                   [headerHeight]="60"
+                   [footerHeight]="80"
+                   rowHeight="auto"
+                   [externalPaging]="true"
+                   [count]="totalRecord"
+                   [offset]="currentPage"
+                   [limit]="pageSize"
+                   [scrollbarH]="scrollBarHorizontal"
+                   [reorderable]="reorderable"
+                   (page)="setPage($event)"
+                   >
+
+                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
+                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
+                    <div class="buttons">
+                      <span>
+                        <button 
+                          class="btn btn-icon btn-sm btn-primary" 
+                          (click)='editRow(row, rowIndex, addEditRecord)'>
+                          <i class="fas fa-edit"></i>
+                        </button>
+  
+                     <!--    <button 
+                          class="btn btn-icon btn-sm btn-danger" 
+                          (click)='deleteQuestion(row)'>
+                          <i class="far fa-trash-alt"></i>
+                        </button> -->
+                      </span>
+                    </div>                    
+                  </ng-template>
+                </ngx-datatable-column>
+                
+                <!--Column 01-->
+                <ngx-datatable-column name="Id" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.id}}
+                  </ng-template>
+                </ngx-datatable-column>
+                     <!--Column 02-->
+                     <ngx-datatable-column name="LessonAssignment" [width]="100">
+                      <ng-template let-row="row" ngx-datatable-cell-template>
+                        {{row.lessonAssignmentName}}
+                      </ng-template>
+                    </ngx-datatable-column>
+                         <!--Column 03-->
+                <ngx-datatable-column name="Student" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.studentName}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!--Column 04-->
+                <ngx-datatable-column name="Submission Path" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.submissionPath}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!--Column 05-->
+                <ngx-datatable-column name="Submisson Date" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.submissionDate| date}}
+                  </ng-template>
+                </ngx-datatable-column>
+                <!--Column 06-->
+                <ngx-datatable-column name="Marks" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.marks}}
+                  </ng-template>
+                </ngx-datatable-column>
+                 <!--Column 06-->
+                 <ngx-datatable-column name="Comments" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.teacherComments}}
+                  </ng-template>
+                </ngx-datatable-column>
+              </ngx-datatable>
+              
+  
+            <!-- Add Record Modal Window -->
+            <ng-template #addEditRecord let-modal>
+                <div class="modal-header editRowModal">
+                  <h4 class="modal-title" id="modal-basic-title">
+                    <div class="table-modal-header">
+                      <div class="modal-about">
+                        <div class="fw-bold p-t-10 font-17">
+                          Update Lesson Assignment Submission</div>
+                      </div>
+                    </div>
+                  </h4>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+                    <span aria-hidden="true"><i class="material-icons">close</i></span>
+                  </button>
+                </div>
+  
+                <!--Form-->
+                <div class="modal-body">
+                  <form class="register-form" [formGroup]="lessonAssignmentSubmissionForm">
+  
+                      <!--Row 01-->
+                      <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Id<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Id" 
+                            formControlName="id"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('id').valid && lessonAssignmentSubmissionForm.get('id').touched"> Id is
+                          required</small>
+                      </div>
+  
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
+                          <label>Lesson Assignment<span class="text-danger">*</span></label>
+                          <select class="form-select form-control" formControlName="lessonAssignmentId" required>
+                            <option *ngFor="let item of lessonAssignmentNames" [value]="item.id">{{item.name}}</option>
+                          </select>
+                        </div>
+                      </div>  
+                    </div>
+                    <!--Row 02-->
+                   
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Student<span class="text-danger">*</span></label>
+                        <select class="form-select form-control" formControlName="studentId" required>
+                          <option *ngFor="let item of studentNames" [value]="item.id">{{item.name}}</option>
+                        </select>
+                      </div>
+                    </div> 
+                     <!--Row 03-->
+                     <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Submission Path<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Submission Path" 
+                            formControlName="submissionPath"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submissionPath').valid && lessonAssignmentSubmissionForm.get('submissionPath').touched"> Submission Path is
+                          required</small>
+                      </div>
+  
+                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
+                          <label>Submission Date<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Submission Date" 
+                            formControlName="submissionDate"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('submissionDate').valid && lessonAssignmentSubmissionForm.get('submissionDate').touched"> Submisson Date is
+                          required</small>
+                        </div>
+                      </div>  
+                    </div>
+
+                    <!--Row 04-->
+                    <div class="row">
+                      <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <label>Teacher Comments<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="TeacherComments" 
+                            formControlName="teacherComments"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('teacherComments').valid && lessonAssignmentSubmissionForm.get('teacherComments').touched"> Comments are
+                          required</small>
+                      </div>
+  
+                       <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                        <div class="form-group">
+                          <label>Marks<span class="text-danger">*</span></label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            placeholder="Marks" 
+                            formControlName="marks"
+                            required>
+                        <small class="form-text text-danger"
+                          *ngIf="!lessonAssignmentSubmissionForm.get('marks').valid && lessonAssignmentSubmissionForm.get('marks').touched"> Mark is
+                          required</small>
+                        </div>
+                      </div>  
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary" (click)="saveLessonAssignmentSubmission()" [disabled]="!lessonAssignmentSubmissionForm.valid">UPDATE LESSON ASSIGNMENT SUBMISSION</button>
+                      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+                    </div>
+                  </form>
+                </div>
+              </ng-template>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+  
+  
+   

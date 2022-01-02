@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business;
 using SchoolManagement.Business.Interfaces.LessonData;
 using SchoolManagement.Model;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Lesson;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
@@ -16,28 +17,47 @@ namespace SchoolManagement.WebService.Controllers
     [ApiController]
     public class MCQQuestionAnswerController : ControllerBase
     {
-        private readonly IMCQQuestionAnswerService mcqquestionanswerService;
+        private readonly IMCQQuestionAnswerService mcqQuestionAnswerService;
         private readonly IIdentityService identityService;
 
         public MCQQuestionAnswerController(IMCQQuestionAnswerService mcqquestionanswerService, IIdentityService identityService)
         {
-            this.mcqquestionanswerService = mcqquestionanswerService;
+            this.mcqQuestionAnswerService = mcqquestionanswerService;
             this.identityService = identityService;
         }
 
         [HttpGet]
-        public ActionResult GetMCQQuestionAnswers()
+        [Route("getAll")]
+        public IActionResult GetMCQQuestionAnswers()
         {
-            var response = mcqquestionanswerService.GetMCQQuestionAnswers();
+            var response = mcqQuestionAnswerService.GetMCQQuestionAnswers();
             return Ok(response);
         }
 
         [HttpPost]
+        //[Route("saveMCQQuestionAnswer")]
         public async Task<ActionResult> Post([FromBody] MCQQuestionAnswerViewModel vm)
         {
             var userName = identityService.GetUserName();
-            var response = await mcqquestionanswerService.SaveMCQQuestionAnswer(vm, userName);
+            var response = await mcqQuestionAnswerService.SaveMCQQuestionAnswer(vm, userName);
             return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllQuestions")]
+        public IActionResult GetAllQuestions()
+        {
+            var response = mcqQuestionAnswerService.GetAllQuestions();
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getQuestionList")]
+        public PaginatedItemsViewModel<BasicMCQQuestionAnswerViewModel> GetQuestionList(string searchText, int currentPage, int pageSize, int questionId)
+        {
+            var response = mcqQuestionAnswerService.GetQuestionList(searchText, currentPage, pageSize, questionId);
+
+            return response;
         }
     }
 }

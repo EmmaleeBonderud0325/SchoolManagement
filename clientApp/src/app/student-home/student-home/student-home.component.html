@@ -1,0 +1,281 @@
+
+<section class="main-content">
+    <ul class="breadcrumb breadcrumb-style ">
+      <li class="breadcrumb-item">
+        <h5 class="page-title m-b-0">Student</h5>
+      </li>
+      <li class="breadcrumb-item bcrumb-1">
+        <a routerLink="/dashboard/main">
+          <i class="fas fa-home font-17"></i></a>
+      </li>   
+      <li class="breadcrumb-item">Home page</li>
+    </ul>
+    <div class="section-body">
+      <div class="row">
+        <div class="col-12 col-md-12 col-lg-12">
+          <div class="card">
+            <div class="card-body">
+              <ngb-carousel *ngIf="images">
+                <ng-template ngbSlide>
+                  <div class="picsum-img-wrapper">
+                    <img 
+                      [src]="images[0]"
+                      alt="Random first slide" 
+                      class="carousel-img-size">
+                  </div>
+                  <div class="carousel-caption">
+                    <h3>First slide label</h3>
+                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                  </div>
+                </ng-template>
+                <ng-template ngbSlide>
+                  <div class="picsum-img-wrapper">
+                    <img [src]="images[1]" alt="Random second slide" class="carousel-img-size">
+                  </div>
+                  <div class="carousel-caption">
+                    <h3>Second slide label</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                  </div>
+                </ng-template>
+                <ng-template ngbSlide>
+                  <div class="picsum-img-wrapper">
+                    <img [src]="images[2]" alt="Random third slide" class="carousel-img-size">
+                  </div>
+                  <div class="carousel-caption">
+                    <h3>Third slide label</h3>
+                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                  </div>
+                </ng-template>
+                
+              </ngb-carousel>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="section-body">
+        <div class="row">
+
+          <div class="col-12 col-md-6 col-lg-2" *ngFor="let item of subjectAcademicLevels" >
+            
+            <div class="card " >
+                <div [ngStyle]="{backgroundColor:'var(--indigo-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>{{item.name}}</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+
+            <!-- 
+          <div class="col-12 col-md-6 col-lg-2">
+        
+            <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--green-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 2</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-2">
+            
+            <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--yellow-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 3</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-2">
+            
+            <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--cyan-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 4</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-2">
+            
+            <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--pink-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 5</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+            </div>
+          
+
+          <div class="col-12 col-md-6 col-lg-2">
+            
+            <div class="card">
+              <div [ngStyle]="{backgroundColor:'var(--indigo-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 6</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-6 col-lg-2">
+            <div class="card">
+            <div [ngStyle]="{backgroundColor:'var(--teal-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 7</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-2">
+           <div class="card">
+            <div [ngStyle]="{backgroundColor:'var(--orange-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 8</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-2">
+            <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--pink-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 9</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-2">
+              <div class="card">
+                <div [ngStyle]="{backgroundColor:'var(--purple-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 10</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+           </div>
+          </div>
+          
+          <div class="col-12 col-md-6 col-lg-2">
+          <div class="card">
+            <div [ngStyle]="{backgroundColor:'var(--orange-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 11</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+         
+          <div class="col-12 col-md-6 col-lg-2">
+           <div class="card">
+            <div [ngStyle]="{backgroundColor:'var(--blue-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 12</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+       
+          <div class="col-12 col-md-6 col-lg-2">
+          <div class="card">
+            <div [ngStyle]="{backgroundColor:'var(--green-100)'}">
+              <div class="card-header">
+                <h4></h4>
+              </div>
+              <div class="card-body">
+                <h3>GRADE 13</h3>
+              </div>
+              <div class="card-footer text-end">
+                <button class="btn btn-primary">View</button>
+              </div>
+            </div>
+            </div>
+          </div>
+        -->
+        </div>
+        
+    </div>
+  </section>
+  

@@ -21,7 +21,6 @@ import { ToastrModule } from 'ngx-toastr';
     ReactiveFormsModule,
     NgxDatatableModule,
     ToastrModule.forRoot(),
-
   ]
 })
 export class ClassNameModule { }

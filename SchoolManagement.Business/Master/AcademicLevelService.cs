@@ -37,7 +37,7 @@ namespace SchoolManagement.Business.Master
 
             foreach (var item in academicLevels)
             {
-                var viewModel = new AcademicLevelViewModel
+                var vm = new AcademicLevelViewModel
                 {
                     Id = item.Id,
                     Name = item.Name,
@@ -52,7 +52,7 @@ namespace SchoolManagement.Business.Master
                     UpdatedByName = item.UpdatedBy.FullName  
                 };
 
-                response.Add(viewModel);
+                response.Add(vm);
 
             }
 
@@ -77,6 +77,7 @@ namespace SchoolManagement.Business.Master
                         Name = vm.Name,
                         LevelHeadId = vm.LevelHeadId,
                         IsActive = true,
+                        CreatedOn = DateTime.UtcNow,
                         CreatedById = currentuser.Id,
                         UpdatedOn = DateTime.UtcNow,
                         UpdatedById = currentuser.Id,

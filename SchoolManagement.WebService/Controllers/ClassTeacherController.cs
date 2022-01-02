@@ -24,6 +24,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
+        [Route("getClassTeachers")]
         public ActionResult GetClassTeachers()
         {
             var response = classTeacherService.GetClassTeachers();
@@ -31,10 +32,11 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post([FromBody] ClassTeacherViewModel vm)
+        [Route("saveClassTeacher")]
+        public async Task<ActionResult> Post([FromBody] ClassTeacherViewModel classTeacherVM)
         {
             var userName = identityService.GetUserName();
-            var response = await classTeacherService.SavaClassTeacher(vm, userName);
+            var response = await classTeacherService.SavaClassTeacher(classTeacherVM, userName);
             return Ok(response);
         }
 
@@ -42,6 +44,42 @@ namespace SchoolManagement.WebService.Controllers
         public async Task<ActionResult> Delete(int id)
         {
             var response = await classTeacherService.DeleteClassTeacher(id);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllClassNames")]
+        public ActionResult GetAllClassNames()
+        {
+            var response = classTeacherService.GetAllClassNames();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllAcademicLevels")]
+        public ActionResult GetAllAcademicLevels()
+        {
+            var response = classTeacherService.GetAllAcademicLevels();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllAcademicYears")]
+        public ActionResult GetAllAcademicYears()
+        {
+            var response = classTeacherService.GetAllAcademicYears();
+
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getAllTeachers")]
+        public ActionResult GetAllTeachers()
+        {
+            var response = classTeacherService.GetAllTeachers();
+
             return Ok(response);
         }
     }

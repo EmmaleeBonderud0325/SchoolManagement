@@ -24,7 +24,7 @@ namespace SchoolManagement.WebService.Controllers
         }
 
         [HttpGet]
-        public ActionResult AcademicYear()
+        public ActionResult Get()
         {
             var response = AcademicYearService.GetAllAcademicYear();
             return Ok(response);

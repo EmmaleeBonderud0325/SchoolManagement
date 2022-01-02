@@ -1,0 +1,187 @@
+<div class="card">
+  <div class="card-header">
+    <h4>Lesson Detail</h4>
+  </div>
+  <div class="card-body">
+    <form class="register-form" [formGroup]="basicLessonForm">
+      <div class="row">
+      
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label> Name <span class="text-danger">*</span></label>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Lesson Name"
+            formControlName="name"
+            required
+          />
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('name').valid &&
+            lessonForm.get('name').touched
+          "
+        >
+          Lesson name is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label>Academic Year <span class="text-danger">*</span></label>
+          <select
+            class="form-select form-control"
+            formControlName="academicYearId"
+          >
+            <option *ngFor="let item of academicYears" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('academicYearId').valid &&
+            lessonForm.get('academicYearId').touched
+          "
+        >
+          Academic year is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label>Academic Level <span class="text-danger">*</span></label>
+          <select
+            class="form-select form-control"
+            formControlName="academicLevelId"
+            (change)="onAcademicLevelChanged($event.target.value)"
+          >
+            <option *ngFor="let item of academicLevels" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('academicLevelId').valid &&
+            lessonForm.get('academicLevelId').touched
+          "
+        >
+          Academic Level is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label>Class Name <span class="text-danger">*</span></label>
+          <select
+            class="form-select form-control"
+            formControlName="classNameId"
+            (change)="onClassNameChanged($event.target.value)"
+          >
+            <option *ngFor="let item of classNames" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('classNameId').valid &&
+            lessonForm.get('classNameId').touched
+          "
+        >
+          Class name is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label>Subjects <span class="text-danger">*</span></label>
+          <select
+            class="form-select form-control"
+            formControlName="subjectId"
+            (change)="onSubjectChanged($event.target.value)"
+          >
+            <option *ngFor="let item of subjects" [value]="item.id">
+              {{ item.name }}
+            </option>
+          </select>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('subjectId').valid &&
+            lessonForm.get('subjectId').touched
+          "
+        >
+        Subjects name is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label for="date"
+            >Planned Date <span class="text-danger">*</span></label
+          >
+          <p-calendar
+            class="form-control"
+            id="date"
+            [style]="{ width: '100%' }"
+            [inputStyle]="{ width: '100%' }"
+            inputId="basic"
+            formControlName="plannedDate"
+          ></p-calendar>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('plannedDate').valid &&
+            lessonForm.get('plannedDate').touched
+          "
+        >
+          Planned Date is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label> Description <span class="text-danger">*</span></label>
+          <textarea
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="description"
+            required
+          ></textarea>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('description').valid &&
+            lessonForm.get('description').touched
+          "
+        >
+         Description is required</small
+        > -->
+        </div>
+
+        <div class="col-xl-12 col-lg-6 col-md-12 col-sm-12 mb-2">
+          <label> Learning Out Comes <span class="text-danger">*</span></label>
+          <textarea
+            type="text"
+            class="form-control"
+            placeholder=""
+            formControlName="learningOutCome"
+            required
+          ></textarea>
+          <!-- <small
+          class="form-text text-danger"
+          *ngIf="
+            !lessonForm.get('learningOutcome').valid &&
+            lessonForm.get('learningOutcome').touched
+          "
+        >
+          Lesson out is required</small
+        > -->
+        </div>
+
+        <div class="col-lg-12">
+          <div class="buttons">
+            <button type="button" class="btn btn-primary" (click)="saveLesson()">Save</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

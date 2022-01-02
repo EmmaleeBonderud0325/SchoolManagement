@@ -18,6 +18,7 @@ namespace SchoolManagement.Model
 
         public virtual MCQQuestionAnswer MCQQuestionAnswer { get; set; }
         public virtual  StudentMCQQuestion StudentMCQQuestion{ get; set; }
+        
     
 
     }

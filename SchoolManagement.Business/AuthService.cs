@@ -1,10 +1,13 @@
-﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using SchoolManagement.Business.Interfaces;
 using SchoolManagement.Data.Data;
 using SchoolManagement.Master.Data.Data;
+using SchoolManagement.Model;
 using SchoolManagement.Util;
+using SchoolManagement.Util.Constants.ServiceClassConstants;
 using SchoolManagement.ViewModel.Account;
+using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -38,7 +41,7 @@ namespace SchoolManagement.Business
             if(user == null)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "User Not Found";
+                response.LoginMessage = AuthServiceConstants.AUTH_USER_EXCEPTION_MESSAGE;
 
                 return response;
             }
@@ -46,7 +49,7 @@ namespace SchoolManagement.Business
             if (CustomPasswordHasher.GenerateHash(model.Password) != user.Password)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "Login failed Username or Password Invalid";
+                response.LoginMessage = AuthServiceConstants.AUTH_FAILED_EXCEPTION_MESSAGE;
 
                 return response;
             }
@@ -56,7 +59,7 @@ namespace SchoolManagement.Business
             if(school==null)
             {
                 response.IsLoginSuccess = false;
-                response.LoginMessage = "Login failed.Invalid school domain name provided.";
+                response.LoginMessage = AuthServiceConstants.AUTH_SCHOOLDOMAIN_INVALID_EXCEPTION_MESSAGE;
 
                 return response;
             }
@@ -101,6 +104,96 @@ namespace SchoolManagement.Business
             return response;
 
            
+        }
+
+        public ResponseViewModel ForgotPassword(ForgotPasswordViewModel vm)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var school = masterDb.Schools.FirstOrDefault(t => t.SchoolDomain.ToUpper().Trim() == vm.SchoolDomain.ToUpper().Trim());
+                var exsitingEmail = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                if (exsitingEmail == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Email Not Found,Please Try Again";
+
+                    return response;
+                }
+                else if(school == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "School Domain Not Found,Please Try Again";
+
+                }
+                else
+                {
+                    string routeLink = "http://localhost:4200/#/authentication/reset";
+                    EmailHelper.SendForgotPasswordEmailLink(vm.Email, routeLink);
+                    response.IsSuccess = true;
+                    response.Message = "Link has been Send Successfully";
+
+                    return response;
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                response.IsSuccess = false;
+                response.Message = "Error hass been Occurrred, Please Try again";
+            }
+
+            return response;
+        }
+
+        public ResponseViewModel ResetPassword(ResetPasswordViewModel vm)
+        {
+            var response = new ResponseViewModel();
+
+            try
+            {
+                var school = masterDb.Schools.FirstOrDefault(t => t.SchoolDomain.ToUpper().Trim() == vm.SchoolDomain.ToUpper().Trim());
+                var resetPasswordClient = schoolDb.Users.FirstOrDefault(u => u.Email.Trim().ToUpper() == vm.Email.Trim().ToUpper());
+
+                if (resetPasswordClient == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "Email Not Found,Please Try Again";
+
+                    return response;
+                }
+                else if (school == null)
+                {
+                    response.IsSuccess = false;
+                    response.Message = "School Domain Not Found,Please Try Again";
+
+                }
+                else
+                {
+                    resetPasswordClient.Password = CustomPasswordHasher.GenerateHash(vm.NewPassword);
+                    resetPasswordClient.UpdatedOn = DateTime.UtcNow;
+
+                  schoolDb.Users.Update(resetPasswordClient);
+
+          schoolDb.SaveChangesAsync();
+
+          response.IsSuccess = true;
+                  response.Message = "Password Reset has been  Successfully";
+
+                  return response;
+                }
+
+
+            }
+            catch(Exception ex)
+            {
+                response.IsSuccess = true;
+                response.Message = "Error Has been occured Try again";
+            }
+            return response;
         }
     }
 }

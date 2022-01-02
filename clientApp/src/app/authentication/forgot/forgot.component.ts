@@ -1,12 +1,65 @@
+import { AuthService } from 'src/app/core/service/auth.service';
+import { ForgotPasswordModel } from './../../models/user/forgot.password.model';
+import { MessageService } from 'primeng/api';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.sass'],
+  styleUrls: ['./forgot.component.scss'],
+  providers: [MessageService]
 })
 export class ForgotComponent implements OnInit {
-  constructor() {}
 
-  ngOnInit(): void {}
+  sendEmailForm: FormGroup;
+  submitted = false;
+  returnUrl: string;
+  forgotPasswordModel:ForgotPasswordModel;
+  error=''
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnInit(): void {
+    this.sendEmailForm = this.formBuilder.group({
+      schoolDomain:['', Validators.required],
+      email:['', Validators.required]
+    });
+  }
+  get f() {
+    return this.sendEmailForm.controls;
+  }
+
+  onSubmit() {
+    console.log("Called")
+    this.submitted = true;
+    this.error = 'Email Not Valid';
+
+    if (this.sendEmailForm.invalid) {
+      //this.error = 'Username and Password not valid !';
+      this.messageService.add({severity:'warn', summary: 'Warring', detail: this.error});
+      return;
+    }
+    else
+    {
+      this.authService.forgotPassword(this.sendEmailForm.value)
+      .subscribe(response=>{
+  
+          if(response.isSuccess)
+          {
+            this.messageService.add({severity:'success', summary: 'Success', detail: response.message});
+          }
+          else
+          {
+            this.messageService.add({severity:'error', summary: 'error', detail: response.message});
+          }
+      },error=>{
+        this.messageService.add({severity:'error', summary: 'error', detail:"Network error has been occured. Please try again."});
+      });  
+    }
+    
+  }
 }

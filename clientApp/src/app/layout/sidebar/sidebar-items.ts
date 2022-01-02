@@ -1,5 +1,7 @@
 import { RouteInfo } from './sidebar.metadata';
 export const ROUTES: RouteInfo[] = [
+  
+ 
   {
     path: '',
     title: 'MENUITEMS.MAIN.TEXT',
@@ -11,6 +13,7 @@ export const ROUTES: RouteInfo[] = [
     badge: '',
     badgeClass: '',
     submenu: [],
+    isVisible: true
   },
   {
     path: '',
@@ -22,11 +25,26 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
+    isVisible: true,
     submenu: [
+      {
+        path: '/student-home',
+        title: 'MENUITEMS.HOME.LIST.STUDENT-HOME',
+        moduleName: 'student-home',
+        iconType: 'feather',
+        icon: 'monitor',
+        class: 'menu-toggle',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        isVisible: true,
+        submenu: [],
+      },
+      //lesson
       {
         path: '/teacher-home/lessons',
         title: 'MENUITEMS.HOME.LIST.TEACHER_LESSONS',
-        moduleName: 'teacher-home',
+        moduleName: 'lessons',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -34,8 +52,123 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-      }
+        isVisible:true,
+      },
+      {
+        path: '/teacher-home/essay-student-answer',
+        title: 'MENUITEMS.HOME.LIST.ESSAY_STUDENT_LIST',
+        moduleName: 'essay-student-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible:true,
+      },
+      {
+        path: '/teacher-home/essay-answer',
+        title: 'MENUITEMS.HOME.LIST.ESSAY_QUESTION_ANSWER_LIST',
+        moduleName: 'essay-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/teacher-home/lesson-assignment',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT',
+        moduleName: ' lesson-assignment ',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/teacher-home/lesson-assignment-submission',
+        title: 'MENUITEMS.HOME.LIST.LESSON-ASSIGNMENT-SUBMISSION-LIST',
+        moduleName: ' lesson-assignment-submission ',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+
+      //question
+      {
+        path: '/teacher-home/question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_QUESTION',
+        moduleName: 'question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+
+      // mcq-question-answer
+      {
+        path: '/teacher-home/mcq-question-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_ANSWER',
+        moduleName: 'mcq-question-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible:true
+      },
+
+
+      // mcq-question-student-answer
+      {
+        path: '/teacher-home/mcq-question-student-answer',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_MCQ_QUESTION_STUDENT_ANSWER',
+        moduleName: 'mcq-question-student-answer',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible:true
+      },
+
+      // student-mcq-question-answer
+      {
+        path: '/teacher-home/student-mcq-question',
+        title: 'MENUITEMS.HOME.LIST.TEACHER_STUDENT_MCQ_QUESTION_ANSWER',
+        moduleName: 'student-mcq-question',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible:true
+      },
     ],
+    
   },
   {
     path: '',
@@ -47,6 +180,7 @@ export const ROUTES: RouteInfo[] = [
     groupTitle: false,
     badge: '',
     badgeClass: '',
+    isVisible: true,
     submenu: [
       {
         path: '/admin/user',
@@ -59,6 +193,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/academic-level',
@@ -71,6 +206,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true,
       },
       {
         path: '/admin/academic-year',
@@ -83,18 +219,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
-      },
-      {
-        path: '/admin/class',
-        title: 'MENUITEMS.ADMIN.LIST.CLASS',
-        moduleName: 'class',
-        iconType: '',
-        icon: '',
-        class: 'ml-menu',
-        groupTitle: false,
-        badge: '',
-        badgeClass: '',
-        submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/class-name',
@@ -107,6 +232,33 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/class',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS',
+        moduleName: 'class',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/class-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.CLASS-TEACHER',
+        moduleName: 'class-teacher',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/student',
@@ -119,6 +271,7 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
         path: '/admin/subject',
@@ -131,11 +284,12 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
       },
       {
-        path: '/admin/example',
-        title: 'MENUITEMS.ADMIN.LIST.EXAMPLE',
-        moduleName: 'example',
+        path: '/admin/subject-teacher',
+        title: 'MENUITEMS.ADMIN.LIST.SUBJECT_TEACHERS',
+        moduleName: 'subject-teacher',
         iconType: '',
         icon: '',
         class: 'ml-menu',
@@ -143,8 +297,51 @@ export const ROUTES: RouteInfo[] = [
         badge: '',
         badgeClass: '',
         submenu: [],
+        isVisible: true
+      },
+       //Head Of Department
+       {
+        path: '/admin/head-of-department',
+        title: 'MENUITEMS.ADMIN.LIST.HEAD_Of_DEPARTMENT',
+        moduleName: 'head-of-department',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/excel-upload',
+        title: 'MENUITEMS.ADMIN.LIST.EXCEL_UPLOAD',
+        moduleName: 'excel-upload',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
+      },
+      {
+        path: '/admin/report-genarate',
+        title: 'MENUITEMS.ADMIN.LIST.REPORT_GENARATE',
+        moduleName: 'report-genarate',
+        iconType: '',
+        icon: '',
+        class: 'ml-menu',
+        groupTitle: false,
+        badge: '',
+        badgeClass: '',
+        submenu: [],
+        isVisible: true
       }
+
+      
     ],
   }
-  //section end admin 
+ 
 ];

@@ -1,17 +1,15 @@
 import { Injectable } from '@angular/core';
+import { ClassSubjectTeacherModel } from "./class.subject.teacher.model";
 
 @Injectable()
-export class ClassModel{
-    classNameId:number;
-    academicLevelId:number;
-    academicYearId:number;
-    name:string;
-    classCategory:string;
-    languageStream:string;
-    createdOn:Date;
-    createdById:number;
-    createdByName:string;
-    updatedOn:Date;
-    updatedById:number;
-    updatedByName:string;
+export class ClassModel {
+    academicYearId: number;
+    academicLevelId: number;
+    classNameId: number;
+    name: string;
+    classCategoryId: number;
+    languageStreamId: number;
+    classTeacherId: number;
+
+    classSubjectTeachers: ClassSubjectTeacherModel[];
 }

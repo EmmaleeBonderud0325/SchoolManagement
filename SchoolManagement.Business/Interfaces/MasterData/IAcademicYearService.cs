@@ -11,7 +11,7 @@ namespace SchoolManagement.Business.Interfaces.MasterData
     public interface IAcademicYearService
     {
         List<AcademicYearViewModel> GetAllAcademicYear();
-        Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel academicYearVM, String userName);
+        Task<ResponseViewModel> SaveAcademicYear(AcademicYearViewModel vm, String userName);
         Task<ResponseViewModel> DeleteAcademicYear(int id);
     }
 }

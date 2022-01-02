@@ -17,35 +17,46 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <div class="row m-0">
-                      <div class="col-lg-3 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-title">
-                            <h2><strong>Subjects</strong></h2>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-5 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="table-search-area">
-                            <div>
-                              <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                              <input placeholder="Search" type="text" class="browser-default search-field"
-                                 aria-label="Search box">
+                      <form [formGroup]="subjectFilterForm">
+                        <div class="col-12 p-0">
+                          <div class="ngxTableHeader">
+                            <div class="table-title">
+                              <h2><strong>Subject</strong></h2>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="col-lg-4 p-0">
-                        <div class="ngxTableHeader">
-                          <div class="header-buttons-left">
-                            <div class="icon-button-demo buttons">
-                              <button class="btn btn-icon icon-left btn-primary rounded-button" >
-                                <i class="material-icons">add</i>
-                              </button>
-                              <button  class="btn btn-icon icon-left btn-danger rounded-button">
-                                <i class="material-icons">delete</i>
-                              </button>
+                        <div class="col-12 p-0">
+                          <div class="row">
+                            <div class="col-4">
+                              <div class="form-group position-relative">
+                                <label>Search Text</label>
+                                <i class="fas fa-search input-icons"></i>
+                                <input
+                                  type="text"
+                                  (keyup)="filterDatatable($event)"
+                                  formControlName="searchText"
+                                  class="form-control psl-5"
+                                  placeholder="Search by name"
+                                  name="searchText"
+                                  required=""
+                                />
+                              </div>
                             </div>
+                              
+                          </div>
+                        </div>
+                      </form>
+                      <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                          <div class="form-group">
+                            <label for="date"></label>
+                            <button
+                              class="btn btn-primary"
+                              style="margin-top: 30px"
+                              type="button"
+                              (click)="generateReport()" >
+                              Generate Report
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -53,60 +64,320 @@
                   </div>
                 </div>
 
-              <ngx-datatable #table class="material" [rows]="data" [loadingIndicator]="loadingIndicator"
-                columnMode="force" [headerHeight]="60" [footerHeight]="80" rowHeight="auto" [limit]="10"
-                [scrollbarH]="scrollBarHorizontal" [reorderable]="reorderable">
+              <ngx-datatable 
+                #table 
+                class="material"
+                [rows]="data"
+                [loadingIndicator]="loadingIndicator"
+                columnMode="force"
+                [headerHeight]="60"
+                [footerHeight]="80"
+                rowHeight="auto"
+                [externalPaging]="true"
+                [count]="totalRecord"
+                [offset]="currentPage"
+                [limit]="pageSize"
+                [scrollbarH]="scrollBarHorizontal"
+                [reorderable]="reorderable"
+                (page)="setPage($event)"
+              >
 
-                <ngx-datatable-column name="Name" [width]="100">
+                <!-- Action Column -->
+                <ngx-datatable-column [width]="80" name="" sortable="false">
+                  <ng-template 
+                    let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    sortable="false"
+                    ngx-datatable-header-template
+                    class="text-center"
+                    >
+                    <div class="icon-button-demo buttons">
+                      <button 
+                        class="btn btn-icon icon-left btn-primary rounded-button"
+                        (click)='addNewSubject(addEditRecord)'>
+                        <i class="material-icons">add</i>
+                      </button>
+                    </div>
+                  </ng-template>
+                  <ng-template  let-value="value"
+                    let-row="row"
+                    let-rowIndex="rowIndex"
+                    ngx-datatable-cell-template
+                    class="text-center"
+                    >
+
+                  <div class="buttons">
+                    <span>
+                       <!--User Edit Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-primary" 
+                        (click)='updateSubject(row, rowIndex, addEditRecord)'>
+                        <i class="far fa-edit"></i>
+                      </button>
+                       <!--User Delete Button -->
+                      <button 
+                        class="btn btn-icon btn-sm btn-danger" 
+                        (click)='deleteSubject(row)'>
+                        <i class="far fa-trash-alt"></i>
+                      </button>
+                    </span>
+                  </div>  
+                  </ng-template>
+                </ngx-datatable-column>
+
+                
+                <!--Subject Name Column-->
+                <ngx-datatable-column name="Name" [width]="150">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.name}}
                   </ng-template>
                 </ngx-datatable-column>
-
+                
+                <!--Subject Code Column-->
                 <ngx-datatable-column name="Code" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectCode}}
                   </ng-template>
                 </ngx-datatable-column>
 
-                <ngx-datatable-column name="Category" [width]="100">
-                  <ng-template let-row="row" ngx-datatable-cell-template>
-                    {{row.subjectCategory}}
-                  </ng-template>
+                <!--Subject Category Column-->
+                <ngx-datatable-column name="Category" [width]="180">
+                  <ng-template #p let-row="row" ngx-datatable-cell-template>
+                     {{row.subjectCategoryName}}
+                   </ng-template>
                 </ngx-datatable-column>
 
+                <!--Subject Stream Column-->
                 <ngx-datatable-column name="Stream" [width]="100">
                   <ng-template let-row="row" ngx-datatable-cell-template>
                     {{row.subjectStreamName}}
                   </ng-template>
                 </ngx-datatable-column>
 
-              
-
-
-               
-
-                <ngx-datatable-column [width]="100" name="Actions" sortable="false">
-                  <ng-template let-value="value" let-row="row" let-rowIndex="rowIndex" ngx-datatable-cell-template>
-                    <span>
-                      <button class="btn btn-tbl-edit h-auto" >
-                        <i class="fas fa-pen"></i>
-                      </button>
-                      <button class="btn btn-tbl-delete h-auto">
-                        <i class="far fa-trash-alt"></i>
-                      </button>
-                    </span>
+                <!--Subject Parent Column-->
+                <ngx-datatable-column name="Parent Subject" [width]="150">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.parentBasketSubjectName}}
                   </ng-template>
                 </ngx-datatable-column>
+
+                <!--Subject CreatedOn Column-->
+                <ngx-datatable-column name="Created On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                 <!--Subject Createdby Column-->
+                 <ngx-datatable-column name="Created by" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.createdByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Subject UpdateOn Column-->
+                <ngx-datatable-column name="Updated On" [width]="100">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedOn | date}}
+                  </ng-template>
+                </ngx-datatable-column>
+
+                <!--Subject Updateby Column-->
+                <ngx-datatable-column name="Updated By" [width]="150">
+                  <ng-template let-row="row" ngx-datatable-cell-template>
+                    {{row.updatedByName}}
+                  </ng-template>
+                </ngx-datatable-column>
+
               </ngx-datatable>
- 
-           
-            </div>
+
+              
+
+            <!-- Add new Subject Modal Window -->
+            <ng-template #addEditRecord let-modal>
+              <div class="modal-header editRowModal">
+                <h4 class="modal-title" id="modal-basic-title">
+                  <div class="table-modal-header">
+                    <div class="modal-about">
+                      <div class="fw-bold p-t-10 font-17">
+                        <div *ngIf='subjectId == 0'>
+                          Add new subject
+                        </div>
+                        <div *ngIf='subjectId != 0'>
+                          Update subject
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </h4>
+                <!-- Modal Close Button -->
+                <button 
+                  type="button" 
+                  class="close" 
+                  aria-label="Close" 
+                  (click)="modal.dismiss()">
+                  <span aria-hidden="true">
+                    <i class="material-icons">close</i>
+                  </span>
+                </button>
+              </div>
+
+              <div class="modal-body">
+                <form 
+                  class="register-form" 
+                  [formGroup]="subjectForm">
+                  
+                  <!-- First Form Row -->
+                  <div class="row">
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label>Subject <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Name" 
+                          formControlName="name"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched">
+                         subject is required
+                      </small> 
+                    </div>
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <label> Subject Code <span class="text-danger">*</span></label>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Code" 
+                          formControlName="subjectCode"
+                          required>
+                      <small class="form-text text-danger"
+                        *ngIf="!subjectForm.get('name').valid && subjectForm.get('name').touched"> 
+                        subject Code is required
+                      </small> 
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject Type<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="subjectType">
+                          <option 
+                          *ngFor="let item of subjectTypes" 
+                          [ngValue]="item.id">{{item.name}}
+                          </option>
+                        </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectType').valid && subjectForm.get('subjectType').touched "> 
+                         Subject Types is required
+                       </small>
+                      </div>
+                    </div> 
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2" *ngIf = 'subjectType == 3'>
+                      <div class="form-group">
+                        <label>Parent Subject<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="parentBasketSubjectId" >
+                          <option 
+                            *ngFor="let item of parentBasketSubjects" 
+                            [ngValue]="item.id">{{item.name}}
+                          </option>
+                        </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('parentBasketSubjectId').valid && subjectForm.get('parentBasketSubjectId').touched "> 
+                         Parent Subject is required
+                       </small>
+                      </div>
+                    </div> 
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Subject Category<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="categorysId">
+                          <option 
+                            *ngFor="let item of subjectCategorys" 
+                            [ngValue]="item.id">{{item.name}}                           
+                          </option>
+                        </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('categorysId').valid && subjectForm.get('categorysId').touched "> 
+                         Categorys is required
+                       </small>
+                      </div>
+                    </div> 
+
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      <div class="form-group">
+                        <label>Stream<span class="text-danger">*</span></label>
+                        <select 
+                          class="form-select form-control" 
+                          formControlName="subjectstreamId">
+                          <option 
+                            *ngFor="let item of subjectstreams" 
+                            [ngValue]="item.id">{{item.name}}
+                          </option>
+                        </select>
+                        <small 
+                         class="form-text text-danger"
+                         *ngIf="!subjectForm.get('subjectstreamId').valid && subjectForm.get('subjectstreamId').touched "> 
+                         Subjectstreams is required
+                       </small>
+                      </div>
+                    </div> 
+                    <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                      
+                        <label for="academicLevels">AcademicLevels<span class="text-danger ">*</span></label>
+                        <p-multiSelect
+                         
+                          [options]="subjectAcademicLevels" 
+                          formControlName="subjectAcademicLevels" 
+                          optionLabel="name" 
+                          optionValue="id"
+                          display="chip"
+                          [style]="{'width':'100%'}">
+                        </p-multiSelect>
+                        <small 
+                          class="form-text text-danger"
+                          *ngIf="!subjectForm.get('subjectAcademicLevels').valid && subjectForm.get('subjectAcademicLevels').touched "> 
+                          Academic Levels are required
+                        </small>
+                      
+                    </div>                 
+                  </div>                
+
+                    <!-- Modal Footer -->
+                  <div class="modal-footer">
+                    <!-- Save Subject Button -->
+                    <button 
+                      type="button" 
+                      class="btn btn-primary" 
+                      (click)="saveSubject()" 
+                      [disabled]="!subjectForm.valid">
+                      Save Subject
+                    </button>
+                    <!-- Modal Close Button -->
+                    <button 
+                      type="button" 
+                      class="btn btn-light" 
+                      (click)="modal.close('Close click')">
+                      Close
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+          </div>
         </div>
     </div>
 </div>
 </div>
-            
-    
 </section>
 

@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SchoolManagement.Business.Interfaces.MasterData;
+using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Master;
+using SchoolManagement.ViewModel.Master.Subject;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -44,5 +47,32 @@ namespace SchoolManagement.WebService.Controllers
             var response = await subjectService.DeleteSubject(id);
             return Ok(response);
         }
+
+        [HttpGet]
+        [Route("getSubjectbyId/{id}")]
+        public ActionResult GetSubjectbyId(int id)
+        {
+            var response = subjectService.GetSubjectbyId(id);
+            return Ok(response);
+        }
+
+        [HttpGet]
+        [Route("getSubjectList")]
+        public PaginatedItemsViewModel<BasicSubjectViewModel> GetSubjectList(string searchText, int currentPage, int pageSize)
+        {
+            var response = subjectService.GetSubjectList(searchText, currentPage, pageSize);
+            return response;
+        }
+
+        [HttpGet]
+        [RequestSizeLimit(long.MaxValue)]
+        [Route("downloadSubjectList")]
+        public FileStreamResult downloadSubjectListReport()
+        {
+            var response = subjectService.downloadSubjectListReport();
+
+            return File(new MemoryStream(response.FileData), "application/pdf", response.FileName);
+        }
+
     }
 }
