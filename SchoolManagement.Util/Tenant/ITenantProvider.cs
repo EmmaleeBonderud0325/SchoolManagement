@@ -9,5 +9,6 @@ namespace SchoolManagement.Util.Tenant
     public interface ITenantProvider
     {
         Task<TenantSchool> GetTenant();
+        
     }
 }

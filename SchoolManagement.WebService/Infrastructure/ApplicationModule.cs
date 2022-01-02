@@ -151,11 +151,15 @@ namespace SchoolManagement.WebService.Infrastructure
               .As<IAzureBlobService>()
               .InstancePerLifetimeScope();
 
+            builder.RegisterType<SettingProviderService>()
+              .As<ISettingProviderService>()
+              .InstancePerLifetimeScope();
 
 
 
 
-    }
+
+        }
     }
 
    

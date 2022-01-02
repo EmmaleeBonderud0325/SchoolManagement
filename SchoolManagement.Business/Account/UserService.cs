@@ -10,6 +10,7 @@ using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants;
+using SchoolManagement.Util.Tenant;
 using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
 using SchoolManagement.ViewModel.Common;
@@ -29,17 +30,20 @@ namespace SchoolManagement.Business
         private readonly MasterDbContext masterDb;
         private readonly IConfiguration config;
         private readonly ICurrentUserService currentUserService;
-    private readonly IAzureBlobService azureBlobService;
-    private StudentExcelContainer studentExcelContainer;
+        private readonly IAzureBlobService azureBlobService;
+        private readonly ITenantProvider _tenantProvider;
+        private readonly ISettingProviderService _settingProviderService;
+        private StudentExcelContainer studentExcelContainer;
 
-        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService, IAzureBlobService azureBlobService)
+        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService, IAzureBlobService azureBlobService, ITenantProvider _tenantProvider, ISettingProviderService _settingProviderService)
         {
             this.schoolDb = schoolDb;
             this.config = config;
             this.currentUserService = currentUserService;
             this.masterDb = masterDb;
-      this.azureBlobService = azureBlobService;
-
+            this.azureBlobService = azureBlobService;
+            this._tenantProvider = _tenantProvider;
+            this._settingProviderService = _settingProviderService;
             studentExcelContainer = new StudentExcelContainer();
         }
         public async Task<ResponseViewModel> DeleteUser(int id)
@@ -212,6 +216,10 @@ namespace SchoolManagement.Business
                     }
 
                     schoolDb.Users.Add(user);
+
+                    var clientSchool = _tenantProvider.GetTenant();
+
+                    var emailSetting = _settingProviderService.GetEmailSetting(clientSchool.Id);
                    
                     //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
                     response.IsSuccess = true;
