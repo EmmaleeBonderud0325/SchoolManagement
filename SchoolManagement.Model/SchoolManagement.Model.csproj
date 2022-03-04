@@ -8,8 +8,4 @@
     <Folder Include="Transaction\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\SchoolManagement.Util\SchoolManagement.Util.csproj" />
-  </ItemGroup>
-
 </Project>

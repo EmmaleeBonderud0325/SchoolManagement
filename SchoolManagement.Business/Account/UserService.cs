@@ -10,6 +10,7 @@ using SchoolManagement.Model;
 using SchoolManagement.Model.Common.Enums;
 using SchoolManagement.Util;
 using SchoolManagement.Util.Constants;
+using SchoolManagement.Util.ExtensionMethods;
 using SchoolManagement.Util.Tenant;
 using SchoolManagement.ViewModel;
 using SchoolManagement.ViewModel.Account;
@@ -182,21 +183,14 @@ namespace SchoolManagement.Business
                         return response;
                     }
 
-                    user = new User()
-                    {
-                        Id = vm.Id,
-                        FullName = vm.FullName,
-                        Email = vm.Email,
-                        MobileNo = vm.MobileNo,
-                        Username = vm.Username,
-                        Address = vm.Address,
-                        Password = CustomPasswordHasher.GenerateHash(vm.Password),
-                        IsActive = true,
-                        CreatedOn = DateTime.UtcNow,
-                        CreatedById = loggedInUser.Id,
-                        UpdatedOn = DateTime.UtcNow,
-                        UpdatedById = loggedInUser.Id
-                    };
+                    user = vm.ToNewModel();
+                    user.Password = CustomPasswordHasher.GenerateHash(vm.Password);
+                    user.IsActive = true;
+                    user.CreatedOn = DateTime.UtcNow;
+                    user.CreatedById = loggedInUser.Id;
+                    user.UpdatedOn = DateTime.UtcNow;
+                    user.UpdatedById = loggedInUser.Id;
+                  
 
                     user.UserRoles = new HashSet<UserRole>();
 

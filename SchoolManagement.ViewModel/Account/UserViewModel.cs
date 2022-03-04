@@ -1,4 +1,3 @@
-using SchoolManagement.Model;
 using SchoolManagement.ViewModel.Common;
 using System;
 using System.Collections.Generic;

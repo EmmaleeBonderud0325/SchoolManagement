@@ -12,4 +12,9 @@
     <Folder Include="ReportGenarateHelpers\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SchoolManagement.Model\SchoolManagement.Model.csproj" />
+    <ProjectReference Include="..\SchoolManagement.ViewModel\SchoolManagement.ViewModel.csproj" />
+  </ItemGroup>
+
 </Project>

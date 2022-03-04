@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using SchoolManagement.Business.Interfaces.MasterData;
-using SchoolManagement.ViewModel.Report;
 using SchoolManagement.WebService.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
@@ -27,14 +26,6 @@ namespace SchoolManagement.WebService.Controllers
             this.identityService = identityService;
         }
 
-        [HttpPost]
-        [RequestSizeLimit(long.MaxValue)]
-        [Route("downloadUserList")]
-        public FileStreamResult DownloadUserList(ReportTypeViewModel vm)
-        {
-            var response = reportService.DownloadUserList();
-
-            return File(new MemoryStream(response.FileData), "application/octet-stream", response.FileName);
-        }
+      
     }
 }
