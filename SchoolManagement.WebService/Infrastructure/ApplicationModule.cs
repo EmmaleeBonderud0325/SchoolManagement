@@ -29,6 +29,10 @@ namespace SchoolManagement.WebService.Infrastructure
                 .As<ITenantProvider>()
                 .InstancePerDependency();
 
+            builder.RegisterType<SettingProviderService>()
+           .As<ISettingProviderService>()
+             .InstancePerDependency();
+
             builder.RegisterType<HttpContextAccessor>()
                 .As<IHttpContextAccessor>()
                 .SingleInstance();
@@ -44,10 +48,20 @@ namespace SchoolManagement.WebService.Infrastructure
             builder.RegisterType<AuthService>()
                 .As<IAuthService>()
                 .InstancePerLifetimeScope();
+        
 
             builder.RegisterType<UserService>()
                .As<IUserService>()
                .InstancePerLifetimeScope();
+
+
+            builder.RegisterType<SettingProviderService>()
+           .As<ISettingProviderService>()
+              .InstancePerLifetimeScope();
+
+            builder.RegisterType<SettingProviderService>()
+           .As<ISettingProviderService>()
+           .InstancePerLifetimeScope();
 
             //Drop Down Service
             builder.RegisterType<DropDownService>()
