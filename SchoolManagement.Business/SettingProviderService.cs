@@ -12,15 +12,12 @@ namespace SchoolManagement.Business
 {
     public class SettingProviderService : ISettingProviderService
     {
-        private readonly SchoolManagementContext _schoolDb;
+        
         private readonly MasterDbContext _masterDb;
-        private readonly ISettingProviderService _settingProviderService;
 
-        public SettingProviderService(SchoolManagementContext _schoolDb, MasterDbContext _masterDb, ISettingProviderService _settingProviderService)
+        public SettingProviderService(MasterDbContext _masterDb)
         {
-            this._schoolDb = _schoolDb;
             this._masterDb = _masterDb;
-            this._settingProviderService = _settingProviderService;
         }
         public EmailSettingViewModel GetEmailSetting(int tenantId)
         {

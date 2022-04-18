@@ -36,7 +36,16 @@ namespace SchoolManagement.Business
         private readonly ISettingProviderService _settingProviderService;
         private StudentExcelContainer studentExcelContainer;
 
-        public UserService(SchoolManagementContext schoolDb, MasterDbContext masterDb, IConfiguration config, ICurrentUserService currentUserService, IAzureBlobService azureBlobService, ITenantProvider _tenantProvider, ISettingProviderService _settingProviderService)
+        public UserService
+        (
+            SchoolManagementContext schoolDb, 
+            MasterDbContext masterDb, 
+            IConfiguration config, 
+            ICurrentUserService currentUserService, 
+            IAzureBlobService azureBlobService ,
+            ITenantProvider _tenantProvider, 
+            ISettingProviderService _settingProviderService
+        )
         {
             this.schoolDb = schoolDb;
             this.config = config;
@@ -213,9 +222,17 @@ namespace SchoolManagement.Business
 
                     var clientSchool = _tenantProvider.GetTenant();
 
-                    var emailSetting = _settingProviderService.GetEmailSetting(clientSchool.Id);
-                   
-                    //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
+                    if(clientSchool.Result.Id > 0)
+                    {
+                        var emailSetting = _settingProviderService.GetEmailSetting(clientSchool.Result.Id);
+                        //EmailHelper.SendRegisterted(vm.Email, vm.Username, vm.Password);
+                    }
+                    else
+                    {
+                        response.IsSuccess = false;
+                        response.Message = UserServiceConstants.USER_SAVE_EXCEPTION_MESSAGE;
+                    }
+
                     response.IsSuccess = true;
                     response.Message = UserServiceConstants.NEW_USER_SAVE_SUCCESS_MESSAGE;
                 }
