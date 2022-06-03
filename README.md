@@ -7,6 +7,6 @@ ITP-Project
 ## Contributors
 
 <a href="https://github.com/Avdunusinghe/SchoolManagement/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Avdunusinghe/SchoolManagement" width="195" />
+  <img src="https://contrib.rocks/image?repo=Avdunusinghe/SchoolManagement" width="495" />
 </a>
 
